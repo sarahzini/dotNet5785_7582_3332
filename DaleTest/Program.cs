@@ -1,4 +1,5 @@
-﻿namespace DaleTest
+﻿
+namespace DaleTest
 {
     internal class Program
     {

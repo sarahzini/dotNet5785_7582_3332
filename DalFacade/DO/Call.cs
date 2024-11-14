@@ -1,5 +1,16 @@
 ﻿
 namespace DO;
+/// <summary>
+/// 
+/// </summary>
+/// <param name="Id"></param>
+/// <param name="Address"></param>
+/// <param name="Latitude"></param>
+/// <param name="Longitude"></param>
+/// <param name="DateTime"></param>
+/// <param name="Choice"></param>
+/// <param name="Description"></param>
+/// <param name="EndDateTime"></param>
 
 public record Call
 (
