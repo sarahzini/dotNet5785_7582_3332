@@ -3,7 +3,6 @@ namespace DO;
 
 public record Call
 (
-
   int Id,
   string Address,
   double Latitude,
@@ -15,8 +14,8 @@ public record Call
 
 )
 {
-    
-    public Call() : this(0, "", 0, 0, DateTime.Now, SystemType.food) { } //empty ctor for stage 3
+
+    public Call() : this(0, "", 0, 0, DateTime.Now, SystemType.Food) { } //empty ctor for stage 3
 }
 
 
