@@ -11,24 +11,47 @@ public static class Initialization
     private static readonly Random s_rand = new();
 
     /// <summary>
-    /// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ///Bonjour Sarah mon coeur
     /// </summary>
     private static void createVolunteers()
     {
-        string[] names = { "John Doe", "Jane Smith", "Alice Johnson", "Bob Brown" };
-        string[] phoneNumbers = { "123-456-7890", "234-567-8901", "345-678-9012", "456-789-0123" };
-        string[] emails = { "john@example.com", "jane@example.com", "alice@example.com", "bob@example.com" };
+        //all these arrays was written by AI
+        int[] Id = { 13284756, 21765348, 30198475, 25073916, 16284039, 31456829, 22904175,
+            31076452, 12837465, 23195608, 17583924, 29684713, 30317628, 14832075, 25369401,
+            31752084, 18045923, 23187506, 12690847, 23816579 };
+
+        string[] names = { "Sarah Cohen", "Osher Mizrahi", "Yaara Levi", "Eli Ben-David", "Maya Shapiro", "Yair Katz",
+            "Noa Peretz", "Aviad Cohen", "Tamar Israeli", "Lior Baruch", "Daniella Rosen", "Oren Goldstein",
+            "Michal Avrahami", "Nadav Shulman", "Rachel Dubinsky", "Uri Dahan", "Yael Chaimovitz", "Ronit Gross",
+            "Meir Ziv", "Tal Ben-Ari", "Hila Zaken" };
+
+        string[] phoneNumbers = { "052-3918274", "050-5639842", "054-1283795", "053-6472391", "058-9042318", "050-9834657",
+            "052-7512386", "053-4326759", "054-1863420", "058-2917463", "050-3275641", "052-5068493", "053-7821594",
+            "054-9342105", "058-6120394", "050-7461283", "052-9784530", "053-5289761", "054-3175928", "058-8456201" };
+
+        string[] emails = { "Sarah.Cohen@gmail.com", "Osher.Mizrahi@yahoo.com", "Yaara.Levi@outlook.com", "Eli.BenDavid@mail.com", 
+            "Maya.Shapiro@icloud.com", "Yair.Katz@googlemail.com", "Noa.Peretz@hotmail.com", "Aviad.Cohen@live.com",
+            "Tamar.Israeli@protonmail.com", "Lior.Baruch@aol.com", "Daniella.Rosen@zoho.com", "Oren.Goldstein@fastmail.com",
+            "Michal.Avrahami@ymail.com", "Nadav.Shulman@hushmail.com", "Rachel.Dubinsky@msn.com", "Uri.Dahan@comcast.net",
+            "Yael.Chaimovitz@outlook.co.il", "Ronit.Gross@tutanota.com", "Meir.Ziv@me.com", "Tal.BenAri@icloud.com",
+            "Hila.Zaken@webmail.com" };
 
         for (int i = 0; i < names.Length; i++)
         {
-            Volunteer volunteer = new(i + 1, names[i], phoneNumbers[i], emails[i]);
-            if (s_dalVolunteer?.Read(volunteer.Id) == null)
+            if (s_dalVolunteer?.Read(Id[i]) == null)
             {
+
+                // Generate a random maximum distance for receiving a call.
+                double maxDistance = s_rand.NextDouble() * 100; // Example: random distance between 0 and 100 km.
+
+                // Create a new volunteer object and add it to the data source.
+                Volunteer volunteer = new(Id[i], names[i], phoneNumbers[i], emails[i], distance: maxDistance);
                 s_dalVolunteer?.Create(volunteer);
             }
         }
     }
 
+    //a partir de la il faut voir pr les mispar mezaee rats
     private static void createAssignments()
     {
         for (int i = 0; i < 10; i++)
