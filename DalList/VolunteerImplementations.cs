@@ -15,7 +15,7 @@ public class VolunteerImplementations : IVolunteer
         {
             if (volunteer.Id == item.Id)
                 //help by AI we didn't know how to trow exception
-                throw new InvalidOperationException("A volunteer with the same ID already exists!");
+                throw new Exception($"Volunteer with the ID={item.Id} already exists");
         }
         //Adding the item to the list after checking that the id is unique
         DataSource.Volunteers.Add(item);
@@ -35,7 +35,7 @@ public class VolunteerImplementations : IVolunteer
             }
         }
         //Trowing exception if the id doesn't exist
-        throw new InvalidOperationException("A volunteer with this ID does not exist in the system!");
+        throw new Exception($"Volunteer with the ID={id} does not exists");
 
     }
 
@@ -78,7 +78,7 @@ public class VolunteerImplementations : IVolunteer
             }
         }
         //Trowing exception if the id doesn't exist
-        throw new InvalidOperationException("A volunteer with this ID does not exist in the system!");
+        throw new Exception($"Volunteer with the ID={item.Id} does not exists");
 
     }
 }
