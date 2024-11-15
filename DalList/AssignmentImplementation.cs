@@ -2,18 +2,18 @@
 using DalApi;
 using DO;
 using DalList;
-using DalList.Config;
 public class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment assignment)
     {
         //This method was written by the AI and we explain it 
 
-        // Generate a new ID using the next running number from DataSource.Config
-        int newId = DalList.Config._nextAssignmentId;
+        // Generate a new ID and CallId using the next running number from Config
+        int newId = Config._nextAssignmentId;
+        int newCallId = Config._nextCallId;
 
-        // Create a copy of the assignment object and update its ID with the new running number
-        Assignment newAssignment = assignment with { Id = newId };
+        // Create a copy of the assignment object and update its ID and CallId with the new running number
+        Assignment newAssignment = assignment with { Id = newId, CallId=newCallId };
 
         // Add the reference of the copy to the list of assignments
         DataSource.Assignments.Add(newAssignment);
