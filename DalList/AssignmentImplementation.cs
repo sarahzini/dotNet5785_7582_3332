@@ -33,7 +33,7 @@ public class AssignmentImplementation : IAssignment
             }
         }
         //Throwing exception if the id doesn't exist
-        throw new InvalidOperationException("An assignment witth this ID does not exist in the system!");
+        throw new Exception($"Assignment with the ID={id} does not exist in the system!");
     }
 
     public void DeleteAll()
@@ -71,7 +71,7 @@ public class AssignmentImplementation : IAssignment
             }
         }
         //Throwing exception if the id doesn't exist
-        throw new InvalidOperationException("An assignment with this ID does not exist in the system!");
+        throw new Exception($"Assignment with the ID={item.Id} does not exist in the system!");
     }
 
 }

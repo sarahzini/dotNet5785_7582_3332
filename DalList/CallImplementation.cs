@@ -30,7 +30,7 @@ public class CallImplementations : ICall
             }
         }
         // Throwing an exception if the id doesn't exist
-        throw new InvalidOperationException("A call with this ID does not exist in the system!");
+        throw new Exception($"Call with the ID={id} does not exist in the system!");
     }
 
     public void DeleteAll()
@@ -68,6 +68,6 @@ public class CallImplementations : ICall
             }
         }
         // Throwing an exception if the id doesn't exist
-        throw new InvalidOperationException("A call with this ID does not exist in the system!");
+        throw new Exception($"Call with the ID={item.Id} does not exist in the system!");
     }
 }
