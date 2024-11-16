@@ -26,7 +26,7 @@ public record Call
 )
 {
 
-    public Call() : this(0, "", 0, 0, DateTime.Now, SystemType.Food) { } //empty ctor for stage 3
+    public Call() : this(0, "", 0, 0, DateTime.Now, SystemType.ICUAmbulance) { } //empty ctor for stage 3
 }
 
 

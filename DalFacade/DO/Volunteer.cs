@@ -20,7 +20,6 @@ public record Volunteer
     string Name,
     string PhoneNumber,
     string Email,
-    string? Password=null, //faire quelque chose
     string? Adress=null,
     double? Latitude=null,
     double? Longitude=null,
