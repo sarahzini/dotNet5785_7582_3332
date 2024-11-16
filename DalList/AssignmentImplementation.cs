@@ -7,7 +7,6 @@ public class AssignmentImplementation : IAssignment
     public void Create(Assignment assignment)
     {
         //This method was written by the AI and we explain it 
-
         // Generate a new ID and CallId using the next running number from Config
         int newId = Config._nextAssignmentId;
         int newCallId = Config._nextCallId;

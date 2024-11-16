@@ -14,10 +14,12 @@ namespace DO;
 
 public record Call
 (
+ // changer en camel case
   int Id,
   string Address,
   double Latitude,
   double Longitude,
+  //changer le nom de la variable 
   DateTime DateTime,
   SystemType Choice,
   string? Description = null,
