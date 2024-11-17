@@ -1,15 +1,7 @@
 ﻿namespace DO;
-/// <summary>
-/// 
-/// </summary>
-/// <param name="Id"></param>
-/// <param name="CallId"></param>
-/// <param name="VolunteerId"></param>
-/// <param name="Begin"></param>
-/// <param name="End"></param>
-/// <param name="MyEndStatus"></param>
 public record Assignment
 (
+    //The assignment properties
     int Id,
     int CallId,
     int VolunteerId,

@@ -1,25 +1,11 @@
-﻿
-namespace DO;
-/// <summary>
-/// 
-/// </summary>
-/// <param name="Id"></param>
-/// <param name="Address"></param>
-/// <param name="Latitude"></param>
-/// <param name="Longitude"></param>
-/// <param name="DateTime"></param>
-/// <param name="Choice"></param>
-/// <param name="Description"></param>
-/// <param name="EndDateTime"></param>
-
+﻿namespace DO;
 public record Call
 (
- // changer en camel case
+  //The Call properties
   int Id,
   string Address,
   double Latitude,
   double Longitude,
-  //changer le nom de la variable 
   DateTime DateTime,
   SystemType Choice,
   string? Description = null,

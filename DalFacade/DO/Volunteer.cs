@@ -1,21 +1,7 @@
 ﻿namespace DO;
-/// <summary>
-/// 
-/// </summary>
-/// <param name="Id"></param>
-/// <param name="Name"></param>
-/// <param name="PhoneNumber"></param>
-/// <param name="Email"></param>
-/// <param name="Password"></param>
-/// <param name="Adress"></param>
-/// <param name="Latitude"></param>
-/// <param name="Longitude"></param>
-/// <param name="MyJob"></param>
-/// <param name="active"></param>
-/// <param name="distance"></param>
-/// <param name="MyWhichDistance"></param>
 public record Volunteer
 (
+    //The Volunteeer properties
     int Id,
     string Name,
     string PhoneNumber,

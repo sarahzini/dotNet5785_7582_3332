@@ -3,81 +3,71 @@ using DalApi;
 using DalList;
 using DalTest;
 using DO;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace DaleTest;
 
 internal class Program
 {
-    private static IAssignment? s_dalAssignement = new AssignmentImplementation(); //stage 1
-    private static ICall? s_dalCall = new CallImplementations(); //stage 1
-    private static IVolunteer? s_dalVolunteer = new VolunteerImplementations(); //stage 1
-    private static IConfig? s_dalConfig = new ConfigImplementation(); //stage 1
-
-    private enum MainMenuOptions
-    {
-        Exit,
-        AssignmentMenu,
-        CallMenu,
-        VolunteerMenu,
-        InitializeData,
-        DisplayAllData,
-        ConfigMenu,
-        DeleteAndReset
-    }
-
-    private enum CrudMenuOptions
-    {
-        Exit,
-        Create,
-        Read,
-        ReadAll,
-        Update,
-        Delete,
-        DeleteAll
-    }
-
+    //Data Access Layer for different operations
+    private static IAssignment? s_dalAssignement = new AssignmentImplementation(); 
+    private static ICall? s_dalCall = new CallImplementations(); 
+    private static IVolunteer? s_dalVolunteer = new VolunteerImplementations(); 
+    private static IConfig? s_dalConfig = new ConfigImplementation();
     private static void Main(string[] args)
     {
         try
         {
             while (true)
             {
+                // Display the main menu to the user
                 DisplayMainMenu();
+                // Executing the corresponding action based on the user's choice
                 var choice = (MainMenuOptions)int.Parse(Console.ReadLine() ?? "0");
-
+                
+                //Depending on the user's choice it will handle it 
                 switch (choice)
                 {
+                    //Exiting the programm
                     case MainMenuOptions.Exit:
                         return;
                     case MainMenuOptions.AssignmentMenu:
+                        // Displaying the  CRUD menu for assignments
                         DisplayCrudMenu(s_dalAssignement);
                         break;
                     case MainMenuOptions.CallMenu:
+                        // Displaying the CRUD menu for calls
                         DisplayCrudMenu(s_dalCall);
                         break;
                     case MainMenuOptions.VolunteerMenu:
+                        // Displaying the CRUD menu for volunteers
                         DisplayCrudMenu(s_dalVolunteer);
                         break;
                     case MainMenuOptions.InitializeData:
+                        // Initializing data
                         InitializeData();
                         break;
                     case MainMenuOptions.DisplayAllData:
+                        // Displaying all the  data
                         DisplayAllData();
                         break;
                     case MainMenuOptions.ConfigMenu:
+                        // Displaying the configuration menu
                         DisplayConfigMenu();
                         break;
                     case MainMenuOptions.DeleteAndReset:
+                        // Deleting  and reset data
                         DeleteReset();
                         break;
                 }
             }
         }
+        // Handle any exceptions that occur and display an error message
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
-
+    //Displaying to the user the menu
     private static void DisplayMainMenu()
     {
         Console.WriteLine("Main Menu:");
@@ -90,12 +80,15 @@ internal class Program
         Console.WriteLine("6. Display All Data");
     }
 
+    
     private static void DisplayCrudMenu<T>(T? dal) where T : class
     {
+        // Checks if the data access layer object is null
         if (dal == null) return;
 
         while (true)
         {
+            //Displaying the choice from the CRUD menu
             Console.WriteLine("CRUD Menu:");
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Create");
@@ -104,35 +97,44 @@ internal class Program
             Console.WriteLine("4. Update");
             Console.WriteLine("5. Delete");
             Console.WriteLine("6. Delete All");
-
+            //Handling the user input 
             var choice = (CrudMenuOptions)int.Parse(Console.ReadLine() ?? "0");
 
             try
             {
+                // Executing the corresponding action based on the user's choice
                 switch (choice)
                 {
                     case CrudMenuOptions.Exit:
+                        //Exiting the CRUD menu
                         return;
                     case CrudMenuOptions.Create:
+                        // Creating a new entity
                         CreateEntity(dal);
                         break;
                     case CrudMenuOptions.Read:
+                        //Reading an entity
                         ReadEntity(dal);
                         break;
                     case CrudMenuOptions.ReadAll:
+                        // Reading all entities
                         ReadAllEntities(dal);
                         break;
                     case CrudMenuOptions.Update:
+                        // Updating an existing entity
                         UpdateEntity(dal);
                         break;
                     case CrudMenuOptions.Delete:
+                        // Deleting an entity 
                         DeleteEntity(dal);
                         break;
                     case CrudMenuOptions.DeleteAll:
+                        // Deleting all entities
                         DeleteAllEntities(dal);
                         break;
                 }
             }
+            // Handling any exceptions that occur and display an error message
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
@@ -144,15 +146,16 @@ internal class Program
     {
         while (true)
         {
+            // Displaying the configuration menu options
             Console.WriteLine("Config Menu:");
             Console.WriteLine("0. Exit");
-            Console.WriteLine("1. Advance Clock by Minute");
-            Console.WriteLine("2. Advance Clock by Hour");
+            Console.WriteLine("1. Advance Clock by a Minute");
+            Console.WriteLine("2. Advance Clock by a Hour");
             Console.WriteLine("3. Display Current Clock");
             Console.WriteLine("4. Set New Config Value");
             Console.WriteLine("5. Display Current Config Value");
             Console.WriteLine("6. Reset Config");
-
+            // Executing the corresponding action based on the user's choice
             var choice = int.Parse(Console.ReadLine() ?? "0");
 
             try
@@ -160,27 +163,35 @@ internal class Program
                 switch (choice)
                 {
                     case 0:
+                        // Exiting the configuration menu
                         return;
                     case 1:
+                        // Advancing the clock one minute
                         s_dalConfig.Clock = s_dalConfig.Clock.AddMinutes(1);
                         break;
                     case 2:
+                        // Advancing the clock by one hour
                         s_dalConfig.Clock = s_dalConfig.Clock.AddHours(1);
                         break;
                     case 3:
+                        // Displaying the current clock value
                         Console.WriteLine(s_dalConfig.Clock);
                         break;
                     case 4:
+                        // Seting a new configuration value
                         SetNewConfigValue();
                         break;
                     case 5:
+                        // Displaying a new configuration value
                         DisplayCurrentConfigValue();
                         break;
                     case 6:
+                        // Resetting the configuration
                         s_dalConfig.Reset();
                         break;
                 }
             }
+            // Handle any exceptions that occur and display an error message
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
@@ -190,20 +201,23 @@ internal class Program
 
     private static void InitializeData()
     {
+        // Initializing the  data using the provided DAL objects
         Initialization.Do(s_dalVolunteer, s_dalAssignement, s_dalCall, s_dalConfig);
     }
 
     private static void DisplayAllData()
     {
+        // Displaying all the volunteers
         Console.Write("Volunteers: ");
         ReadAllEntities(s_dalVolunteer);
-
+        // Displaying all the calls
         Console.Write("Calls: ");
         ReadAllEntities(s_dalCall);
-
+        // Displaying all the assignments
         Console.Write("Assignements: ");
         ReadAllEntities(s_dalAssignement); 
     }
+    //Creating a new entity depending on the type of the DAL object (user's choice)
     private static void CreateEntity<T>(T dal) where T : class
     {
         if (dal is IVolunteer volunteerDal)
@@ -319,7 +333,7 @@ internal class Program
 
         }
     }
-
+    //Printing the entity depending on the user's choice (Volunteer, Call or Assignment)
     private static void ReadEntity<T>(T dal) 
     {
         Console.Write("Please enter ID: ");
@@ -348,7 +362,7 @@ internal class Program
            
 
     }
-
+    //Printing all the  entities (Volunteer, Call and Assignment)
     private static void ReadAllEntities<T>(T dal) 
     {
         if (dal is IVolunteer volunteerDal)
@@ -380,7 +394,7 @@ internal class Program
             }
         }
     }
-
+    //Uptating the entity depending on the user's choice
     private static void UpdateEntity<T>(T dal)
     {
         if (dal is IVolunteer volunteerDal)
@@ -496,7 +510,7 @@ internal class Program
 
         }
     }
-
+    //Deleting the entity depending on the user's choice (Volunteer, Call or Assignment)
     private static void DeleteEntity<T>(T dal) 
     {
         Console.Write("Please enter ID: ");
@@ -509,7 +523,7 @@ internal class Program
         else if (dal is IAssignment assignmentDal)
             assignmentDal.Delete(id);
     }
-
+    // This method deletes all entities of a specific type from the data access layer
     private static void DeleteAllEntities<T>(T dal) 
     {
         if (dal is IVolunteer volunteerDal)
@@ -519,7 +533,7 @@ internal class Program
         else if (dal is IAssignment assignmentDal)
             assignmentDal.DeleteAll();
     }
-
+    // This method deletes all entities from the data access layers and resets the configuration.
     private static void DeleteReset()
     {
         s_dalVolunteer.DeleteAll();
@@ -528,14 +542,14 @@ internal class Program
         s_dalConfig.Reset();
 
     }
-
+    //Setting a new configuration depending on the user's value
     private static void SetNewConfigValue()
     {
         Console.Write("Please enter new value for a config variable:risk range ");
         int value = int.Parse(Console.ReadLine() ?? "0");
         s_dalConfig.RiskRange = TimeSpan.FromMinutes(value);
     }
-
+    // This method displays the current configuration value for RiskRange.
     private static void DisplayCurrentConfigValue()
     {
         Console.WriteLine(s_dalConfig.RiskRange);
