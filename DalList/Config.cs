@@ -28,7 +28,7 @@ internal static class Config
 
 
     // Define a risk range of 90 minutes
-    internal static TimeSpan RiskRange { get; set; } = TimeSpan.FromMinutes(15);
+    internal static TimeSpan RiskRange { get; set; } = TimeSpan.FromMinutes(30);
 
     /// <summary>
     /// Resets the configuration parameters to their initial values.
@@ -40,7 +40,7 @@ internal static class Config
         _AssignmentId = MinAssignmentId;
         _CallId = MinCallId;
         Clock = DateTime.Now;
-        RiskRange = TimeSpan.FromMinutes(90);
+        RiskRange = TimeSpan.FromMinutes(30);
     }
 
     

@@ -188,7 +188,7 @@ public static class Initialization
         "50 King George St, Jerusalem"
     };
 
-        double[] latitudeArray = {
+        double[] latitudes = {
         32.080480, 31.783333, 32.815556, 31.964167, 32.065610, 31.783333, 32.075100, 32.073185, 32.080000,
         32.079000, 32.080000, 32.062000, 32.056000, 32.062000, 32.079000, 32.072000, 32.075000, 32.075000,
         32.080000, 32.080000, 32.090000, 32.085000, 32.085000, 32.085000, 32.070000, 32.070000, 32.080000,
@@ -197,7 +197,7 @@ public static class Initialization
         31.783333, 32.815556, 31.964167, 32.065610, 31.783333
     };
 
-        double[] longitudeArray = {
+        double[] longitudes = {
         34.763660, 35.216667, 34.989167, 34.804167, 34.777819, 35.216667, 34.774800, 34.768134, 34.781000,
         34.768000, 34.769000, 34.770000, 34.767000, 34.774000, 34.768000, 34.769000, 34.768000, 34.770000,
         34.769000, 34.780000, 34.774000, 34.774000, 34.782000, 34.789000, 34.784000, 34.789000, 34.767000,
@@ -206,7 +206,25 @@ public static class Initialization
         35.216667, 34.989167, 34.804167, 34.777819, 35.216667
     };
 
-        string[] mdaCallDescriptions =
+        SystemType[] types = { SystemType.RegularAmbulance, SystemType.RegularAmbulance,
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
+            SystemType.RegularAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
+            SystemType.RegularAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
+            SystemType.RegularAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
+            SystemType.ICUAmbulance, SystemType.ICUAmbulance, SystemType.RegularAmbulance,
+            SystemType.ICUAmbulance, SystemType.ICUAmbulance, SystemType.RegularAmbulance,
+            SystemType.RegularAmbulance, SystemType.ICUAmbulance, SystemType.RegularAmbulance,
+            SystemType.RegularAmbulance, SystemType.ICUAmbulance, SystemType.RegularAmbulance,
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
+            SystemType.RegularAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
+            SystemType.RegularAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance };
+
+        string[] descriptions =
 {
     "Response to a road accident.",
     "Assistance for a fainting incident.",
@@ -260,105 +278,84 @@ public static class Initialization
     "Boat accident rescue."
 };
 
-        Array systemTypeValues = Enum.GetValues(typeof(SystemType));
         for (int i = 0; i < 50; i++)
         {
+            DateTime start = s_dalConfig.Clock.AddMinutes(-40); // 40 minutes avant l'heure actuelle
+            int range = 30; // L'écart maximum en minutes, ici 30 minutes
+            DateTime startTime = start.AddMinutes(s_rand.Next(range)); // L'heure de fin est aléatoire entre 0 et 30 minutes après l'heure de début
+            DateTime endTime = startTime.AddMinutes(s_rand.Next(30));
+
             Call call = new(0,
                 addresses[i],
-                latitudeArray[i],
-                longitudeArray[i],
-                (DateTime)GenerateRandomDateTime(0),
-                (DO.SystemType)systemTypeValues.GetValue(s_rand.Next(systemTypeValues.Length)),
-                mdaCallDescriptions[i],
-                GenerateRandomDateTime(1));
+                latitudes[i],
+                longitudes[i],
+                startTime,
+                types[i],
+                descriptions[i],
+                endTime);
             s_dalCall?.Create(call);
         }
 
-        /*////j ai rajoute dans le enum les messimot pr mada 
-nistration };
-
-
-//for (int i = 0; i < addresses.Length; i++)
-//{
-//    Call call = new(i + 1, addresses[i], s_rand.NextDouble() * 90, s_rand.NextDouble() * 180, DateTime.Now, choices[i]);
-//    if (s_dalCall?.Read(call.Id) == null)
-//    {
-//        s_dalCall?.Create(call);
-//    }
-//}
-*/
-
-
-
     }
-
-    /// <summary>
     /// Create a list of assignments by randomly assigning volunteers to calls.
-    /// </summary>
     private static void createAssignments()
+{
+    List<Volunteer> volunteers = s_dalVolunteer?.ReadAll() ?? new List<Volunteer>();
+    List<Call> calls = s_dalCall?.ReadAll() ?? new List<Call>();
+
+    foreach (var call in calls)
     {
-        List<Volunteer> volunteers = s_dalVolunteer!.ReadAll().ToList();
-        List<Call> calls = s_dalCall!.ReadAll().ToList();
+            // Randomly select a volunteer
+            Volunteer volunteer = volunteers[s_rand.Next(volunteers.Count)];
 
-        foreach (var volunteer in volunteers)
-        {
-            foreach (var call in calls)
-            {
-                // Generating random start and end times for the assignment
-                DateTime begin = (DateTime)GenerateRandomDateTime(0);
-                DateTime? end = GenerateRandomDateTime(1);
+            // Generate random start time for the assignment between the start of the call and 20 minutes after
+            DateTime startTime = call.DateTime.AddMinutes(s_rand.Next(20)); 
 
-                // Create a new assignment object
-                Assignment assignment = new(0, call.Id, volunteer.Id, begin, end);
+            // Generate random end time for the assignment
+            DateTime endTime = startTime.AddMinutes(s_rand.Next(20));
+            EndStatus endStatus = EndStatus.Completed;
 
-                // Add the assignment to the data source
-                s_dalAssignement?.Create(assignment);
-            }
-        }
+                if (endTime < call.EndDateTime)
+                {
+                    endStatus = (EndStatus)s_rand.Next(1, 3); // Randomly choose between Completed, SelfCancelled and DirectorCancelled
+                }
+                else
+                    endStatus = EndStatus.Expired;
 
-
-    }
-    /// <summary>
-    /// the function generates a random DateTime either in the past or future relative to the current time, 
-    /// depending on the option parameter. If option is 0, it generates a past DateTime.
-    /// If option is not 0, it generates a future DateTime with a 20% chance of returning null.
-    /// </summary>
-    /// <param name="option">variable that either takes care of the opening time and maximum end time</param>
-    /// <returns></returns>
-    public static DateTime? GenerateRandomDateTime(int option = 0)
-    {
-        // Define the maximum range for earlier DateTime (e.g., up to 1 year ago)
-        int daysAgo = s_rand.Next(1, 11); // Random number of days (1 to 10 days)
-        int hoursAgo = s_rand.Next(0, 24); // Random number of hours
-        int minutesAgo = s_rand.Next(0, 60); // Random number of minutes
-        int secondsAgo = s_rand.Next(0, 60); // Random number of seconds
-        DateTime? result = s_dalConfig?.Clock;
-        DateTime randomDateTime = (DateTime)result;
-
-        if (option == 0)
-        {// Subtract the random time span from the current time
-            randomDateTime.AddDays(-daysAgo)
-                    .AddHours(-hoursAgo)
-                    .AddMinutes(-minutesAgo)
-                    .AddSeconds(-secondsAgo);
-            result = randomDateTime;
-        }
-        else
-        {// add the random time span from the current time
-            //20 percent of the calls have no end date
-            if (s_rand.Next(0, 5) == 0)
-            {
-                return null;
-            }
-            randomDateTime.AddDays(daysAgo)
-                    .AddHours(hoursAgo)
-                    .AddMinutes(minutesAgo)
-                    .AddSeconds(secondsAgo);
-            result = randomDateTime;
-
-        }
-        return result;
+            // Create the assignment
+            Assignment assignment = new(0, call.Id, volunteer.Id, startTime, endTime, endStatus);
+            s_dalAssignement?.Create(assignment);
+        
     }
 }
 
+    public static void Do(IVolunteer? dalVolunteer, IAssignment? dalAssignment, ICall? dalCall, IConfig? dalConfig)
+    {
+        // Assign the provided DAL objects to the static fields, throwing an exception if any are null
+        s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL object can not be null!");
+        s_dalAssignement = dalAssignment ?? throw new NullReferenceException("DAL object can not be null!");
+        s_dalCall = dalCall ?? throw new NullReferenceException("DAL object can not be null!");
+        s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL object can not be null!");
 
+        // Reset configuration and clear all existing data
+        Console.WriteLine("Reset Configuration values and List values...");
+        s_dalConfig.Reset();
+        s_dalVolunteer.DeleteAll();
+        s_dalAssignement.DeleteAll();
+        s_dalCall.DeleteAll();
+
+        // Initialize the volunteers list
+        Console.WriteLine("Initializing Volunteers list ...");
+        createVolunteers();
+
+        // Initialize the calls list
+        Console.WriteLine("Initializing Calls list ...");
+        createCalls();
+
+        // Initialize the assignments list
+        Console.WriteLine("Initializing Assignments list ...");
+        createAssignments();
+    }
+
+
+}
