@@ -280,15 +280,12 @@ public static class Initialization
 
         for (int i = 0; i < 50; i++)
         {
-            // 40 minutes before the actual hour
-            DateTime start = s_dalConfig.Clock.AddMinutes(-40);
-            //The maximun range is 30 minutes
-            int range = 30;
-            // The finish time is random between 0 and 30 minutes after the start time
-            DateTime startTime = start.AddMinutes(s_rand.Next(range));
-            // The end time is random between 30 and 60 minutes after the start time
+            DateTime start = s_dalConfig.Clock.AddMinutes(-40); // 40 minutes before the current time
+            int range = 30; // The maximum gap in minutes, here 30 minutes
+            DateTime startTime = start.AddMinutes(s_rand.Next(range)); // The end time is random between 0 and 30 minutes after the start time
             DateTime endTime = startTime.AddMinutes(s_rand.Next(30));
-            //creating a new call with all of the informations
+
+
             Call call = new(0,
                 addresses[i],
                 latitudes[i],
@@ -301,7 +298,7 @@ public static class Initialization
         }
 
     }
-    /// Creating  a list of assignments by randomly assigning volunteers to calls.
+    /// Create a list of assignments by randomly assigning volunteers to calls.
     private static void createAssignments()
 {
     List<Volunteer> volunteers = s_dalVolunteer?.ReadAll() ?? new List<Volunteer>();
