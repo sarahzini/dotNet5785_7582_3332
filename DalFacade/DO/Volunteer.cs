@@ -1,4 +1,19 @@
 ﻿namespace DO;
+
+/// <summary>
+/// Represents a volunteer with various properties such as ID, name, contact information, and location details.
+/// </summary>
+/// <param name="Id">Represents a unique and valid ID for the volunteer.</param>
+/// <param name="Name">The full name (first and last) of the volunteer.</param>
+/// <param name="PhoneNumber">Represents a valid mobile phone number (10 digits, starting with 0).</param>
+/// <param name="Email">Represents a valid email address format.</param>
+/// <param name="Adress">The current full and valid address of the volunteer, which can be null.</param>
+/// <param name="Latitude">Latitude coordinate, updated by the logic layer when the address is updated.</param>
+/// <param name="Longitude">Longitude coordinate, updated by the logic layer when the address is updated.</param>
+/// <param name="MyJob">The role of the volunteer, either "Manager" or "Volunteer".</param>
+/// <param name="active">Indicates whether the volunteer is active or inactive (retired from the organization).</param>
+/// <param name="distance">The maximum distance for receiving calls, can be null indicating no distance limit.</param>
+/// <param name="MyWhichDistance">The type of distance (air, walking, driving) used for calculating distances.</param>
 public record Volunteer
 (
     //The Volunteeer properties
@@ -6,6 +21,7 @@ public record Volunteer
     string Name,
     string PhoneNumber,
     string Email,
+    //string? password=null,
     string? Adress=null,
     double? Latitude=null,
     double? Longitude=null,
