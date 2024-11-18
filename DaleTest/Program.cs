@@ -240,7 +240,7 @@ internal class Program
         }
     }
 
-    // This method deletes all entities from the data access layers and resets the configuration.
+    // This method deletes all the entities from the data access layers and resets the configuration.
     private static void DeleteReset()
     {
         if (s_dalVolunteer != null)
@@ -314,7 +314,7 @@ internal class Program
         }
         else if (dal is ICall callDal)
         {
-            // Prompt user for Call details
+            // Prompt the user for Call details
             Console.WriteLine("Enter Call details:");
 
             Console.Write("ID: ");
