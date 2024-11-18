@@ -2,9 +2,13 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
-using DalList;
 using System.ComponentModel.Design;
 
+/// <summary>
+/// The VolunteerImplementations file likely contains implementations of methods and
+/// functionalities related to volunteer operations within the application. It defines 
+/// how volunteers are managed, including their creation, updating, and other related actions.
+/// </summary>
 public class VolunteerImplementations : IVolunteer
 {
     public void Create(Volunteer item)

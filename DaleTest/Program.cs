@@ -1,11 +1,25 @@
 ﻿using Dal;
 using DalApi;
-using DalList;
 using DalTest;
 using DO;
+using System.Buffers.Text;
+using System.ComponentModel.Design;
+using System.Diagnostics;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace DaleTest;
 
+/// <summary>
+/// The Main method  operates in a continuous loop, displaying a main menu to the user and executing actions based on the user's choice. Here's a step-by-step explanation:
+//  Based on the user's choice, a corresponding action is executed:
+//•	Exit: Terminates the application.
+//•	AssignmentMenu, CallMenu, VolunteerMenu: Displays a CRUD menu for managing assignments, calls, or volunteers.
+//•	InitializeData: Initializes data using the provided data access layer(DAL) objects.
+//•	DisplayAllData: Displays all data for volunteers, calls, and assignments.
+//•	ConfigMenu: Displays the configuration menu for managing application settings.
+//•	DeleteAndReset: Deletes all data and resets the configuration.
+//
+//Exception Handling: Any exceptions that occur are caught and an error message is displayed.
+///// </summary>
 internal class Program
 {
     //Data Access Layer for different operations
@@ -67,6 +81,7 @@ internal class Program
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
+   
     //Displaying to the user the menu
     private static void DisplayMainMenu()
     {
@@ -75,12 +90,15 @@ internal class Program
         Console.WriteLine("1. Assignment Menu");
         Console.WriteLine("2. Call Menu");
         Console.WriteLine("3. Volunteer Menu");
-        Console.WriteLine("4. Config Menu");
-        Console.WriteLine("5. Initialize Data");
-        Console.WriteLine("6. Display All Data");
+        Console.WriteLine("4. Initialize Data");
+        Console.WriteLine("5. Display All Data");
+        Console.WriteLine("6. Config Menu");
+        Console.WriteLine("7. Delete And Reset");
+        Console.WriteLine("Please Choose an option:");
     }
 
-    
+    //Displaying to the user the CRUD menu (Create,Read,RealAll,Update,Delete and DeleteAll) 
+    //All these functions are placed in the end of the file
     private static void DisplayCrudMenu<T>(T? dal) where T : class
     {
         // Checks if the data access layer object is null
@@ -142,6 +160,24 @@ internal class Program
         }
     }
 
+    // Initializing the  data using the provided DAL objects
+    private static void InitializeData() => Initialization.Do(s_dalVolunteer, s_dalAssignement, s_dalCall, s_dalConfig);
+
+    //Displaying all the data (Volunteers, Calls and Assignments)
+    private static void DisplayAllData()
+    {
+        // Displaying all the volunteers
+        Console.Write("Volunteers: ");
+        ReadAllEntities(s_dalVolunteer);
+        // Displaying all the calls
+        Console.Write("Calls: ");
+        ReadAllEntities(s_dalCall);
+        // Displaying all the assignments
+        Console.Write("Assignements: ");
+        ReadAllEntities(s_dalAssignement);
+    }
+
+    // Displaying the configuration menu for managing application settings
     private static void DisplayConfigMenu()
     {
         while (true)
@@ -166,16 +202,16 @@ internal class Program
                         // Exiting the configuration menu
                         return;
                     case 1:
-                        // Advancing the clock one minute
-                        s_dalConfig.Clock = s_dalConfig.Clock.AddMinutes(1);
+                        // Advancing the clock one minute (only if s_dalConfig isn't null)
+                        s_dalConfig!.Clock = s_dalConfig.Clock.AddMinutes(1);
                         break;
                     case 2:
                         // Advancing the clock by one hour
-                        s_dalConfig.Clock = s_dalConfig.Clock.AddHours(1);
+                        s_dalConfig!.Clock = s_dalConfig.Clock.AddHours(1);
                         break;
                     case 3:
                         // Displaying the current clock value
-                        Console.WriteLine(s_dalConfig.Clock);
+                        Console.WriteLine(s_dalConfig!.Clock);
                         break;
                     case 4:
                         // Seting a new configuration value
@@ -186,8 +222,8 @@ internal class Program
                         DisplayCurrentConfigValue();
                         break;
                     case 6:
-                        // Resetting the configuration
-                        s_dalConfig.Reset();
+                        // Resetting the configuration 
+                        s_dalConfig!.Reset();
                         break;
                 }
             }
@@ -199,24 +235,20 @@ internal class Program
         }
     }
 
-    private static void InitializeData()
+    // This method deletes all entities from the data access layers and resets the configuration.
+    private static void DeleteReset()
     {
-        // Initializing the  data using the provided DAL objects
-        Initialization.Do(s_dalVolunteer, s_dalAssignement, s_dalCall, s_dalConfig);
+        if (s_dalVolunteer != null)
+            s_dalVolunteer.DeleteAll();
+        if (s_dalCall != null)
+            s_dalCall.DeleteAll();
+        if (s_dalAssignement != null)
+            s_dalAssignement.DeleteAll();
+        if (s_dalConfig != null)
+            s_dalConfig.Reset();
+
     }
 
-    private static void DisplayAllData()
-    {
-        // Displaying all the volunteers
-        Console.Write("Volunteers: ");
-        ReadAllEntities(s_dalVolunteer);
-        // Displaying all the calls
-        Console.Write("Calls: ");
-        ReadAllEntities(s_dalCall);
-        // Displaying all the assignments
-        Console.Write("Assignements: ");
-        ReadAllEntities(s_dalAssignement); 
-    }
     //Creating a new entity depending on the type of the DAL object (user's choice)
     private static void CreateEntity<T>(T dal) where T : class
     {
@@ -333,6 +365,7 @@ internal class Program
 
         }
     }
+
     //Printing the entity depending on the user's choice (Volunteer, Call or Assignment)
     private static void ReadEntity<T>(T dal) 
     {
@@ -362,6 +395,7 @@ internal class Program
            
 
     }
+
     //Printing all the  entities (Volunteer, Call and Assignment)
     private static void ReadAllEntities<T>(T dal) 
     {
@@ -394,6 +428,7 @@ internal class Program
             }
         }
     }
+
     //Uptating the entity depending on the user's choice
     private static void UpdateEntity<T>(T dal)
     {
@@ -510,6 +545,7 @@ internal class Program
 
         }
     }
+
     //Deleting the entity depending on the user's choice (Volunteer, Call or Assignment)
     private static void DeleteEntity<T>(T dal) 
     {
@@ -523,6 +559,7 @@ internal class Program
         else if (dal is IAssignment assignmentDal)
             assignmentDal.Delete(id);
     }
+
     // This method deletes all entities of a specific type from the data access layer
     private static void DeleteAllEntities<T>(T dal) 
     {
@@ -533,25 +570,33 @@ internal class Program
         else if (dal is IAssignment assignmentDal)
             assignmentDal.DeleteAll();
     }
-    // This method deletes all entities from the data access layers and resets the configuration.
-    private static void DeleteReset()
-    {
-        s_dalVolunteer.DeleteAll();
-        s_dalCall.DeleteAll();
-        s_dalAssignement.DeleteAll();
-        s_dalConfig.Reset();
-
-    }
-    //Setting a new configuration depending on the user's value
+    
+    //Setting a new configuration value depending on the user's value
     private static void SetNewConfigValue()
     {
-        Console.Write("Please enter new value for a config variable:risk range ");
+        int choice = 2;
+        do
+        {
+            Console.Write("Please enter 0 to config a RiskRange and 1 to config Clock (in minutes) ");
+            choice = int.Parse(Console.ReadLine() ?? "2");
+
+        }
+        while (choice != 0 || choice != 1);
+
+        Console.WriteLine("Please enter the new value to set");
         int value = int.Parse(Console.ReadLine() ?? "0");
-        s_dalConfig.RiskRange = TimeSpan.FromMinutes(value);
+
+        if (choice==0)
+            s_dalConfig!.Clock= DateTime.Now.AddMinutes(value);
+        else
+            s_dalConfig!.RiskRange = TimeSpan.FromMinutes(value);
     }
-    // This method displays the current configuration value for RiskRange.
+
+    // This method displays the current configuration values.
     private static void DisplayCurrentConfigValue()
     {
-        Console.WriteLine(s_dalConfig.RiskRange);
+        Console.WriteLine("Here are all the configuration values:");
+        Console.WriteLine($"Risk Range: {s_dalConfig!.RiskRange}");
+        Console.WriteLine($"Clock: {s_dalConfig!.Clock}");
     }
 }

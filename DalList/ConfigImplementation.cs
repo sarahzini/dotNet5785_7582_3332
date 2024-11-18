@@ -1,7 +1,6 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using DalList;
 
 // This class implements the IConfig interface and provides access to configuration settings.
 public class ConfigImplementation : IConfig

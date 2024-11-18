@@ -1,7 +1,13 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using DalList;
+
+/// <summary>
+/// The AssignmentImplementations file contains implementations of methods and
+/// functionalities related to assignment operations within the application. It defines 
+/// how assignments are managed, including their creation, updating, and other related actions.
+/// </summary>
+
 public class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment assignment)

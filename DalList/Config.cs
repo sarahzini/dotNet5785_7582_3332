@@ -1,6 +1,5 @@
 ﻿
 using System.Security.Cryptography;
-
 namespace Dal;
 
 internal static class Config
@@ -20,14 +19,12 @@ internal static class Config
     internal static int _nextAssignmentId { get => _AssignmentId++; }
 
 
-    /// <summary>
     /// Represents the global system clock for the application.
     /// Initialized to the current date and time at the moment the class is loaded.
-    /// </summary>
     internal static DateTime Clock { get; set; } = DateTime.Now;
 
 
-    // Define a risk range of 90 minutes
+    // Define a risk range of 30 minutes
     internal static TimeSpan RiskRange { get; set; } = TimeSpan.FromMinutes(30);
 
     /// <summary>

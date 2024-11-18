@@ -1,7 +1,12 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using DalList;
+
+/// <summary>
+/// The CallImplementations file contains implementations of methods and
+/// functionalities related to call operations within the application. It defines 
+/// how calls are managed, including their creation, updating, and other related actions.
+/// </summary>
 
 public class CallImplementations : ICall
 {
