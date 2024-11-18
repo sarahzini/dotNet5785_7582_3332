@@ -25,7 +25,10 @@ public record Call
 
 )
 {
-
+    public override string ToString()
+    {
+        return $"Id: {Id}, Address: {Address}, DateTime: {DateTime}, ICU or Regular: {Choice}, Description: {Description}, EndDateTime: {EndDateTime}";
+    }
     public Call() : this(0, "", 0, 0, DateTime.Now, SystemType.ICUAmbulance) { } //empty ctor for stage 3
 }
 

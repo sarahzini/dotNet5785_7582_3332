@@ -1,4 +1,6 @@
-﻿namespace DO;
+﻿using System.Net;
+
+namespace DO;
 
 /// <summary>
 /// Represents a volunteer with various properties such as ID, name, contact information, and location details.
@@ -21,7 +23,7 @@ public record Volunteer
     string Name,
     string PhoneNumber,
     string Email,
-    //string? password=null,
+    string? password=null, //addition of stage 1
     string? Adress=null,
     double? Latitude=null,
     double? Longitude=null,
@@ -31,5 +33,12 @@ public record Volunteer
     WhichDistance MyWhichDistance= WhichDistance.AirDistance
 )
 {
+    public override string ToString()
+    {
+        string yesOrNo = active ? "Yes" : "No";
+
+        return $"Id: {Id}, Name: {Name}, PhoneNumber: {PhoneNumber}, Email: {Email}, Address: {Adress}, Job: {MyJob}, Active: {yesOrNo}," +
+            $" Distance: {distance}, WhichDistance: {MyWhichDistance}";
+    }
     public Volunteer() : this(0, "", "", "") {} //empty ctor for stage 3
 }

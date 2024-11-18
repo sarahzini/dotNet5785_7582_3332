@@ -10,6 +10,12 @@ public static class Initialization
     private static IConfig? s_dalConfig;
     private static readonly Random s_rand = new();
 
+    /// <summary>
+    /// The createVolunteers method initializes a list of Volunteer objects with predefined
+    /// names, phone numbers, email addresses, and other details. It then creates
+    /// the Volunteer objects using these values and adds them to the data source.
+    /// </summary>
+
     private static void createVolunteers()
     {
         //all these arrays was written by AI (excepted adresses/longitude/latitude)
@@ -17,7 +23,7 @@ public static class Initialization
         string[] names = { "Sarah Cohen", "Osher Mizrahi", "Yaara Levi", "Eli Ben-David", "Maya Shapiro", "Yair Katz",
             "Noa Peretz", "Aviad Cohen", "Tamar Israeli", "Lior Baruch", "Daniella Rosen", "Oren Goldstein",
             "Michal Avrahami", "Nadav Shulman", "Rachel Dubinsky", "Uri Dahan", "Yael Chaimovitz", "Ronit Gross",
-            "Meir Ziv", "Tal Ben-Ari", "Hila Zaken" };
+            "Meir Ziv", "Tal Ben-Ari" };
 
         string[] phoneNumbers = { "052-3918274", "050-5639842", "054-1283795", "053-6472391", "058-9042318", "050-9834657",
             "052-7512386", "053-4326759", "054-1863420", "058-2917463", "050-3275641", "052-5068493", "053-7821594",
@@ -27,18 +33,22 @@ public static class Initialization
             "Maya.Shapiro@icloud.com", "Yair.Katz@googlemail.com", "Noa.Peretz@hotmail.com", "Aviad.Cohen@live.com",
             "Tamar.Israeli@protonmail.com", "Lior.Baruch@aol.com", "Daniella.Rosen@zoho.com", "Oren.Goldstein@fastmail.com",
             "Michal.Avrahami@ymail.com", "Nadav.Shulman@hushmail.com", "Rachel.Dubinsky@msn.com", "Uri.Dahan@comcast.net",
-            "Yael.Chaimovitz@outlook.co.il", "Ronit.Gross@tutanota.com", "Meir.Ziv@me.com", "Tal.BenAri@icloud.com",
-            "Hila.Zaken@webmail.com" };
+            "Yael.Chaimovitz@outlook.co.il", "Ronit.Gross@tutanota.com", "Meir.Ziv@me.com", "Tal.BenAri@icloud.com" };
 
+        string[] passwords = {"Sarah1234", "Mizrahi789", "YL2023", "EliBD2021", "Shapiro44A", "YairKatz99",
+            "NoaP321", "Aviad567", "Xx1Ab2Cd3", "Baruch2021", "Daniella123R", "OG9876",
+            "MichalA1001", "Shulman5555", "Rachel78", "UD3456", "YaelCh10", "RonitG321",
+            "MeirZ2022", "TalBen22A" };
 
+        string[] adresses = {"12 Ben Yehuda Street, Jerusalem, Israel", "45 Hillel Street, Jerusalem, Israel", "67 Yafo Street, Jerusalem, Israel",
+                             "101 Herzl Street, Jerusalem, Israel", "23 King David Street, Jerusalem, Israel", "56 Agron Street, Jerusalem, Israel",
+                             "89 Shlomzion Hamalka Street, Jerusalem, Israel", "32 King George Street, Jerusalem, Israel", "78 Emek Refaim Street, Jerusalem, Israel",
+                             "5 Derech Hevron, Jerusalem, Israel", "14 Eliezer Kaplan Street, Jerusalem, Israel", "33 Shmuel Hanavi Street, Jerusalem, Israel",
+                             "8 Dov Hoz Street, Jerusalem, Israel", "50 Keren Hayesod Street, Jerusalem, Israel", "63 Tchernichovsky Street, Jerusalem, Israel",
+                             "29 Menachem Begin Street, Jerusalem, Israel", "72 Malcha Street, Jerusalem, Israel", "101 Sderot Yerushalayim Street, Jerusalem, Israel",
+                             "120 Shalom Aleichem Street, Jerusalem, Israel", "57 Har Homa Street, Jerusalem, Israel"
+                            };
        
-        string[] adresses = { 
-            "12 Ben Yehuda Street, Jerusalem", "45 Hillel Street, Jerusalem", "67 Yafo Street, Jerusalem", "101 Herzl Street, Jerusalem", "23 King David Street, Jerusalem",
-            "56 Agron Street, Jerusalem", "89 Shlomzion Hamalka Street, Jerusalem", "32 King George Street, Jerusalem", "78 Emek Refaim Street, Jerusalem", "5 Derech Hevron, Jerusalem",
-            "14 Eliezer Kaplan Street, Jerusalem", "33 Shmuel Hanavi Street, Jerusalem", "8 Dov Hoz Street, Jerusalem", "50 Keren Hayesod Street, Jerusalem", "63 Tchernichovsky Street, Jerusalem",
-            "29 Menachem Begin Street, Jerusalem", "72 Malcha Street, Jerusalem", "101 Sderot Yerushalayim Street, Jerusalem", "120 Shalom Aleichem Street, Jerusalem", "57 Har Homa Street, Jerusalem"
-            };
-
         double[] latitudes = {
     31.7815951,
     31.7793341,
@@ -87,10 +97,10 @@ public static class Initialization
 
         Job[] jobs = {Job.Volunteer, Job.Volunteer, Job.Director, Job.Volunteer, Job.Volunteer,
             Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer,
-            Job.Director, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer,
+            Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer,
             Job.Director, Job.Volunteer, Job.Volunteer };
 
-        bool[] actives = { true, true, false, true, true, true, false, true, true,
+        bool[] actives = { true, true, true, true, true, true, false, true, true,
             true, true, true, false, true, true, true, true, true, false, true };
 
         WhichDistance[] whichDistances = {WhichDistance.WalkingDistance, WhichDistance.WalkingDistance,
@@ -110,29 +120,36 @@ public static class Initialization
                 double maxDistance = s_rand.NextDouble() * 100; // Example: random distance between 0 and 100 km.
 
                 // Create a new volunteer object and add it to the data source.
-                Volunteer volunteer = new(id, names[i], phoneNumbers[i], emails[i], adresses[i], latitudes[i],
-                    longitudes[i], jobs[i], actives[i], maxDistance, whichDistances[i]);
+                Volunteer volunteer = new(id, names[i], phoneNumbers[i], emails[i], passwords[i],
+                    adresses[i], latitudes[i], longitudes[i], jobs[i], actives[i], 
+                    maxDistance, whichDistances[i]);
                 s_dalVolunteer?.Create(volunteer);
             }
         }
     }
 
+    /// <summary>
+    /// The createCalls method initializes a list of Call objects with predefined 
+    /// addresses, latitudes, longitudes, system types, and descriptions.
+    /// It then generates random start and end times for each call and creates
+    /// the Call objects using these values. Then, it adds the Call objects to the data source.
+    /// </summary>
     private static void createCalls()
     {
-        string[] addresses =
-        { "10 yafo st, Jerusalem","2 Jaffa St, Jerusalem","3 Ben Yehuda St, Jerusalem","4 Herzl St, Jerusalem","5 Azza st, Jerusalem",
-          "6 King George St, Jerusalem", "50 King George St, Jerusalem", "12 King George St, Jerusalem", "45 Jaffa St, Jerusalem",
-          "78 Ben Yehuda St, Jerusalem","23 Agron St, Jerusalem","56 Hillel St, Jerusalem","89 Shlomzion Hamalka St, Jerusalem,",
-          "34 HaNevi'im St, Jerusalem","67 Emek Refaim St, Jerusalem","90 Derech Hebron St, Jerusalem", "11 Keren Hayesod St, Jerusalem",
-          "22 Ramban St, Jerusalem, Israel","33 Gaza St, Jerusalem","44 Azza St, Jerusalem, Israel","55 Bezalel St, Jerusalem",
-          "66 Haneviim St, Jerusalem","77 Shmuel Hanagid St, Jerusalem","88 King David St, Jerusalem","99 Yaffo St, Jerusalem",
-          "100 Agripas St, Jerusalem","101 Haneviim St, Jerusalem","102 Ben Maimon St, Jerusalem","103 Keren Kayemet St, Jerusalem",
-          "104 Shatz St, Jerusalem","105 Hillel St, Jerusalem","106 Shlomzion Hamalka St, Jerusalem","107 King George St, Jerusalem",
-          "108 Jaffa St, Jerusalem","109 Ben Yehuda St, Jerusalem","110 Agron St, Jerusalem","111 Haneviim St, Jerusalem",
-          "112 Emek Refaim St, Jerusalem","113 Derech Hebron St, Jerusalem","114 Keren Hayesod St, Jerusalem","115 Ramban St, Jerusalem",
-          "116 Azza St, Jerusalem","117 Azza St, Jerusalem","118 Bezalel St, Jerusalem","119 Haneviim St, Jerusalem","120 Shmuel Hanagid St, Jerusalem",
-          "121 King David St, Jerusalem","122 Yaffo St, Jerusalem","123 Agripas St, Jerusalem","124 Haneviim St, Jerusalem"
-        };
+        string[] addresses = {"10 yafo st, Jerusalem, Israel", "2 Jaffa St, Jerusalem, Israel", "3 Ben Yehuda St, Jerusalem, Israel", "4 Herzl St, Jerusalem, Israel",
+                             "5 Azza st, Jerusalem, Israel", "6 King George St, Jerusalem, Israel", "50 King George St, Jerusalem, Israel", "12 King George St, Jerusalem, Israel",
+                             "45 Jaffa St, Jerusalem, Israel", "78 Ben Yehuda St, Jerusalem, Israel", "23 Agron St, Jerusalem, Israel", "56 Hillel St, Jerusalem, Israel",
+                             "89 Shlomzion Hamalka St, Jerusalem, Israel", "34 HaNevi'im St, Jerusalem, Israel", "67 Emek Refaim St, Jerusalem, Israel", "90 Derech Hebron St, Jerusalem, Israel",
+                             "11 Keren Hayesod St, Jerusalem, Israel", "22 Ramban St, Jerusalem, Israel", "33 Gaza St, Jerusalem, Israel", "44 Azza St, Jerusalem, Israel",
+                             "55 Bezalel St, Jerusalem, Israel", "66 Haneviim St, Jerusalem, Israel", "77 Shmuel Hanagid St, Jerusalem, Israel", "88 King David St, Jerusalem, Israel",
+                             "99 Yaffo St, Jerusalem, Israel", "100 Agripas St, Jerusalem, Israel", "101 Haneviim St, Jerusalem, Israel", "102 Ben Maimon St, Jerusalem, Israel",
+                             "103 Keren Kayemet St, Jerusalem, Israel", "104 Shatz St, Jerusalem, Israel", "105 Hillel St, Jerusalem, Israel", "106 Shlomzion Hamalka St, Jerusalem, Israel",
+                             "107 King George St, Jerusalem, Israel", "108 Jaffa St, Jerusalem, Israel", "109 Ben Yehuda St, Jerusalem, Israel", "110 Agron St, Jerusalem, Israel",
+                             "111 Haneviim St, Jerusalem, Israel", "112 Emek Refaim St, Jerusalem, Israel", "113 Derech Hebron St, Jerusalem, Israel", "114 Keren Hayesod St, Jerusalem, Israel",
+                             "115 Ramban St, Jerusalem, Israel", "116 Azza St, Jerusalem, Israel", "117 Azza St, Jerusalem, Israel", "118 Bezalel St, Jerusalem, Israel",
+                             "119 Haneviim St, Jerusalem, Israel", "120 Shmuel Hanagid St, Jerusalem, Israel", "121 King David St, Jerusalem, Israel", "122 Yaffo St, Jerusalem, Israel",
+                             "123 Agripas St, Jerusalem, Israel", "124 Haneviim St, Jerusalem, Israel"};
+
 
         double[] latitudes = {31.753383,31.7780277,31.781655,31.7880941,31.773728,31.782715,31.7767741,31.782273,31.782449,31.7809244,31.759239,32.025681,31.7788813,
                               31.7842556,31.759897,31.7832124,31.774514,31.774893,31.771599,31.771743,31.7844665,31.793836,31.7749251,31.7846329,31.7846329,31.7849633,
@@ -162,7 +179,7 @@ public static class Initialization
             SystemType.RegularAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
             SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
             SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
-            SystemType.ICUAmbulance, SystemType.RegularAmbulance };
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance };
 
         string[] descriptions =
         { "Response to a road accident.","Assistance for a fainting incident.","Cardiac arrest case.","Helping a dehydrated individual.",
@@ -176,12 +193,12 @@ public static class Initialization
           "Dog bite incident requiring medical attention.","Heatstroke case.","Rescue for a stranded motorist.","Broken arm during an activity.",
           "Choking incident.","Respiratory distress in a patient.","Pedestrian hit by a vehicle.","Fall from a ladder.","Electrocution from faulty wiring.",
           "Allergic reaction to an insect sting.","Gunfire victim.","Emergency childbirth.","Cyclist hit by a vehicle.","Fainting during an event.",
-          "Hypothermia from exposure to cold.","Collapse due to dehydration.","Boat accident rescue."
+          "Hypothermia from exposure to cold.","Collapse due to dehydration.","Boat accident rescue.","Child with a high fever."
         };
 
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < addresses.Length; i++)
         {
-            DateTime start = s_dalConfig.Clock.AddMinutes(-40); // 40 minutes before the current time
+            DateTime start = s_dalConfig!.Clock.AddMinutes(-40); // 40 minutes before the current time
             int range = 30; // The maximum gap in minutes, here 30 minutes
             DateTime startTime = start.AddMinutes(s_rand.Next(range)); // The end time is random between 0 and 30 minutes after the start time
             DateTime endTime = startTime.AddMinutes(s_rand.Next(30));
@@ -199,7 +216,15 @@ public static class Initialization
         }
 
     }
-    /// Create a list of assignments by randomly assigning volunteers to calls.
+
+    /// <summary>
+    /// The createAssignments method retrieves all volunteers and calls from the data source.
+    /// It iterates through each call, randomly selects a volunteer, and generates random
+    /// start and end times for the assignment. It determines the end status of the assignment
+    /// based on whether the end time is before the call's end time. Finally, it creates an
+    /// Assignment object with the generated details and adds it to the data source.
+    /// </summary>
+
     private static void createAssignments()
     {
         List<Volunteer> volunteers = s_dalVolunteer?.ReadAll() ?? new List<Volunteer>();
@@ -207,8 +232,9 @@ public static class Initialization
 
         foreach (var call in calls)
         {
-            // Randomly select a volunteer
-            Volunteer volunteer = volunteers[s_rand.Next(volunteers.Count)];
+            // Randomly select a volunteer from the active volunteers
+            List<Volunteer> activeVolunteers = volunteers.Where(v => v.active).ToList();
+            Volunteer volunteer = activeVolunteers[s_rand.Next(activeVolunteers.Count)];
 
             // Generate random start time for the assignment between the start of the call and 20 minutes after
             DateTime startTime = call.DateTime.AddMinutes(s_rand.Next(20));
@@ -230,6 +256,16 @@ public static class Initialization
 
         }
     }
+
+    /// <summary>
+    /// The Do method initializes the data access layer (DAL) objects for volunteers,
+    /// assignments, calls, and configuration. It sets up the necessary data by calling
+    /// the createVolunteers, createCalls, and createAssignments methods.
+    /// </summary>
+    /// <param name="dalVolunteer">The data access layer object for volunteers.</param>
+    /// <param name="dalAssignment">The data access layer object for assignments.</param>
+    /// <param name="dalCall">The data access layer object for calls.</param>
+    /// <param name="dalConfig">The data access layer object for configuration.</param>
 
     public static void Do(IVolunteer? dalVolunteer, IAssignment? dalAssignment, ICall? dalCall, IConfig? dalConfig)
     {

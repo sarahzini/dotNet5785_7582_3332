@@ -5,6 +5,7 @@ using DO;
 using System.Buffers.Text;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace DaleTest;
 
@@ -29,6 +30,7 @@ internal class Program
     private static IConfig? s_dalConfig = new ConfigImplementation();
     private static void Main(string[] args)
     {
+        Console.WriteLine("Welcome in the MDA volunteers system !");
         try
         {
             while (true)
@@ -93,7 +95,7 @@ internal class Program
         Console.WriteLine("4. Initialize Data");
         Console.WriteLine("5. Display All Data");
         Console.WriteLine("6. Config Menu");
-        Console.WriteLine("7. Delete And Reset");
+        Console.WriteLine("7. Delete And Reset\n");
         Console.WriteLine("Please Choose an option:");
     }
 
@@ -114,7 +116,8 @@ internal class Program
             Console.WriteLine("3. Read All");
             Console.WriteLine("4. Update");
             Console.WriteLine("5. Delete");
-            Console.WriteLine("6. Delete All");
+            Console.WriteLine("6. Delete All\n");
+            Console.WriteLine("Please Choose an option:");
             //Handling the user input 
             var choice = (CrudMenuOptions)int.Parse(Console.ReadLine() ?? "0");
 
@@ -161,19 +164,20 @@ internal class Program
     }
 
     // Initializing the  data using the provided DAL objects
-    private static void InitializeData() => Initialization.Do(s_dalVolunteer, s_dalAssignement, s_dalCall, s_dalConfig);
+    private static void InitializeData() 
+        => Initialization.Do(s_dalVolunteer, s_dalAssignement, s_dalCall, s_dalConfig);
 
     //Displaying all the data (Volunteers, Calls and Assignments)
     private static void DisplayAllData()
     {
         // Displaying all the volunteers
-        Console.Write("Volunteers: ");
+        Console.Write("Volunteers: \n");
         ReadAllEntities(s_dalVolunteer);
         // Displaying all the calls
-        Console.Write("Calls: ");
+        Console.Write("Calls: \n");
         ReadAllEntities(s_dalCall);
         // Displaying all the assignments
-        Console.Write("Assignements: ");
+        Console.Write("Assignements: \n");
         ReadAllEntities(s_dalAssignement);
     }
 
@@ -190,7 +194,8 @@ internal class Program
             Console.WriteLine("3. Display Current Clock");
             Console.WriteLine("4. Set New Config Value");
             Console.WriteLine("5. Display Current Config Value");
-            Console.WriteLine("6. Reset Config");
+            Console.WriteLine("6. Reset Config\n");
+            Console.WriteLine("Please Choose an option:");
             // Executing the corresponding action based on the user's choice
             var choice = int.Parse(Console.ReadLine() ?? "0");
 
@@ -269,6 +274,14 @@ internal class Program
             Console.Write("Email: ");
             string email = Console.ReadLine() ?? "";
 
+            //bonus
+            string password = GenerateRandomPassword();
+            Console.Write($"The administration has created a password: {password}" +
+                $" Do you want to change it? If yes, press 1, otherwise press any other key./n");
+            Console.Write("Password (Include at least one uppercase letter and one number): ");
+            int choice = int.Parse(Console.ReadLine() ?? "2");
+            if (choice == 1) { ChangePassword(ref password); }
+
             Console.Write("Address: ");
             string? address = Console.ReadLine();
 
@@ -293,7 +306,7 @@ internal class Program
             WhichDistance whichDistance = Enum.TryParse(Console.ReadLine(), out WhichDistance parsedDistance) ? parsedDistance : WhichDistance.AirDistance;
 
             // Create new Volunteer object
-            Volunteer newVolunteer = new Volunteer(id, name, phoneNumber, email, address, latitude, longitude, job, active, distance, whichDistance);
+            Volunteer newVolunteer = new Volunteer(id, name, phoneNumber, email, password, address, latitude, longitude, job, active, distance, whichDistance);
 
             // Add Volunteer to DAL
             volunteerDal.Create(newVolunteer);
@@ -405,6 +418,7 @@ internal class Program
             foreach (var volunteer in volunteers)
             {
                 Console.WriteLine(volunteer);
+                Console.WriteLine("\n");
             }
 
 
@@ -449,6 +463,9 @@ internal class Program
             Console.Write("Email: ");
             string email = Console.ReadLine() ?? "";
 
+            Console.Write("Password: ");
+            string password = Console.ReadLine() ?? "";
+
             Console.Write("Address: ");
             string? address = Console.ReadLine();
 
@@ -473,7 +490,7 @@ internal class Program
             WhichDistance whichDistance = Enum.TryParse(Console.ReadLine(), out WhichDistance parsedDistance) ? parsedDistance : WhichDistance.AirDistance;
 
             // Create new Volunteer object
-            Volunteer newVolunteer = new Volunteer(id, name, phoneNumber, email, address, latitude, longitude, job, active, distance, whichDistance);
+            Volunteer newVolunteer = new Volunteer(id, name, phoneNumber, email, password, address, latitude, longitude, job, active, distance, whichDistance);
 
             // Add Volunteer to DAL
             volunteerDal.Update(newVolunteer);
@@ -597,6 +614,50 @@ internal class Program
     {
         Console.WriteLine("Here are all the configuration values:");
         Console.WriteLine($"Risk Range: {s_dalConfig!.RiskRange}");
-        Console.WriteLine($"Clock: {s_dalConfig!.Clock}");
+        Console.WriteLine($"Clock: {s_dalConfig!.Clock}/n");
+    }
+
+    //This method is used to change the password of the volunteer by his choice
+    private static void ChangePassword(ref string password)
+    {
+        do
+        {
+            password = Console.ReadLine() ?? "";
+            // string class functions Any, IsUpper, IsDigit
+            if (password.Any(char.IsUpper) && password.Any(char.IsDigit))
+            {
+                break;
+            }
+            Console.WriteLine("Password must contain at least one uppercase letter and one number. Please try again.");
+
+        } while (true);
+    }
+
+    //all this function was generated by AI 
+    //The GenerateRandomPassword method generates a random password containing at least one uppercase letter,
+    /// one number, and a mix of other characters. The password has a length of 6 characters. 
+    private static string GenerateRandomPassword()
+    {
+        const string lowerChars = "abcdefghijklmnopqrstuvwxyz";
+        const string upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const string digits = "0123456789";
+        const string allChars = lowerChars + upperChars + digits;
+
+        Random random = new Random();
+        StringBuilder password = new StringBuilder();
+
+        // Ensure at least one uppercase letter and one digit
+        password.Append(upperChars[random.Next(upperChars.Length)]);
+        password.Append(digits[random.Next(digits.Length)]);
+
+        // Fill the rest of the password length (6 characters) with random characters
+        for (int i = 2; i < 6; i++)
+        {
+            password.Append(allChars[random.Next(allChars.Length)]);
+        }
+
+        // Shuffle the characters in the password to ensure randomness
+        return new string(password.ToString().OrderBy(c => random.Next()).ToArray());
     }
 }
+
