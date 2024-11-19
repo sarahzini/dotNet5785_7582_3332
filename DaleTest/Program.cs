@@ -23,11 +23,9 @@ namespace DaleTest;
 ///// </summary>
 internal class Program
 {
-    //Data Access Layer for different operations
-    private static IAssignment? s_dalAssignement = new AssignmentImplementation(); 
-    private static ICall? s_dalCall = new CallImplementations(); 
-    private static IVolunteer? s_dalVolunteer = new VolunteerImplementations(); 
-    private static IConfig? s_dalConfig = new ConfigImplementation();
+    //A static method that initializes the data using the provided DAL objects.
+    static readonly IDal s_dal = new DalList();
+
     private static void Main(string[] args)
     {
         Console.WriteLine("Welcome in the MDA volunteers system !");
@@ -48,15 +46,15 @@ internal class Program
                         return;
                     case MainMenuOptions.AssignmentMenu:
                         // Displaying the  CRUD menu for assignments
-                        DisplayCrudMenu(s_dalAssignement);
+                        DisplayCrudMenu(s_dal!.Assignment);
                         break;
                     case MainMenuOptions.CallMenu:
                         // Displaying the CRUD menu for calls
-                        DisplayCrudMenu(s_dalCall);
+                        DisplayCrudMenu(s_dal!.Call);
                         break;
                     case MainMenuOptions.VolunteerMenu:
                         // Displaying the CRUD menu for volunteers
-                        DisplayCrudMenu(s_dalVolunteer);
+                        DisplayCrudMenu(s_dal!.Volunteer);
                         break;
                     case MainMenuOptions.InitializeData:
                         // Initializing data
@@ -163,22 +161,22 @@ internal class Program
         }
     }
 
-    // Initializing the  data using the provided DAL objects
+    // Initializing the data using the provided DAL object.
     private static void InitializeData() 
-        => Initialization.Do(s_dalVolunteer, s_dalAssignement, s_dalCall, s_dalConfig);
+        => Initialization.Do(s_dal);
 
     //Displaying all the data (Volunteers, Calls and Assignments)
     private static void DisplayAllData()
     {
         // Displaying all the volunteers
         Console.Write("Volunteers: \n");
-        ReadAllEntities(s_dalVolunteer);
+        ReadAllEntities(s_dal!.Volunteer);
         // Displaying all the calls
         Console.Write("Calls: \n");
-        ReadAllEntities(s_dalCall);
+        ReadAllEntities(s_dal!.Call);
         // Displaying all the assignments
         Console.Write("Assignements: \n");
-        ReadAllEntities(s_dalAssignement);
+        ReadAllEntities(s_dal!.Assignment);
     }
 
     // Displaying the configuration menu for managing application settings
@@ -208,15 +206,15 @@ internal class Program
                         return;
                     case 1:
                         // Advancing the clock one minute (only if s_dalConfig isn't null)
-                        s_dalConfig!.Clock = s_dalConfig.Clock.AddMinutes(1);
+                        s_dal!.config.Clock = s_dal!.config.Clock.AddMinutes(1);
                         break;
                     case 2:
                         // Advancing the clock by one hour
-                        s_dalConfig!.Clock = s_dalConfig.Clock.AddHours(1);
+                        s_dal!.config!.Clock = s_dal!.config.Clock.AddHours(1);
                         break;
                     case 3:
                         // Displaying the current clock value
-                        Console.WriteLine(s_dalConfig!.Clock);
+                        Console.WriteLine(s_dal!.config!.Clock);
                         break;
                     case 4:
                         // Seting a new configuration value
@@ -228,7 +226,7 @@ internal class Program
                         break;
                     case 6:
                         // Resetting the configuration 
-                        s_dalConfig!.Reset();
+                        s_dal!.config!.Reset();
                         break;
                 }
             }
@@ -243,14 +241,14 @@ internal class Program
     // This method deletes all the entities from the data access layers and resets the configuration.
     private static void DeleteReset()
     {
-        if (s_dalVolunteer != null)
-            s_dalVolunteer.DeleteAll();
-        if (s_dalCall != null)
-            s_dalCall.DeleteAll();
-        if (s_dalAssignement != null)
-            s_dalAssignement.DeleteAll();
-        if (s_dalConfig != null)
-            s_dalConfig.Reset();
+        if (s_dal!.Volunteer != null)
+            s_dal!.Volunteer.DeleteAll();
+        if (s_dal!.Call != null)
+            s_dal!.Call.DeleteAll();
+        if (s_dal!.Assignment != null)
+            s_dal!.Assignment.DeleteAll();
+        if (s_dal!.config != null)
+            s_dal!.config.Reset();
 
     }
 
@@ -606,17 +604,17 @@ internal class Program
         int value = int.Parse(Console.ReadLine() ?? "0");
 
         if (choice==0)
-            s_dalConfig!.Clock= DateTime.Now.AddMinutes(value);
+            s_dal!.config!.Clock= DateTime.Now.AddMinutes(value);
         else
-            s_dalConfig!.RiskRange = TimeSpan.FromMinutes(value);
+            s_dal!.config!.RiskRange = TimeSpan.FromMinutes(value);
     }
 
     // This method displays the current configuration values.
     private static void DisplayCurrentConfigValue()
     {
         Console.WriteLine("Here are all the configuration values:");
-        Console.WriteLine($"Risk Range: {s_dalConfig!.RiskRange}");
-        Console.WriteLine($"Clock: {s_dalConfig!.Clock}/n");
+        Console.WriteLine($"Risk Range: {s_dal!.config!.RiskRange}");
+        Console.WriteLine($"Clock: {s_dal!.config!.Clock}/n");
     }
 
     //This method is used to change the password of the volunteer by his choice

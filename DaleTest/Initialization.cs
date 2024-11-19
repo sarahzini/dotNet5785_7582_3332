@@ -3,11 +3,8 @@ using DalApi;
 using DO;
 public static class Initialization
 {
-    // Fields for managing various entities and configurations in the Data Access Layer (DAL).
-    private static IVolunteer? s_dalVolunteer;
-    private static IAssignment? s_dalAssignement;
-    private static ICall? s_dalCall;
-    private static IConfig? s_dalConfig;
+    // Using just one DAL object for all data sources.
+    private static IDal? s_dal;
     private static readonly Random s_rand = new();
 
     /// <summary>
@@ -114,7 +111,7 @@ public static class Initialization
         for (int i = 0; i < names.Length; i++)
         {
             int id = s_rand.Next(10000000, 40000000); //generate a random id between 10000000 et 40000000
-            if (s_dalVolunteer?.Read(id) == null)  //check if we can create a new volunteer
+            if (s_dal!.Volunteer?.Read(id) == null)  //check if we can create a new volunteer
             {
                 // Generate a random maximum distance for receiving a call.
                 double maxDistance = s_rand.NextDouble() * 100; // Example: random distance between 0 and 100 km.
@@ -123,7 +120,7 @@ public static class Initialization
                 Volunteer volunteer = new(id, names[i], phoneNumbers[i], emails[i], passwords[i],
                     adresses[i], latitudes[i], longitudes[i], jobs[i], actives[i], 
                     maxDistance, whichDistances[i]);
-                s_dalVolunteer?.Create(volunteer);
+                s_dal!.Volunteer?.Create(volunteer);
             }
         }
     }
@@ -198,7 +195,7 @@ public static class Initialization
 
         for (int i = 0; i < addresses.Length; i++)
         {
-            DateTime start = s_dalConfig!.Clock.AddMinutes(-40); // 40 minutes before the current time
+            DateTime start = s_dal!.config.Clock.AddMinutes(-40); // 40 minutes before the current time
             int range = 30; // The maximum gap in minutes, here 30 minutes
             DateTime startTime = start.AddMinutes(s_rand.Next(range)); // The end time is random between 0 and 30 minutes after the start time
             DateTime endTime = startTime.AddMinutes(s_rand.Next(30));
@@ -212,7 +209,7 @@ public static class Initialization
                 types[i],
                 descriptions[i],
                 endTime);
-            s_dalCall?.Create(call);
+            s_dal!.Call?.Create(call);
         }
 
     }
@@ -227,8 +224,8 @@ public static class Initialization
 
     private static void createAssignments()
     {
-        List<Volunteer> volunteers = s_dalVolunteer?.ReadAll() ?? new List<Volunteer>();
-        List<Call> calls = s_dalCall?.ReadAll() ?? new List<Call>();
+        List<Volunteer> volunteers = s_dal!.Volunteer?.ReadAll() ?? new List<Volunteer>();
+        List<Call> calls = s_dal!.Call?.ReadAll() ?? new List<Call>();
 
         foreach (var call in calls)
         {
@@ -252,35 +249,22 @@ public static class Initialization
 
             // Create the assignment
             Assignment assignment = new(0, call.Id, volunteer.Id, startTime, endTime, endStatus);
-            s_dalAssignement?.Create(assignment);
+            s_dal!.Assignment?.Create(assignment);
 
         }
     }
 
     /// <summary>
-    /// The Do method initializes the data access layer (DAL) objects for volunteers,
-    /// assignments, calls, and configuration. It sets up the necessary data by calling
-    /// the createVolunteers, createCalls, and createAssignments methods.
+    /// Initializes the data access layer (DAL) and populates the database with volunteers, calls, and assignments.
     /// </summary>
-    /// <param name="dalVolunteer">The data access layer object for volunteers.</param>
-    /// <param name="dalAssignment">The data access layer object for assignments.</param>
-    /// <param name="dalCall">The data access layer object for calls.</param>
-    /// <param name="dalConfig">The data access layer object for configuration.</param>
-
-    public static void Do(IVolunteer? dalVolunteer, IAssignment? dalAssignment, ICall? dalCall, IConfig? dalConfig)
+    /// <param name="dal">The data access layer object to be initialized.</param>
+    /// <exception cref="NullReferenceException">Thrown when the provided DAL object is null.</exception>
+    public static void Do(IDal dal)
     {
-        // Assign the provided DAL objects to the static fields, throwing an exception if any are null
-        s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalAssignement = dalAssignment ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalCall = dalCall ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL object can not be null!");
-
-        // Reset configuration and clear all existing data
+        // Initialize the DAL objects
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
         Console.WriteLine("Reset Configuration values and List values...");
-        s_dalConfig.Reset();
-        s_dalVolunteer.DeleteAll();
-        s_dalAssignement.DeleteAll();
-        s_dalCall.DeleteAll();
+        s_dal.ResetDB();
 
         // Initialize the volunteers list
         Console.WriteLine("Initializing Volunteers list ...");
