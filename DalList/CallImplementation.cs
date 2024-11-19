@@ -35,7 +35,7 @@ internal class CallImplementations : ICall
             }
         }
         // Throwing an exception if the id doesn't exist
-        throw new Exception($"Call with the ID={id} does not exist in the system!");
+        throw new DalDoesNotExistException($"Call with the ID={id} does not exist in the system! ");
     }
 
     public void DeleteAll()
@@ -44,20 +44,18 @@ internal class CallImplementations : ICall
         DataSource.Calls.Clear();
     }
 
-    public Call? Read(int id)
-    {
-        // Checking for each call if they have the same Ids, if they do return the call
-        foreach (var call in DataSource.Calls)
-        {
-            if (call.Id == id)
-                return call;
-        }
-        // Else return null
-        return null;
-    }
+    //returning the call if the id is the same
+    public Call? Read(int id) => DataSource.Calls.FirstOrDefault(call => call.Id == id);
 
-    // Returning the copy of the list of calls (New List)
-    public List<Call> ReadAll() => new List<DO.Call>(DataSource.Calls);
+    //returning the first Call object from DataSource.Calls that satisfies the
+    //filter condition, or null if no such object is found
+    public Call? Read(Func<Call, bool> filter) => DataSource.Calls.FirstOrDefault(filter);
+
+    //returning an IEnumerable<Call>, which is a collection of Call objects.
+    public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
+         => filter == null
+             ? DataSource.Calls.Select(item => item)
+             : DataSource.Calls.Where(filter);
 
     public void Update(Call item)
     {
@@ -73,6 +71,6 @@ internal class CallImplementations : ICall
             }
         }
         // Throwing an exception if the id doesn't exist
-        throw new Exception($"Call with the ID={item.Id} does not exist in the system!");
+        throw new DalDoesNotExistException($"Call with the ID={item.Id} does not exist in the system!");
     }
 }

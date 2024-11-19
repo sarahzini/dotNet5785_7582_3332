@@ -19,7 +19,7 @@ internal class VolunteerImplementations : IVolunteer
         {
             if (volunteer.Id == item.Id)
                 //help by AI we didn't know how to trow exception
-                throw new Exception($"Volunteer with the ID={item.Id} already exists");
+                throw new DalAlreadyExistException($"Volunteer with the ID={item.Id} already exists");
         }
         //Adding the item to the list after checking that the id is unique
         DataSource.Volunteers.Add(item);
@@ -39,7 +39,7 @@ internal class VolunteerImplementations : IVolunteer
             }
         }
         //Trowing exception if the id doesn't exist
-        throw new Exception($"Volunteer with the ID={id} does not exists");
+        throw new DalDoesNotExistException($"Volunteer with the ID={id} does not exists");
 
     }
 
@@ -50,20 +50,19 @@ internal class VolunteerImplementations : IVolunteer
         DataSource.Volunteers.Clear();
     }
 
-    public Volunteer? Read(int id)
-    {
-        //checking for each volunteer if they have have the same Ids if they do return the volunteer
-        foreach (var volunteer in DataSource.Volunteers)
-        {
-            if (volunteer.Id == id)
-                return volunteer;
-        }
-        //else return null
-        return null;
-    }
+    //returning the volunteer if the id is the same
+    public Volunteer? Read(int id) => DataSource.Volunteers.FirstOrDefault(volunteer => volunteer.Id == id);
 
-    //Returning the copy of the list of volunteers (New List)
-    public List<Volunteer> ReadAll() => new List<DO.Volunteer>(DataSource.Volunteers);
+    //returning the first Volunteer object from DataSource.Volunteers that satisfies the
+    //filter condition, or null if no such object is found
+    public Volunteer? Read(Func<Volunteer, bool> filter) => DataSource.Volunteers.FirstOrDefault(filter);
+
+
+    //returning an IEnumerable<Volunteer>, which is a collection of Volunteer objects.
+    public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
+         => filter == null
+             ? DataSource.Volunteers.Select(item => item)
+             : DataSource.Volunteers.Where(filter);
 
 
 
@@ -82,7 +81,7 @@ internal class VolunteerImplementations : IVolunteer
             }
         }
         //Trowing exception if the id doesn't exist
-        throw new Exception($"Volunteer with the ID={item.Id} does not exists");
+        throw new DalDoesNotExistException($"Volunteer with the ID={item.Id} does not exists");
 
     }
 }

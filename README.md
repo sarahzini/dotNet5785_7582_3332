@@ -1,7 +1,7 @@
 # dotNet5785_7582_3332
 
 Stage 0
-Hello teachers we are going to excel in this course
+Hello teachers we are going to excel in this project
 Bonjour!
 
 Stage 1
@@ -12,6 +12,13 @@ Stage 1
 5.	Exceptions.
 6.	User Interface (Console) - Data layer testing program.
 7.	Creating an initial database.
+Bonus : Implementing password for each volunteer.
+
+Stage 2 
+1. Create a unified service contract for the data layer using a generic interface and inherit from it.
+2. Update interfaces to use general data collections (<>IEnumerable).
+3. Update all layers to process data using LINQ only (without loops).
+4. Add exceptions.
 
 
 

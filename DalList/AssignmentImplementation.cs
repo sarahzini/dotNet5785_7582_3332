@@ -38,7 +38,7 @@ internal class AssignmentImplementation : IAssignment
             }
         }
         //Throwing exception if the id doesn't exist
-        throw new Exception($"Assignment with the ID={id} does not exist in the system!");
+        throw new DalDoesNotExistException($"Assignment with the ID={id} does not exist in the system!");
     }
 
     public void DeleteAll()
@@ -47,20 +47,18 @@ internal class AssignmentImplementation : IAssignment
         DataSource.Assignments.Clear();
     }
 
-    public Assignment? Read(int id)
-    {
-        //Checking for each assignment if they have the same Ids, if they do return the assignment
-        foreach (var assignment in DataSource.Assignments)
-        {
-            if (assignment.Id == id)
-                return assignment;
-        }
-        //Else return null
-        return null;
-    }
+    //returning the assignment if the id is the same
+    public Assignment? Read(int id)=> DataSource.Assignments.FirstOrDefault(assignment => assignment.Id == id);
 
-    //Returning the copy of the list of assignments (New List)
-    public List<Assignment> ReadAll() => new List<DO.Assignment>(DataSource.Assignments);
+    //returning the first Assignment object from DataSource.Assignments that satisfies the
+    //filter condition, or null if no such object is found
+    public Assignment? Read(Func<Assignment, bool> filter) => DataSource.Assignments.FirstOrDefault(filter);
+
+    //returning an IEnumerable<Assignment>, which is a collection of Assignment objects.
+    public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
+        => filter == null
+            ? DataSource.Assignments.Select(item => item)
+            : DataSource.Assignments.Where(filter);
 
     public void Update(Assignment item)
     {
@@ -76,7 +74,7 @@ internal class AssignmentImplementation : IAssignment
             }
         }
         //Throwing exception if the id doesn't exist
-        throw new Exception($"Assignment with the ID={item.Id} does not exist in the system!");
+        throw new DalDoesNotExistException($"Assignment with the ID={item.Id} does not exist in the system!");
     }
 
 }

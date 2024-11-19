@@ -224,8 +224,9 @@ public static class Initialization
 
     private static void createAssignments()
     {
-        List<Volunteer> volunteers = s_dal!.Volunteer?.ReadAll() ?? new List<Volunteer>();
-        List<Call> calls = s_dal!.Call?.ReadAll() ?? new List<Call>();
+        //converting the IEnumerable to List
+        List<Volunteer> volunteers = s_dal!.Volunteer?.ReadAll()?.ToList() ?? new List<Volunteer>();
+        List<Call> calls = s_dal!.Call?.ReadAll()?.ToList() ?? new List<Call>();
 
         foreach (var call in calls)
         {
