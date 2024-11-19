@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 
 // This class implements the IConfig interface and provides access to configuration settings.
-public class ConfigImplementation : IConfig
+internal class ConfigImplementation : IConfig
 {
     // Property to get or set the Clock configuration.
     public DateTime Clock

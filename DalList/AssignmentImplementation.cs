@@ -8,7 +8,7 @@ using DO;
 /// how assignments are managed, including their creation, updating, and other related actions.
 /// </summary>
 
-public class AssignmentImplementation : IAssignment
+internal class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment assignment)
     {

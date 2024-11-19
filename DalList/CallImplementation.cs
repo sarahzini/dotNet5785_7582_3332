@@ -8,7 +8,7 @@ using DO;
 /// how calls are managed, including their creation, updating, and other related actions.
 /// </summary>
 
-public class CallImplementations : ICall
+internal class CallImplementations : ICall
 {
     public void Create(Call call)
     {
