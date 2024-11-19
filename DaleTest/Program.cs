@@ -430,6 +430,7 @@ internal class Program
             foreach (var call in calls)
             {
                 Console.WriteLine(call);
+                Console.WriteLine("\n");
             }
 
         }
@@ -439,6 +440,7 @@ internal class Program
             foreach (var assignment in assignments)
             {
                 Console.WriteLine(assignment);
+                Console.WriteLine("\n");
             }
         }
     }
