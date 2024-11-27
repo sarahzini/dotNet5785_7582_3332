@@ -19,9 +19,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{15A92358-2A66-4365-A412-515428B6F614}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{F7D4812B-BB67-43C2-A062-D322CE5F1359}"
-	ProjectSection(SolutionItems) = preProject
-		xml\data-config.xml.xml = xml\data-config.xml.xml
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
