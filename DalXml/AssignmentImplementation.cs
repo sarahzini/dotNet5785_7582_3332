@@ -12,7 +12,7 @@ internal class AssignmentImplementation : IAssignment
 
     public void Delete(int id)
     {
-        List<Course> Courses = XMLTools.LoadListFromXMLSerializer<Course>(Config.s_courses_xml);
+        List<Assignment> Courses = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s__xml);
         if (Courses.RemoveAll(it => it.Id == id) == 0)
             throw new DalDoesNotExistException($"Course with ID={id} does Not exist");
         XMLTools.SaveListToXMLSerializer(Courses, Config.s_courses_xml);
