@@ -1,3 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+	<NextAssignmentId>1000</NextAssignmentId>
+	<NextCallId>100000000</NextCallId>
+	<Clock>Now</Clock>
+	<RiskRange>FromMinutes(30)</RiskRange>
+
 </config>
