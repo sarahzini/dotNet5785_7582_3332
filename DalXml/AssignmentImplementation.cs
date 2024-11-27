@@ -11,7 +11,6 @@ internal class AssignmentImplementation : IAssignment
     /// Creates a new assignment.
     /// </summary>
     /// <param name="item">The assignment that will be created.</param>
-    /// <exception cref="DalAlreadyExistException">Thrown when an assignment with the same ID already exists.</exception>
     public void Create(Assignment item)
     {
         List<Assignment> assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
