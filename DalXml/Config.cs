@@ -1,5 +1,11 @@
 ﻿namespace Dal
 {
+    /// <summary>
+    /// The Config class manages configuration settings for the DalXml project.
+    /// It provides properties to get and set configuration values stored in an XML file.
+    /// These values include running IDs for assignments and calls, system clock, and risk range.
+    /// The class also includes a method to reset all configuration values to their default states.
+    /// </summary>
     static internal class Config
     {
         internal const string s_data_config_xml = "data-config.xml";
