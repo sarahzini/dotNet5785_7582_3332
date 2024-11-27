@@ -3,6 +3,8 @@ using DO;
 
 namespace Dal;
 
+//use of XmlSerializer class
+
 internal class AssignmentImplementation : IAssignment
 {
     /// <summary>
@@ -12,6 +14,7 @@ internal class AssignmentImplementation : IAssignment
     public void Create(Assignment item)
     {
         List<Assignment> assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
+        item = item with { Id = Config.NextAssignmentId, CallId = Config.NextCallId };
         assignments.Add(item);
         XMLTools.SaveListToXMLSerializer(assignments, Config.s_assignments_xml);
     }
@@ -34,8 +37,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     public void DeleteAll()
     {
-        List<Assignment> assignments = new();
-        XMLTools.SaveListToXMLSerializer(assignments, Config.s_assignments_xml);
+        XMLTools.SaveListToXMLSerializer(new List<Assignment>(), Config.s_assignments_xml);
     }
 
     /// <summary>
