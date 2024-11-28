@@ -20,5 +20,9 @@ Stage 2
 3. Update all layers to process data using LINQ only (without loops).
 4. Add exceptions.
 
+Stage 3
+Implement an additional data layer using XML files for data storage.
+
+
 
 

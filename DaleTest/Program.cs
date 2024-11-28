@@ -24,7 +24,10 @@ namespace DaleTest;
 internal class Program
 {
     //A static method that initializes the data using the provided DAL objects.
-    static readonly IDal s_dal = new DalList();
+    //static readonly IDal s_dal = new DalList(); //stage 2
+
+    // Initializes a static readonly instance of DalXml to manage data access operations.
+    static readonly IDal s_dal = new DalXml(); //stage 3
 
     private static void Main(string[] args)
     {
