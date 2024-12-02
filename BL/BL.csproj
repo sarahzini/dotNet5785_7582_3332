@@ -16,8 +16,4 @@
 	  <ProjectReference Include="..\DalList\DalList.csproj" />
 	  <ProjectReference Include="..\DalXml\DalXml.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="BIApi\" />
-	  <Folder Include="BIImplementation\" />
-	</ItemGroup>
 </Project>
