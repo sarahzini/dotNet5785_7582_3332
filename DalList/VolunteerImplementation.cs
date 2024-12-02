@@ -9,7 +9,7 @@ using System.ComponentModel.Design;
 /// functionalities related to volunteer operations within the application. It defines 
 /// how volunteers are managed, including their creation, updating, and other related actions.
 /// </summary>
-internal class VolunteerImplementations : IVolunteer
+internal class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {

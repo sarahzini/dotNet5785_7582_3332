@@ -12,7 +12,7 @@ sealed internal class DalList : IDal
     //Empty constructor
     private DalList() { }
     // Properties to access different data entities
-    public IVolunteer Volunteer { get; } = new VolunteerImplementations();
+    public IVolunteer Volunteer { get; } = new VolunteerImplementation();
     public ICall Call { get; } = new CallImplementations();
     public IAssignment Assignment { get; } = new AssignmentImplementation();
     public IConfig config { get; } = new ConfigImplementation();

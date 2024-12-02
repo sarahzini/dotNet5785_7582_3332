@@ -8,9 +8,9 @@ namespace Dal;
 sealed internal class DalXml : IDal
 {
     // Singleton instance
-    public static IDal Instance { get; } = new DalList();
+    public static IDal Instance { get; } = new DalXml();
     //Empty constructor
-    private DalList() { }
+    private DalXml() { }
     // Gets the implementation for managing Volunteer records.
     public IVolunteer Volunteer { get; } = new VolunteerImplementation();
 
