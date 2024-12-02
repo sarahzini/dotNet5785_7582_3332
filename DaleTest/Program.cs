@@ -27,7 +27,10 @@ internal class Program
     //static readonly IDal s_dal = new DalList(); //stage 2
 
     // Initializes a static readonly instance of DalXml to manage data access operations.
-    static readonly IDal s_dal = new DalXml(); //stage 3
+    // static readonly IDal s_dal = new DalXml(); //stage 3
+
+    //initializes the s_dal field with an instance of IDal using the factory pattern.
+    static readonly IDal s_dal = Factory.Get; //stage 4
 
     private static void Main(string[] args)
     {
@@ -166,8 +169,8 @@ internal class Program
 
     // Initializing the data using the provided DAL object.
     private static void InitializeData() 
-        => Initialization.Do(s_dal);
-
+       // => Initialization.Do(s_dal); //stage 2
+        =>Initialization.Do(); //stage 4
     //Displaying all the data (Volunteers, Calls and Assignments)
     private static void DisplayAllData()
     {

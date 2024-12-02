@@ -5,499 +5,499 @@
     <Address>10 yafo st, Jerusalem, Israel</Address>
     <Latitude>31.753383</Latitude>
     <Longitude>35.222896</Longitude>
-    <DateTime>2024-11-28T11:27:07</DateTime>
+    <DateTime>2024-12-02T10:32:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Response to a road accident.</Description>
-    <EndDateTime>2024-11-28T11:34:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:33:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000001</Id>
     <Address>2 Jaffa St, Jerusalem, Israel</Address>
     <Latitude>31.7780277</Latitude>
     <Longitude>35.2257855</Longitude>
-    <DateTime>2024-11-28T11:24:07</DateTime>
+    <DateTime>2024-12-02T10:46:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Assistance for a fainting incident.</Description>
-    <EndDateTime>2024-11-28T11:39:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:47:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000002</Id>
     <Address>3 Ben Yehuda St, Jerusalem, Israel</Address>
     <Latitude>31.781655</Latitude>
     <Longitude>35.218937</Longitude>
-    <DateTime>2024-11-28T11:37:07</DateTime>
+    <DateTime>2024-12-02T10:30:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Cardiac arrest case.</Description>
-    <EndDateTime>2024-11-28T11:58:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:53:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000003</Id>
     <Address>4 Herzl St, Jerusalem, Israel</Address>
     <Latitude>31.7880941</Latitude>
     <Longitude>35.199252</Longitude>
-    <DateTime>2024-11-28T11:41:07</DateTime>
+    <DateTime>2024-12-02T10:38:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Helping a dehydrated individual.</Description>
-    <EndDateTime>2024-11-28T11:53:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:03:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000004</Id>
     <Address>5 Azza st, Jerusalem, Israel</Address>
     <Latitude>31.773728</Latitude>
     <Longitude>35.216547</Longitude>
-    <DateTime>2024-11-28T11:39:07</DateTime>
+    <DateTime>2024-12-02T10:58:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Child choking on food.</Description>
-    <EndDateTime>2024-11-28T11:56:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:00:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000005</Id>
     <Address>6 King George St, Jerusalem, Israel</Address>
     <Latitude>31.782715</Latitude>
     <Longitude>35.217257</Longitude>
-    <DateTime>2024-11-28T11:16:07</DateTime>
+    <DateTime>2024-12-02T10:35:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Severe allergic reaction.</Description>
-    <EndDateTime>2024-11-28T11:29:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:00:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000006</Id>
     <Address>50 King George St, Jerusalem, Israel</Address>
     <Latitude>31.7767741</Latitude>
     <Longitude>35.216209</Longitude>
-    <DateTime>2024-11-28T11:24:07</DateTime>
+    <DateTime>2024-12-02T10:58:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Elderly person collapsed.</Description>
-    <EndDateTime>2024-11-28T11:36:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:01:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000007</Id>
     <Address>12 King George St, Jerusalem, Israel</Address>
     <Latitude>31.782273</Latitude>
     <Longitude>35.216872</Longitude>
-    <DateTime>2024-11-28T11:29:07</DateTime>
+    <DateTime>2024-12-02T10:41:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Labor contractions reported.</Description>
-    <EndDateTime>2024-11-28T11:51:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:02:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000008</Id>
     <Address>45 Jaffa St, Jerusalem, Israel</Address>
     <Latitude>31.782449</Latitude>
     <Longitude>35.218715</Longitude>
-    <DateTime>2024-11-28T11:24:07</DateTime>
+    <DateTime>2024-12-02T10:58:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Sports injury during a game.</Description>
-    <EndDateTime>2024-11-28T11:47:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:20:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000009</Id>
     <Address>78 Ben Yehuda St, Jerusalem, Israel</Address>
     <Latitude>31.7809244</Latitude>
     <Longitude>35.2143122</Longitude>
-    <DateTime>2024-11-28T11:41:07</DateTime>
+    <DateTime>2024-12-02T10:39:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Overdose situation.</Description>
-    <EndDateTime>2024-11-28T11:47:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:44:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000010</Id>
     <Address>23 Agron St, Jerusalem, Israel</Address>
     <Latitude>31.759239</Latitude>
     <Longitude>35.205496</Longitude>
-    <DateTime>2024-11-28T11:38:07</DateTime>
+    <DateTime>2024-12-02T10:47:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Smoke inhalation victims.</Description>
-    <EndDateTime>2024-11-28T12:06:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:59:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000011</Id>
     <Address>56 Hillel St, Jerusalem, Israel</Address>
     <Latitude>32.025681</Latitude>
     <Longitude>34.751687</Longitude>
-    <DateTime>2024-11-28T11:32:07</DateTime>
+    <DateTime>2024-12-02T10:32:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Drowning rescue.</Description>
-    <EndDateTime>2024-11-28T11:53:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:51:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000012</Id>
     <Address>89 Shlomzion Hamalka St, Jerusalem, Israel</Address>
     <Latitude>31.7788813</Latitude>
     <Longitude>35.2226822</Longitude>
-    <DateTime>2024-11-28T11:16:07</DateTime>
+    <DateTime>2024-12-02T10:45:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Fever and weakness in a patient.</Description>
-    <EndDateTime>2024-11-28T11:34:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:54:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000013</Id>
     <Address>34 HaNevi'im St, Jerusalem, Israel</Address>
     <Latitude>31.7842556</Latitude>
     <Longitude>35.2243949</Longitude>
-    <DateTime>2024-11-28T11:23:07</DateTime>
+    <DateTime>2024-12-02T10:35:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Cyclist injured in an accident.</Description>
-    <EndDateTime>2024-11-28T11:51:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:44:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000014</Id>
     <Address>67 Emek Refaim St, Jerusalem, Israel</Address>
     <Latitude>31.759897</Latitude>
     <Longitude>35.215612</Longitude>
-    <DateTime>2024-11-28T11:33:07</DateTime>
+    <DateTime>2024-12-02T10:34:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Electric shock incident.</Description>
-    <EndDateTime>2024-11-28T11:52:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:59:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000015</Id>
     <Address>90 Derech Hebron St, Jerusalem, Israel</Address>
     <Latitude>31.7832124</Latitude>
     <Longitude>35.1948336</Longitude>
-    <DateTime>2024-11-28T11:37:07</DateTime>
+    <DateTime>2024-12-02T10:33:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Severe bleeding from a knife accident.</Description>
-    <EndDateTime>2024-11-28T12:04:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:44:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000016</Id>
     <Address>11 Keren Hayesod St, Jerusalem, Israel</Address>
     <Latitude>31.774514</Latitude>
     <Longitude>35.218761</Longitude>
-    <DateTime>2024-11-28T11:44:07</DateTime>
+    <DateTime>2024-12-02T10:46:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Car crash involving multiple passengers.</Description>
-    <EndDateTime>2024-11-28T12:06:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:03:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000017</Id>
     <Address>22 Ramban St, Jerusalem, Israel</Address>
     <Latitude>31.774893</Latitude>
     <Longitude>35.2147</Longitude>
-    <DateTime>2024-11-28T11:23:07</DateTime>
+    <DateTime>2024-12-02T10:49:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Fractured leg during an activity.</Description>
-    <EndDateTime>2024-11-28T11:50:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:14:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000018</Id>
     <Address>33 Gaza St, Jerusalem, Israel</Address>
     <Latitude>31.771599</Latitude>
     <Longitude>35.213181</Longitude>
-    <DateTime>2024-11-28T11:35:07</DateTime>
+    <DateTime>2024-12-02T10:40:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Burn injuries from a fire.</Description>
-    <EndDateTime>2024-11-28T12:00:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:55:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000019</Id>
     <Address>44 Azza St, Jerusalem, Israel</Address>
     <Latitude>31.771743</Latitude>
     <Longitude>35.212941</Longitude>
-    <DateTime>2024-11-28T11:33:07</DateTime>
+    <DateTime>2024-12-02T10:35:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Diabetic patient with low blood sugar.</Description>
-    <EndDateTime>2024-11-28T11:52:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:54:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000020</Id>
     <Address>55 Bezalel St, Jerusalem, Israel</Address>
     <Latitude>31.7844665</Latitude>
     <Longitude>35.2194595</Longitude>
-    <DateTime>2024-11-28T11:22:07</DateTime>
+    <DateTime>2024-12-02T10:48:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Asthma attack during an event.</Description>
-    <EndDateTime>2024-11-28T11:38:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:12:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000021</Id>
     <Address>66 Haneviim St, Jerusalem, Israel</Address>
     <Latitude>31.793836</Latitude>
     <Longitude>35.221176</Longitude>
-    <DateTime>2024-11-28T11:25:07</DateTime>
+    <DateTime>2024-12-02T10:47:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Teenager injured in an accident.</Description>
-    <EndDateTime>2024-11-28T11:38:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:08:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000022</Id>
     <Address>77 Shmuel Hanagid St, Jerusalem, Israel</Address>
     <Latitude>31.7749251</Latitude>
     <Longitude>35.2217823</Longitude>
-    <DateTime>2024-11-28T11:41:07</DateTime>
+    <DateTime>2024-12-02T10:51:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Suspected stroke reported.</Description>
-    <EndDateTime>2024-11-28T11:54:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:02:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000023</Id>
     <Address>88 King David St, Jerusalem, Israel</Address>
     <Latitude>31.7846329</Latitude>
     <Longitude>35.2147682</Longitude>
-    <DateTime>2024-11-28T11:18:07</DateTime>
+    <DateTime>2024-12-02T10:45:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Seizure episode.</Description>
-    <EndDateTime>2024-11-28T11:40:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:00:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000024</Id>
     <Address>99 Yaffo St, Jerusalem, Israel</Address>
     <Latitude>31.7846329</Latitude>
     <Longitude>35.2147682</Longitude>
-    <DateTime>2024-11-28T11:39:07</DateTime>
+    <DateTime>2024-12-02T10:35:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Gunshot wound victim.</Description>
-    <EndDateTime>2024-11-28T12:07:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:50:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000025</Id>
     <Address>100 Agripas St, Jerusalem, Israel</Address>
     <Latitude>31.7849633</Latitude>
     <Longitude>35.2151037</Longitude>
-    <DateTime>2024-11-28T11:26:07</DateTime>
+    <DateTime>2024-12-02T10:38:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Motorcyclist injured in a collision.</Description>
-    <EndDateTime>2024-11-28T11:53:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:03:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000026</Id>
     <Address>101 Haneviim St, Jerusalem, Israel</Address>
     <Latitude>31.7737395</Latitude>
     <Longitude>35.2112687</Longitude>
-    <DateTime>2024-11-28T11:41:07</DateTime>
+    <DateTime>2024-12-02T10:50:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Pregnant woman experiencing complications.</Description>
-    <EndDateTime>2024-11-28T12:01:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:18:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000027</Id>
     <Address>102 Ben Maimon St, Jerusalem, Israel</Address>
     <Latitude>31.7972733</Latitude>
     <Longitude>35.1419648</Longitude>
-    <DateTime>2024-11-28T11:19:07</DateTime>
+    <DateTime>2024-12-02T10:56:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Accidental poisoning in a child.</Description>
-    <EndDateTime>2024-11-28T11:27:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:15:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000028</Id>
     <Address>103 Keren Kayemet St, Jerusalem, Israel</Address>
     <Latitude>31.7801538</Latitude>
     <Longitude>35.2149897</Longitude>
-    <DateTime>2024-11-28T11:22:07</DateTime>
+    <DateTime>2024-12-02T10:30:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Severe headache and confusion in a patient.</Description>
-    <EndDateTime>2024-11-28T11:27:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:56:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000029</Id>
     <Address>104 Shatz St, Jerusalem, Israel</Address>
     <Latitude>31.7793341</Latitude>
     <Longitude>35.2214706</Longitude>
-    <DateTime>2024-11-28T11:33:07</DateTime>
+    <DateTime>2024-12-02T10:32:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Bystander assistance for a fall.</Description>
-    <EndDateTime>2024-11-28T11:45:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:32:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000030</Id>
     <Address>105 Hillel St, Jerusalem, Israel</Address>
     <Latitude>31.7787378</Latitude>
     <Longitude>35.2223413</Longitude>
-    <DateTime>2024-11-28T11:31:07</DateTime>
+    <DateTime>2024-12-02T10:35:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Child injured on playground equipment.</Description>
-    <EndDateTime>2024-11-28T11:44:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:37:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000031</Id>
     <Address>106 Shlomzion Hamalka St, Jerusalem, Israel</Address>
     <Latitude>31.7757616</Latitude>
     <Longitude>35.2176332</Longitude>
-    <DateTime>2024-11-28T11:28:07</DateTime>
+    <DateTime>2024-12-02T10:34:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Unconscious person found.</Description>
-    <EndDateTime>2024-11-28T11:55:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:01:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000032</Id>
     <Address>107 King George St, Jerusalem, Israel</Address>
     <Latitude>31.7757616</Latitude>
     <Longitude>35.2176332</Longitude>
-    <DateTime>2024-11-28T11:23:07</DateTime>
+    <DateTime>2024-12-02T10:32:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Severe burns from a chemical accident.</Description>
-    <EndDateTime>2024-11-28T11:26:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:53:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000033</Id>
     <Address>108 Jaffa St, Jerusalem, Israel</Address>
     <Latitude>31.7859455</Latitude>
     <Longitude>35.2126195</Longitude>
-    <DateTime>2024-11-28T11:31:07</DateTime>
+    <DateTime>2024-12-02T10:31:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Dog bite incident requiring medical attention.</Description>
-    <EndDateTime>2024-11-28T11:38:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:57:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000034</Id>
     <Address>109 Ben Yehuda St, Jerusalem, Israel</Address>
     <Latitude>31.7806127</Latitude>
     <Longitude>35.2144134</Longitude>
-    <DateTime>2024-11-28T11:19:07</DateTime>
+    <DateTime>2024-12-02T10:32:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Heatstroke case.</Description>
-    <EndDateTime>2024-11-28T11:34:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:53:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000035</Id>
     <Address>110 Agron St, Jerusalem, Israel</Address>
     <Latitude>31.7779632</Latitude>
     <Longitude>35.2221859</Longitude>
-    <DateTime>2024-11-28T11:29:07</DateTime>
+    <DateTime>2024-12-02T10:41:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Rescue for a stranded motorist.</Description>
-    <EndDateTime>2024-11-28T11:33:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:49:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000036</Id>
     <Address>111 Haneviim St, Jerusalem, Israel</Address>
     <Latitude>31.7849633</Latitude>
     <Longitude>35.2151037</Longitude>
-    <DateTime>2024-11-28T11:26:07</DateTime>
+    <DateTime>2024-12-02T10:38:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Broken arm during an activity.</Description>
-    <EndDateTime>2024-11-28T11:30:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:38:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000037</Id>
     <Address>112 Emek Refaim St, Jerusalem, Israel</Address>
     <Latitude>31.759882</Latitude>
     <Longitude>35.2151934</Longitude>
-    <DateTime>2024-11-28T11:24:07</DateTime>
+    <DateTime>2024-12-02T10:39:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Choking incident.</Description>
-    <EndDateTime>2024-11-28T11:49:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:52:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000038</Id>
     <Address>113 Derech Hebron St, Jerusalem, Israel</Address>
     <Latitude>31.75279</Latitude>
     <Longitude>35.220242</Longitude>
-    <DateTime>2024-11-28T11:26:07</DateTime>
+    <DateTime>2024-12-02T10:45:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Respiratory distress in a patient.</Description>
-    <EndDateTime>2024-11-28T11:50:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:47:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000039</Id>
     <Address>114 Keren Hayesod St, Jerusalem, Israel</Address>
     <Latitude>31.750182</Latitude>
     <Longitude>34.992038</Longitude>
-    <DateTime>2024-11-28T11:25:07</DateTime>
+    <DateTime>2024-12-02T10:30:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Pedestrian hit by a vehicle.</Description>
-    <EndDateTime>2024-11-28T11:29:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:49:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000040</Id>
     <Address>115 Ramban St, Jerusalem, Israel</Address>
     <Latitude>31.7741998</Latitude>
     <Longitude>35.2107476</Longitude>
-    <DateTime>2024-11-28T11:25:07</DateTime>
+    <DateTime>2024-12-02T10:42:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Fall from a ladder.</Description>
-    <EndDateTime>2024-11-28T11:42:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:52:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000041</Id>
     <Address>116 Azza St, Jerusalem, Israel</Address>
     <Latitude>31.7704436</Latitude>
     <Longitude>35.2116773</Longitude>
-    <DateTime>2024-11-28T11:32:07</DateTime>
+    <DateTime>2024-12-02T10:56:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Electrocution from faulty wiring.</Description>
-    <EndDateTime>2024-11-28T11:58:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:21:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000042</Id>
     <Address>117 Azza St, Jerusalem, Israel</Address>
     <Latitude>35.2116773</Latitude>
     <Longitude>35.2118899</Longitude>
-    <DateTime>2024-11-28T11:30:07</DateTime>
+    <DateTime>2024-12-02T10:50:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Allergic reaction to an insect sting.</Description>
-    <EndDateTime>2024-11-28T11:45:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:53:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000043</Id>
     <Address>118 Bezalel St, Jerusalem, Israel</Address>
     <Latitude>31.7701754</Latitude>
     <Longitude>35.2092297</Longitude>
-    <DateTime>2024-11-28T11:45:07</DateTime>
+    <DateTime>2024-12-02T10:41:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Gunfire victim.</Description>
-    <EndDateTime>2024-11-28T11:57:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:45:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000044</Id>
     <Address>119 Haneviim St, Jerusalem, Israel</Address>
     <Latitude>31.782949</Latitude>
     <Longitude>35.2151037</Longitude>
-    <DateTime>2024-11-28T11:21:07</DateTime>
+    <DateTime>2024-12-02T10:32:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Emergency childbirth.</Description>
-    <EndDateTime>2024-11-28T11:33:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:56:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000045</Id>
     <Address>120 Shmuel Hanagid St, Jerusalem, Israel</Address>
     <Latitude>31.7849633</Latitude>
     <Longitude>35.221121</Longitude>
-    <DateTime>2024-11-28T11:17:07</DateTime>
+    <DateTime>2024-12-02T10:52:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Cyclist hit by a vehicle.</Description>
-    <EndDateTime>2024-11-28T11:29:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:56:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000046</Id>
     <Address>121 King David St, Jerusalem, Israel</Address>
     <Latitude>31.794604</Latitude>
     <Longitude>35.2223356</Longitude>
-    <DateTime>2024-11-28T11:44:07</DateTime>
+    <DateTime>2024-12-02T10:45:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Fainting during an event.</Description>
-    <EndDateTime>2024-11-28T11:50:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:57:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000047</Id>
     <Address>122 Yaffo St, Jerusalem, Israel</Address>
     <Latitude>31.7740468</Latitude>
     <Longitude>35.21214</Longitude>
-    <DateTime>2024-11-28T11:29:07</DateTime>
+    <DateTime>2024-12-02T10:43:48</DateTime>
     <Choice>ICUAmbulance</Choice>
     <Description>Hypothermia from exposure to cold.</Description>
-    <EndDateTime>2024-11-28T11:50:07</EndDateTime>
+    <EndDateTime>2024-12-02T10:48:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000048</Id>
     <Address>123 Agripas St, Jerusalem, Israel</Address>
     <Latitude>31.786086</Latitude>
     <Longitude>35.211011</Longitude>
-    <DateTime>2024-11-28T11:43:07</DateTime>
+    <DateTime>2024-12-02T10:40:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Collapse due to dehydration.</Description>
-    <EndDateTime>2024-11-28T12:10:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:07:48</EndDateTime>
   </Call>
   <Call>
     <Id>100000049</Id>
     <Address>124 Haneviim St, Jerusalem, Israel</Address>
     <Latitude>31.784526</Latitude>
     <Longitude>35.2152564</Longitude>
-    <DateTime>2024-11-28T11:38:07</DateTime>
+    <DateTime>2024-12-02T10:40:48</DateTime>
     <Choice>RegularAmbulance</Choice>
     <Description>Boat accident rescue.</Description>
-    <EndDateTime>2024-11-28T12:05:07</EndDateTime>
+    <EndDateTime>2024-12-02T11:04:48</EndDateTime>
   </Call>
 </ArrayOfCall>
