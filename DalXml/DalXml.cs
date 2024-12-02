@@ -1,11 +1,16 @@
 ﻿using DalApi;
+using System.Diagnostics;
 namespace Dal;
 
 /// <summary>
 /// DalXml class provides implementations for managing Volunteers, Calls, Assignments, and Configurations using XML storage.
 /// </summary>
-sealed public class DalXml : IDal
+sealed internal class DalXml : IDal
 {
+    // Singleton instance
+    public static IDal Instance { get; } = new DalList();
+    //Empty constructor
+    private DalList() { }
     // Gets the implementation for managing Volunteer records.
     public IVolunteer Volunteer { get; } = new VolunteerImplementation();
 
