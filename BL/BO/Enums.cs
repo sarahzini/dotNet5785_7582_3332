@@ -33,3 +33,13 @@ public enum TimeUnit
     Day,
     Year
 }
+
+public enum VolunteerFieldSort
+{
+    VolunteerId,
+    Name,
+    CompletedCalls,
+    CancelledCalls,
+    ExpiredCalls
+}
+
