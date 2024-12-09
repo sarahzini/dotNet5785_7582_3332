@@ -15,7 +15,8 @@ public enum WhichDistance
 public enum SystemType
 {
     ICUAmbulance,
-    RegularAmbulance
+    RegularAmbulance,
+    None
 }
 public enum EndStatus
 {
