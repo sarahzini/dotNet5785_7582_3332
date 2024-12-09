@@ -1,33 +1,27 @@
 ﻿namespace BO;
 
-public record Volunteer
-(
+public class Volunteer
+{ 
     //The Volunteeer properties
-    int VolunteerId,
-    string Name,
-    string PhoneNumber,
-    string Email,
-    int CompletedCalls,
-    int CancelledCalls,
-    int ExpiredCalls,
-    string? Password = null, //bonus stage 4
-    string? Adress = null,
-    double? Latitude = null,
-    double? Longitude = null,
-    Job MyJob = Job.Volunteer,
-    bool IsActive = false,
-    double? MaxDistance = null,
-    WhichDistance MyWhichDistance = WhichDistance.AirDistance,
-    BO.CallInProgress? CurrentCall = null
+    public int VolunteerId{ get; set; }
+    public string Name { get; set; }
+    public string PhoneNumber { get; set; }
+    public  string Email { get; set; }
+    public string? Password { get; set; } = null; //bonus stage 4
+    public string? VolunteerAddress { get; set; } = null;
+    public double? VolunteerLatitude { get; set; } = null;
+    public double? VolunteerLongitude { get; set; } = null;
+    public Job MyJob { get; set; } = Job.Volunteer;
+    public bool IsActive { get; set; } = false;
+    public double? MaxVolunteerDistance { get; set; } = null;
+    public WhichDistance MyWhichDistance { get; set; } = WhichDistance.AirDistance;
 
-)
-{
-    public override string ToString()
-    {
-        string yesOrNo = IsActive ? "Yes" : "No";
+    public int CompletedCalls { get; set; }
+    public int CancelledCalls { get; set; }
+    public int ExpiredCalls { get; set; }
+    public BO.CallInProgress? CurrentCalls { get; set; } = null;
+    public override string ToString() => this.ToStringProperty();
 
-        return $"Id: {VolunteerId}, Name: {Name}, PhoneNumber: {PhoneNumber}, Email: {Email}, Address: {Adress}, Job: {MyJob}, Active: {yesOrNo}," +
-            $" Distance: {MaxDistance}, WhichDistance: {MyWhichDistance}";
-    }
 }
+
 
