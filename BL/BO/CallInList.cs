@@ -2,7 +2,7 @@
 
 public class CallInList
 {
-    public int? AssignId { get; set; } = null;
+    public int? AssignId { get; init; } = null;
     public int CallId { get; set; }
     public SystemType TypeOfCall { get; set; }
     public DateTime BeginTime { get; init; }

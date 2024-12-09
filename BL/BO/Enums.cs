@@ -25,25 +25,4 @@ public enum EndStatus
     DirectorCancelled,
     Expired
 }
-public enum MainMenuOptions
-{
-    Exit,
-    AssignmentMenu,
-    CallMenu,
-    VolunteerMenu,
-    InitializeData,
-    DisplayAllData,
-    ConfigMenu,
-    DeleteAndReset
-}
 
-public enum CrudMenuOptions
-{
-    Exit,
-    Create,
-    Read,
-    ReadAll,
-    Update,
-    Delete,
-    DeleteAll
-}

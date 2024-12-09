@@ -7,7 +7,7 @@ public class VolunteerInList
     public int CompletedCalls { get; set; }
     public int CanceledCalls { get; set; }
     public int ExpiredCalls { get; set; }
-    public int? ActualCallId { get; init; } = null;
+    public int? ActualCallId { get; set; } = null;
     public SystemType TypeOfCall { get; set; }
     public override string ToString() => this.ToStringProperty();
 
