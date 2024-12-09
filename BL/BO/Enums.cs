@@ -1,6 +1,7 @@
 ﻿namespace BO;
-
-//The enum that are used in different methods 
+/// <summary>
+/// The enum that are used in different methods
+/// </summary> 
 public enum Job
 {
     Volunteer,
@@ -25,4 +26,10 @@ public enum EndStatus
     DirectorCancelled,
     Expired
 }
-
+public enum TimeUnit 
+{
+    Minute,
+    Hour,
+    Day,
+    Year
+}
