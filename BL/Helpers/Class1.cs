@@ -5,6 +5,6 @@ namespace Helpers;
 /// </summary>
 internal static partial class CallManager
 {
-    private static IDal s_dal = Factory.Get; //stage 4
+    private static IDal v_dal = Factory.Get; //stage 4
 
 }
