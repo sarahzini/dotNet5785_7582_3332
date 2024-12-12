@@ -1,29 +1,31 @@
 ﻿namespace BO;
 
-/// <summary>
-/// This exception is thrown when a Data Access Layer (DAL) entity does not exist.
-/// </summary>
 [Serializable]
-public class DalDoesNotExistException : Exception
+public class BLDoesNotExistException : Exception
 {
-    public DalDoesNotExistException(string? message) : base(message) { }
+    public BLDoesNotExistException(string? message) : base(message) { }
 }
 
-/// <summary>
-/// This exception is thrown when a Data Access Layer (DAL) entity already exists.
-/// </summary>
 [Serializable]
-public class DalAlreadyExistException : Exception
+public class BLAlreadyExistException : Exception
 {
-    public DalAlreadyExistException(string? message) : base(message) { }
+    public BLAlreadyExistException(string? message) : base(message) { }
 }
 
-
-/// <summary>
-/// This exception is thrown when there is an issue loading or creating an XML file in the Data Access Layer (DAL).
-/// </summary>
-public class DalXMLFileLoadCreateException : Exception
+[Serializable]
+public class BLIncorrectPassword : Exception
 {
-    public DalXMLFileLoadCreateException(string? message) : base(message) { }
+    public BLIncorrectPassword(string? message) : base(message) { }
 }
 
+[Serializable]
+public class BLFormatException : Exception
+{
+    public BLFormatException(string? message) : base(message) { }
+}
+
+[Serializable]
+public class BLInvalidOperationException : Exception
+{
+    public BLInvalidOperationException(string? message) : base(message) { }
+}
