@@ -36,7 +36,7 @@ internal static class ClockManager //stage 4
         //after each clock update
         //for example, Periodic students' updates:
         //Go through all students to update properties that are affected by the clock update
-        //(students becomes not active after 5 years etc.)
+        //(students becomes not active after 5 years etc.)-
         
         //StudentManager.PeriodicStudentsUpdates(oldClock, newClock); //stage 4
         //etc ...
