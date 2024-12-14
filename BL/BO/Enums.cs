@@ -16,9 +16,18 @@ public enum WhichDistance
 public enum SystemType
 {
     ICUAmbulance,
-    RegularAmbulance,
-    None
+    RegularAmbulance
 }
+public enum Statuses
+{
+    Open,
+    InAction,
+    Closed,
+    Expired,
+    OpenToRisk,
+    InActionToRisk
+}
+
 public enum EndStatus
 {
     Completed,

@@ -9,7 +9,7 @@ public class CallInList
     public TimeSpan? RangeTimeToEnd { get; init; } = null;
     public string? NameLastVolunteer { get; set; } = null;
     public TimeSpan? ExecutedTime { get; init; } = null;
-    public EndStatus ClosureType { get; set; }
+    public Statuses Status { get; set; }
     public int TotalAssignment { get; set; }
-    public override string ToString() => this.ToStringProperty();
+    public override string ToString() => Helpers.Tools.ToStringProperty(this);
 }

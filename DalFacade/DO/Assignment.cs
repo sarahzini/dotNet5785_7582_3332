@@ -17,7 +17,7 @@ public record Assignment
     int VolunteerId,
     DateTime Begin,
     DateTime? End=null,
-    EndStatus MyEndStatus= EndStatus.Completed
+    EndStatus? MyEndStatus= null
 
 )
 {

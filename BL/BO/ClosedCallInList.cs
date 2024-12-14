@@ -9,6 +9,6 @@ public class ClosedCallInList
     public DateTime BeginActionTime { get; init; }
     public DateTime? EndTime { get; set; } = null;
     public EndStatus? TypeOfEnd { get; set; } = null;
-    public override string ToString() => this.ToStringProperty();
+    public override string ToString() => Helpers.Tools.ToStringProperty(this);
 
 }

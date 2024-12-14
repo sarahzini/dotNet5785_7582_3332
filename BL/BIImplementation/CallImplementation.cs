@@ -8,7 +8,7 @@ using System.IO;
 
 namespace BIImplementation;
 
-internal partial class CallImplementation: ICall
+internal class CallImplementation: ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
@@ -18,10 +18,8 @@ internal partial class CallImplementation: ICall
     /// <returns>The numbers of calls</returns>
     /// <exception cref="BO.BLException">if the count could not be processed for any reasons throw exception</exception>
 
-    public int[] GetCallCounts()
+    public int[] TypeOfCallCounts()
     {
-        try
-        {
             // Get all calls from the data layer
             IEnumerable<DO.Call> calls = _dal.Call.ReadAll();
 
@@ -33,9 +31,10 @@ internal partial class CallImplementation: ICall
 
             // Find the maximum status value to determine the size of the array
             int maxStatus = callCountsByStatus.Keys.Max();
+            int[] result = new int[maxStatus+1];
 
             // Initialize the result array with the size of maxStatus + 1
-            int[] result = new int[maxStatus + 1];
+            //int[] result = new int[3];
 
             // Fill the result array with the counts
             foreach (var kvp in callCountsByStatus)
@@ -44,12 +43,39 @@ internal partial class CallImplementation: ICall
             }
 
             return result;
-        }
-        catch (Exception ex)
+    }
+
+    public IEnumerable<BO.CallInList> SortCalls(CallInListField? filterField, object? filterValue, CallInListField? sortField)
+    {
+        // Get all calls
+        var calls = _dal.Call.ReadAll();
+        // Filter calls if filterField and filterValue are provided
+        if (filterField != null && filterValue != null)
         {
-            Console.WriteLine(ex.Message);
-            throw new BO.BLException("An error occurred while getting call counts by status.", ex);
+            var filterProperty = typeof(BO.CallInList).GetProperty(filterField!.ToString());
+            if (filterProperty != null)
+            {
+                calls = calls.Where(call => filterProperty.GetValue(call)?.Equals(filterValue) == true);
+            }
         }
+
+        // Sort calls if sortField is provided
+        if (sortField != null)
+        {
+            var sortProperty = typeof(BO.CallInList).GetProperty(sortField.ToString());
+            if (sortProperty != null)
+            {
+                calls = calls.OrderBy(call => sortProperty.GetValue(call));
+            }
+        }
+        else
+        {
+            // Default sorting by CallId
+            calls = calls.OrderBy(call => call.Id);
+        }
+
+        // Convert to CallInList and return
+        return calls.Select(call => CallManager.ConvertToCallInList(call)).ToList(); 
     }
 
     /// <summary>
@@ -270,6 +296,106 @@ internal partial class CallImplementation: ICall
             throw new BO.BLException("An error occurred while assigning the call to the volunteer.", ex);
         }
     }
-/// creer une fonction pour verifier qye le end time quil donne est le meme parce que pas le droit de
-/// לעדכן אותו
+    /// creer une fonction pour verifier qye le end time quil donne est le meme parce que pas le droit de
+    /// לעדכן אותו
+    public void DeleteCall(int callId)
+    {
+        try
+        {
+            // Check if the call exists
+            DO.Call call = _dal.Call.Read(callId);
+            if (call == null)
+            {
+                throw new BO.BLDoesNotExistException($"Call with ID={callId} does not exist");
+            }
+
+            DO.Assignment assignment = AssignmentManager.SearchAssignment(assignment => assignment.CallId == callId);
+            // Check if the call can be deleted
+            if (assignment.End != null)
+            {
+                throw new BO.BLInvalidOperationException("Call cannot be deleted because it is not open or has been assigned to a volunteer");
+            }
+
+            // Attempt to delete the call from the data layer
+            _dal.Call.Delete(callId);
+        }
+        catch (DO.DalAlreadyExistException ex)
+        {
+            throw new BO.BLAlreadyExistException(ex.Message);
+        }
+    } //la deuxieme condition 
+    public void AddCall(BO.Call call)
+    {
+        try
+        {
+            // Validate call details
+            CallManager.ValidateCallDetails(call);
+
+            // Convert BO.call to DO.Call
+            DO.Call newCall = CallManager.ConvertToLogicCall(call);
+
+            // Attempt to add the new call to the data layer
+            _dal.Call.Create(newCall);
+        }
+        catch (DO.DalAlreadyExistException ex)
+        {
+            throw new BO.BLAlreadyExistException(ex.Message);
+        }
+        catch (BO.BLFormatException ex)
+        {
+            throw new BO.BLFormatException(ex.Message);
+        }
+    }   //ca va pas 
+    public IEnumerable<BO.ClosedCallInList> SortClosedCalls(int volunteerId, DO.SystemType? callType, ClosedCallInListField? sortField)
+    {
+            // Get the full list of calls with the filter of id 
+            IEnumerable<DO.Call> calls = _dal.Call.ReadAll()
+                .Where(call => AssignmentManager.SearchAssignment(assignment => assignment.CallId == call.Id).VolunteerId == volunteerId
+                && AssignmentManager.SearchAssignment(assignment => assignment.CallId == call.Id).MyEndStatus == DO.EndStatus.Completed);
+
+            // Filter the list based on the callType parameter
+            if (callType.HasValue)
+            {
+                calls = calls.Where(call => call.Choice == callType);
+            }
+
+            // Sort the list based on the sortField parameter
+            if (sortField.HasValue)
+            {
+                calls = calls.OrderBy(call => call.GetType().GetProperty(sortField.ToString()).GetValue(call, null));
+            }
+            else
+            {
+                calls = calls.OrderBy(call => call.Id);
+            }
+
+        // Convert the list to BO.ClosedCallInList and return
+        return calls.Select(call => CallManager.ConvertToClosedCallInList(call)).ToList();
+        
+    }
+    public IEnumerable<BO.OpenCallInList> SortOpenCalls(int volunteerId, DO.SystemType? callType, CallInListField? sortField)
+    {
+        // Get the full list of calls with the filter of id 
+        IEnumerable<DO.Call> calls = _dal.Call.ReadAll()
+            .Where(call => AssignmentManager.SearchAssignment(assignment => assignment.CallId == call.Id).VolunteerId == volunteerId
+            && AssignmentManager.SearchAssignment(assignment => assignment.CallId == call.Id).End == null);
+
+        // Filter the list based on the callType parameter
+        if (callType.HasValue)
+        {
+            calls = calls.Where(call => call.Choice == callType);
+        }
+
+        // Sort the list based on the sortField parameter
+        if (sortField.HasValue)
+        {
+            calls = calls.OrderBy(call => call.GetType().GetProperty(sortField.ToString()).GetValue(call, null));
+        }
+        else
+        {
+            calls = calls.OrderBy(call => call.Id);
+        }
+
+        return calls.Select(call => CallManager.ConvertToOpenCallInList(call, volunteerId) ).ToList();
+    }
 }

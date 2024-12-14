@@ -9,5 +9,5 @@ public class OpenCallInList
     public DateTime BeginTime { get; init; }
     public DateTime? MaxEndTime { get; init; } = null;
     public double VolunteerDistanceToCall { get; init; }
-    public override string ToString() => this.ToStringProperty();
+    public override string ToString() => Helpers.Tools.ToStringProperty(this);
 }
