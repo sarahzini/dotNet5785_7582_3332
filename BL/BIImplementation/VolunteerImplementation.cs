@@ -180,9 +180,9 @@ internal class VolunteerImplementation:IVolunteer
             // Attempt to add the new volunteer to the data layer
             _dal.Volunteer.Create(newVolunteer);
         }
-        catch (BO.BLDoesNotExistException ex)
+        catch (DO.DalAlreadyExistException ex)
         {
-            throw new BO.BLDoesNotExistException($"Volunteer with the Id {volunteer.VolunteerId} does not exist");
+            throw new BO.BLAlreadyExistException(ex.Message);
         }
         catch (BO.BLFormatException ex)
         {

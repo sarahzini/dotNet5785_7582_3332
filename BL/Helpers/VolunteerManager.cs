@@ -31,17 +31,6 @@ internal static class VolunteerManager
 
     }
 
-    internal static DO.Assignment SearchAssignment(Func<DO.Assignment, bool> predicate)
-    {
-        DO.Volunteer? volunteer = s_dal.Volunteer.Read(predicate);
-        if (volunteer == null)
-        {
-            throw new BO.BLDoesNotExistException("Volunteer matching with this criteria does not exist");
-        }
-        return volunteer;
-
-    }
-
     internal static void ValidateVolunteerDetails(BO.Volunteer volunteer)
     {
         var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");

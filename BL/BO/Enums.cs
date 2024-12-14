@@ -44,3 +44,37 @@ public enum VolunteerFieldSort
     ExpiredCalls
 }
 
+public enum CallInListField
+{
+    CallId,
+    BeginTime,
+    NameLastVolunteer,
+    ExecutedTime,
+    TotalAssignment
+}
+
+public enum ClosedCallInListField
+{
+    CallId,
+    CallAddress,
+    BeginTime,
+    RangeTimeToEnd,
+    NameLastVolunteer,
+    ExecutedTime,
+    ClosureType,
+    TotalAssignment
+}
+
+public enum OpenCallInListField
+{
+    CallId,
+    TypeOfCall,
+    CallAddress,
+    BeginTime,
+    RangeTimeToEnd,
+    NameLastVolunteer,
+    ExecutedTime,
+    ClosureType,
+    TotalAssignment
+}
+
