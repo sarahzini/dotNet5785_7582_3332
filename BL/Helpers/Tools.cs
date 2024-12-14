@@ -1,5 +1,9 @@
-﻿using System.Reflection; // to use PropertyInfo
+﻿using System;
+using System.Net.Http;
+using System.Text.Json;
+using System.Reflection; // to use PropertyInfo
 using System.Text; // to use StringBuilder
+
 
 namespace Helpers;
 internal static class Tools
@@ -30,4 +34,5 @@ internal static class Tools
         return str.ToString();
     }
 
+    
 }
