@@ -12,5 +12,5 @@ public class Call
     public DateTime? MaxEndTime { get; set; } = null;
     public EndStatus ClosureType { get; set; }
     public List<BO.CallAssignInList>? CallAssigns { get; set; } = null;
-    public override string ToString() => this.ToStringProperty();
+    public override string ToString() => Helpers.Tools.ToStringProperty(this);
 }

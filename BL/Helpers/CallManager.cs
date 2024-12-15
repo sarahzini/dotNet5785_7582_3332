@@ -1,10 +1,5 @@
 ﻿using BIApi;
-using BO;
 using DalApi;
-using DO;
-using Microsoft.VisualBasic;
-using System.Net;
-using System.Text.Json;
 namespace Helpers;
 /// <summary>
 /// All the Helpers methods that are used for the implementations of calls.
@@ -69,7 +64,7 @@ internal static class CallManager
     {
         double? volunteerLong = s_dal.Volunteer.Read(volunteerId).Longitude;
         double? volunteerLat = s_dal.Volunteer.Read(volunteerId).Latitude;
-        double? distance = Math.Sqrt(
+        double distance = Math.Sqrt(
         Math.Pow((double)(volunteerLong - call.Longitude), 2) +
         Math.Pow((double)(volunteerLat - call.Latitude), 2));
         return new BO.OpenCallInList

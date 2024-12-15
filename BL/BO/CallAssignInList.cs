@@ -7,5 +7,5 @@ public class CallAssignInList
     public DateTime BeginActionTime { get; set; }
     public DateTime? EndTime { get; set; } = null;
     public EndStatus? ClosureType { get; set; } = null;
-    public override string ToString() => this.ToStringProperty();
+    public override string ToString() => Helpers.Tools.ToStringProperty(this);
 }

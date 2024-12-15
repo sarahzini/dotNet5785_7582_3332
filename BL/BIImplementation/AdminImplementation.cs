@@ -1,5 +1,4 @@
 ﻿using BIApi;
-using BO;
 using Helpers;
 
 namespace BIImplementation;

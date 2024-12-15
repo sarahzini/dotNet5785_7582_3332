@@ -14,7 +14,7 @@ public  class CallInProgress
     public DateTime BeginActionTime { get; init; }
     public double VolunteerDistanceToCall { get; init; }
     public EndStatus ClosureType { get; init; }
-    public override string ToString() => this.ToStringProperty();
+    public override string ToString() => Helpers.Tools.ToStringProperty(this);
 
 
 }

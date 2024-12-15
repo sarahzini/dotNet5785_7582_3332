@@ -9,6 +9,6 @@ public class VolunteerInList
     public int ExpiredCalls { get; set; }
     public int? ActualCallId { get; set; } = null;
     public SystemType TypeOfCall { get; set; }
-    public override string ToString() => this.ToStringProperty();
+    public override string ToString() => Helpers.Tools.ToStringProperty(this);
 
 }

@@ -1,8 +1,8 @@
-﻿namespace BIImplementation;
-
+﻿
 using BIApi;
-using BO;
 using Helpers;
+
+namespace BIImplementation;
 
 internal class VolunteerImplementation:IVolunteer
 {
@@ -28,7 +28,7 @@ internal class VolunteerImplementation:IVolunteer
         }
     }
 
-    IEnumerable<VolunteerInList> GetVolunteersList(bool? isActive, VolunteerFieldSort? sortField)
+    IEnumerable<BO.VolunteerInList> GetVolunteersList(bool? isActive, BO.VolunteerFieldSort? sortField)
     {
         try
         {

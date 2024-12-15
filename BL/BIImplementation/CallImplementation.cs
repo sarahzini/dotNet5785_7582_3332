@@ -1,10 +1,6 @@
 ﻿
 using BIApi;
-using BO;
-using DalApi;
-using DO;
 using Helpers;
-using System.IO;
 
 namespace BIImplementation;
 
@@ -45,7 +41,7 @@ internal class CallImplementation: ICall
             return result;
     }
 
-    public IEnumerable<BO.CallInList> SortCalls(CallInListField? filterField, object? filterValue, CallInListField? sortField)
+    public IEnumerable<BO.CallInList> SortCalls(BO.CallInListField? filterField, object? filterValue, BO.CallInListField? sortField)
     {
         // Get all calls
         var calls = _dal.Call.ReadAll();
@@ -346,7 +342,7 @@ internal class CallImplementation: ICall
             throw new BO.BLFormatException(ex.Message);
         }
     }   //ca va pas 
-    public IEnumerable<BO.ClosedCallInList> SortClosedCalls(int volunteerId, DO.SystemType? callType, ClosedCallInListField? sortField)
+    public IEnumerable<BO.ClosedCallInList> SortClosedCalls(int volunteerId, DO.SystemType? callType, BO.ClosedCallInListField? sortField)
     {
             // Get the full list of calls with the filter of id 
             IEnumerable<DO.Call> calls = _dal.Call.ReadAll()
@@ -373,7 +369,7 @@ internal class CallImplementation: ICall
         return calls.Select(call => CallManager.ConvertToClosedCallInList(call)).ToList();
         
     }
-    public IEnumerable<BO.OpenCallInList> SortOpenCalls(int volunteerId, DO.SystemType? callType, CallInListField? sortField)
+    public IEnumerable<BO.OpenCallInList> SortOpenCalls(int volunteerId, DO.SystemType? callType, BO.CallInListField? sortField)
     {
         // Get the full list of calls with the filter of id 
         IEnumerable<DO.Call> calls = _dal.Call.ReadAll()

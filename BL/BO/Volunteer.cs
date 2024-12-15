@@ -19,7 +19,7 @@ public class Volunteer
     public int CancelledCalls { get; set; }
     public int ExpiredCalls { get; set; }
     public BO.CallInProgress? CurrentCall { get; init; } = null;
-    public override string ToString() => this.ToStringProperty();
+    public override string ToString() => Helpers.Tools.ToStringProperty(this);
 
 }
 
