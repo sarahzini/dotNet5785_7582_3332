@@ -22,9 +22,6 @@ internal class CallImplementation: ICall
             int maxStatus = callCountsByStatus.Keys.Max();
             int[] result = new int[maxStatus+1];
 
-            // Initialize the result array with the size of maxStatus + 1
-            //int[] result = new int[3];
-
             // Fill the result array with the counts
             foreach (var kvp in callCountsByStatus)
             {
@@ -32,7 +29,7 @@ internal class CallImplementation: ICall
             }
 
             return result;
-    }
+    } //????????????
     public IEnumerable<BO.CallInList> SortCalls(BO.CallInListField? filterField, object? filterValue, BO.CallInListField? sortField)
     {
         // Get all calls
@@ -149,7 +146,7 @@ internal class CallImplementation: ICall
             DO.Assignment? assignment = _dal.Assignment.Read(assignmentId);
 
             // Check if the requester is authorized to cancel the assignment
-            bool isAuthorized = requesterId == assignment?.VolunteerId || CallManager.IsRequesterDirector(requesterId); 
+            bool isAuthorized = requesterId == assignment?.VolunteerId || CallManager.IsRequesterManager(requesterId); 
             if (!isAuthorized)
             {
                 throw new BO.BLInvalidOperationException("Requester is not authorized to cancel this assignment.");
@@ -165,7 +162,7 @@ internal class CallImplementation: ICall
             var updatedAssignment = assignment with
             {
                 End = AdminManager.Now,
-                MyEndStatus = requesterId == assignment.VolunteerId ? DO.EndStatus.SelfCancelled : DO.EndStatus.DirectorCancelled
+                MyEndStatus = requesterId == assignment.VolunteerId ? DO.EndStatus.SelfCancelled : DO.EndStatus.ManagerCancelled
             };
 
             // Attempt to update the assignment in the data layer
@@ -192,10 +189,14 @@ internal class CallImplementation: ICall
             DO.Call? call = _dal.Call.Read(callId) ?? throw new BO.BLDoesNotExistException($"Call with Id {callId} does not exist.");
 
             // Check if the call has already been treated or has an open assignment
-            var existingAssignments = _dal.Assignment.ReadAll(a => a.CallId == callId);
-            if (existingAssignments.Any(a => a.End == null))
+            IEnumerable<DO.Assignment>? assignments = _dal.Assignment.ReadAll().Where(assignment => assignment.CallId == callId);
+            if (assignments.Any(a => a.End == null))
             {
                 throw new BO.BLInvalidOperationException("The call is already being treated by another volunteer.");
+            }
+            if (assignments.Any(a => a.MyEndStatus == DO.EndStatus.Completed))
+            {
+                throw new BO.BLInvalidOperationException("The call is already completed.");
             }
 
             // Check if the call has expired
@@ -204,23 +205,22 @@ internal class CallImplementation: ICall
                 throw new BO.BLInvalidOperationException("The call has expired.");
             }
 
-            // Create a new assignment verifier !!!!!!!!!
+            // Create a new assignment 
             var newAssignment = new DO.Assignment
             {
                 CallId = callId,
                 VolunteerId = volunteerId,
-                Begin = DateTime.Now,
+                Begin = ClockManager.Now,
                 End = null,
-                //MyEndStatus = null verifier ca avec Sarah
+                MyEndStatus = null 
             };
 
             // Attempt to add the new assignment to the data layer
             _dal.Assignment.Create(newAssignment);
         }
-        catch (DO.DALException ex)
+        catch (DO.DalAlreadyExistException ex)
         {
-            Console.WriteLine(ex.Message);
-            throw new BO.BLException("An error occurred while assigning the call to the volunteer.", ex);
+            throw new BO.BLAlreadyExistException("An error occurred while assigning the call to the volunteer.", ex);
         }
     }
     public void DeleteCall(int callId)

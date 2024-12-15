@@ -297,7 +297,7 @@ internal class Program
             Console.Write("Longitude: ");
             double? longitude = double.TryParse(Console.ReadLine(), out double lon) ? lon : (double?)null;
 
-            Console.Write("Job (Director or Volunteer): ");
+            Console.Write("Job (Manager or Volunteer): ");
             Job job = Enum.TryParse(Console.ReadLine(), out Job parsedJob) ? parsedJob : Job.Volunteer;
 
             Console.Write("Active (true/false): ");
@@ -481,7 +481,7 @@ internal class Program
             Console.Write("Longitude: ");
             double? longitude = double.TryParse(Console.ReadLine(), out double lon) ? lon : (double?)null;
 
-            Console.Write("Job (Director or Volunteer): ");
+            Console.Write("Job (Manager or Volunteer): ");
             Job job = Enum.TryParse(Console.ReadLine(), out Job parsedJob) ? parsedJob : Job.Volunteer;
 
             Console.Write("Active (true/false): ");

@@ -37,7 +37,7 @@
     <Adress>67 Yafo Street, Jerusalem, Israel</Adress>
     <Latitude>31.783678</Latitude>
     <Longitude>35.216553</Longitude>
-    <MyJob>Director</MyJob>
+    <MyJob>Manager</MyJob>
     <active>true</active>
     <distance>93.27150358046937</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
@@ -247,7 +247,7 @@
     <Adress>101 Sderot Yerushalayim Street, Jerusalem, Israel</Adress>
     <Latitude>31.7797692</Latitude>
     <Longitude>35.1880402</Longitude>
-    <MyJob>Director</MyJob>
+    <MyJob>Manager</MyJob>
     <active>true</active>
     <distance>39.02759109644457</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>

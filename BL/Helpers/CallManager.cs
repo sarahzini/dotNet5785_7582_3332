@@ -128,10 +128,10 @@ internal static class CallManager
         else { return BO.Statuses.Open; }
 
     }
-    internal static bool IsRequesterDirector(int requesterId)
+    internal static bool IsRequesterManager(int requesterId)
     {
         DO.Volunteer? user = s_dal.Volunteer.Read(requesterId);
-        return user?.MyJob == DO.Job.Director;
+        return user?.MyJob == DO.Job.Manager;
     }
     internal static void ValidateCallDetails(BO.Call call)
     {

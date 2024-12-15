@@ -30,7 +30,7 @@
     <VolunteerId>13806271</VolunteerId>
     <Begin>2024-12-02T10:54:48</Begin>
     <End>2024-12-02T11:01:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1004</Id>
@@ -46,7 +46,7 @@
     <VolunteerId>39650275</VolunteerId>
     <Begin>2024-12-02T10:44:48</Begin>
     <End>2024-12-02T10:49:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1006</Id>
@@ -54,7 +54,7 @@
     <VolunteerId>37340114</VolunteerId>
     <Begin>2024-12-02T10:59:48</Begin>
     <End>2024-12-02T10:59:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1007</Id>
@@ -94,7 +94,7 @@
     <VolunteerId>10879274</VolunteerId>
     <Begin>2024-12-02T10:33:48</Begin>
     <End>2024-12-02T10:36:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1012</Id>
@@ -166,7 +166,7 @@
     <VolunteerId>13134481</VolunteerId>
     <Begin>2024-12-02T11:00:48</Begin>
     <End>2024-12-02T11:00:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1021</Id>
@@ -214,7 +214,7 @@
     <VolunteerId>39881912</VolunteerId>
     <Begin>2024-12-02T11:01:48</Begin>
     <End>2024-12-02T11:11:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1027</Id>
@@ -254,7 +254,7 @@
     <VolunteerId>30092139</VolunteerId>
     <Begin>2024-12-02T10:45:48</Begin>
     <End>2024-12-02T11:00:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1032</Id>
@@ -262,7 +262,7 @@
     <VolunteerId>12350252</VolunteerId>
     <Begin>2024-12-02T10:36:48</Begin>
     <End>2024-12-02T10:47:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1033</Id>
@@ -278,7 +278,7 @@
     <VolunteerId>13134481</VolunteerId>
     <Begin>2024-12-02T10:42:48</Begin>
     <End>2024-12-02T10:42:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1035</Id>
@@ -302,7 +302,7 @@
     <VolunteerId>19370684</VolunteerId>
     <Begin>2024-12-02T10:45:48</Begin>
     <End>2024-12-02T10:51:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1038</Id>
@@ -318,7 +318,7 @@
     <VolunteerId>30092139</VolunteerId>
     <Begin>2024-12-02T10:37:48</Begin>
     <End>2024-12-02T10:46:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1040</Id>
@@ -334,7 +334,7 @@
     <VolunteerId>33256634</VolunteerId>
     <Begin>2024-12-02T10:56:48</Begin>
     <End>2024-12-02T10:56:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1042</Id>
@@ -390,7 +390,7 @@
     <VolunteerId>33256634</VolunteerId>
     <Begin>2024-12-02T10:57:48</Begin>
     <End>2024-12-02T10:57:48</End>
-    <MyEndStatus>DirectorCancelled</MyEndStatus>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
     <Id>1049</Id>

@@ -10,27 +10,6 @@ namespace Helpers;
 internal static class VolunteerManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
-    internal static DO.Volunteer SearchVolunteer(Func<DO.Volunteer, bool> predicate)
-    {
-            DO.Volunteer? volunteer = s_dal.Volunteer.Read(predicate);
-            if (volunteer == null)
-            {
-                throw new BO.BLDoesNotExistException("Volunteer matching with this criteria does not exist");
-            }
-            return volunteer;
-
-    }
-    internal static IEnumerable<DO.Volunteer> GetVolunteers(Func<DO.Volunteer, bool>? predicate)
-    {
-        IEnumerable<DO.Volunteer>? volunteers = s_dal.Volunteer.ReadAll(predicate);
-        if (volunteers == null)
-        {
-            throw new BO.BLDoesNotExistException("Volunteers matching the specified criteria don't exist");
-        }
-        return volunteers;
-
-    }
-
     internal static void ValidateVolunteerDetails(BO.Volunteer volunteer)
     {
         var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
@@ -44,8 +23,6 @@ internal static class VolunteerManager
             throw new BO.BLFormatException("Invalid ID format.");
         }
     }
-
-    // Helper method to convert BO.Volunteer to DO.Volunteer
     internal static DO.Volunteer ConvertToDataVolunteer(BO.Volunteer volunteer)
     {
         return new DO.Volunteer
@@ -62,6 +39,37 @@ internal static class VolunteerManager
             active = volunteer.IsActive,
             distance = volunteer.MaxVolunteerDistance,
             MyWhichDistance = (DO.WhichDistance)volunteer.TransportType
+        };
+    }
+
+    internal static BO.VolunteerInList ConvertToVolunteerInList(DO.Volunteer v)
+    {
+        IEnumerable<DO.Assignment> assignments = s_dal.Assignment.ReadAll(a => a.VolunteerId == v.Id);
+
+        int completedCount=0, canceledCount=0, expiredCount=0;
+
+        foreach (var a in assignments)
+        {
+            _ = a.MyEndStatus switch
+            {
+                DO.EndStatus.Completed => completedCount++,
+                DO.EndStatus.SelfCancelled => canceledCount++,
+                DO.EndStatus.ManagerCancelled => canceledCount++,
+                DO.EndStatus.Expired => expiredCount++
+            };
+        }
+
+
+        return new BO.VolunteerInList
+        {
+            VolunteerId=v.Id,
+            Name=v.Name, 
+            IsActive=v.active,
+            CompletedCalls = completedCount,
+            CanceledCalls = canceledCount,
+            ExpiredCalls = expiredCount,
+            ActualCallId = assignments.FirstOrDefault(a => a.End == null)?.CallId,
+            TypeOfCall = (BO.SystemType)s_dal.Call.Read(c => c.Id == assignments.First().CallId).Choice 
         };
     }
 }

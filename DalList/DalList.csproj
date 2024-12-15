@@ -8,7 +8,7 @@
 		<OutputPath>$(SolutionDir)\bin\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-		<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+		<UseCommonOutputManagery>true</UseCommonOutputManagery>
 		<RootNamespace>Dal</RootNamespace>
 	</PropertyGroup>
 

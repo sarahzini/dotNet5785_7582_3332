@@ -92,10 +92,10 @@ public static class Initialization
     35.162764
 };
 
-        Job[] jobs = {Job.Volunteer, Job.Volunteer, Job.Director, Job.Volunteer, Job.Volunteer,
+        Job[] jobs = {Job.Volunteer, Job.Volunteer, Job.Manager, Job.Volunteer, Job.Volunteer,
             Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer,
             Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer,
-            Job.Director, Job.Volunteer, Job.Volunteer };
+            Job.Manager, Job.Volunteer, Job.Volunteer };
 
         bool[] actives = { true, true, true, true, true, true, false, true, true,
             true, true, true, false, true, true, true, true, true, false, true };
@@ -243,7 +243,7 @@ public static class Initialization
 
             if (endTime < call.EndDateTime)
             {
-                endStatus = (EndStatus)s_rand.Next(1, 3); // Randomly choose between Completed, SelfCancelled and DirectorCancelled
+                endStatus = (EndStatus)s_rand.Next(1, 3); // Randomly choose between Completed, SelfCancelled and ManagerCancelled
             }
             else
                 endStatus = EndStatus.Expired;

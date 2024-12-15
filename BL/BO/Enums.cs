@@ -5,7 +5,7 @@
 public enum Job
 {
     Volunteer,
-    Director
+    Manager  
 }
 public enum WhichDistance
 {
@@ -16,7 +16,8 @@ public enum WhichDistance
 public enum SystemType
 {
     ICUAmbulance,
-    RegularAmbulance
+    RegularAmbulance, 
+    None
 }
 public enum Statuses
 {
@@ -27,12 +28,11 @@ public enum Statuses
     OpenToRisk,
     InActionToRisk
 }
-
 public enum EndStatus
 {
     Completed,
     SelfCancelled,
-    DirectorCancelled,
+    ManagerCancelled,
     Expired
 }
 public enum TimeUnit 
@@ -44,13 +44,14 @@ public enum TimeUnit
     Year
 }
 
-public enum VolunteerFieldSort
+public enum VolunteerInListFieldSort
 {
     VolunteerId,
     Name,
     CompletedCalls,
     CancelledCalls,
-    ExpiredCalls
+    ExpiredCalls,
+    ActualCallId
 }
 
 public enum CallInListField

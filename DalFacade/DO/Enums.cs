@@ -4,7 +4,7 @@
 public enum Job 
 { 
     Volunteer, 
-    Director 
+    Manager 
 }
 public enum WhichDistance 
 {
@@ -15,13 +15,13 @@ public enum WhichDistance
 public enum SystemType 
 {
     ICUAmbulance, 
-    RegularAmbulance 
+    RegularAmbulance
 }
 public enum EndStatus
 {
     Completed,
     SelfCancelled, 
-    DirectorCancelled, 
+    ManagerCancelled, 
     Expired
 }
 public enum MainMenuOptions
