@@ -6,8 +6,7 @@ namespace Helpers;
 /// </summary>
 internal static class CallManager
 {
-    private static IDal s_dal = Factory.Get; //stage 4
-
+    private static IDal s_dal = Factory.Get; 
     internal static BO.CallInList ConvertToCallInList(DO.Call call)
     {
         IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.Id);
@@ -18,14 +17,7 @@ internal static class CallManager
         TimeSpan? exTime=null;
         if (assign?.End != null) exTime = assign.End - call.DateTime;
 
-        BO.Statuses status;
-        if (assign == null) { status = BO.Statuses.Open; }
-        else if (assign.End == null) { status = BO.Statuses.InAction; }
-        else if (assign.MyEndStatus == DO.EndStatus.Completed) { status = BO.Statuses.Closed; }
-        else if (assign.MyEndStatus == DO.EndStatus.Expired || (call.EndDateTime.HasValue && DateTime.Now > call.EndDateTime.Value)) { status = BO.Statuses.Expired; }
-        else if (call.EndDateTime.HasValue && DateTime.Now > call.EndDateTime.Value - s_dal.config.RiskRange) { status = assign.End == null ? BO.Statuses.InActionToRisk : BO.Statuses.OpenToRisk; }
-        else { status = BO.Statuses.Open; }
-
+        BO.Statuses status= ToDeterminateStatus(assign,call);
 
         return new BO.CallInList
         {
@@ -42,7 +34,6 @@ internal static class CallManager
 
 
     }
-
     internal static BO.ClosedCallInList ConvertToClosedCallInList(DO.Call call)
     {
         IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.Id);
@@ -59,7 +50,6 @@ internal static class CallManager
             TypeOfEnd = (BO.EndStatus)assign.MyEndStatus
         };
     }
-
     internal static BO.OpenCallInList ConvertToOpenCallInList(DO.Call call,int volunteerId)
     {
         double? volunteerLong = s_dal.Volunteer.Read(volunteerId).Longitude;
@@ -78,13 +68,71 @@ internal static class CallManager
             VolunteerDistanceToCall=distance
         };
     }
+    internal static DO.Call ConvertToDataCall(BO.Call call)
+    {
+        DO.Assignment? assign = AssignmentManager.SearchAssignment(assignment => assignment.CallId == call.CallId);
 
+        return new DO.Call
+        {
+            Id = call.CallId,
+            Address = call.CallAddress,
+            Latitude = call.CallLatitude,
+            Longitude = call.CallLongitude,
+            DateTime = call.BeginTime,
+            Choice = (DO.SystemType)call.TypeOfCall,
+            Description = call.Description,
+            EndDateTime = assign?.End
+        };
+    }
+    internal static BO.Call ConvertToLogicCall(DO.Call call)
+    {
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="call"></param>
-    /// <exception cref="BO.BLException"></exception>
+        // Get the call assignments from the data layer
+        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.Id);
+        DO.Assignment? assign = assignments.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
+
+        List<BO.CallAssignInList> CallAssignInList = assignments
+            .Select(assignment => new BO.CallAssignInList
+            {
+                VolunteerId = assignment.VolunteerId,
+                VolunteerName = s_dal.Volunteer.Read(assignment!.VolunteerId).Name,
+                BeginActionTime = assignment.Begin,
+                EndTime = assignment.End,
+                ClosureType = (BO.EndStatus)assignment!.MyEndStatus
+            })
+            .ToList();
+
+        BO.Statuses status=ToDeterminateStatus(assign,call);
+
+        return new BO.Call
+        {
+            CallId = call.Id,
+            TypeOfCall = (BO.SystemType)call.Choice,
+            Description = call.Description,
+            CallAddress = call.Address,
+            CallLatitude = call.Latitude,
+            CallLongitude = call.Longitude,
+            BeginTime = call.DateTime,
+            MaxEndTime = call.EndDateTime,
+            ClosureType = status,
+            CallAssigns = CallAssignInList
+        };
+    }
+    private static BO.Statuses ToDeterminateStatus(DO.Assignment assign, DO.Call call)
+    {
+        if (assign == null) { return BO.Statuses.Open; }
+        else if (assign.End == null) { return BO.Statuses.InAction; }
+        else if (assign.MyEndStatus == DO.EndStatus.Completed) { return BO.Statuses.Closed; }
+        else if (assign.MyEndStatus == DO.EndStatus.Expired || (call.EndDateTime.HasValue && DateTime.Now > call.EndDateTime.Value)) { return BO.Statuses.Expired; }
+        else if (call.EndDateTime.HasValue && DateTime.Now > call.EndDateTime.Value - s_dal.Config.RiskRange) { return assign.End == null ? BO.Statuses.InActionToRisk : BO.Statuses.OpenToRisk; }
+        else { return BO.Statuses.Open; }
+
+    }
+    internal static bool IsRequesterDirector(int requesterId)
+    {
+        DO.Volunteer? user = s_dal.Volunteer.Read(requesterId);
+        return user?.MyJob == DO.Job.Director;
+    }
     internal static void ValidateCallDetails(BO.Call call)
     {
         //checks wether the Maxendtime is greater than the call start time and the current time
@@ -97,7 +145,7 @@ internal static class CallManager
         {
             throw new BO.BLException("The coordinates of the call do not match the coordinates of the address.");
         }
-    }
+    } //??????????
 
     /// The HttpClient instance is used to make HTTP requests to external services.
     /// In the context of the CallManager class, it is used to interact with the LocationIQ API 
@@ -161,32 +209,6 @@ internal static class CallManager
     {
         return GetCoordinatesFromAddress(call.CallAddress) == (call.CallLatitude, call.CallLongitude);
 
-    }
-
-
-    /// <summary>
-    /// Helper method to check if the requester is a director
-    /// </summary>
-    /// <param name="requesterId"></param>
-    /// <returns></returns>
-    internal static bool IsRequesterDirector(int requesterId)
-    {
-        var user = s_dal.Volunteer.Read(requesterId);
-        return user != null && user.MyJob== Job.Director;
-    }
-    internal static DO.Call ConvertToLogicCall(BO.Call call)
-    {
-        return new DO.Call
-        {
-            Id = call.CallId,
-            Address = null,
-            Latitude = call.CallLatitude,
-            Longitude = call.CallLongitude,
-            DateTime = call.BeginTime,
-            Choice = (DO.SystemType)call.TypeOfCall,
-            Description = null,  //pas bon a changer
-            EndDateTime = null  //pas bon a changer
-        };
     }
 
 }

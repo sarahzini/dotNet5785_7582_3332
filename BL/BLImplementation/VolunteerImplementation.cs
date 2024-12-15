@@ -2,7 +2,7 @@
 using BIApi;
 using Helpers;
 
-namespace BIImplementation;
+namespace BLImplementation;
 
 internal class VolunteerImplementation:IVolunteer
 {
@@ -108,7 +108,7 @@ internal class VolunteerImplementation:IVolunteer
         {
             throw new BO.DalDoesNotExistException($"Volunteer with ID={volunteerId} does not exist");
         }
-    } //incomplete
+    } 
 
     public void UpdateVolunteerDetails(int requesterId, BO.Volunteer volunteer)
     {
@@ -146,7 +146,7 @@ internal class VolunteerImplementation:IVolunteer
             throw new BO.BLFormatException(ex.Message);
         }
 
-    }  //need to change update adress 
+    }   
 
     public void DeleteVolunteer(string volunteerId)
     {
@@ -165,7 +165,7 @@ internal class VolunteerImplementation:IVolunteer
         {
             throw new BO.BLDoesNotExistException($"Volunteer with the Id {volunteerId} does not exist");
         }
-    }  //incomplete
+    }  
 
     public void AddVolunteer(BO.Volunteer volunteer)
     {

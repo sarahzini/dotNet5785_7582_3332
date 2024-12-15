@@ -1,7 +1,7 @@
 ﻿using BIApi;
 using Helpers;
 
-namespace BIImplementation;
+namespace BLImplementation;
 internal class AdminImplementation : IAdmin
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
@@ -13,18 +13,18 @@ internal class AdminImplementation : IAdmin
 
     public void ResetDB()
     {
-        _dal.ResetDB(); 
+        _dal.ResetDB();
         ClockManager.UpdateClock(ClockManager.Now);
     }
 
-    public TimeSpan GetMaxRange() 
+    public TimeSpan GetRiskRange() 
     {
-        return _dal.config.RiskRange;
+        return _dal.Config.RiskRange;
     }
 
-    public void SetMaxRange(TimeSpan maxRange)
+    public void SetRiskRange(TimeSpan riskRange)
     {
-        _dal.config.RiskRange = maxRange;
+        _dal.Config.RiskRange = riskRange;
     }
 
     public DateTime GetClock() => ClockManager.Now;
