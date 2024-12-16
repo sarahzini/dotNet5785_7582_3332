@@ -7,8 +7,8 @@ public class ClosedCallInList
     public required string CallAddress { get; init; }
     public DateTime BeginTime { get; init; }
     public DateTime BeginActionTime { get; init; }
-    public DateTime? EndTime { get; set; } = null;
-    public EndStatus? TypeOfEnd { get; set; } = null;
+    public DateTime? EndEndActionTime { get; init; } = null;
+    public EndStatus? TypeOfEnd { get; init; } = null;
     public override string ToString() => Helpers.Tools.ToStringProperty(this);
 
 }

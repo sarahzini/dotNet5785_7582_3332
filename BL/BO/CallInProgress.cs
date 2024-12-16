@@ -13,7 +13,7 @@ public  class CallInProgress
     public DateTime? MaxEndTime { get; init; } = null;
     public DateTime BeginActionTime { get; init; }
     public double VolunteerDistanceToCall { get; init; }
-    public Statuses ClosureType { get; init; }
+    public Statuses Status { get; init; }
     public override string ToString() => Helpers.Tools.ToStringProperty(this);
 
 

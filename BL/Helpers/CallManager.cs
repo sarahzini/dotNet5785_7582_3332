@@ -1,5 +1,6 @@
 ﻿using BIApi;
 using DalApi;
+using System.Text.Json;
 namespace Helpers;
 /// <summary>
 /// All the Helpers methods that are used for the implementations of calls.

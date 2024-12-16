@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents an assignment of a volunteer to a call with various properties such as ID, call ID, volunteer ID, and timestamps.
 /// </summary>
-/// <param name="Id">Represents a unique identifier for the assignment, obtained from the configuration entity.</param>
+/// <param name="AssignmentId">Represents a unique identifier for the assignment, obtained from the configuration entity.</param>
 /// <param name="CallId">Represents the unique identifier of the call that the volunteer chose to handle.</param>
 /// <param name="VolunteerId">Represents the ID of the volunteer who chose to handle the call.</param>
 /// <param name="Begin">The date and time when the call was first taken by the volunteer.</param>
@@ -12,7 +12,7 @@
 public record Assignment
 (
     //The assignment properties
-    int Id,
+    int AssignmentId,
     int CallId,
     int VolunteerId,
     DateTime Begin,

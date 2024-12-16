@@ -5,279 +5,279 @@
     <Name>Sarah Cohen</Name>
     <PhoneNumber>052-3918274</PhoneNumber>
     <Email>Sarah.Cohen@gmail.com</Email>
-    <password>Sarah1234</password>
-    <Adress>12 Ben Yehuda Street, Jerusalem, Israel</Adress>
+    <Password>Sarah1234</Password>
+    <Address>12 Ben Yehuda Street, Jerusalem, Israel</Address>
     <Latitude>31.7815951</Latitude>
     <Longitude>35.2175388</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>59.847566279331964</distance>
-    <MyWhichDistance>WalkingDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>59.847566279331964</MaxDistance>
+    <MyDistanceType>WalkingDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>13806271</Id>
     <Name>Osher Mizrahi</Name>
     <PhoneNumber>050-5639842</PhoneNumber>
     <Email>Osher.Mizrahi@yahoo.com</Email>
-    <password>Mizrahi789</password>
-    <Adress>45 Hillel Street, Jerusalem, Israel</Adress>
+    <Password>Mizrahi789</Password>
+    <Address>45 Hillel Street, Jerusalem, Israel</Address>
     <Latitude>31.7793341</Latitude>
     <Longitude>35.2214706</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>47.312729513445596</distance>
-    <MyWhichDistance>WalkingDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>47.312729513445596</MaxDistance>
+    <MyDistanceType>WalkingDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>12350252</Id>
     <Name>Yaara Levi</Name>
     <PhoneNumber>054-1283795</PhoneNumber>
     <Email>Yaara.Levi@outlook.com</Email>
-    <password>YL2023</password>
-    <Adress>67 Yafo Street, Jerusalem, Israel</Adress>
+    <Password>YL2023</Password>
+    <Address>67 Yafo Street, Jerusalem, Israel</Address>
     <Latitude>31.783678</Latitude>
     <Longitude>35.216553</Longitude>
     <MyJob>Manager</MyJob>
-    <active>true</active>
-    <distance>93.27150358046937</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>93.27150358046937</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>30494756</Id>
     <Name>Eli Ben-David</Name>
     <PhoneNumber>053-6472391</PhoneNumber>
     <Email>Eli.BenDavid@mail.com</Email>
-    <password>EliBD2021</password>
-    <Adress>101 Herzl Street, Jerusalem, Israel</Adress>
+    <Password>EliBD2021</Password>
+    <Address>101 Herzl Street, Jerusalem, Israel</Address>
     <Latitude>31.780965</Latitude>
     <Longitude>35.188818</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>91.21916763935461</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>91.21916763935461</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>34274487</Id>
     <Name>Maya Shapiro</Name>
     <PhoneNumber>058-9042318</PhoneNumber>
     <Email>Maya.Shapiro@icloud.com</Email>
-    <password>Shapiro44A</password>
-    <Adress>23 King David Street, Jerusalem, Israel</Adress>
+    <Password>Shapiro44A</Password>
+    <Address>23 King David Street, Jerusalem, Israel</Address>
     <Latitude>31.7745543</Latitude>
     <Longitude>35.2226839</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>15.609264879253947</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>15.609264879253947</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>18180809</Id>
     <Name>Yair Katz</Name>
     <PhoneNumber>050-9834657</PhoneNumber>
     <Email>Yair.Katz@googlemail.com</Email>
-    <password>YairKatz99</password>
-    <Adress>56 Agron Street, Jerusalem, Israel</Adress>
+    <Password>YairKatz99</Password>
+    <Address>56 Agron Street, Jerusalem, Israel</Address>
     <Latitude>31.7779632</Latitude>
     <Longitude>35.2221859</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>81.33638597098332</distance>
-    <MyWhichDistance>DrivingDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>81.33638597098332</MaxDistance>
+    <MyDistanceType>DrivingDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>36986229</Id>
     <Name>Noa Peretz</Name>
     <PhoneNumber>052-7512386</PhoneNumber>
     <Email>Noa.Peretz@hotmail.com</Email>
-    <password>NoaP321</password>
-    <Adress>89 Shlomzion Hamalka Street, Jerusalem, Israel</Adress>
+    <Password>NoaP321</Password>
+    <Address>89 Shlomzion Hamalka Street, Jerusalem, Israel</Address>
     <Latitude>31.7788813</Latitude>
     <Longitude>35.2226822</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>false</active>
-    <distance>56.933570465081374</distance>
-    <MyWhichDistance>WalkingDistance</MyWhichDistance>
+    <IsActive>false</IsActive>
+    <MaxDistance>56.933570465081374</MaxDistance>
+    <MyDistanceType>WalkingDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>30092139</Id>
     <Name>Aviad Cohen</Name>
     <PhoneNumber>053-4326759</PhoneNumber>
     <Email>Aviad.Cohen@live.com</Email>
-    <password>Aviad567</password>
-    <Adress>32 King George Street, Jerusalem, Israel</Adress>
+    <Password>Aviad567</Password>
+    <Address>32 King George Street, Jerusalem, Israel</Address>
     <Latitude>31.779475</Latitude>
     <Longitude>35.215608</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>9.810013403577045</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>9.810013403577045</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>16414394</Id>
     <Name>Tamar Israeli</Name>
     <PhoneNumber>054-1863420</PhoneNumber>
     <Email>Tamar.Israeli@protonmail.com</Email>
-    <password>Xx1Ab2Cd3</password>
-    <Adress>78 Emek Refaim Street, Jerusalem, Israel</Adress>
+    <Password>Xx1Ab2Cd3</Password>
+    <Address>78 Emek Refaim Street, Jerusalem, Israel</Address>
     <Latitude>31.759882</Latitude>
     <Longitude>35.178086</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>9.904784795901744</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>9.904784795901744</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>39881912</Id>
     <Name>Lior Baruch</Name>
     <PhoneNumber>058-2917463</PhoneNumber>
     <Email>Lior.Baruch@aol.com</Email>
-    <password>Baruch2021</password>
-    <Adress>5 Derech Hevron, Jerusalem, Israel</Adress>
+    <Password>Baruch2021</Password>
+    <Address>5 Derech Hevron, Jerusalem, Israel</Address>
     <Latitude>31.779475</Latitude>
     <Longitude>35.2151934</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>81.85296957069549</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>81.85296957069549</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>39650275</Id>
     <Name>Daniella Rosen</Name>
     <PhoneNumber>050-3275641</PhoneNumber>
     <Email>Daniella.Rosen@zoho.com</Email>
-    <password>Daniella123R</password>
-    <Adress>14 Eliezer Kaplan Street, Jerusalem, Israel</Adress>
+    <Password>Daniella123R</Password>
+    <Address>14 Eliezer Kaplan Street, Jerusalem, Israel</Address>
     <Latitude>31.779277</Latitude>
     <Longitude>35.2017399</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>40.42850785568323</distance>
-    <MyWhichDistance>WalkingDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>40.42850785568323</MaxDistance>
+    <MyDistanceType>WalkingDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>37340114</Id>
     <Name>Oren Goldstein</Name>
     <PhoneNumber>052-5068493</PhoneNumber>
     <Email>Oren.Goldstein@fastmail.com</Email>
-    <password>OG9876</password>
-    <Adress>33 Shmuel Hanavi Street, Jerusalem, Israel</Adress>
+    <Password>OG9876</Password>
+    <Address>33 Shmuel Hanavi Street, Jerusalem, Israel</Address>
     <Latitude>31.7898752</Latitude>
     <Longitude>35.2249504</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>35.22545363169112</distance>
-    <MyWhichDistance>DrivingDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>35.22545363169112</MaxDistance>
+    <MyDistanceType>DrivingDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>29154755</Id>
     <Name>Michal Avrahami</Name>
     <PhoneNumber>053-7821594</PhoneNumber>
     <Email>Michal.Avrahami@ymail.com</Email>
-    <password>MichalA1001</password>
-    <Adress>8 Dov Hoz Street, Jerusalem, Israel</Adress>
+    <Password>MichalA1001</Password>
+    <Address>8 Dov Hoz Street, Jerusalem, Israel</Address>
     <Latitude>31.756329</Latitude>
     <Longitude>35.195831</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>false</active>
-    <distance>75.25573853641374</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>false</IsActive>
+    <MaxDistance>75.25573853641374</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>19370684</Id>
     <Name>Nadav Shulman</Name>
     <PhoneNumber>054-9342105</PhoneNumber>
     <Email>Nadav.Shulman@hushmail.com</Email>
-    <password>Shulman5555</password>
-    <Adress>50 Keren Hayesod Street, Jerusalem, Israel</Adress>
+    <Password>Shulman5555</Password>
+    <Address>50 Keren Hayesod Street, Jerusalem, Israel</Address>
     <Latitude>31.7716677</Latitude>
     <Longitude>35.2224285</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>83.91951862037486</distance>
-    <MyWhichDistance>WalkingDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>83.91951862037486</MaxDistance>
+    <MyDistanceType>WalkingDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>10879274</Id>
     <Name>Rachel Dubinsky</Name>
     <PhoneNumber>058-6120394</PhoneNumber>
     <Email>Rachel.Dubinsky@msn.com</Email>
-    <password>Rachel78</password>
-    <Adress>63 Tchernichovsky Street, Jerusalem, Israel</Adress>
+    <Password>Rachel78</Password>
+    <Address>63 Tchernichovsky Street, Jerusalem, Israel</Address>
     <Latitude>31.7632657</Latitude>
     <Longitude>35.2023972</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>90.68833623713856</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>90.68833623713856</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>13134481</Id>
     <Name>Uri Dahan</Name>
     <PhoneNumber>050-7461283</PhoneNumber>
     <Email>Uri.Dahan@comcast.net</Email>
-    <password>UD3456</password>
-    <Adress>29 Menachem Begin Street, Jerusalem, Israel</Adress>
+    <Password>UD3456</Password>
+    <Address>29 Menachem Begin Street, Jerusalem, Israel</Address>
     <Latitude>31.777348</Latitude>
     <Longitude>35.212409</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>6.511670873921361</distance>
-    <MyWhichDistance>DrivingDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>6.511670873921361</MaxDistance>
+    <MyDistanceType>DrivingDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>16069582</Id>
     <Name>Yael Chaimovitz</Name>
     <PhoneNumber>052-9784530</PhoneNumber>
     <Email>Yael.Chaimovitz@outlook.co.il</Email>
-    <password>YaelCh10</password>
-    <Adress>72 Malcha Street, Jerusalem, Israel</Adress>
+    <Password>YaelCh10</Password>
+    <Address>72 Malcha Street, Jerusalem, Israel</Address>
     <Latitude>31.7943135</Latitude>
     <Longitude>35.2244155</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>93.0831737275481</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>93.0831737275481</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>17747047</Id>
     <Name>Ronit Gross</Name>
     <PhoneNumber>053-5289761</PhoneNumber>
     <Email>Ronit.Gross@tutanota.com</Email>
-    <password>RonitG321</password>
-    <Adress>101 Sderot Yerushalayim Street, Jerusalem, Israel</Adress>
+    <Password>RonitG321</Password>
+    <Address>101 Sderot Yerushalayim Street, Jerusalem, Israel</Address>
     <Latitude>31.7797692</Latitude>
     <Longitude>35.1880402</Longitude>
     <MyJob>Manager</MyJob>
-    <active>true</active>
-    <distance>39.02759109644457</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>39.02759109644457</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>17243588</Id>
     <Name>Meir Ziv</Name>
     <PhoneNumber>054-3175928</PhoneNumber>
     <Email>Meir.Ziv@me.com</Email>
-    <password>MeirZ2022</password>
-    <Adress>120 Shalom Aleichem Street, Jerusalem, Israel</Adress>
+    <Password>MeirZ2022</Password>
+    <Address>120 Shalom Aleichem Street, Jerusalem, Israel</Address>
     <Latitude>31.771344</Latitude>
     <Longitude>35.2207611</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>false</active>
-    <distance>40.5222742772837</distance>
-    <MyWhichDistance>DrivingDistance</MyWhichDistance>
+    <IsActive>false</IsActive>
+    <MaxDistance>40.5222742772837</MaxDistance>
+    <MyDistanceType>DrivingDistance</MyDistanceType>
   </Volunteer>
   <Volunteer>
     <Id>13089336</Id>
     <Name>Tal Ben-Ari</Name>
     <PhoneNumber>058-8456201</PhoneNumber>
     <Email>Tal.BenAri@icloud.com</Email>
-    <password>TalBen22A</password>
-    <Adress>57 Har Homa Street, Jerusalem, Israel</Adress>
+    <Password>TalBen22A</Password>
+    <Address>57 Har Homa Street, Jerusalem, Israel</Address>
     <Latitude>31.7677499</Latitude>
     <Longitude>35.162764</Longitude>
     <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>5.769445637506654</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
+    <IsActive>true</IsActive>
+    <MaxDistance>5.769445637506654</MaxDistance>
+    <MyDistanceType>AirDistance</MyDistanceType>
   </Volunteer>
 </Volunteers>

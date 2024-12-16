@@ -1,12 +1,13 @@
 ﻿namespace DO;
-
-//The enum that are used in different methods 
+/// <summary>
+/// The enum that are used in different methods 
+/// </summary>
 public enum Job 
 { 
     Volunteer, 
     Manager 
 }
-public enum WhichDistance 
+public enum DistanceType 
 {
     AirDistance, 
     WalkingDistance, 

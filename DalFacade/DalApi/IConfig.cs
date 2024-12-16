@@ -1,4 +1,7 @@
 ﻿namespace DalApi;
+/// <summary>
+/// 
+/// </summary>
 public interface IConfig
 {
     DateTime Clock { get; set; }

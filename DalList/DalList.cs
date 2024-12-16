@@ -15,7 +15,7 @@ sealed internal class DalList : IDal
     public IVolunteer Volunteer { get; } = new VolunteerImplementation();
     public ICall Call { get; } = new CallImplementations();
     public IAssignment Assignment { get; } = new AssignmentImplementation();
-    public IConfig config { get; } = new ConfigImplementation();
+    public IConfig Config { get; } = new ConfigImplementation();
 
     // Resets the database by deleting all records from each entity and also resetting the configuration.
     public void ResetDB()

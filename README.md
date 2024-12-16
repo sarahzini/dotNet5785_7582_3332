@@ -12,7 +12,7 @@ Stage 1
 5.	Exceptions.
 6.	User Interface (Console) - Data layer testing program.
 7.	Creating an initial database.
-Bonus : Implementing password for each volunteer.
+Bonus : Implementing Password for each volunteer.
 
 Stage 2 
 1. Create a unified service contract for the data layer using a generic interface and inherit from it.

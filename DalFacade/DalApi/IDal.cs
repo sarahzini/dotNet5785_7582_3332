@@ -1,4 +1,8 @@
 ﻿namespace DalApi;
+
+/// <summary>
+/// 
+/// </summary>
 public interface IDal
 {
     IVolunteer Volunteer { get; }

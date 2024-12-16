@@ -16,8 +16,8 @@ namespace DaleTest;
 //•	AssignmentMenu, CallMenu, VolunteerMenu: Displays a CRUD menu for managing assignments, calls, or volunteers.
 //•	InitializeData: Initializes data using the provided data access layer(DAL) objects.
 //•	DisplayAllData: Displays all data for volunteers, calls, and assignments.
-//•	ConfigMenu: Displays the configuration menu for managing application settings.
-//•	DeleteAndReset: Deletes all data and resets the configuration.
+//•	ConfigMenu: Displays the Configuration menu for managing application settings.
+//•	DeleteAndReset: Deletes all data and resets the Configuration.
 //
 //Exception Handling: Any exceptions that occur are caught and an error message is displayed.
 ///// </summary>
@@ -28,9 +28,6 @@ internal class Program
 
     // Initializes a static readonly instance of DalXml to manage data access operations.
     // static readonly IDal s_dal = new DalXml(); //stage 3
-
-    //initializes the s_dal field with an instance of IDal using the factory pattern.
-    static readonly IDal s_dal = Factory.Get; //stage 4
 
     private static void Main(string[] args)
     {
@@ -71,7 +68,7 @@ internal class Program
                         DisplayAllData();
                         break;
                     case MainMenuOptions.ConfigMenu:
-                        // Displaying the configuration menu
+                        // Displaying the Configuration menu
                         DisplayConfigMenu();
                         break;
                     case MainMenuOptions.DeleteAndReset:
@@ -185,12 +182,12 @@ internal class Program
         ReadAllEntities(s_dal!.Assignment);
     }
 
-    // Displaying the configuration menu for managing application settings
+    // Displaying the Configuration menu for managing application settings
     private static void DisplayConfigMenu()
     {
         while (true)
         {
-            // Displaying the configuration menu options
+            // Displaying the Configuration menu options
             Console.WriteLine("Config Menu:");
             Console.WriteLine("0. Exit");
             Console.WriteLine("1. Advance Clock by a Minute");
@@ -208,31 +205,31 @@ internal class Program
                 switch (choice)
                 {
                     case 0:
-                        // Exiting the configuration menu
+                        // Exiting the Configuration menu
                         return;
                     case 1:
                         // Advancing the clock one minute (only if s_dalConfig isn't null)
-                        s_dal!.config.Clock = s_dal!.config.Clock.AddMinutes(1);
+                        s_dal!.Config.Clock = s_dal!.Config.Clock.AddMinutes(1);
                         break;
                     case 2:
                         // Advancing the clock by one hour
-                        s_dal!.config!.Clock = s_dal!.config.Clock.AddHours(1);
+                        s_dal!.Config!.Clock = s_dal!.Config.Clock.AddHours(1);
                         break;
                     case 3:
                         // Displaying the current clock value
-                        Console.WriteLine(s_dal!.config!.Clock);
+                        Console.WriteLine(s_dal!.Config!.Clock);
                         break;
                     case 4:
-                        // Seting a new configuration value
+                        // Seting a new Configuration value
                         SetNewConfigValue();
                         break;
                     case 5:
-                        // Displaying a new configuration value
+                        // Displaying a new Configuration value
                         DisplayCurrentConfigValue();
                         break;
                     case 6:
-                        // Resetting the configuration 
-                        s_dal!.config!.Reset();
+                        // Resetting the Configuration 
+                        s_dal!.Config!.Reset();
                         break;
                 }
             }
@@ -244,7 +241,7 @@ internal class Program
         }
     }
 
-    // This method deletes all the entities from the data access layers and resets the configuration.
+    // This method deletes all the entities from the data access layers and resets the Configuration.
     private static void DeleteReset()
     {
         if (s_dal!.Volunteer != null)
@@ -253,8 +250,8 @@ internal class Program
             s_dal!.Call.DeleteAll();
         if (s_dal!.Assignment != null)
             s_dal!.Assignment.DeleteAll();
-        if (s_dal!.config != null)
-            s_dal!.config.Reset();
+        if (s_dal!.Config != null)
+            s_dal!.Config.Reset();
 
     }
 
@@ -279,12 +276,12 @@ internal class Program
             string email = Console.ReadLine() ?? "";
 
             //bonus
-            string password = GenerateRandomPassword();
-            Console.Write($"The administration has created a password: {password}" +
+            string Password = GenerateRandomPassword();
+            Console.Write($"The administration has created a Password: {Password}" +
                 $" Do you want to change it? If yes, press 1, otherwise press any other key.\n");
             Console.Write("Password (Include at least one uppercase letter and one number): ");
             int choice = int.Parse(Console.ReadLine() ?? "2");
-            if (choice == 1) { ChangePassword(ref password); }
+            if (choice == 1) { ChangePassword(ref Password); }
 
             Console.Write("Address: ");
             string? address = Console.ReadLine();
@@ -307,10 +304,10 @@ internal class Program
             double? distance = double.TryParse(Console.ReadLine(), out double dist) ? dist : (double?)null;
 
             Console.Write("Which Distance: ");
-            WhichDistance whichDistance = Enum.TryParse(Console.ReadLine(), out WhichDistance parsedDistance) ? parsedDistance : WhichDistance.AirDistance;
+            DistanceType whichDistance = Enum.TryParse(Console.ReadLine(), out DistanceType parsedDistance) ? parsedDistance : DistanceType.AirDistance;
 
             // Create new Volunteer object
-            Volunteer newVolunteer = new Volunteer(id, name, phoneNumber, email, password, address, latitude, longitude, job, active, distance, whichDistance);
+            Volunteer newVolunteer = new Volunteer(id, name, phoneNumber, email, Password, address, latitude, longitude, job, active, distance, whichDistance);
 
             // Add Volunteer to DAL
             volunteerDal.Create(newVolunteer);
@@ -468,7 +465,7 @@ internal class Program
             string email = Console.ReadLine() ?? "";
 
             Console.Write("Password: ");
-            string password = Console.ReadLine() ?? "";
+            string Password = Console.ReadLine() ?? "";
 
             Console.Write("Address: ");
             string? address = Console.ReadLine();
@@ -491,10 +488,10 @@ internal class Program
             double? distance = double.TryParse(Console.ReadLine(), out double dist) ? dist : (double?)null;
 
             Console.Write("Which Distance: ");
-            WhichDistance whichDistance = Enum.TryParse(Console.ReadLine(), out WhichDistance parsedDistance) ? parsedDistance : WhichDistance.AirDistance;
+            DistanceType whichDistance = Enum.TryParse(Console.ReadLine(), out DistanceType parsedDistance) ? parsedDistance : DistanceType.AirDistance;
 
             // Create new Volunteer object
-            Volunteer newVolunteer = new Volunteer(id, name, phoneNumber, email, password, address, latitude, longitude, job, active, distance, whichDistance);
+            Volunteer newVolunteer = new Volunteer(id, name, phoneNumber, email, Password, address, latitude, longitude, job, active, distance, whichDistance);
 
             // Add Volunteer to DAL
             volunteerDal.Update(newVolunteer);
@@ -592,13 +589,13 @@ internal class Program
             assignmentDal.DeleteAll();
     }
     
-    //Setting a new configuration value depending on the user's value
+    //Setting a new Configuration value depending on the user's value
     private static void SetNewConfigValue()
     {
         int choice = 2;
         do
         {
-            Console.Write("Please enter 0 to config a RiskRange and 1 to config Clock (in minutes) ");
+            Console.Write("Please enter 0 to Config a RiskRange and 1 to Config Clock (in minutes) ");
             choice = int.Parse(Console.ReadLine() ?? "2");
 
         }
@@ -608,27 +605,27 @@ internal class Program
         int value = int.Parse(Console.ReadLine() ?? "0");
 
         if (choice==0)
-            s_dal!.config!.Clock= DateTime.Now.AddMinutes(value);
+            s_dal!.Config!.Clock= DateTime.Now.AddMinutes(value);
         else
-            s_dal!.config!.RiskRange = TimeSpan.FromMinutes(value);
+            s_dal!.Config!.RiskRange = TimeSpan.FromMinutes(value);
     }
 
-    // This method displays the current configuration values.
+    // This method displays the current Configuration values.
     private static void DisplayCurrentConfigValue()
     {
-        Console.WriteLine("Here are all the configuration values:");
-        Console.WriteLine($"Risk Range: {s_dal!.config!.RiskRange}");
-        Console.WriteLine($"Clock: {s_dal!.config!.Clock}/n");
+        Console.WriteLine("Here are all the Configuration values:");
+        Console.WriteLine($"Risk Range: {s_dal!.Config!.RiskRange}");
+        Console.WriteLine($"Clock: {s_dal!.Config!.Clock}/n");
     }
 
-    //This method is used to change the password of the volunteer by his choice
-    private static void ChangePassword(ref string password)
+    //This method is used to change the Password of the volunteer by his choice
+    private static void ChangePassword(ref string Password)
     {
         do
         {
-            password = Console.ReadLine() ?? "";
+            Password = Console.ReadLine() ?? "";
             // string class functions Any, IsUpper, IsDigit
-            if (password.Any(char.IsUpper) && password.Any(char.IsDigit))
+            if (Password.Any(char.IsUpper) && Password.Any(char.IsDigit))
             {
                 break;
             }
@@ -638,8 +635,8 @@ internal class Program
     }
 
     // this function was generated by AI 
-    //The GenerateRandomPassword method generates a random password containing at least one uppercase letter,
-    /// one number, and a mix of other characters. The password has a length of 6 characters. 
+    //The GenerateRandomPassword method generates a random Password containing at least one uppercase letter,
+    /// one number, and a mix of other characters. The Password has a length of 6 characters. 
     private static string GenerateRandomPassword()
     {
         const string lowerChars = "abcdefghijklmnopqrstuvwxyz";
@@ -648,20 +645,20 @@ internal class Program
         const string allChars = lowerChars + upperChars + digits;
 
         Random random = new Random();
-        StringBuilder password = new StringBuilder();
+        StringBuilder Password = new StringBuilder();
 
         // Ensure at least one uppercase letter and one digit
-        password.Append(upperChars[random.Next(upperChars.Length)]);
-        password.Append(digits[random.Next(digits.Length)]);
+        Password.Append(upperChars[random.Next(upperChars.Length)]);
+        Password.Append(digits[random.Next(digits.Length)]);
 
-        // Fill the rest of the password length (6 characters) with random characters
+        // Fill the rest of the Password length (6 characters) with random characters
         for (int i = 2; i < 6; i++)
         {
-            password.Append(allChars[random.Next(allChars.Length)]);
+            Password.Append(allChars[random.Next(allChars.Length)]);
         }
 
-        // Shuffle the characters in the password to ensure randomness
-        return new string(password.ToString().OrderBy(c => random.Next()).ToArray());
+        // Shuffle the characters in the Password to ensure randomness
+        return new string(Password.ToString().OrderBy(c => random.Next()).ToArray());
     }
 }
 

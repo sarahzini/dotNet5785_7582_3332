@@ -11,8 +11,8 @@ static class XMLTools
     const string s_xmlDir = @"..\xml\";
     static XMLTools()
     {
-        if (!Managery.Exists(s_xmlDir))
-            Managery.CreateManagery(s_xmlDir);
+        if (!Directory.Exists(s_xmlDir))
+            Directory.CreateDirectory(s_xmlDir);
     }
 
     #region SaveLoadWithXMLSerializer
@@ -115,7 +115,6 @@ static class XMLTools
         XMLTools.SaveListToXMLElement(root, xmlFileName);
     }
     #endregion
-
 
     #region ExtensionFuctions
     public static T? ToEnumNullable<T>(this XElement element, string name) where T : struct, Enum =>

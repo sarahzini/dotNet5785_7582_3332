@@ -21,7 +21,7 @@ sealed internal class DalXml : IDal
     public IAssignment Assignment { get; } = new AssignmentImplementation();
 
     //Gets the implementation for managing configuration settings.
-    public IConfig config { get; } = new ConfigImplementation();
+    public IConfig Config { get; } = new ConfigImplementation();
 
     // Resets the database by deleting all Volunteer, Call, and Assignment records, and resetting the configuration.
     public void ResetDB()

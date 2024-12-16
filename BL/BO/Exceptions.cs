@@ -23,9 +23,7 @@ public class BLAlreadyExistException : Exception
 public class BLIncorrectPassword : Exception
 {
     public BLIncorrectPassword(string? message) : base(message) { }
-    public BLIncorrectPassword(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
+    
 }
 
 [Serializable]
@@ -38,15 +36,13 @@ public class BLFormatException : Exception
 public class BLInvalidOperationException : Exception
 {
     public BLInvalidOperationException(string? message) : base(message) { }
-    public BLInvalidOperationException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
 }
+
 [Serializable]
-public class BLAlreadyCompleted : Exception
+public class BLXMLFileLoadCreateException : Exception
 {
-    public BLAlreadyCompleted(string? message) : base(message) { }
-    public BLAlreadyCompleted(string? message, Exception? innerException) : base(message, innerException)
+    public BLXMLFileLoadCreateException(string? message) : base(message) { }
+    public BLXMLFileLoadCreateException(string? message, Exception? innerException) : base(message, innerException)
     {
     }
 }

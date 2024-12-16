@@ -3,14 +3,14 @@
 public class Call
 {
     public int CallId { get; init; }
-    public SystemType TypeOfCall { get; set; }
-    public string? Description { get; set; } = null;
-    public string CallAddress { get; set; } = null;
-    public double? CallLatitude { get; set; } = null;
-    public double? CallLongitude { get; set; } = null;
-    public DateTime BeginTime { get; set; }
+    public SystemType TypeOfCall { get; init; }
+    public string? Description { get; init; } = null;
+    public required string CallAddress { get; set; }
+    public double CallLatitude { get; set; }
+    public double CallLongitude { get; set; }
+    public DateTime BeginTime { get; init; }
     public DateTime? MaxEndTime { get; set; } = null;
-    public Statuses ClosureType { get; set; }
+    public Statuses Status { get; set; }
     public List<BO.CallAssignInList>? CallAssigns { get; set; } = null;
     public override string ToString() => Helpers.Tools.ToStringProperty(this);
 }

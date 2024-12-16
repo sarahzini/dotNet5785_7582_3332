@@ -15,7 +15,7 @@ public static class Initialization
 
     private static void createVolunteers()
     {
-        //all these arrays was written by AI (excepted adresses/longitude/latitude)
+        //all these arrays was written by AI (excepted Addresses/longitude/latitude)
 
         string[] names = { "Sarah Cohen", "Osher Mizrahi", "Yaara Levi", "Eli Ben-David", "Maya Shapiro", "Yair Katz",
             "Noa Peretz", "Aviad Cohen", "Tamar Israeli", "Lior Baruch", "Daniella Rosen", "Oren Goldstein",
@@ -32,12 +32,12 @@ public static class Initialization
             "Michal.Avrahami@ymail.com", "Nadav.Shulman@hushmail.com", "Rachel.Dubinsky@msn.com", "Uri.Dahan@comcast.net",
             "Yael.Chaimovitz@outlook.co.il", "Ronit.Gross@tutanota.com", "Meir.Ziv@me.com", "Tal.BenAri@icloud.com" };
 
-        string[] passwords = {"Sarah1234", "Mizrahi789", "YL2023", "EliBD2021", "Shapiro44A", "YairKatz99",
+        string[] Passwords = {"Sarah1234", "Mizrahi789", "YL2023", "EliBD2021", "Shapiro44A", "YairKatz99",
             "NoaP321", "Aviad567", "Xx1Ab2Cd3", "Baruch2021", "Daniella123R", "OG9876",
             "MichalA1001", "Shulman5555", "Rachel78", "UD3456", "YaelCh10", "RonitG321",
             "MeirZ2022", "TalBen22A" };
 
-        string[] adresses = {"12 Ben Yehuda Street, Jerusalem, Israel", "45 Hillel Street, Jerusalem, Israel", "67 Yafo Street, Jerusalem, Israel",
+        string[] Addresses = {"12 Ben Yehuda Street, Jerusalem, Israel", "45 Hillel Street, Jerusalem, Israel", "67 Yafo Street, Jerusalem, Israel",
                              "101 Herzl Street, Jerusalem, Israel", "23 King David Street, Jerusalem, Israel", "56 Agron Street, Jerusalem, Israel",
                              "89 Shlomzion Hamalka Street, Jerusalem, Israel", "32 King George Street, Jerusalem, Israel", "78 Emek Refaim Street, Jerusalem, Israel",
                              "5 Derech Hevron, Jerusalem, Israel", "14 Eliezer Kaplan Street, Jerusalem, Israel", "33 Shmuel Hanavi Street, Jerusalem, Israel",
@@ -100,13 +100,13 @@ public static class Initialization
         bool[] actives = { true, true, true, true, true, true, false, true, true,
             true, true, true, false, true, true, true, true, true, false, true };
 
-        WhichDistance[] whichDistances = {WhichDistance.WalkingDistance, WhichDistance.WalkingDistance,
-            WhichDistance.AirDistance, WhichDistance.AirDistance, WhichDistance.AirDistance,
-            WhichDistance.DrivingDistance, WhichDistance.WalkingDistance, WhichDistance.AirDistance,
-            WhichDistance.AirDistance, WhichDistance.AirDistance, WhichDistance.WalkingDistance,
-            WhichDistance.DrivingDistance, WhichDistance.AirDistance, WhichDistance.WalkingDistance,
-            WhichDistance.AirDistance, WhichDistance.DrivingDistance, WhichDistance.AirDistance,
-            WhichDistance.AirDistance, WhichDistance.DrivingDistance, WhichDistance.AirDistance };
+        DistanceType[] DistanceTypes = {DistanceType.WalkingDistance, DistanceType.WalkingDistance,
+            DistanceType.AirDistance, DistanceType.AirDistance, DistanceType.AirDistance,
+            DistanceType.DrivingDistance, DistanceType.WalkingDistance, DistanceType.AirDistance,
+            DistanceType.AirDistance, DistanceType.AirDistance, DistanceType.WalkingDistance,
+            DistanceType.DrivingDistance, DistanceType.AirDistance, DistanceType.WalkingDistance,
+            DistanceType.AirDistance, DistanceType.DrivingDistance, DistanceType.AirDistance,
+            DistanceType.AirDistance, DistanceType.DrivingDistance, DistanceType.AirDistance };
 
         for (int i = 0; i < names.Length; i++)
         {
@@ -117,9 +117,9 @@ public static class Initialization
                 double maxDistance = s_rand.NextDouble() * 100; // Example: random distance between 0 and 100 km.
 
                 // Create a new volunteer object and add it to the data source.
-                Volunteer volunteer = new(id, names[i], phoneNumbers[i], emails[i], passwords[i],
-                    adresses[i], latitudes[i], longitudes[i], jobs[i], actives[i], 
-                    maxDistance, whichDistances[i]);
+                Volunteer volunteer = new(id, names[i], phoneNumbers[i], emails[i], Passwords[i],
+                    Addresses[i], latitudes[i], longitudes[i], jobs[i], actives[i], 
+                    maxDistance, DistanceTypes[i]);
                 s_dal!.Volunteer?.Create(volunteer);
             }
         }
@@ -195,7 +195,7 @@ public static class Initialization
 
         for (int i = 0; i < addresses.Length; i++)
         {
-            DateTime start = s_dal!.config.Clock.AddMinutes(-40); // 40 minutes before the current time
+            DateTime start = s_dal!.Config.Clock.AddMinutes(-40); // 40 minutes before the current time
             int range = 30; // The maximum gap in minutes, here 30 minutes
             DateTime startTime = start.AddMinutes(s_rand.Next(range)); // The end time is random between 0 and 30 minutes after the start time
             DateTime endTime = startTime.AddMinutes(s_rand.Next(30));
@@ -231,17 +231,17 @@ public static class Initialization
         foreach (var call in calls)
         {
             // Randomly select a volunteer from the active volunteers
-            List<Volunteer> activeVolunteers = volunteers.Where(v => v.active).ToList();
+            List<Volunteer> activeVolunteers = volunteers.Where(v => v.IsActive).ToList();
             Volunteer volunteer = activeVolunteers[s_rand.Next(activeVolunteers.Count)];
 
             // Generate random start time for the assignment between the start of the call and 20 minutes after
-            DateTime startTime = call.DateTime.AddMinutes(s_rand.Next(20));
+            DateTime startTime = call.OpenTime.AddMinutes(s_rand.Next(20));
 
             // Generate random end time for the assignment
             DateTime endTime = startTime.AddMinutes(s_rand.Next(20));
             EndStatus endStatus = EndStatus.Completed;
 
-            if (endTime < call.EndDateTime)
+            if (endTime < call.MaxEnd)
             {
                 endStatus = (EndStatus)s_rand.Next(1, 3); // Randomly choose between Completed, SelfCancelled and ManagerCancelled
             }
@@ -249,7 +249,7 @@ public static class Initialization
                 endStatus = EndStatus.Expired;
 
             // Create the assignment
-            Assignment assignment = new(0, call.Id, volunteer.Id, startTime, endTime, endStatus);
+            Assignment assignment = new(0, call.CallId, volunteer.VolunteerId, startTime, endTime, endStatus);
             s_dal!.Assignment?.Create(assignment);
 
         }

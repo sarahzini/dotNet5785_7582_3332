@@ -7,7 +7,7 @@ public enum Job
     Volunteer,
     Manager  
 }
-public enum WhichDistance
+public enum DistanceType
 {
     AirDistance,
     WalkingDistance,
