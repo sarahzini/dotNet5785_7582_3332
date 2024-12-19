@@ -1,403 +1,403 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assignment>
-    <Id>1000</Id>
+    <AssignmentId>1000</AssignmentId>
     <CallId>100000050</CallId>
-    <VolunteerId>17747047</VolunteerId>
-    <Begin>2024-12-02T10:44:48</Begin>
-    <End>2024-12-02T10:58:48</End>
+    <VolunteerId>36284150</VolunteerId>
+    <Begin>2024-12-20T00:26:35</Begin>
+    <End>2024-12-20T00:35:35</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1001</Id>
+    <AssignmentId>1001</AssignmentId>
     <CallId>100000051</CallId>
-    <VolunteerId>13134481</VolunteerId>
-    <Begin>2024-12-02T10:57:48</Begin>
-    <End>2024-12-02T11:09:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
+    <VolunteerId>36264187</VolunteerId>
+    <Begin>2024-12-20T00:23:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1002</Id>
+    <AssignmentId>1002</AssignmentId>
     <CallId>100000052</CallId>
-    <VolunteerId>30494756</VolunteerId>
-    <Begin>2024-12-02T10:33:48</Begin>
-    <End>2024-12-02T10:38:48</End>
-    <MyEndStatus>SelfCancelled</MyEndStatus>
+    <VolunteerId>39076711</VolunteerId>
+    <Begin>2024-12-20T00:26:35</Begin>
+    <End>2024-12-20T00:33:35</End>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1003</Id>
+    <AssignmentId>1003</AssignmentId>
     <CallId>100000053</CallId>
-    <VolunteerId>13806271</VolunteerId>
-    <Begin>2024-12-02T10:54:48</Begin>
-    <End>2024-12-02T11:01:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
+    <VolunteerId>12941421</VolunteerId>
+    <Begin>2024-12-20T00:21:35</Begin>
+    <End>2024-12-20T00:40:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1004</Id>
+    <AssignmentId>1004</AssignmentId>
     <CallId>100000054</CallId>
-    <VolunteerId>16414394</VolunteerId>
-    <Begin>2024-12-02T11:01:48</Begin>
-    <End>2024-12-02T11:04:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
+    <VolunteerId>38986037</VolunteerId>
+    <Begin>2024-12-20T00:05:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1005</Id>
+    <AssignmentId>1005</AssignmentId>
     <CallId>100000055</CallId>
-    <VolunteerId>39650275</VolunteerId>
-    <Begin>2024-12-02T10:44:48</Begin>
-    <End>2024-12-02T10:49:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
+    <VolunteerId>12941421</VolunteerId>
+    <Begin>2024-12-20T00:36:35</Begin>
+    <End>2024-12-20T00:53:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1006</Id>
+    <AssignmentId>1006</AssignmentId>
     <CallId>100000056</CallId>
-    <VolunteerId>37340114</VolunteerId>
-    <Begin>2024-12-02T10:59:48</Begin>
-    <End>2024-12-02T10:59:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
+    <VolunteerId>25220407</VolunteerId>
+    <Begin>2024-12-20T00:16:35</Begin>
+    <End>2024-12-20T00:25:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1007</Id>
+    <AssignmentId>1007</AssignmentId>
     <CallId>100000057</CallId>
-    <VolunteerId>30092139</VolunteerId>
-    <Begin>2024-12-02T10:43:48</Begin>
-    <End>2024-12-02T10:44:48</End>
-    <MyEndStatus>SelfCancelled</MyEndStatus>
+    <VolunteerId>36883618</VolunteerId>
+    <Begin>2024-12-20T00:14:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1008</Id>
+    <AssignmentId>1008</AssignmentId>
     <CallId>100000058</CallId>
-    <VolunteerId>10879274</VolunteerId>
-    <Begin>2024-12-02T11:15:48</Begin>
-    <End>2024-12-02T11:30:48</End>
+    <VolunteerId>33734430</VolunteerId>
+    <Begin>2024-12-20T00:07:35</Begin>
+    <End>2024-12-20T00:21:35</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1009</Id>
+    <AssignmentId>1009</AssignmentId>
     <CallId>100000059</CallId>
-    <VolunteerId>13134481</VolunteerId>
-    <Begin>2024-12-02T10:47:48</Begin>
-    <End>2024-12-02T11:02:48</End>
+    <VolunteerId>25220407</VolunteerId>
+    <Begin>2024-12-20T00:11:35</Begin>
+    <End>2024-12-20T00:17:35</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1010</Id>
+    <AssignmentId>1010</AssignmentId>
     <CallId>100000060</CallId>
-    <VolunteerId>13134481</VolunteerId>
-    <Begin>2024-12-02T10:59:48</Begin>
-    <End>2024-12-02T11:15:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
+    <VolunteerId>16081762</VolunteerId>
+    <Begin>2024-12-20T00:07:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1011</Id>
+    <AssignmentId>1011</AssignmentId>
     <CallId>100000061</CallId>
-    <VolunteerId>10879274</VolunteerId>
-    <Begin>2024-12-02T10:33:48</Begin>
-    <End>2024-12-02T10:36:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
+    <VolunteerId>36284150</VolunteerId>
+    <Begin>2024-12-20T00:07:35</Begin>
+    <End>2024-12-20T00:22:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1012</Id>
+    <AssignmentId>1012</AssignmentId>
     <CallId>100000062</CallId>
-    <VolunteerId>30092139</VolunteerId>
-    <Begin>2024-12-02T10:54:48</Begin>
-    <End>2024-12-02T11:00:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
+    <VolunteerId>16483478</VolunteerId>
+    <Begin>2024-12-20T00:32:35</Begin>
+    <End>2024-12-20T00:39:35</End>
+    <MyEndStatus>SelfCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1013</Id>
+    <AssignmentId>1013</AssignmentId>
     <CallId>100000063</CallId>
-    <VolunteerId>18180809</VolunteerId>
-    <Begin>2024-12-02T10:42:48</Begin>
-    <End>2024-12-02T10:56:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
+    <VolunteerId>39076711</VolunteerId>
+    <Begin>2024-12-20T00:26:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1014</Id>
+    <AssignmentId>1014</AssignmentId>
     <CallId>100000064</CallId>
-    <VolunteerId>37340114</VolunteerId>
-    <Begin>2024-12-02T10:42:48</Begin>
-    <End>2024-12-02T10:57:48</End>
-    <MyEndStatus>SelfCancelled</MyEndStatus>
+    <VolunteerId>13273853</VolunteerId>
+    <Begin>2024-12-20T00:25:35</Begin>
+    <End>2024-12-20T00:29:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1015</Id>
+    <AssignmentId>1015</AssignmentId>
     <CallId>100000065</CallId>
-    <VolunteerId>34274487</VolunteerId>
-    <Begin>2024-12-02T10:37:48</Begin>
-    <End>2024-12-02T10:45:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
+    <VolunteerId>13273853</VolunteerId>
+    <Begin>2024-12-20T00:21:35</Begin>
+    <End>2024-12-20T00:31:35</End>
+    <MyEndStatus>SelfCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1016</Id>
+    <AssignmentId>1016</AssignmentId>
     <CallId>100000066</CallId>
-    <VolunteerId>34274487</VolunteerId>
-    <Begin>2024-12-02T10:57:48</Begin>
-    <End>2024-12-02T11:12:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
+    <VolunteerId>33734430</VolunteerId>
+    <Begin>2024-12-20T00:03:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1017</Id>
+    <AssignmentId>1017</AssignmentId>
     <CallId>100000067</CallId>
-    <VolunteerId>10879274</VolunteerId>
-    <Begin>2024-12-02T11:00:48</Begin>
-    <End>2024-12-02T11:11:48</End>
-    <MyEndStatus>SelfCancelled</MyEndStatus>
+    <VolunteerId>16483478</VolunteerId>
+    <Begin>2024-12-19T23:57:35</Begin>
+    <End>2024-12-20T00:03:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1018</Id>
+    <AssignmentId>1018</AssignmentId>
     <CallId>100000068</CallId>
-    <VolunteerId>17747047</VolunteerId>
-    <Begin>2024-12-02T10:49:48</Begin>
-    <End>2024-12-02T10:58:48</End>
+    <VolunteerId>13273853</VolunteerId>
+    <Begin>2024-12-20T00:31:35</Begin>
+    <End>2024-12-20T00:33:35</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1019</Id>
+    <AssignmentId>1019</AssignmentId>
     <CallId>100000069</CallId>
-    <VolunteerId>34274487</VolunteerId>
-    <Begin>2024-12-02T10:50:48</Begin>
-    <End>2024-12-02T11:02:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
+    <VolunteerId>16141722</VolunteerId>
+    <Begin>2024-12-20T00:10:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1020</Id>
+    <AssignmentId>1020</AssignmentId>
     <CallId>100000070</CallId>
-    <VolunteerId>13134481</VolunteerId>
-    <Begin>2024-12-02T11:00:48</Begin>
-    <End>2024-12-02T11:00:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
+    <VolunteerId>26640717</VolunteerId>
+    <Begin>2024-12-20T00:18:35</Begin>
+    <End>2024-12-20T00:27:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1021</Id>
+    <AssignmentId>1021</AssignmentId>
     <CallId>100000071</CallId>
-    <VolunteerId>13134481</VolunteerId>
-    <Begin>2024-12-02T10:53:48</Begin>
-    <End>2024-12-02T11:00:48</End>
-    <MyEndStatus>SelfCancelled</MyEndStatus>
+    <VolunteerId>39076711</VolunteerId>
+    <Begin>2024-12-20T00:24:35</Begin>
+    <End>2024-12-20T00:32:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1022</Id>
+    <AssignmentId>1022</AssignmentId>
     <CallId>100000072</CallId>
-    <VolunteerId>13134481</VolunteerId>
-    <Begin>2024-12-02T10:57:48</Begin>
-    <End>2024-12-02T11:03:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
+    <VolunteerId>16141722</VolunteerId>
+    <Begin>2024-12-20T00:14:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1023</Id>
+    <AssignmentId>1023</AssignmentId>
     <CallId>100000073</CallId>
-    <VolunteerId>13089336</VolunteerId>
-    <Begin>2024-12-02T10:47:48</Begin>
-    <End>2024-12-02T11:06:48</End>
+    <VolunteerId>16141722</VolunteerId>
+    <Begin>2024-12-20T00:18:35</Begin>
+    <End>2024-12-20T00:19:35</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1024</Id>
+    <AssignmentId>1024</AssignmentId>
     <CallId>100000074</CallId>
-    <VolunteerId>13806271</VolunteerId>
-    <Begin>2024-12-02T10:48:48</Begin>
-    <End>2024-12-02T11:00:48</End>
+    <VolunteerId>18629601</VolunteerId>
+    <Begin>2024-12-20T00:23:35</Begin>
+    <End>2024-12-20T00:31:35</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1025</Id>
+    <AssignmentId>1025</AssignmentId>
     <CallId>100000075</CallId>
-    <VolunteerId>16069582</VolunteerId>
-    <Begin>2024-12-02T10:49:48</Begin>
-    <End>2024-12-02T10:59:48</End>
-    <MyEndStatus>SelfCancelled</MyEndStatus>
+    <VolunteerId>16483478</VolunteerId>
+    <Begin>2024-12-19T23:57:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1026</Id>
+    <AssignmentId>1026</AssignmentId>
     <CallId>100000076</CallId>
-    <VolunteerId>39881912</VolunteerId>
-    <Begin>2024-12-02T11:01:48</Begin>
-    <End>2024-12-02T11:11:48</End>
+    <VolunteerId>26640717</VolunteerId>
+    <Begin>2024-12-20T00:11:35</Begin>
+    <End>2024-12-20T00:24:35</End>
     <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1027</Id>
+    <AssignmentId>1027</AssignmentId>
     <CallId>100000077</CallId>
-    <VolunteerId>33256634</VolunteerId>
-    <Begin>2024-12-02T11:06:48</Begin>
-    <End>2024-12-02T11:10:48</End>
-    <MyEndStatus>SelfCancelled</MyEndStatus>
+    <VolunteerId>16483478</VolunteerId>
+    <Begin>2024-12-20T00:28:35</Begin>
+    <End>2024-12-20T00:43:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1028</Id>
+    <AssignmentId>1028</AssignmentId>
     <CallId>100000078</CallId>
-    <VolunteerId>37340114</VolunteerId>
-    <Begin>2024-12-02T10:32:48</Begin>
-    <End>2024-12-02T10:35:48</End>
-    <MyEndStatus>SelfCancelled</MyEndStatus>
+    <VolunteerId>25220407</VolunteerId>
+    <Begin>2024-12-20T00:02:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1029</Id>
+    <AssignmentId>1029</AssignmentId>
     <CallId>100000079</CallId>
-    <VolunteerId>39650275</VolunteerId>
-    <Begin>2024-12-02T10:49:48</Begin>
-    <End>2024-12-02T11:00:48</End>
+    <VolunteerId>16483478</VolunteerId>
+    <Begin>2024-12-20T00:32:35</Begin>
+    <End>2024-12-20T00:48:35</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1030</Id>
+    <AssignmentId>1030</AssignmentId>
     <CallId>100000080</CallId>
-    <VolunteerId>13134481</VolunteerId>
-    <Begin>2024-12-02T10:40:48</Begin>
-    <End>2024-12-02T10:42:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1031</Id>
-    <CallId>100000081</CallId>
-    <VolunteerId>30092139</VolunteerId>
-    <Begin>2024-12-02T10:45:48</Begin>
-    <End>2024-12-02T11:00:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1032</Id>
-    <CallId>100000082</CallId>
-    <VolunteerId>12350252</VolunteerId>
-    <Begin>2024-12-02T10:36:48</Begin>
-    <End>2024-12-02T10:47:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1033</Id>
-    <CallId>100000083</CallId>
-    <VolunteerId>16414394</VolunteerId>
-    <Begin>2024-12-02T10:45:48</Begin>
-    <End>2024-12-02T10:58:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1034</Id>
-    <CallId>100000084</CallId>
-    <VolunteerId>13134481</VolunteerId>
-    <Begin>2024-12-02T10:42:48</Begin>
-    <End>2024-12-02T10:42:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1035</Id>
-    <CallId>100000085</CallId>
-    <VolunteerId>13806271</VolunteerId>
-    <Begin>2024-12-02T10:49:48</Begin>
-    <End>2024-12-02T10:57:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1036</Id>
-    <CallId>100000086</CallId>
-    <VolunteerId>34274487</VolunteerId>
-    <Begin>2024-12-02T10:53:48</Begin>
-    <End>2024-12-02T10:59:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1037</Id>
-    <CallId>100000087</CallId>
-    <VolunteerId>19370684</VolunteerId>
-    <Begin>2024-12-02T10:45:48</Begin>
-    <End>2024-12-02T10:51:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1038</Id>
-    <CallId>100000088</CallId>
-    <VolunteerId>39650275</VolunteerId>
-    <Begin>2024-12-02T10:51:48</Begin>
-    <End>2024-12-02T11:04:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1039</Id>
-    <CallId>100000089</CallId>
-    <VolunteerId>30092139</VolunteerId>
-    <Begin>2024-12-02T10:37:48</Begin>
-    <End>2024-12-02T10:46:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1040</Id>
-    <CallId>100000090</CallId>
-    <VolunteerId>16069582</VolunteerId>
-    <Begin>2024-12-02T10:53:48</Begin>
-    <End>2024-12-02T10:59:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1041</Id>
-    <CallId>100000091</CallId>
-    <VolunteerId>33256634</VolunteerId>
-    <Begin>2024-12-02T10:56:48</Begin>
-    <End>2024-12-02T10:56:48</End>
-    <MyEndStatus>ManagerCancelled</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1042</Id>
-    <CallId>100000092</CallId>
-    <VolunteerId>39881912</VolunteerId>
-    <Begin>2024-12-02T10:50:48</Begin>
-    <End>2024-12-02T11:04:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1043</Id>
-    <CallId>100000093</CallId>
-    <VolunteerId>37340114</VolunteerId>
-    <Begin>2024-12-02T11:00:48</Begin>
-    <End>2024-12-02T11:19:48</End>
-    <MyEndStatus>Expired</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <Id>1044</Id>
-    <CallId>100000094</CallId>
-    <VolunteerId>37340114</VolunteerId>
-    <Begin>2024-12-02T10:38:48</Begin>
-    <End>2024-12-02T10:54:48</End>
+    <VolunteerId>36284150</VolunteerId>
+    <Begin>2024-12-20T00:09:35</Begin>
+    <End>2024-12-20T00:10:35</End>
     <MyEndStatus>SelfCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1045</Id>
-    <CallId>100000095</CallId>
-    <VolunteerId>13134481</VolunteerId>
-    <Begin>2024-12-02T10:56:48</Begin>
-    <End>2024-12-02T11:08:48</End>
+    <AssignmentId>1031</AssignmentId>
+    <CallId>100000081</CallId>
+    <VolunteerId>13273853</VolunteerId>
+    <Begin>2024-12-20T00:41:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1032</AssignmentId>
+    <CallId>100000082</CallId>
+    <VolunteerId>12941421</VolunteerId>
+    <Begin>2024-12-20T00:32:35</Begin>
+    <End>2024-12-20T00:42:35</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1046</Id>
-    <CallId>100000096</CallId>
-    <VolunteerId>39650275</VolunteerId>
-    <Begin>2024-12-02T11:03:48</Begin>
-    <End>2024-12-02T11:12:48</End>
+    <AssignmentId>1033</AssignmentId>
+    <CallId>100000083</CallId>
+    <VolunteerId>16483478</VolunteerId>
+    <Begin>2024-12-20T00:05:35</Begin>
+    <End>2024-12-20T00:14:35</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1047</Id>
-    <CallId>100000097</CallId>
-    <VolunteerId>13806271</VolunteerId>
-    <Begin>2024-12-02T10:54:48</Begin>
-    <End>2024-12-02T10:54:48</End>
+    <AssignmentId>1034</AssignmentId>
+    <CallId>100000084</CallId>
+    <VolunteerId>36883618</VolunteerId>
+    <Begin>2024-12-20T00:03:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1035</AssignmentId>
+    <CallId>100000085</CallId>
+    <VolunteerId>19745275</VolunteerId>
+    <Begin>2024-12-20T00:06:35</Begin>
+    <End>2024-12-20T00:24:35</End>
+    <MyEndStatus>SelfCancelled</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1036</AssignmentId>
+    <CallId>100000086</CallId>
+    <VolunteerId>16141722</VolunteerId>
+    <Begin>2024-12-20T00:35:35</Begin>
+    <End>2024-12-20T00:36:35</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1048</Id>
-    <CallId>100000098</CallId>
-    <VolunteerId>33256634</VolunteerId>
-    <Begin>2024-12-02T10:57:48</Begin>
-    <End>2024-12-02T10:57:48</End>
+    <AssignmentId>1037</AssignmentId>
+    <CallId>100000087</CallId>
+    <VolunteerId>36264187</VolunteerId>
+    <Begin>2024-12-20T00:12:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1038</AssignmentId>
+    <CallId>100000088</CallId>
+    <VolunteerId>36883618</VolunteerId>
+    <Begin>2024-12-20T00:04:35</Begin>
+    <End>2024-12-20T00:08:35</End>
     <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
-    <Id>1049</Id>
-    <CallId>100000099</CallId>
-    <VolunteerId>19370684</VolunteerId>
-    <Begin>2024-12-02T10:50:48</Begin>
-    <End>2024-12-02T11:07:48</End>
+    <AssignmentId>1039</AssignmentId>
+    <CallId>100000089</CallId>
+    <VolunteerId>12941421</VolunteerId>
+    <Begin>2024-12-20T00:31:35</Begin>
+    <End>2024-12-20T00:39:35</End>
     <MyEndStatus>Expired</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1040</AssignmentId>
+    <CallId>100000090</CallId>
+    <VolunteerId>36883618</VolunteerId>
+    <Begin>2024-12-20T00:21:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1041</AssignmentId>
+    <CallId>100000091</CallId>
+    <VolunteerId>22604775</VolunteerId>
+    <Begin>2024-12-20T00:03:35</Begin>
+    <End>2024-12-20T00:03:35</End>
+    <MyEndStatus>SelfCancelled</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1042</AssignmentId>
+    <CallId>100000092</CallId>
+    <VolunteerId>26640717</VolunteerId>
+    <Begin>2024-12-20T00:24:35</Begin>
+    <End>2024-12-20T00:25:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1043</AssignmentId>
+    <CallId>100000093</CallId>
+    <VolunteerId>26640717</VolunteerId>
+    <Begin>2024-12-20T00:23:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1044</AssignmentId>
+    <CallId>100000094</CallId>
+    <VolunteerId>36284150</VolunteerId>
+    <Begin>2024-12-20T00:00:35</Begin>
+    <End>2024-12-20T00:01:35</End>
+    <MyEndStatus>SelfCancelled</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1045</AssignmentId>
+    <CallId>100000095</CallId>
+    <VolunteerId>25220407</VolunteerId>
+    <Begin>2024-12-20T00:04:35</Begin>
+    <End>2024-12-20T00:16:35</End>
+    <MyEndStatus>Expired</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1046</AssignmentId>
+    <CallId>100000096</CallId>
+    <VolunteerId>18629601</VolunteerId>
+    <Begin>2024-12-20T00:20:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1047</AssignmentId>
+    <CallId>100000097</CallId>
+    <VolunteerId>33734430</VolunteerId>
+    <Begin>2024-12-20T00:15:35</Begin>
+    <End>2024-12-20T00:22:35</End>
+    <MyEndStatus>SelfCancelled</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1048</AssignmentId>
+    <CallId>100000098</CallId>
+    <VolunteerId>22604775</VolunteerId>
+    <Begin>2024-12-20T00:27:35</Begin>
+    <End>2024-12-20T00:29:35</End>
+    <MyEndStatus>ManagerCancelled</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1049</AssignmentId>
+    <CallId>100000099</CallId>
+    <VolunteerId>27133262</VolunteerId>
+    <Begin>2024-12-20T00:24:35</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus xsi:nil="true" />
   </Assignment>
 </ArrayOfAssignment>

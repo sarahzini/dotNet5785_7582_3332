@@ -1,5 +1,5 @@
-﻿using BIApi;
-using DalApi;
+﻿using DalApi;
+using System.Net;
 using System.Text.Json;
 namespace Helpers;
 /// <summary>
@@ -10,147 +10,154 @@ internal static class CallManager
     private static IDal s_dal = Factory.Get; 
     internal static BO.CallInList ConvertToCallInList(DO.Call call)
     {
-        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.Id);
-        DO.Assignment? assign = assignments.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
+        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == call.CallId);
+        DO.Assignment? assign = assignments?.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
 
-        string? name = s_dal.Volunteer.Read(volunteer => volunteer.Id == assign?.VolunteerId)?.Name;
+        string? name = s_dal.Volunteer.Read(volunteer => volunteer.VolunteerId == assign?.VolunteerId)?.Name;
 
         TimeSpan? exTime=null;
-        if (assign?.End != null) exTime = assign.End - call.DateTime;
+        if (assign?.End != null) exTime = assign.End - call.OpenTime;
 
         BO.Statuses status= ToDeterminateStatus(assign,call);
 
         return new BO.CallInList
         {
-            AssignId = assign?.Id, 
-            CallId = call.Id,
-            TypeOfCall = (BO.SystemType)call.Choice,
-            BeginTime = call.DateTime,
-            RangeTimeToEnd = call.EndDateTime - call.DateTime,
+            AssignId = assign?.AssignmentId,
+            CallId = call.CallId,
+            TypeOfCall = (BO.SystemType)call.AmbulanceType,
+            BeginTime = call.OpenTime,
+            RangeTimeToEnd = call.MaxEnd - s_dal.Config.Clock,
             NameLastVolunteer = name,
             ExecutedTime = exTime,
             Status = status,
-            TotalAssignment = assignments.Count()
+            TotalAssignment = assignments is null ? 0 : assignments.Count()
         };
-
-
     }
     internal static BO.ClosedCallInList ConvertToClosedCallInList(DO.Call call)
     {
-        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.Id);
+        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.CallId);
         DO.Assignment? assign = assignments.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
 
         return new BO.ClosedCallInList
         {
-            CallId = call.Id,
-            TypeOfCall = (BO.SystemType)call.Choice,
+            CallId = call.CallId,
+            TypeOfCall = (BO.SystemType)call.AmbulanceType,
             CallAddress = call.Address,
-            BeginTime = call.DateTime,
+            BeginTime = call.OpenTime,
             BeginActionTime = assign!.Begin,
-            EndTime = assign!.End,
-            TypeOfEnd = (BO.EndStatus)assign.MyEndStatus
+            EndActionTime = assign!.End,
+            TypeOfEnd = (BO.EndStatus)assign?.MyEndStatus
         };
     }
     internal static BO.OpenCallInList ConvertToOpenCallInList(DO.Call call,int volunteerId)
     {
-        double? volunteerLong = s_dal.Volunteer.Read(volunteerId).Longitude;
-        double? volunteerLat = s_dal.Volunteer.Read(volunteerId).Latitude;
+        double? volunteerLong = s_dal.Volunteer.Read(volunteerId)?.Longitude;
+        double? volunteerLat = s_dal.Volunteer.Read(volunteerId)?.Latitude;
+
         double distance = Math.Sqrt(
         Math.Pow((double)(volunteerLong - call.Longitude), 2) +
         Math.Pow((double)(volunteerLat - call.Latitude), 2));
+
         return new BO.OpenCallInList
         {
-            CallId = call.Id,
-            TypeOfCall=(BO.SystemType)call.Choice,
+            CallId = call.CallId,
+            TypeOfCall=(BO.SystemType)call.AmbulanceType,
             Description=call.Description,
             CallAddress=call.Address,
-            BeginTime= call.DateTime,
-            MaxEndTime=call.EndDateTime,
+            BeginTime= call.OpenTime,
+            MaxEndTime=call.MaxEnd,
             VolunteerDistanceToCall=distance
         };
-    }
+    } //changer distance
     internal static DO.Call ConvertToDataCall(BO.Call call)
     {
-        DO.Assignment? assign = AssignmentManager.SearchAssignment(assignment => assignment.CallId == call.CallId);
-
         return new DO.Call
         {
-            Id = call.CallId,
+            CallId = call.CallId,
             Address = call.CallAddress,
             Latitude = call.CallLatitude,
             Longitude = call.CallLongitude,
-            DateTime = call.BeginTime,
-            Choice = (DO.SystemType)call.TypeOfCall,
+            OpenTime = call.BeginTime,
+            AmbulanceType = (DO.SystemType)call.TypeOfCall,
             Description = call.Description,
-            EndDateTime = assign?.End
+            MaxEnd = call.MaxEndTime
         };
     }
     internal static BO.Call ConvertToLogicCall(DO.Call call)
     {
 
         // Get the call assignments from the data layer
-        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.Id);
-        DO.Assignment? assign = assignments.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
+        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == call.CallId);
 
-        List<BO.CallAssignInList> CallAssignInList = assignments
+        DO.Assignment? assign = assignments?.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
+        BO.Statuses status = ToDeterminateStatus(assign, call);
+
+        List<BO.CallAssignInList>? CallAssignInList = assignments?
             .Select(assignment => new BO.CallAssignInList
             {
                 VolunteerId = assignment.VolunteerId,
-                VolunteerName = s_dal.Volunteer.Read(assignment!.VolunteerId).Name,
+                VolunteerName = s_dal.Volunteer.Read(assignment.VolunteerId)?.Name,
                 BeginActionTime = assignment.Begin,
-                EndTime = assignment.End,
-                ClosureType = (BO.EndStatus)assignment!.MyEndStatus
+                EndActionTime = assignment.End,
+                ClosureType = (BO.EndStatus)assignment.MyEndStatus
             })
             .ToList();
 
-        BO.Statuses status=ToDeterminateStatus(assign,call);
-
         return new BO.Call
         {
-            CallId = call.Id,
-            TypeOfCall = (BO.SystemType)call.Choice,
+            CallId = call.CallId,
+            TypeOfCall = (BO.SystemType)call.AmbulanceType,
             Description = call.Description,
             CallAddress = call.Address,
             CallLatitude = call.Latitude,
             CallLongitude = call.Longitude,
-            BeginTime = call.DateTime,
-            MaxEndTime = call.EndDateTime,
-            ClosureType = status,
+            BeginTime = call.OpenTime,
+            MaxEndTime = call.MaxEnd,
+            Status = status,
             CallAssigns = CallAssignInList
         };
     }
-    private static BO.Statuses ToDeterminateStatus(DO.Assignment assign, DO.Call call)
+    private static BO.Statuses ToDeterminateStatus(DO.Assignment? assign, DO.Call call)
     {
-        if (assign == null) { return BO.Statuses.Open; }
-        else if (assign.End == null) { return BO.Statuses.InAction; }
+        if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd ) { return BO.Statuses.Expired; }
+        else if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange) 
+        { return BO.Statuses.OpenToRisk; }
+        else if (assign?.End == null) { return call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange ?
+                BO.Statuses.InActionToRisk :BO.Statuses.InAction; }
         else if (assign.MyEndStatus == DO.EndStatus.Completed) { return BO.Statuses.Closed; }
-        else if (assign.MyEndStatus == DO.EndStatus.Expired || (call.EndDateTime.HasValue && DateTime.Now > call.EndDateTime.Value)) { return BO.Statuses.Expired; }
-        else if (call.EndDateTime.HasValue && DateTime.Now > call.EndDateTime.Value - s_dal.Config.RiskRange) { return assign.End == null ? BO.Statuses.InActionToRisk : BO.Statuses.OpenToRisk; }
+        else if (assign.MyEndStatus == DO.EndStatus.Expired ) { return BO.Statuses.Expired; }
         else { return BO.Statuses.Open; }
 
     }
     internal static bool IsRequesterManager(int requesterId)
     {
         DO.Volunteer? user = s_dal.Volunteer.Read(requesterId);
-        return user?.MyJob == DO.Job.Manager;
+        return user is null ? false : user?.MyJob == DO.Job.Manager;
     }
     internal static void ValidateCallDetails(BO.Call call)
     {
         //checks wether the Maxendtime is greater than the call start time and the current time
         if (call.MaxEndTime <= call.BeginTime || call.MaxEndTime <= DateTime.Now)
         {
-            throw new BO.BLException("The maximum end time must be greater than the call start time and the current time.");
+            throw new BO.BLFormatException("The maximum end time must be greater than the call start time and the current time.");
         }
 
-        if (!AreCoordinatesMatching(call))
+        if (call.TypeOfCall != BO.SystemType.RegularAmbulance && call.TypeOfCall != BO.SystemType.RegularAmbulance)
         {
-            throw new BO.BLException("The coordinates of the call do not match the coordinates of the address.");
+            throw new BO.BLFormatException("Type of the call must be either 'Regular Ambulance' or 'ICU Ambulance'.");
         }
-    } //??????????
+
+        //the adress details will be check after the call of this function
+    }
+
+
+    //from this function the AI helped us to write 
 
     /// The HttpClient instance is used to make HTTP requests to external services.
     /// In the context of the CallManager class, it is used to interact with the LocationIQ API 
-    /// to get the coordinates of an address.
+    /// to get the coordinates of an address. <summary>
+    /// The HttpClient instance is used to make HTTP requests to external services.
+    /// </summary>
     private static readonly HttpClient httpClient = new HttpClient();
 
     // LocationIQ API key
@@ -199,8 +206,8 @@ internal static class CallManager
     /// </summary>
     private class LocationIQResponse
     {
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
+        public string? Latitude { get; set; }
+        public string? Longitude { get; set; }
     }
     /// <summary>
     /// Checks if the coordinates of a call match the coordinates of the address

@@ -1,46 +1,56 @@
 ﻿
-using BIApi;
+using BlApi;
+using BO;
+using DO;
 using Helpers;
+using BlImplementation;
 
-namespace BLImplementation;
+namespace BlImplementation;
 
 internal class CallImplementation: ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
-    public int[] TypeOfCallCounts()
+
+    /// <summary>
+    /// Calculates the number of calls for each ambulance type (ICU and Regular) 
+    /// and returns an array of integers where: 0 for Icu and 1 for Regular
+    /// It uses the following process: Fetches all calls from the data layer, Groups the calls
+    /// by their `AmbulanceType` using LINQ, Counts the number of calls for each group and
+    /// stores the counts in a dictionary and Maps the counts for each type into the result array.
+    /// If there are no calls of a specific type, a count of 0 is assigned.
+    /// <summary>
+    int[] ICall.TypeOfCallCounts()
     {
-            // Get all calls from the data layer
-            IEnumerable<DO.Call> calls = _dal.Call.ReadAll();
+        IEnumerable<DO.Call>? calls = _dal.Call.ReadAll();
 
-            // Group calls by their status and count the number of calls in each group
-            var callCountsByStatus = calls
-                .GroupBy(call => (int)call.Choice)
-                .Select(group => new { Status = group.Key, Count = group.Count() })
-                .ToDictionary(g => g.Status, g => g.Count);
+        int[] result = new int[2];
 
-            // Find the maximum status value to determine the size of the array
-            int maxStatus = callCountsByStatus.Keys.Max();
-            int[] result = new int[maxStatus+1];
+        // Group calls by their SystemType and count the number of calls in each group
+        var callCountsByType = calls?
+            .GroupBy(call => call.AmbulanceType)
+            .Select(group => new { Type = group.Key, Count = group.Count() })
+            .ToDictionary(g => g.Type, g => g.Count);
 
-            // Fill the result array with the counts
-            foreach (var kvp in callCountsByStatus)
-            {
-                result[kvp.Key] = kvp.Value;
-            }
+        // Fill the result array with the counts
+        if (callCountsByType != null)
+        {
+            result[(int)DO.SystemType.ICUAmbulance] = callCountsByType.ContainsKey(DO.SystemType.ICUAmbulance) ? callCountsByType[DO.SystemType.ICUAmbulance] : 0;
+            result[(int)DO.SystemType.RegularAmbulance] = callCountsByType.ContainsKey(DO.SystemType.RegularAmbulance) ? callCountsByType[DO.SystemType.RegularAmbulance] : 0;
+        }
 
-            return result;
-    } //????????????
-    public IEnumerable<BO.CallInList> SortCalls(BO.CallInListField? filterField, object? filterValue, BO.CallInListField? sortField)
+        return result;
+    } 
+    IEnumerable<BO.CallInList>? ICall.GetSortedCallsInList(CallInListField? filterField, object? filterValue, CallInListField? sortField)
     {
         // Get all calls
         var calls = _dal.Call.ReadAll();
         // Filter calls if filterField and filterValue are provided
         if (filterField != null && filterValue != null)
         {
-            var filterProperty = typeof(BO.CallInList).GetProperty(filterField!.ToString());
+            var filterProperty = typeof(BO.CallInList).GetProperty(filterField.ToString());
             if (filterProperty != null)
             {
-                calls = calls.Where(call => filterProperty.GetValue(call)?.Equals(filterValue) == true);
+                calls = calls?.Where(call => filterProperty.GetValue(call)?.Equals(filterValue) == true);
             }
         }
 
@@ -50,19 +60,19 @@ internal class CallImplementation: ICall
             var sortProperty = typeof(BO.CallInList).GetProperty(sortField.ToString());
             if (sortProperty != null)
             {
-                calls = calls.OrderBy(call => sortProperty.GetValue(call));
+                calls = calls?.OrderBy(call => sortProperty.GetValue(call));
             }
         }
         else
         {
             // Default sorting by CallId
-            calls = calls.OrderBy(call => call.Id);
+            calls = calls?.OrderBy(call => call.CallId);
         }
 
         // Convert to CallInList and return
-        return calls.Select(call => CallManager.ConvertToCallInList(call)).ToList(); 
+        return calls?.Select(call => CallManager.ConvertToCallInList(call)).ToList();
     }
-    public BO.Call GetCallDetails(int CallId)
+    BO.Call ICall.GetCallDetails(int CallId)
     {
         try
         {
@@ -78,7 +88,7 @@ internal class CallImplementation: ICall
             throw new BO.BLDoesNotExistException(ex.Message);
         }
     }
-    public void UpdateCallDetails(BO.Call callUptade)
+    void ICall.UpdateCallDetails(BO.Call callUptade)
     {
         try
         {
@@ -88,153 +98,27 @@ internal class CallImplementation: ICall
             (callUptade.CallLatitude, callUptade.CallLongitude) = CallManager.GetCoordinatesFromAddress(callUptade.CallAddress);
 
             // Convert the business object to a data object by calling a method in manager
-            DO.Call callUpdate=CallManager.ConvertToDataCall(callUptade);
+            DO.Call callUpdate = CallManager.ConvertToDataCall(callUptade);
 
             // Attempt to update the call in the data layer
             _dal.Call.Update(callUpdate);
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BLDoesNotExistException(ex.Message);
+            throw new BO.BLDoesNotExistException("We cannot update this call: ",ex);
         }
-        catch (BO.BLFormatException ex)
-        {
-            throw new BO.BLFormatException(ex.Message);
-        }
-
     }
-    public void CompleteCall(int volunteerId, int assignmentId)
+    void ICall.DeleteCall(int callId)
     {
         try
         {
-            // Fetch the assignment from the data layer
-            DO.Assignment? assignment = _dal.Assignment.Read(assignmentId);
-
-            // Check if the volunteer is authorized to end the treatment
-            if (assignment?.VolunteerId != volunteerId)
-            {
-                throw new BO.BLInvalidOperationException($"The volunteer with id: {volunteerId} is not authorized to end this treatment because he is not affiliated to this call");
-            }
-
-            // Check if the assignment is still open
-            if (assignment.End != null)
-            {
-                throw new BO.BLInvalidOperationException("The assignment has already been closed.");
-            }
-
-            // Update the assignment details using the 'with' expression
-            var updatedAssignment = assignment with
-            {
-                End = AdminManager.Now,
-                MyEndStatus = DO.EndStatus.Completed,
-            };
-
-            // Attempt to update the assignment in the data layer
-            _dal.Assignment.Update(updatedAssignment);
-        }
-        catch (DO.DalDoesNotExistException ex)
-        {
-            throw new BO.BLDoesNotExistException("kuku je suis la",ex);
-        }
-      
-    }
-    public void CancelAssignment(int requesterId, int assignmentId)
-    {
-        try
-        {
-            // Fetch the assignment from the data layer
-            DO.Assignment? assignment = _dal.Assignment.Read(assignmentId);
-
-            // Check if the requester is authorized to cancel the assignment
-            bool isAuthorized = requesterId == assignment?.VolunteerId || CallManager.IsRequesterManager(requesterId); 
-            if (!isAuthorized)
-            {
-                throw new BO.BLInvalidOperationException("Requester is not authorized to cancel this assignment.");
-            }
-
-            // Check if the assignment is still open
-            if (assignment?.End != null)
-            {
-                throw new BO.BLAlreadyCompleted("Cannot cancel an assignment that has already been completed.");
-            }
-
-            // Update the assignment details using the 'with' expression
-            var updatedAssignment = assignment with
-            {
-                End = AdminManager.Now,
-                MyEndStatus = requesterId == assignment.VolunteerId ? DO.EndStatus.SelfCancelled : DO.EndStatus.ManagerCancelled
-            };
-
-            // Attempt to update the assignment in the data layer
-            _dal.Assignment.Update(updatedAssignment);
-        }
-        catch (DO.DalDoesNotExistException ex)
-        {
-            throw new BO.BLDoesNotExistException(ex.Message);
-        }
-        catch (BO.BLInvalidOperationException ex)
-        {
-            throw new BO.BLInvalidOperationException(ex.Message);
-        }
-        catch (BO.BLAlreadyCompleted ex)
-        {
-            throw new BO.BLAlreadyCompleted(ex.Message);
-        }
-    }
-    public void AssignCallToVolunteer(int volunteerId, int callId)
-    {
-        try
-        {
-            // Fetch the call from the data layer
-            DO.Call? call = _dal.Call.Read(callId) ?? throw new BO.BLDoesNotExistException($"Call with Id {callId} does not exist.");
-
-            // Check if the call has already been treated or has an open assignment
-            IEnumerable<DO.Assignment>? assignments = _dal.Assignment.ReadAll().Where(assignment => assignment.CallId == callId);
-            if (assignments.Any(a => a.End == null))
-            {
-                throw new BO.BLInvalidOperationException("The call is already being treated by another volunteer.");
-            }
-            if (assignments.Any(a => a.MyEndStatus == DO.EndStatus.Completed))
-            {
-                throw new BO.BLInvalidOperationException("The call is already completed.");
-            }
-
-            // Check if the call has expired
-            if (call.EndDateTime.HasValue && call.EndDateTime.Value < DateTime.Now)
-            {
-                throw new BO.BLInvalidOperationException("The call has expired.");
-            }
-
-            // Create a new assignment 
-            var newAssignment = new DO.Assignment
-            {
-                CallId = callId,
-                VolunteerId = volunteerId,
-                Begin = ClockManager.Now,
-                End = null,
-                MyEndStatus = null 
-            };
-
-            // Attempt to add the new assignment to the data layer
-            _dal.Assignment.Create(newAssignment);
-        }
-        catch (DO.DalAlreadyExistException ex)
-        {
-            throw new BO.BLAlreadyExistException("An error occurred while assigning the call to the volunteer.", ex);
-        }
-    }
-    public void DeleteCall(int callId)
-    {
-        try
-        {
-            // Check if the call exists
             DO.Call? call = _dal.Call.Read(callId);
+            IEnumerable<DO.Assignment>? assignments = _dal.Assignment.ReadAll(assignment => assignment.CallId == callId);
 
-            DO.Assignment? assignment = AssignmentManager.SearchAssignment(assignment => assignment.CallId == callId);
             // Check if the call can be deleted
-            if (assignment != null||assignment?.End!=null)
+            if (assignments != null || assignments?.Any(a => a.End != null) == true)
             {
-                throw new BO.BLInvalidOperationException("Call cannot be deleted because it is not open or has been assigned to a volunteer");
+                throw new BO.BLInvalidOperationException("Call cannot be deleted because the call is not open or has been assigned to a volunteer");
             }
 
             // Attempt to delete the call from the data layer
@@ -242,10 +126,10 @@ internal class CallImplementation: ICall
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BLDoesNotExistException("bla bla",ex);
+            throw new BO.BLDoesNotExistException($"We cannot delete the call {callId}: ", ex);
         }
-    } 
-    public void AddCall(BO.Call call)
+    }
+    void ICall.AddCall(BO.Call call)
     {
         try
         {
@@ -260,63 +144,172 @@ internal class CallImplementation: ICall
         }
         catch (DO.DalAlreadyExistException ex)
         {
-            throw new BO.BLAlreadyExistException(ex.Message);
+            throw new BO.BLAlreadyExistException($"We cannot delete the call {call.CallId}: ",ex);
         }
-        catch (BO.BLFormatException ex)
-        {
-            throw new BO.BLFormatException(ex.Message);
-        }
-    }   
-    public IEnumerable<BO.ClosedCallInList> SortClosedCalls(int volunteerId, DO.SystemType? callType, BO.ClosedCallInListField? sortField)
-    {
-            // Get the full list of calls with the filter of id 
-            IEnumerable<DO.Call> calls = _dal.Call.ReadAll()
-                .Where(call => AssignmentManager.SearchAssignment(assignment => assignment.CallId == call.Id).VolunteerId == volunteerId
-                && AssignmentManager.SearchAssignment(assignment => assignment.CallId == call.Id).MyEndStatus == DO.EndStatus.Completed);
-
-            // Filter the list based on the callType parameter
-            if (callType.HasValue)
-            {
-                calls = calls.Where(call => call.Choice == callType);
-            }
-
-            // Sort the list based on the sortField parameter
-            if (sortField.HasValue)
-            {
-                calls = calls.OrderBy(call => call.GetType().GetProperty(sortField.ToString()).GetValue(call, null));
-            }
-            else
-            {
-                calls = calls.OrderBy(call => call.Id);
-            }
-
-        // Convert the list to BO.ClosedCallInList and return
-        return calls.Select(call => CallManager.ConvertToClosedCallInList(call)).ToList();
-        
     }
-    public IEnumerable<BO.OpenCallInList> SortOpenCalls(int volunteerId, DO.SystemType? callType, BO.CallInListField? sortField)
+    IEnumerable<ClosedCallInList>? ICall.SortClosedCalls(int volunteerId, BO.SystemType? callType, ClosedCallInListField? sortField)
     {
         // Get the full list of calls with the filter of id 
-        IEnumerable<DO.Call> calls = _dal.Call.ReadAll()
-            .Where(call => AssignmentManager.SearchAssignment(assignment => assignment.CallId == call.Id).VolunteerId == volunteerId
-            && AssignmentManager.SearchAssignment(assignment => assignment.CallId == call.Id).End == null);
+        IEnumerable<DO.Call>? calls = _dal.Call.ReadAll()?
+            .Where(call => _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.VolunteerId == volunteerId
+            && _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.MyEndStatus == DO.EndStatus.Completed);
 
         // Filter the list based on the callType parameter
         if (callType.HasValue)
         {
-            calls = calls.Where(call => call.Choice == callType);
+            calls = calls?.Where(call => call.AmbulanceType == (DO.SystemType)callType);
         }
 
         // Sort the list based on the sortField parameter
         if (sortField.HasValue)
         {
-            calls = calls.OrderBy(call => call.GetType().GetProperty(sortField.ToString()).GetValue(call, null));
+            calls = calls?.OrderBy(call => call.GetType().GetProperty(sortField.ToString()).GetValue(call, null));
         }
         else
         {
-            calls = calls.OrderBy(call => call.Id);
+            calls = calls?.OrderBy(call => call.CallId);
         }
 
-        return calls.Select(call => CallManager.ConvertToOpenCallInList(call, volunteerId) ).ToList();
+        // Convert the list to BO.ClosedCallInList and return
+        return calls?.Select(call => CallManager.ConvertToClosedCallInList(call)).ToList();
+
+    }
+    IEnumerable<OpenCallInList>? ICall.SortOpenCalls(int volunteerId, BO.SystemType? callType, OpenCallInListField? sortField)
+    {
+        // Get the full list of calls with the filter of id 
+        IEnumerable<DO.Call>? calls = _dal.Call.ReadAll()
+            .Where(call => _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.VolunteerId == volunteerId
+            && _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.End == null);
+
+        // Filter the list based on the callType parameter
+        if (callType.HasValue)
+        {
+            calls = calls?.Where(call => call.AmbulanceType == (DO.SystemType)callType);
+        }
+
+        // Sort the list based on the sortField parameter
+        if (sortField.HasValue)
+        {
+            calls = calls?.OrderBy(call => call.GetType().GetProperty(sortField.ToString()).GetValue(call, null));
+        }
+        else
+        {
+            calls = calls?.OrderBy(call => call.CallId);
+        }
+
+        return calls?.Select(call => CallManager.ConvertToOpenCallInList(call, volunteerId)).ToList();
+    }
+    void ICall.CompleteCall(int volunteerId, int assignmentId)
+    {
+        try
+        {
+            // Fetch the assignment from the data layer
+            DO.Assignment? assignment = _dal.Assignment.Read(assignmentId);
+
+            // Check if the volunteer is authorized to end the treatment
+            if (assignment?.VolunteerId != volunteerId)
+            {
+                throw new BO.BLInvalidOperationException($"The volunteer with id: {volunteerId} is not authorized to end this treatment because he is not affiliated to this call");
+            }
+
+            // Check if the assignment is still open
+            if (assignment?.End != null)
+            {
+                throw new BO.BLInvalidOperationException("The assignment has already been closed.");
+            }
+
+            // Update the assignment details using the 'with' expression
+            var updatedAssignment = assignment with
+            {
+                End = _dal.Config.Clock,
+                MyEndStatus = DO.EndStatus.Completed,
+            };
+
+            // Attempt to update the assignment in the data layer
+            _dal.Assignment.Update(updatedAssignment);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BLDoesNotExistException($"You cannot update the assignment {assignmentId}: ", ex);
+        }
+    }
+    void ICall.CancelAssignment(int requesterId, int assignmentId)
+    {
+        try
+        {
+            // Fetch the assignment from the data layer
+            DO.Assignment? assignment = _dal.Assignment.Read(assignmentId);
+
+            // Check if the requester is authorized to cancel the assignment
+            bool isAuthorized = requesterId == assignment?.VolunteerId || CallManager.IsRequesterManager(requesterId);
+            if (!isAuthorized)
+            {
+                throw new BO.BLInvalidOperationException("Requester is not authorized to cancel this assignment.");
+            }
+
+            // Check if the assignment is still open
+            if (assignment?.End != null)
+            {
+                throw new BO.BLInvalidOperationException("Cannot cancel an assignment that has already been completed.");
+            }
+
+            // Update the assignment details using the 'with' expression
+            var updatedAssignment = assignment with
+            {
+                End = _dal.Config.Clock,
+                MyEndStatus = requesterId == assignment.VolunteerId ? DO.EndStatus.SelfCancelled : DO.EndStatus.ManagerCancelled
+            };
+
+            // Attempt to update the assignment in the data layer
+            _dal.Assignment.Update(updatedAssignment);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BLDoesNotExistException($"You cannot update the assignment {assignmentId}: ", ex);
+        }
+    }
+    void ICall.AssignCallToVolunteer(int volunteerId, int callId)
+    {
+        try
+        {
+            // Fetch the call from the data layer
+            DO.Call? call = _dal.Call.Read(callId) ?? throw new BO.BLDoesNotExistException($"Call with Id {callId} does not exist.");
+
+            // Check if the call has already been treated or has an open assignment
+            IEnumerable<DO.Assignment>? assignments = _dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == callId);
+            if (assignments != null)
+            {
+                if (assignments.Any(a => a.End == null))
+                {
+                    throw new BO.BLInvalidOperationException("The call is already being treated by another volunteer.");
+                }
+                if (assignments.Any(a => a.MyEndStatus == DO.EndStatus.Completed))
+                {
+                    throw new BO.BLInvalidOperationException("The call is already completed.");
+                }
+                // Check if the call has expired
+                if (call.MaxEnd.HasValue && call.MaxEnd < ClockManager.Now)
+                {
+                    throw new BO.BLInvalidOperationException("The call has expired.");
+                }
+            }
+
+            // Create a new assignment (the assignment id will be take from the config in create)
+            var newAssignment = new DO.Assignment
+            {
+                CallId = callId,
+                VolunteerId = volunteerId,
+                Begin = ClockManager.Now,
+                End = null,
+                MyEndStatus = null
+            };
+
+            // Attempt to add the new assignment to the data layer
+            _dal.Assignment.Create(newAssignment);
+        }
+        catch (DO.DalAlreadyExistException ex)
+        {
+            throw new BO.BLAlreadyExistException("An error occurred while assigning the call to the volunteer.", ex);
+        }
     }
 }

@@ -102,35 +102,32 @@ internal class VolunteerImplementation : IVolunteer
     /// Reads a volunteer by ID.
     /// </summary>
     /// <param name="id">The ID of the volunteer to read.</param>
-    /// <returns>The volunteer with the specified ID, or throw exception if it's null.</returns>
-    public Volunteer Read(int id)
+    /// <returns>The volunteer with the specified ID, or null if not found.</returns>
+    public Volunteer? Read(int id)
     {
         XElement? volunteerElem = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().FirstOrDefault(v => (int?)v.Element("Id") == id);
-        return volunteerElem is null ? throw new DalDoesNotExistException($"Volunteer with the ID={id} does not exists") : getVolunteer(volunteerElem);
+        return volunteerElem is null ? null : getVolunteer(volunteerElem);
     }
 
     /// <summary>
     /// Reads a volunteer by a specified filter.
     /// </summary>
     /// <param name="filter">The filter to apply.</param>
-    /// <returns>The first volunteer that matches the filter,or throw exception if it's null.</returns>
-    public Volunteer Read(Func<Volunteer, bool> filter)
+    /// <returns>The first volunteer that matches the filter, or null if not found.</returns>
+    public Volunteer? Read(Func<Volunteer, bool> filter)
     {
-        var volunteerElem = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().Select(v => getVolunteer(v)).FirstOrDefault(filter);
-        return volunteerElem is null ? throw new DalDoesNotExistException($"Volunteer with this criteria does not exists") : volunteerElem;
-
+        return XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().Select(v => getVolunteer(v)).FirstOrDefault(filter);
     }
 
     /// <summary>
     /// Reads all volunteers, optionally filtered by a specified filter.
     /// </summary>
     /// <param name="filter">The filter to apply, or null to read all volunteers.</param>
-    /// <returns>An enumerable of volunteers that match the filter, or throw exception if it's null and throw exception if it's empty.</returns>
+    /// <returns>An enumerable of volunteers that match the filter, or all volunteers if no filter is specified.</returns>
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
         var volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().Select(v => getVolunteer(v));
-        var volunteersFiltered = filter == null ? volunteers : volunteers.Where(filter);
-        return volunteersFiltered == null ? throw new DalDoesNotExistException($"Volunteers with this criteria don't exist") : volunteersFiltered;
+        return filter == null ? volunteers : volunteers.Where(filter);
     }
 
     /// <summary>

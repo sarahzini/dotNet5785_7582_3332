@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
-  <NextAssignmentId>100</NextAssignmentId>
-  <NextCallId>100000000</NextCallId>
-  <Clock>DateTime.Now</Clock>
-  <RiskRange>TimeSpan.FromMinutes(30)</RiskRange>
+  <NextAssignmentId>1050</NextAssignmentId>
+  <NextCallId>100000100</NextCallId>
+  <Clock>12/20/2024 12:33:35 AM</Clock>
+  <RiskRange>30</RiskRange>
 </config>

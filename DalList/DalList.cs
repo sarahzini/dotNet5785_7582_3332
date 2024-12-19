@@ -5,12 +5,12 @@ using DalApi;
 /// <summary>
 /// Represents the data access layer (DAL) implementation using lists.
 /// </summary>
-sealed internal class DalList : IDal
+sealed public class DalList : IDal
 {
     // Singleton instance
     public static IDal Instance { get; } = new DalList();
     //Empty constructor
-    private DalList() { }
+    public DalList() { }
     // Properties to access different data entities
     public IVolunteer Volunteer { get; } = new VolunteerImplementation();
     public ICall Call { get; } = new CallImplementations();

@@ -4,6 +4,7 @@ using DO;
 using System;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Net;
 using System.Text.RegularExpressions;
 
 namespace Helpers;
@@ -34,7 +35,6 @@ internal static class VolunteerManager
         {
             throw new BO.BLFormatException("Phone number must contain exactly 10 digits.");
         }
-
         var PasswordRegex = new Regex(@"^(?=.*[A-Z])(?=.*\d).+$");
         if (!string.IsNullOrEmpty(volunteer.Password) && !PasswordRegex.IsMatch(volunteer.Password))
         {
@@ -65,11 +65,14 @@ internal static class VolunteerManager
             MyDistanceType = (DO.DistanceType)volunteer.VolunteerDT
         };
     }
+
+    //distance avec les bonus
     internal static BO.VolunteerInList ConvertToVolunteerInList(DO.Volunteer v)
     {
         IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
 
         int completedCount=0, canceledCount=0, expiredCount=0;
+        int nothing = 0;
 
         if (assignments != null)
         {
@@ -80,14 +83,16 @@ internal static class VolunteerManager
                     DO.EndStatus.Completed => completedCount++,
                     DO.EndStatus.SelfCancelled => canceledCount++,
                     DO.EndStatus.ManagerCancelled => canceledCount++,
-                    DO.EndStatus.Expired => expiredCount++
+                    DO.EndStatus.Expired => expiredCount++,
+                    _ => nothing++
                 };
             }
         }
 
         int? actualCallId = assignments?.FirstOrDefault(a => a.End == null)?.CallId;
         BO.SystemType typeOfCall = actualCallId is null ? BO.SystemType.None :
-            (BO.SystemType)s_dal.Call.Read(c => c.CallId == actualCallId).AmbulanceType;
+            (s_dal.Call.Read(c => c.CallId == actualCallId) is null ? 
+            BO.SystemType.None : (BO.SystemType)s_dal.Call.Read(c => c.CallId == actualCallId).AmbulanceType);
 
         return new BO.VolunteerInList
         {
@@ -101,12 +106,80 @@ internal static class VolunteerManager
             TypeOfCall = typeOfCall
         };
     }
-    internal static void CheckAuthorisationToUpdate(DO.Volunteer oldVolunteer, DO.Volunteer updatedVolunteer, bool isManager)
+
+    //distance avec les bonus
+    internal static BO.Volunteer ConvertToLogicalVolunteer(DO.Volunteer volunteer, int volunteerId)
     {
-        if (oldVolunteer.Name != updatedVolunteer.Name)
+        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll(a => a.VolunteerId == volunteerId);
+
+        int completedCount = 0, canceledCount = 0, expiredCount = 0, nothing = 0;
+
+        if (assignments != null)
+        {
+            foreach (var a in assignments)
+            {
+                _ = a.MyEndStatus switch
+                {
+                    DO.EndStatus.Completed => completedCount++,
+                    DO.EndStatus.SelfCancelled => canceledCount++,
+                    DO.EndStatus.ManagerCancelled => canceledCount++,
+                    DO.EndStatus.Expired => expiredCount++,
+                    _ => nothing++
+                };
+            }
+        }
+
+        DO.Assignment? assign = s_dal.Assignment.Read(a => a.VolunteerId == volunteerId && a.End == null);
+        DO.Call? callInProgress = assign is null ? null : s_dal.Call.Read(assign.CallId);
+
+        (double latitude, double longitude) = CallManager.GetCoordinatesFromAddress(volunteer.Address);
+
+
+
+        double distance = Math.Sqrt(
+   Math.Pow((double)(longitude - callInProgress.Longitude), 2) +
+   Math.Pow((double)(latitude - callInProgress.Latitude), 2));
+
+
+        return new BO.Volunteer
+        {
+            VolunteerId = volunteer.VolunteerId,
+            Name = volunteer.Name,
+            PhoneNumber = volunteer.PhoneNumber,
+            Email = volunteer.Email,
+            Password = volunteer.Password,
+            VolunteerAddress = volunteer.Address,
+            VolunteerLatitude = volunteer.Latitude,
+            VolunteerLongitude = volunteer.Longitude,
+            VolunteerJob = (BO.Job)volunteer.MyJob,
+            IsActive = volunteer.IsActive,
+            MaxVolunteerDistance = volunteer.MaxDistance,
+            VolunteerDT = (BO.DistanceType)volunteer.MyDistanceType,
+            CompletedCalls = completedCount,
+            CancelledCalls = canceledCount,
+            ExpiredCalls = expiredCount,
+            CurrentCall = callInProgress != null ? new BO.CallInProgress
+            {
+                AssignId = assign.AssignmentId,
+                CallId = assign.CallId,
+                TypeOfCall = (BO.SystemType)callInProgress.AmbulanceType,
+                Description = callInProgress.Description,
+                CallAddress = callInProgress.Address,
+                BeginTime = callInProgress.OpenTime,
+                MaxEndTime = callInProgress.MaxEnd,
+                BeginActionTime = assign.Begin,
+                VolunteerDistanceToCall = distance,
+                Status = callInProgress.OpenTime - s_dal.Config.Clock <= s_dal.Config.RiskRange ? BO.Statuses.InActionToRisk : BO.Statuses.InAction
+            } : null
+        };
+    }
+    internal static void CheckAuthorisationToUpdate(DO.Volunteer? oldVolunteer, DO.Volunteer updatedVolunteer, bool isManager)
+    {
+        if (oldVolunteer?.Name != updatedVolunteer.Name)
         { throw new BLInvalidOperationException("Name cannot be changed."); }
-        if(oldVolunteer.MyJob != updatedVolunteer.MyJob&& !isManager)
+        if(oldVolunteer?.MyJob != updatedVolunteer.MyJob&& !isManager)
         { throw new BLInvalidOperationException("Job cannot be changed by volunteer."); }
         //bonus : we authorized the volunteer to change his transport type
     }
+
 }

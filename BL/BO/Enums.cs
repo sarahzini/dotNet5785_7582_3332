@@ -15,8 +15,8 @@ public enum DistanceType
 }
 public enum SystemType
 {
-    ICUAmbulance,
-    RegularAmbulance, 
+    ICUAmbulance=0,
+    RegularAmbulance=1, 
     None
 }
 public enum Statuses
@@ -37,7 +37,7 @@ public enum EndStatus
 }
 public enum TimeUnit 
 {
-    Minute,
+    Minute=1,
     Hour,
     Day,
     Month,
@@ -66,25 +66,53 @@ public enum CallInListField
 public enum ClosedCallInListField
 {
     CallId,
-    CallAddress,
     BeginTime,
-    RangeTimeToEnd,
-    NameLastVolunteer,
-    ExecutedTime,
-    ClosureType,
-    TotalAssignment
+    BeginActionTime,
+    EndTime
 }
 
 public enum OpenCallInListField
 {
     CallId,
-    TypeOfCall,
-    CallAddress,
     BeginTime,
     RangeTimeToEnd,
-    NameLastVolunteer,
-    ExecutedTime,
-    ClosureType,
-    TotalAssignment
+}
+
+public enum VolunteerMethods
+{
+    Login=1,
+    GetVolunteersInList,
+    GetVolunteerDetails,
+    UpdateVolunteer,
+    DeleteVolunteer,
+    AddVolunteer,
+    BackToMainMenu
+}
+
+public enum CallMethods
+{
+    TypeOfCallCounts=1,
+    GetSortedCallsInList,
+    GetCallDetails,
+    UpdateCallDetails,
+    DeleteCall,
+    AddCall,
+    SortClosedCalls,
+    SortOpenCalls,
+    CompleteCall,
+    CancelAssignment,
+    AssignCallToVolunteer,
+    BackToMainMenu
+}
+
+public enum AdminMethods
+{
+    GetClock=1,
+    ForwardClock,
+    GetRiskRange,
+    SetRiskRange,
+    InitializeDB,
+    ResetDB,
+    BackToMainMenu
 }
 

@@ -11,82 +11,87 @@ using System.ComponentModel.Design;
 /// </summary>
 internal class VolunteerImplementation : IVolunteer
 {
+    /// <summary>
+    /// Creates a new volunteer and adds it to the data source.
+    /// </summary>
+    /// <param name="item">The volunteer to be added.</param>
+    /// <exception cref="DalAlreadyExistException">Thrown when a volunteer with the same ID already exists.</exception>
     public void Create(Volunteer item)
     {
-        //Going trough the list of volunteers and checking wether the
-        //id of the volunteer is the same as the id of the item
         foreach (var volunteer in DataSource.Volunteers)
         {
             if (volunteer.VolunteerId == item.VolunteerId)
-                //help by AI we didn't know how to trow exception
                 throw new DalAlreadyExistException($"Volunteer with the ID={item.VolunteerId} already exists");
         }
-        //Adding the item to the list after checking that the id is unique
         DataSource.Volunteers.Add(item);
     }
 
+    /// <summary>
+    /// Deletes a volunteer with the specified ID from the data source.
+    /// </summary>
+    /// <param name="id">The ID of the volunteer to be deleted.</param>
+    /// <exception cref="DalDoesNotExistException">Thrown when a volunteer with the specified ID does not exist.</exception>
     public void Delete(int id)
     {
-        //Going through the list of volunteers  checking wether  the id is the same
         foreach (var volunteer in DataSource.Volunteers)
         {
-            //If so deleting the volunteer 
             if (volunteer.VolunteerId == id)
             {
-
                 DataSource.Volunteers.Remove(volunteer);
                 return;
             }
         }
-        //Trowing exception if the id doesn't exist
-        throw new DalDoesNotExistException($"Volunteer with the ID={id} does not exists");
-
+        throw new DalDoesNotExistException($"Volunteer with the ID={id} does not exist");
     }
+
+    /// <summary>
+    /// Deletes all volunteers from the data source.
+    /// </summary>
     public void DeleteAll()
     {
-        // Clear all volunteers from the list
         DataSource.Volunteers.Clear();
     }
 
-    //returning the volunteer if the id is the same
-    public Volunteer Read(int id)
-    {
-        Volunteer? volunteer= DataSource.Volunteers.FirstOrDefault(volunteer => volunteer.VolunteerId == id);
-        return volunteer is null ? throw new DalDoesNotExistException($"Volunteer with this Id{id} does not exist in the system! ") : volunteer;
-    } 
+    /// <summary>
+    /// Reads and returns a volunteer with the specified ID.
+    /// </summary>
+    /// <param name="id">The ID of the volunteer to be read.</param>
+    /// <returns>The volunteer with the specified ID, or null if not found.</returns>
+    public Volunteer? Read(int id) => DataSource.Volunteers.FirstOrDefault(volunteer => volunteer.VolunteerId == id);
 
-    //returning the first Volunteer object from DataSource.Volunteers that satisfies the
-    //filter condition, or null if no such object is found
-    public Volunteer Read(Func<Volunteer, bool> filter)
-    {
-        Volunteer? volunteers= DataSource.Volunteers.FirstOrDefault(filter);
-        return volunteers is null ? throw new DalDoesNotExistException($"Volunteers with this criteria don't exist in the system! ") : volunteers;
-    }
+    /// <summary>
+    /// Reads and returns the first volunteer that matches the specified filter condition.
+    /// </summary>
+    /// <param name="filter">The filter condition to match.</param>
+    /// <returns>The first volunteer that matches the filter condition, or null if not found.</returns>
+    public Volunteer? Read(Func<Volunteer, bool> filter) => DataSource.Volunteers.FirstOrDefault(filter);
 
-
-    //returning an IEnumerable<Volunteer>, which is a collection of Volunteer objects.
+    /// <summary>
+    /// Reads and returns all volunteers, optionally filtered by the specified condition.
+    /// </summary>
+    /// <param name="filter">The filter condition to match, or null to return all volunteers.</param>
+    /// <returns>A collection of volunteers that match the filter condition, or all volunteers if no filter is specified.</returns>
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
-    {
-        IEnumerable<Volunteer> volunteers= filter == null ? DataSource.Volunteers.Select(item => item)
-            : DataSource.Volunteers.Where(filter);
-        return volunteers is null ? throw new DalDoesNotExistException($"Volunteers with this criteria don't exist in the system! ") : volunteers;
-    }
+         => filter == null
+             ? DataSource.Volunteers.Select(item => item)
+             : DataSource.Volunteers.Where(filter);
+
+    /// <summary>
+    /// Updates an existing volunteer in the data source.
+    /// </summary>
+    /// <param name="item">The volunteer with updated information.</param>
+    /// <exception cref="DalDoesNotExistException">Thrown when a volunteer with the specified ID does not exist.</exception>
     public void Update(Volunteer item)
     {
-        //Going through the list of volunteers  checking wether  the id is the same 
         foreach (var volunteer in DataSource.Volunteers)
         {
-
             if (volunteer.VolunteerId == item.VolunteerId)
             {
-                //If so deleting the volunteer and adding the uptaded item
                 DataSource.Volunteers.Remove(volunteer);
                 DataSource.Volunteers.Add(item);
                 return;
             }
         }
-        //Trowing exception if the id doesn't exist
-        throw new DalDoesNotExistException($"Volunteer with the ID={item.VolunteerId} does not exists");
-
+        throw new DalDoesNotExistException($"Volunteer with the ID={item.VolunteerId} does not exist");
     }
 }

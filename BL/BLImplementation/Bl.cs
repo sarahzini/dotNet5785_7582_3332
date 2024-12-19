@@ -1,6 +1,5 @@
-﻿using BIApi;
-using BLImplementation;
-namespace Bl;
+﻿namespace BlImplementation;
+using BlApi;
 
 internal class Bl : IBl
 {

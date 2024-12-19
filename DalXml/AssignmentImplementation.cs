@@ -44,34 +44,33 @@ internal class AssignmentImplementation : IAssignment
     /// Reads an assignment by ID.
     /// </summary>
     /// <param name="id">The ID of the assignment to read.</param>
-    /// <returns>The assignment with the specified ID, or throw exception if it's null.</returns>
-    public Assignment Read(int id)
+    /// <returns>The assignment with the specified ID, or null if not found.</returns>
+    public Assignment? Read(int id)
     {
-        Assignment? assignment = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml).FirstOrDefault(a => a.AssignmentId == id);
-        return assignment is null ? throw new DalDoesNotExistException($"Assignment with the ID={id} does not exists")  : assignment;
+        List<Assignment> assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
+        return assignments.FirstOrDefault(a => a.AssignmentId == id);
     }
 
     /// <summary>
     /// Reads an assignment by a specified filter.
     /// </summary>
     /// <param name="filter">The filter to apply.</param>
-    /// <returns>The first assignment that matches the filter, or throw exception if it's null.</returns>
-    public Assignment Read(Func<Assignment, bool> filter)
+    /// <returns>The first assignment that matches the filter, or null if not found.</returns>
+    public Assignment? Read(Func<Assignment, bool> filter)
     {
-        Assignment? assignment = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml).FirstOrDefault(filter);
-        return assignment is null ? throw new DalDoesNotExistException($"Assignment with this criteria does not exists") : assignment;
+        List<Assignment> assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
+        return assignments.FirstOrDefault(filter);
     }
 
     /// <summary>
     /// Reads all assignments, optionally filtered by a specified filter.
     /// </summary>
     /// <param name="filter">The filter to apply, or null to read all assignments.</param>
-    /// <returns>An enumerable of assignments that match the filter, or all assignments if no filter is specified and throw exception if it's empty.</returns>
+    /// <returns>An enumerable of assignments that match the filter, or all assignments if no filter is specified.</returns>
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
     {
         List<Assignment> assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
-        var assignmentsFiltered = filter == null ? assignments : assignments.Where(filter);
-        return assignments == null ? throw new DalDoesNotExistException($"Assignments with this criteria don't exist") : assignments;
+        return filter == null ? assignments : assignments.Where(filter);
     }
 
     /// <summary>

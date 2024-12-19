@@ -1,6 +1,7 @@
 ﻿namespace DalApi;
+
 /// <summary>
-/// 
+/// Provides configuration settings and operations for the application.
 /// </summary>
 public interface IConfig
 {

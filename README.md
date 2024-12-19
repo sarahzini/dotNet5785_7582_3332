@@ -23,6 +23,18 @@ Stage 2
 Stage 3
 Implement an additional data layer using XML files for data storage.
 
+Stage 4
+1.Completion of the Layered Model:
+- Finalizing the layered architecture.
+2.Design Patterns:
+- Implementing the Singleton and Simple Factory Method design patterns.
+- Including their use in the data layers.
+3.Logical Layer Data Contract:
+-Creating logical entities (BO - Business Objects) for the logical layer.
+4.Service Contract:
+- Creating a generic interface (BlApi) to define the service contract for the logical layer.
+5.User Interface (Console):
+- Developing a test program for the logical layer using a console-based interface to validate its functionality.
 
 
 

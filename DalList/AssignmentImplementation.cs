@@ -7,90 +7,86 @@ using DO;
 /// functionalities related to assignment operations within the application. It defines 
 /// how assignments are managed, including their creation, updating, and other related actions.
 /// </summary>
-
 internal class AssignmentImplementation : IAssignment
 {
+    /// <summary>
+    /// Creates a new assignment and adds it to the data source.
+    /// </summary>
+    /// <param name="assignment">The assignment to be added.</param>
     public void Create(Assignment assignment)
     {
-        //This method was written by the AI and we explain it 
-        // Generate a new ID and CallId using the next running number from Config
         int newId = Config._nextAssignmentId;
         int newCallId = Config._nextCallId;
-
-        // Create a copy of the assignment object and update its ID and CallId with the new running number
-        Assignment newAssignment = assignment with { AssignmentId = newId, CallId=newCallId };
-
-        // Add the reference of the copy to the list of assignments
+        Assignment newAssignment = assignment with { AssignmentId = newId, CallId = newCallId };
         DataSource.Assignments.Add(newAssignment);
-
     }
 
+    /// <summary>
+    /// Deletes an assignment with the specified ID from the data source.
+    /// </summary>
+    /// <param name="id">The ID of the assignment to be deleted.</param>
+    /// <exception cref="DalDoesNotExistException">Thrown when an assignment with the specified ID does not exist.</exception>
     public void Delete(int id)
     {
-        //Going through the list of assignments checking whether the id is the same
         foreach (var assignment in DataSource.Assignments)
         {
-            //If so deleting the assignment
             if (assignment.AssignmentId == id)
             {
                 DataSource.Assignments.Remove(assignment);
                 return;
             }
         }
-        //Throwing exception if the id doesn't exist
         throw new DalDoesNotExistException($"Assignment with the ID={id} does not exist in the system!");
     }
 
+    /// <summary>
+    /// Deletes all assignments from the data source.
+    /// </summary>
     public void DeleteAll()
     {
-        // Clear all assignments from the list
         DataSource.Assignments.Clear();
     }
 
-    //returning the assignment if the id is the same
-    public Assignment Read(int id)
-    {
-        Assignment? assignment= DataSource.Assignments.FirstOrDefault(assignment => assignment.AssignmentId == id);
-        return assignment is null ? throw new DalDoesNotExistException($"Assignment with this Id{id} does not exist in the system! ") : assignment;
-    }
+    /// <summary>
+    /// Reads and returns an assignment with the specified ID.
+    /// </summary>
+    /// <param name="id">The ID of the assignment to be read.</param>
+    /// <returns>The assignment with the specified ID, or null if not found.</returns>
+    public Assignment? Read(int id) => DataSource.Assignments.FirstOrDefault(assignment => assignment.AssignmentId == id);
 
-    //returning the first Assignment object from DataSource.Assignments that satisfies the
-    //filter condition, or null if no such object is found
-    public Assignment Read(Func<Assignment, bool> filter)
-    {
-        Assignment? assignment = DataSource.Assignments.FirstOrDefault(filter);
-        return assignment is null ? throw new DalDoesNotExistException($"Assignment with this criteria does not exist in the system! ") : assignment;
+    /// <summary>
+    /// Reads and returns the first assignment that matches the specified filter condition.
+    /// </summary>
+    /// <param name="filter">The filter condition to match.</param>
+    /// <returns>The first assignment that matches the filter condition, or null if not found.</returns>
+    public Assignment? Read(Func<Assignment, bool> filter) => DataSource.Assignments.FirstOrDefault(filter);
 
-    }
+    /// <summary>
+    /// Reads and returns all assignments, optionally filtered by the specified condition.
+    /// </summary>
+    /// <param name="filter">The filter condition to match, or null to return all assignments.</param>
+    /// <returns>A collection of assignments that match the filter condition, or all assignments if no filter is specified.</returns>
+    public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
+        => filter == null
+            ? DataSource.Assignments.Select(item => item)
+            : DataSource.Assignments.Where(filter);
 
-    //returning an IEnumerable<Assignment>, which is a collection of Assignment objects.
-    public IEnumerable<Assignment>? ReadAll(Func<Assignment, bool>? filter = null)
-    {
-        //    IEnumerable<Assignment> assignments= filter == null ? DataSource.Assignments.Select(item => item)
-        //        : DataSource.Assignments.Where(filter);
-        //    return assignments is null? throw new DalDoesNotExistException($"Assignments with this criteria does not exist in the system! ") : assignments;
-
-        return filter == null ? DataSource.Assignments.Select(item => item)
-           : DataSource.Assignments.Where(filter);
-    }
-
-
+    /// <summary>
+    /// Updates an existing assignment in the data source.
+    /// </summary>
+    /// <param name="item">The assignment with updated information.</param>
+    /// <exception cref="DalDoesNotExistException">Thrown when an assignment with the specified ID does not exist.</exception>
     public void Update(Assignment item)
     {
-        //Going through the list of assignments checking whether the id is the same 
         foreach (var assignment in DataSource.Assignments)
         {
             if (assignment.AssignmentId == item.AssignmentId)
             {
-                //If so deleting the assignment and adding the updated item
                 DataSource.Assignments.Remove(assignment);
                 DataSource.Assignments.Add(item);
                 return;
             }
         }
-        //Throwing exception if the id doesn't exist
         throw new DalDoesNotExistException($"Assignment with the ID={item.AssignmentId} does not exist in the system!");
     }
-
 }
-

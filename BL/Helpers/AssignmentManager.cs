@@ -4,9 +4,21 @@ namespace Helpers;
 internal static class AssignmentManager
 {
     private static IDal s_dal = Factory.Get;
-    internal static DO.Assignment? SearchAssignment(Func<DO.Assignment, bool> predicate)
+
+    internal static void PeriodicAssignmentsUpdates(DateTime oldClock, DateTime newClock)
     {
-        DO.Assignment? assignment = s_dal.Assignment.Read(predicate);
-        return assignment;
+        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll();
+
+        if (assignments == null)
+            return;
+
+        foreach (var assignment in assignments)
+        {
+            if (s_dal.Call.Read(c=>c.CallId==assignment.CallId)?.MaxEnd < newClock)
+            {
+               DO.Assignment newAssign = assignment with { MyEndStatus = DO.EndStatus.Expired };
+               s_dal.Assignment.Update(newAssign);
+            }
+        }
     }
 }

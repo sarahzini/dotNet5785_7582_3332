@@ -227,6 +227,7 @@ public static class Initialization
         //converting the IEnumerable to List
         List<Volunteer> volunteers = s_dal!.Volunteer?.ReadAll()?.ToList() ?? new List<Volunteer>();
         List<Call> calls = s_dal!.Call?.ReadAll()?.ToList() ?? new List<Call>();
+        int i = 1;
 
         foreach (var call in calls)
         {
@@ -237,11 +238,19 @@ public static class Initialization
             // Generate random start time for the assignment between the start of the call and 20 minutes after
             DateTime startTime = call.OpenTime.AddMinutes(s_rand.Next(20));
 
-            // Generate random end time for the assignment
-            DateTime endTime = startTime.AddMinutes(s_rand.Next(20));
-            EndStatus endStatus = EndStatus.Completed;
 
-            if (endTime < call.MaxEnd)
+            // Generate random end time for the assignment
+
+            DateTime? endTime;
+            i++;
+            if (i % 3 == 0) { endTime = null; }
+            else { endTime = startTime.AddMinutes(s_rand.Next(20)); }
+
+            EndStatus? endStatus;
+
+            if (endTime == null) 
+            { endStatus=null; }
+            else if (endTime < call.MaxEnd)
             {
                 endStatus = (EndStatus)s_rand.Next(1, 3); // Randomly choose between Completed, SelfCancelled and ManagerCancelled
             }

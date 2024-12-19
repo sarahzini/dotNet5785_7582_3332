@@ -23,22 +23,22 @@ internal class CallImplementation : ICall
     /// Reads a Call record by its ID.
     /// </summary>
     /// <param name="id">The ID of the Call to be read.</param>
-    /// <returns>The Call object if found, or throw exception if it's null.</returns>
-    public Call Read(int id)
+    /// <returns>The Call object if found, otherwise null.</returns>
+    public Call? Read(int id)
     {
-        Call? call = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml).FirstOrDefault(it => it.CallId == id);
-        return call is null ? throw new DalDoesNotExistException($"Call with the ID={id} does not exists") : call;
+        List<Call> calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);
+        return calls.FirstOrDefault(it => it.CallId == id);
     }
 
     /// <summary>
     /// Reads a Call record that matches a given filter.
     /// </summary>
     /// <param name="filter">A function to filter the Call records.</param>
-    /// <returns>The first Call object that matches the filter, or throw exception if it's null.</returns>
-    public Call Read(Func<Call, bool> filter)
+    /// <returns>The first Call object that matches the filter, otherwise null.</returns>
+    public Call? Read(Func<Call, bool> filter)
     {
-        Call? call = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml).FirstOrDefault(filter);
-        return call is null ? throw new DalDoesNotExistException($"Call with this criteria does not exists") : call;
+        List<Call> calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);
+        return calls.FirstOrDefault(filter);
     }
 
     /// <summary>
@@ -80,11 +80,10 @@ internal class CallImplementation : ICall
     /// Reads all Call records, optionally filtered by a given condition.
     /// </summary>
     /// <param name="filter">A function to filter the Call records (optional).</param>
-    /// <returns>An IEnumerable of Call objects that match the filter, or all Call objects if no filter is provided and throw exception if it's empty.</returns>
+    /// <returns>An IEnumerable of Call objects that match the filter, or all Call objects if no filter is provided.</returns>
     public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
     {
         List<Call> calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);
-        var callsFiltered = filter == null ? calls : calls.Where(filter);
-        return callsFiltered == null ? throw new DalDoesNotExistException($"Calls with this criteria don't exist") : callsFiltered;
+        return filter == null ? calls : calls.Where(filter);
     }
 }
