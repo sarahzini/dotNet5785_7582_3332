@@ -8,11 +8,32 @@ using DalApi;
 using DO;
 
 namespace BlTest;
+/// <summary>
+/// The Main method serves as the entry point for the MDA Volunteers System application. It displays the main menu and handles user input for navigating to different management sections.
+/// 
+/// The main menu offers the following options:
+/// 1. Manage Volunteers: Navigates to the volunteer management section.
+/// 2. Manage Calls: Navigates to the call management section.
+/// 3. Manage Admin: Navigates to the admin management section.
+/// 4. Exit: Exits the application.
+/// 
+/// The method uses a loop to continuously display the menu until the user chooses to exit. It reads the user's choice and calls the corresponding method to handle the selected operation.
+/// 
+/// Exception handling is implemented to catch and display messages for various custom exceptions that may occur during the execution, such as:
+/// - BLDoesNotExistException: Thrown when a requested entity does not exist.
+/// - BLAlreadyExistException: Thrown when attempting to create an entity that already exists.
+/// - BLIncorrectPassword: Thrown when an incorrect password is provided.
+/// - BLFormatException: Thrown when there is a format error in the input.
+/// - BLInvalidOperationException: Thrown when an invalid operation is attempted.
+/// - BLXMLFileLoadCreateException: Thrown when there is an issue with loading or creating an XML file.
+/// - General Exception: Catches any other exceptions that may occur.
+/// 
+/// This method ensures that the application remains responsive and provides feedback to the user in case of errors.
+/// </summary>
 
 internal class Program
 {
     static readonly IBl s_bl = BlApi.Factory.Get();
-
     static void Main(string[] args)
     {
         Console.WriteLine("Welcome to the MDA Volunteers System !:");
@@ -236,6 +257,10 @@ internal class Program
             }
         }
     }
+
+    /// <summary>
+    /// Prompts the user to enter their name and password, and logs them in by verifying their credentials. Displays a welcome message with the user's job role.
+    /// </summary>
     private static void Login()
     {
         Console.Write("Enter your name: ");
@@ -246,6 +271,10 @@ internal class Program
         DO.Job job = s_bl.Volunteer.Login(name, password);
         Console.WriteLine($"Welcome to the {job} {name} !");
     }
+
+    /// <summary>
+    /// Prompts the user to specify whether to get active, inactive, or all volunteers, and the field to sort by. Retrieves and displays a list of volunteers based on the specified criteria.
+    /// </summary>
     private static void GetVolunteersInList()
     {
         Console.Write("Enter 'true' to get active volunteers, 'false' to get inactive volunteers, or leave empty to get all volunteers: ");
@@ -261,6 +290,12 @@ internal class Program
         }
 
     }
+
+    /// <summary>
+    /// Retrieves and displays the details of a volunteer or a call based on the specified type. Prompts the user to enter the ID of the volunteer or call.
+    /// </summary>
+    /// <param name="type">The type of entity to get details for ("volunteer" or "call").</param>
+
     private static void GetDetails(string type)
     {
         if (type == "volunteer")
@@ -280,6 +315,12 @@ internal class Program
             Console.WriteLine(c);
         }
     }
+
+    // <summary>
+    /// Updates the details of a volunteer or a call based on the specified type. Prompts the user to enter the necessary information for the update.
+    /// </summary>
+    /// <param name="type">The type of entity to update ("volunteer" or "call").</param>
+
     private static void Update(string type)
     {
         if (type == "volunteer")
@@ -295,6 +336,12 @@ internal class Program
         }
 
     }
+
+    /// <summary>
+    /// Deletes a volunteer or a call based on the specified type. Prompts the user to enter the ID of the volunteer or call to delete.
+    /// </summary>
+    /// <param name="type">The type of entity to delete ("volunteer" or "call").</param>
+
     private static void Delete(string type)
     {
         if (type == "volunteer")
@@ -312,6 +359,12 @@ internal class Program
             s_bl.Call.DeleteCall(callId);
         }
     }
+
+    /// <summary>
+    /// Adds a new volunteer or call based on the specified type. Prompts the user to enter the necessary information for the new entity.
+    /// </summary>
+    /// <param name="type">The type of entity to add ("volunteer" or "call").</param>
+
     private static void Add(string type)
     {
         if (type=="volunteer")
@@ -319,6 +372,10 @@ internal class Program
         else //type is call
             s_bl.Call.AddCall(InputBOCall());
     }
+
+    /// <summary>
+    /// Retrieves and displays a sorted list of calls based on user-specified filter and sort criteria. Prompts the user to enter the fields for filtering and sorting.
+    /// </summary>
     private static void GetSortedCallsInList()
     {
         Console.Write("Enter the field to filter by (0 for CallId, 1 for BeginTime, 2 for NameLastVolunteer, 3 for ExecutedTime, 4 for TotalAssignment, or leave empty and we will sort by Id: ");
@@ -335,7 +392,11 @@ internal class Program
         {
             Console.WriteLine(call);
         }
-    } 
+    }
+
+    /// <summary>
+    /// Retrieves and displays a sorted list of closed calls for a specific volunteer. Prompts the user to enter their volunteer ID, the type of call, and the field to sort by.
+    /// </summary>
     private static void SortClosedCalls()
     {
         Console.Write("Enter your Volunteer ID: ");
@@ -352,7 +413,11 @@ internal class Program
         {
             Console.WriteLine(call);
         }
-    } 
+    }
+
+    /// <summary>
+    /// Retrieves and displays a sorted list of open calls for a specific volunteer. Prompts the user to enter their volunteer ID, the type of call, and the field to sort by.
+    /// </summary>
     private static void SortOpenCalls()
     {
         Console.Write("Enter your Volunteer ID: ");
@@ -369,7 +434,11 @@ internal class Program
         {
             Console.WriteLine(call);
         }
-    } 
+    }
+
+    /// <summary>
+    /// Completes a call by providing volunteer ID and assignment ID.
+    /// </summary>
     private static void CompleteCall()
     {
         Console.Write("Enter your ID: ");
@@ -379,8 +448,11 @@ internal class Program
         int assignmentId = int.Parse(Console.ReadLine() ?? "0");
 
         s_bl.Call.CompleteCall(volunteerId, assignmentId);
-
     }
+
+    /// <summary>
+    /// Cancels an assignment by providing requester ID and assignment ID.
+    /// </summary>
     private static void CancelAssignment()
     {
         Console.Write("Enter your ID: ");
@@ -391,6 +463,10 @@ internal class Program
 
         s_bl.Call.CancelAssignment(requesterId, assignmentId);
     }
+
+    /// <summary>
+    /// Assigns a call to a volunteer by providing volunteer ID and call ID.
+    /// </summary>
     private static void AssignCallToVolunteer()
     {
         Console.Write("Enter your ID: ");
@@ -401,6 +477,11 @@ internal class Program
 
         s_bl.Call.AssignCallToVolunteer(volunteerId, callId);
     }
+
+    /// <summary>
+    /// Input from the user each detail for Volunteer
+    /// </summary>
+    /// <returns></returns>
     private static BO.Volunteer InputBOVolunteer()
     {
         Console.WriteLine("Please enter the following volunteer details:");
@@ -462,6 +543,11 @@ internal class Program
             };
         
     }
+
+    /// <summary>
+    /// Input from the user each detail for Call
+    /// </summary>
+    /// <returns></returns>
     private static BO.Call InputBOCall()
     {
         Console.WriteLine("Please enter the following call details:");
@@ -502,7 +588,10 @@ internal class Program
         };
     } 
 
-    //This method is used to change the Password of the volunteer by his choice
+    /// <summary>
+    /// method is used to change the Password of the volunteer by his choice
+    /// </summary>
+    /// <param name="Password"></param>
     private static void ChangePassword(ref string Password)
     {
         do
@@ -519,7 +608,10 @@ internal class Program
     }
 
     // this function was generated by AI 
-    //The GenerateRandomPassword method generates a random Password containing at least one uppercase letter,
+    /// <summary>
+    /// The GenerateRandomPassword method generates a random Password containing at least one uppercase letter,
+    /// </summary>
+    /// <returns></returns>
     /// one number, and a mix of other characters. The Password has a length of 6 characters. 
     private static string GenerateRandomPassword()
     {

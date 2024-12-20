@@ -1,15 +1,16 @@
-﻿
-using BlApi;
+﻿using BlApi;
 using BO;
 using DO;
 using Helpers;
 using System.Xml.Linq;
-
 namespace BlImplementation;
-
 internal class VolunteerImplementation : IVolunteer
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
+
+    /// <summary>
+    /// This method logs in a volunteer by name and password, and returns the job of the volunteer.
+    /// </summary>
     DO.Job IVolunteer.Login(string name, string password)
     {
         DO.Volunteer? volunteer = _dal.Volunteer.Read(volunteer => volunteer.Name == name);
@@ -25,6 +26,10 @@ internal class VolunteerImplementation : IVolunteer
         }
         return volunteer.MyJob;
     }
+
+    /// <summary>
+    /// This method returns a list of volunteers based on the isActive and sortField parameters.
+    /// </summary>
     IEnumerable<VolunteerInList>? IVolunteer.GetVolunteersInList(bool? isActive, VolunteerInListFieldSort? sortField)
     {
         // Get the full list of volunteers
@@ -49,6 +54,10 @@ internal class VolunteerImplementation : IVolunteer
         // Convert the list to BO.VolunteerInList and return
         return volunteers?.Select(v => VolunteerManager.ConvertToVolunteerInList(v));
     }
+
+    /// <summary>
+    /// This method returns the details of a volunteer based on the volunteerId parameter.
+    /// </summary>
     BO.Volunteer IVolunteer.GetVolunteerDetails(int volunteerId)
     {
         DO.Volunteer? volunteer = _dal.Volunteer.Read(volunteerId);
@@ -103,6 +112,13 @@ internal class VolunteerImplementation : IVolunteer
             throw new BO.BLDoesNotExistException($"An error occured : we cannot delete the volunteer with the ID {volunteerId}. ", ex);
         }
     }
+
+    /// <summary>
+    /// This method adds a new volunteer to the system it first checks the details by calling the 
+    /// ValidateVolunteerDetails method and then converts the BO.Volunteer to DO.Volunteer and adds it to the data layer.
+    /// </summary>
+    /// <param name="volunteer"></param>
+    /// <exception cref="BO.BLAlreadyExistException"></exception>
     public void AddVolunteer(BO.Volunteer volunteer)
     {
         try

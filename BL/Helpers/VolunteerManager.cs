@@ -11,7 +11,12 @@ namespace Helpers;
 internal static class VolunteerManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
-    internal static void ValidateVolunteerDetails(BO.Volunteer volunteer)
+
+    /// <summary>
+    /// This method validates the details of a volunteer by checking the email, ID, name, phone number, password, job, and address
+    /// with the requirements of each members.
+    /// </summary>
+     internal static void ValidateVolunteerDetails(BO.Volunteer volunteer)
     {
         var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         if (!emailRegex.IsMatch(volunteer.Email))
@@ -46,6 +51,10 @@ internal static class VolunteerManager
             throw new BO.BLFormatException("Job must be either 'Manager' or 'Volunteer'.");
         }
     }
+
+    /// <summary>
+    /// This method converts a BO.Volunteer object to a DO.Volunteer object.
+    /// </summary>
     internal static DO.Volunteer ConvertToDataVolunteer(BO.Volunteer volunteer)
     {
         (double latitude, double longitude) = CallManager.GetCoordinatesFromAddress(volunteer.VolunteerAddress);
@@ -66,7 +75,11 @@ internal static class VolunteerManager
         };
     }
 
-    //distance avec les bonus
+    /// <summary>
+    /// This method converts a DO.Volunteer List to a BO.Volunteer List.
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
     internal static BO.VolunteerInList ConvertToVolunteerInList(DO.Volunteer v)
     {
         IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
@@ -107,7 +120,9 @@ internal static class VolunteerManager
         };
     }
 
-    //distance avec les bonus
+    /// <summary>
+    /// This method converts a DO.Volunteer object to a BO.Volunteer object.
+    /// </summary>
     internal static BO.Volunteer ConvertToLogicalVolunteer(DO.Volunteer volunteer, int volunteerId)
     {
         IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll(a => a.VolunteerId == volunteerId);
@@ -173,6 +188,10 @@ internal static class VolunteerManager
             } : null
         };
     }
+
+    /// <summary>
+    /// This method checks if the volunteer is authorized to update their details.
+    /// </summary>
     internal static void CheckAuthorisationToUpdate(DO.Volunteer? oldVolunteer, DO.Volunteer updatedVolunteer, bool isManager)
     {
         if (oldVolunteer?.Name != updatedVolunteer.Name)

@@ -8,6 +8,9 @@ using System.Text; // to use StringBuilder
 namespace Helpers;
 internal static class Tools
 {
+    /// <summary>
+    /// This method prints for each object the properties and their values.
+    /// </summary>
     public static string ToStringProperty<T>(this T t)
     {
         if (t == null)

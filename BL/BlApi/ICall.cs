@@ -1,11 +1,12 @@
-﻿
+﻿using BO;
+using DO;
 using Helpers;
 
 namespace BlApi;
- public interface  ICall
+ public interface ICall
 {
     /// <summary>
-    /// Alls the Methods used, they are implemented in the CallImplementation class
+    /// Alls the Methods that are used, they are implemented in the CallImplementation class
     /// </summary>
     public int[] TypeOfCallCounts();
     public IEnumerable<BO.CallInList>? GetSortedCallsInList(BO.CallInListField? filterField, object? filterValue, BO.CallInListField? sortField);

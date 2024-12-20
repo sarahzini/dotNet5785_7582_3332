@@ -1,5 +1,9 @@
 ﻿namespace BO;
 
+/// <summary>
+/// All the exceptions of Bl which is can be thrown from the Bl or received from Dal
+/// </summary>
+
 [Serializable]
 public class BLDoesNotExistException : Exception
 {

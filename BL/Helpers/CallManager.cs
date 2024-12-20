@@ -7,7 +7,11 @@ namespace Helpers;
 /// </summary>
 internal static class CallManager
 {
-    private static IDal s_dal = Factory.Get; 
+    private static IDal s_dal = Factory.Get;
+
+    /// <summary>
+    /// This method converts a DO.Call object to a BO.CallInList object.
+    /// </summary>
     internal static BO.CallInList ConvertToCallInList(DO.Call call)
     {
         IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == call.CallId);
@@ -33,6 +37,9 @@ internal static class CallManager
             TotalAssignment = assignments is null ? 0 : assignments.Count()
         };
     }
+    /// <summary>
+    /// This method converts a DO.Call object to a BO.ClosedCallInList.
+    /// </summary>
     internal static BO.ClosedCallInList ConvertToClosedCallInList(DO.Call call)
     {
         IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.CallId);
@@ -49,6 +56,10 @@ internal static class CallManager
             TypeOfEnd = (BO.EndStatus)assign?.MyEndStatus
         };
     }
+
+    /// <summary>
+    /// This method converts a DO.Call object to a BO.OpenCallInList.
+    /// </summary>
     internal static BO.OpenCallInList ConvertToOpenCallInList(DO.Call call,int volunteerId)
     {
         double? volunteerLong = s_dal.Volunteer.Read(volunteerId)?.Longitude;
@@ -69,6 +80,10 @@ internal static class CallManager
             VolunteerDistanceToCall=distance
         };
     } //changer distance
+   
+    /// <summary>
+    /// This method converts a BO.Call object to a DO.Call object.
+    /// </summary>
     internal static DO.Call ConvertToDataCall(BO.Call call)
     {
         return new DO.Call
@@ -83,6 +98,10 @@ internal static class CallManager
             MaxEnd = call.MaxEndTime
         };
     }
+
+    /// <summary>
+    /// This method converts a DO.Call object to a BO.Call object.
+    /// </summary>
     internal static BO.Call ConvertToLogicCall(DO.Call call)
     {
 
@@ -117,6 +136,10 @@ internal static class CallManager
             CallAssigns = CallAssignInList
         };
     }
+
+    /// <summary>
+    ///This method determine the status of a call, depending on the case it can be Open, Closed, InAction, InActionToRisk, OpenToRisk, Expired.
+    /// </summary>
     private static BO.Statuses ToDeterminateStatus(DO.Assignment? assign, DO.Call call)
     {
         if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd ) { return BO.Statuses.Expired; }
@@ -129,12 +152,20 @@ internal static class CallManager
         else { return BO.Statuses.Open; }
 
     }
+
+    /// <summary>
+    /// This method determine if the requester is a manager.
+    /// </summary>
     internal static bool IsRequesterManager(int requesterId)
     {
         DO.Volunteer? user = s_dal.Volunteer.Read(requesterId);
         return user is null ? false : user?.MyJob == DO.Job.Manager;
     }
-    internal static void ValidateCallDetails(BO.Call call)
+
+    /// <summary>
+    /// This method checks the details of a call.
+    /// </summary>
+     internal static void ValidateCallDetails(BO.Call call)
     {
         //checks wether the Maxendtime is greater than the call start time and the current time
         if (call.MaxEndTime <= call.BeginTime || call.MaxEndTime <= DateTime.Now)
@@ -150,25 +181,19 @@ internal static class CallManager
         //the adress details will be check after the call of this function
     }
 
-
-    //from this function the AI helped us to write 
-
+    /// <summary>
     /// The HttpClient instance is used to make HTTP requests to external services.
     /// In the context of the CallManager class, it is used to interact with the LocationIQ API 
-    /// to get the coordinates of an address. <summary>
-    /// The HttpClient instance is used to make HTTP requests to external services.
+    /// to get the coordinates of an address.
     /// </summary>
     private static readonly HttpClient httpClient = new HttpClient();
 
     // LocationIQ API key
-    private const string LocationIQApiKey = "675b1b0034c57582409131rpj9f815d";
+    private const string LocationIQApiKey = "pk.3abfd5d3f5b2b87a10e7cb0d73c2c30e";
 
-    //use of AI to get the coordinates of an address
     /// <summary>
     /// This method returns the latitude and longitude coordinates of a given address.
     /// </summary>
-    /// <param name="address">The address of a volunteer/call/assignment </param>
-    /// <returns></returns>
     public static (double Latitude, double Longitude) GetCoordinatesFromAddress(string address)
     {
         if (string.IsNullOrWhiteSpace(address))
@@ -198,26 +223,24 @@ internal static class CallManager
         }
         catch (Exception ex)
         {
-            throw new Exception("An error occurred while validating the address.", ex);
+            throw new Exception("An error occurred while retrieving the coordinates.", ex);
         }
     }
+
     /// <summary>
-    /// This class is used to deserialize the response from the LocationIQ API
+    /// This class is used to deserialize the response from the LocationIQ API.
     /// </summary>
     private class LocationIQResponse
     {
         public string? Latitude { get; set; }
         public string? Longitude { get; set; }
     }
+
     /// <summary>
-    /// Checks if the coordinates of a call match the coordinates of the address
+    /// Checks if the coordinates of a call match the coordinates of the address.
     /// </summary>
-    /// <param name="call">A Call variable </param>
     internal static bool AreCoordinatesMatching(BO.Call call)
     {
         return GetCoordinatesFromAddress(call.CallAddress) == (call.CallLatitude, call.CallLongitude);
-
     }
-
 }
-

@@ -1,18 +1,16 @@
-﻿
-using BlApi;
+﻿using BlApi;
 using BO;
 using DO;
 using Helpers;
 using BlImplementation;
-
 namespace BlImplementation;
 
-internal class CallImplementation: ICall
+internal class CallImplementation : ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
     /// <summary>
-    /// Calculates the number of calls for each ambulance type (ICU and Regular) 
+    /// Calculates the number of calls for each ambulance type (ICU and Regular)
     /// and returns an array of integers where: 0 for Icu and 1 for Regular
     /// It uses the following process: Fetches all calls from the data layer, Groups the calls
     /// by their `AmbulanceType` using LINQ, Counts the number of calls for each group and
@@ -39,7 +37,12 @@ internal class CallImplementation: ICall
         }
 
         return result;
-    } 
+    }
+
+    /// <summary>
+    /// This method fetches all calls from the data layer, 
+    /// filters the calls based on the provided filterField and filterValue then returns the sorted calls.
+    /// </summary>
     IEnumerable<BO.CallInList>? ICall.GetSortedCallsInList(CallInListField? filterField, object? filterValue, CallInListField? sortField)
     {
         // Get all calls
@@ -72,6 +75,11 @@ internal class CallImplementation: ICall
         // Convert to CallInList and return
         return calls?.Select(call => CallManager.ConvertToCallInList(call)).ToList();
     }
+
+    /// <summary>
+    /// This method get the Details of a specific call by its Id using the ConvertToLogicCall method to convert
+    /// from DO.Call to BO.Call.
+    /// </summary>
     BO.Call ICall.GetCallDetails(int CallId)
     {
         try
@@ -88,6 +96,14 @@ internal class CallImplementation: ICall
             throw new BO.BLDoesNotExistException(ex.Message);
         }
     }
+
+    /// <summary>
+    /// This methods updates the details of a specific call by its Id it checks wether the details are valid 
+    /// by using the ValidateCallDetails method then updates the latitude and longitude 
+    /// based on the validated address by using the GetCoordinatesFromAddress method.
+    /// The data is then converted to a data object by calling a method in the CallManager 
+    /// using the ConvertToDataCall method and the call is updated in the data layer.
+    /// </summary>
     void ICall.UpdateCallDetails(BO.Call callUptade)
     {
         try
@@ -105,9 +121,15 @@ internal class CallImplementation: ICall
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BLDoesNotExistException("We cannot update this call: ",ex);
+            throw new BO.BLDoesNotExistException("We cannot update this call: ", ex);
         }
     }
+
+    /// <summary>
+    /// This method deletes a specific call by its Id it first checks 
+    /// if the call can be deleted by checking if the call has been assigned to a volunteer or it is not open. 
+    /// If the conditions are met the call is deleted from the data layer.
+    /// </summary>
     void ICall.DeleteCall(int callId)
     {
         try
@@ -129,6 +151,13 @@ internal class CallImplementation: ICall
             throw new BO.BLDoesNotExistException($"We cannot delete the call {callId}: ", ex);
         }
     }
+
+
+    /// <summary>
+    /// This method adds a new call to the data layer it first checks if the call details are valid
+    /// by using the ValidateCsllDetails method then converts the business object to a data object( BO.call to DO.Call).
+    /// Then the call is added to the data layer.
+    /// </summary>
     void ICall.AddCall(BO.Call call)
     {
         try
@@ -144,12 +173,17 @@ internal class CallImplementation: ICall
         }
         catch (DO.DalAlreadyExistException ex)
         {
-            throw new BO.BLAlreadyExistException($"We cannot delete the call {call.CallId}: ",ex);
+            throw new BO.BLAlreadyExistException($"We cannot delete the call {call.CallId}: ", ex);
         }
     }
+
+    /// <summary>
+    /// This method fetches all calls from the data layer,
+    /// filters the calls based on the volunteerId and callType parameters,
+    /// </summary>
     IEnumerable<ClosedCallInList>? ICall.SortClosedCalls(int volunteerId, BO.SystemType? callType, ClosedCallInListField? sortField)
     {
-        // Get the full list of calls with the filter of id 
+        // Get the full list of calls with the filter of id
         IEnumerable<DO.Call>? calls = _dal.Call.ReadAll()?
             .Where(call => _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.VolunteerId == volunteerId
             && _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.MyEndStatus == DO.EndStatus.Completed);
@@ -174,9 +208,14 @@ internal class CallImplementation: ICall
         return calls?.Select(call => CallManager.ConvertToClosedCallInList(call)).ToList();
 
     }
+
+    /// <summary>
+    /// This method fetches all calls from the data layer, 
+    /// filters the Open calls based on the volunteerId and callType parameters,
+    /// </summary>
     IEnumerable<OpenCallInList>? ICall.SortOpenCalls(int volunteerId, BO.SystemType? callType, OpenCallInListField? sortField)
     {
-        // Get the full list of calls with the filter of id 
+        // Get the full list of calls with the filter of id
         IEnumerable<DO.Call>? calls = _dal.Call.ReadAll()
             .Where(call => _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.VolunteerId == volunteerId
             && _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.End == null);
@@ -199,6 +238,11 @@ internal class CallImplementation: ICall
 
         return calls?.Select(call => CallManager.ConvertToOpenCallInList(call, volunteerId)).ToList();
     }
+
+    /// <summary>
+    ///This method fetches all calls from the data layer, 
+    /// filters the Completed  calls based on the volunteerId and callType parameters,
+    /// </summary>
     void ICall.CompleteCall(int volunteerId, int assignmentId)
     {
         try
@@ -233,6 +277,11 @@ internal class CallImplementation: ICall
             throw new BO.BLDoesNotExistException($"You cannot update the assignment {assignmentId}: ", ex);
         }
     }
+
+    /// <summary>
+    /// This mehod cancels an assignment by its Id it first checks if the requester is authorized to cancel the assignment
+    /// by checking if the requester is the volunteer assigned to the assignment or a manager.
+    /// </summary>
     void ICall.CancelAssignment(int requesterId, int assignmentId)
     {
         try
@@ -268,6 +317,10 @@ internal class CallImplementation: ICall
             throw new BO.BLDoesNotExistException($"You cannot update the assignment {assignmentId}: ", ex);
         }
     }
+
+    /// <summary>
+    /// Assigns a call to a volunteer by creating a new assignment in the data layer.
+    /// </summary>
     void ICall.AssignCallToVolunteer(int volunteerId, int callId)
     {
         try
