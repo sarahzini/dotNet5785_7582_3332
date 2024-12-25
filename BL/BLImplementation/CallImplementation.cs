@@ -3,6 +3,7 @@ using BO;
 using DO;
 using Helpers;
 using BlImplementation;
+
 namespace BlImplementation;
 
 internal class CallImplementation : ICall
@@ -43,7 +44,7 @@ internal class CallImplementation : ICall
     /// This method fetches all calls from the data layer, 
     /// filters the calls based on the provided filterField and filterValue then returns the sorted calls.
     /// </summary>
-    IEnumerable<BO.CallInList>? ICall.GetSortedCallsInList(CallInListField? filterField, object? filterValue, CallInListField? sortField)
+    IEnumerable<BO.CallInList>? ICall.GetSortedCallsInList(CallInListField? filterField=null, object? filterValue=null, CallInListField? sortField=null)
     {
         // Get all calls
         var calls = _dal.Call.ReadAll();
@@ -118,6 +119,9 @@ internal class CallImplementation : ICall
 
             // Attempt to update the call in the data layer
             _dal.Call.Update(callUpdate);
+            CallManager.Observers.NotifyItemUpdated(callUpdate.CallId); //stage 5   
+            CallManager.Observers.NotifyListUpdated(); //stage 5   
+
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -145,6 +149,7 @@ internal class CallImplementation : ICall
 
             // Attempt to delete the call from the data layer
             _dal.Call.Delete(callId);
+            CallManager.Observers.NotifyListUpdated(); //stage 5   
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -170,6 +175,7 @@ internal class CallImplementation : ICall
 
             // Attempt to add the new call to the data layer
             _dal.Call.Create(newCall);
+            CallManager.Observers.NotifyListUpdated(); //stage 5   
         }
         catch (DO.DalAlreadyExistException ex)
         {
@@ -341,7 +347,7 @@ internal class CallImplementation : ICall
                     throw new BO.BLInvalidOperationException("The call is already completed.");
                 }
                 // Check if the call has expired
-                if (call.MaxEnd.HasValue && call.MaxEnd < ClockManager.Now)
+                if (call.MaxEnd.HasValue && call.MaxEnd < AdminManager.Now)
                 {
                     throw new BO.BLInvalidOperationException("The call has expired.");
                 }
@@ -352,7 +358,7 @@ internal class CallImplementation : ICall
             {
                 CallId = callId,
                 VolunteerId = volunteerId,
-                Begin = ClockManager.Now,
+                Begin = AdminManager.Now,
                 End = null,
                 MyEndStatus = null
             };
@@ -365,4 +371,36 @@ internal class CallImplementation : ICall
             throw new BO.BLAlreadyExistException("An error occurred while assigning the call to the volunteer.", ex);
         }
     }
+
+    /// <summary>
+    /// This method adds a list observer to the observers list.
+    /// </summary>
+    /// <param name="listObserver">The list of observers</param>
+    public void AddObserver(Action listObserver) =>
+           CallManager.Observers.AddListObserver(listObserver);
+
+    /// <summary>
+    /// This method adds an observer to the observers list.
+    /// </summary>
+    /// <param name="id">The id of the observer</param>
+    /// <param name="observer">The observer to add</param>
+    public void AddObserver(int id, Action observer) =>
+           CallManager.Observers.AddObserver(id, observer);
+
+    /// <summary>
+    /// This method removes a list observer from the observers list.
+    /// </summary>
+    /// <param name="listObserver">The list of observers</param>
+    public void RemoveObserver(Action listObserver) =>
+           CallManager.Observers.RemoveListObserver(listObserver);
+
+    /// <summary>
+    /// This method removes an observer from the observers list.
+    /// </summary>
+    /// <param name="id">The id of the observer </param>
+    /// <param name="observer">The observer to remove </param>
+    public void RemoveObserver(int id, Action observer) =>
+           CallManager.Observers.RemoveObserver(id, observer); 
+    
+
 }

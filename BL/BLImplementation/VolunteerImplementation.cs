@@ -67,7 +67,7 @@ internal class VolunteerImplementation : IVolunteer
         }
 
         return VolunteerManager.ConvertToLogicalVolunteer(volunteer, volunteerId);
-    } 
+    }
     public void UpdateVolunteer(int requesterId, BO.Volunteer volunteer)
     {
         try
@@ -82,12 +82,14 @@ internal class VolunteerImplementation : IVolunteer
 
             DO.Volunteer? oldVolunteer = _dal.Volunteer.Read(volunteer.VolunteerId);
             DO.Volunteer updatedVolunteer = oldVolunteer is null ? throw new BO.BLDoesNotExistException($"Volunteer {volunteer.Name} doesn't exist in the system !")
-                :VolunteerManager.ConvertToDataVolunteer(volunteer);
+                : VolunteerManager.ConvertToDataVolunteer(volunteer);
 
             VolunteerManager.CheckAuthorisationToUpdate(oldVolunteer, updatedVolunteer, CallManager.IsRequesterManager(requesterId));
 
             // Attempt to update the volunteer in the data layer
             _dal.Volunteer.Update(updatedVolunteer);
+            VolunteerManager.Observers.NotifyItemUpdated(updatedVolunteer.VolunteerId); //stage 5   
+            VolunteerManager.Observers.NotifyListUpdated(); //stage 5   
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -106,6 +108,7 @@ internal class VolunteerImplementation : IVolunteer
             }
 
             _dal.Volunteer.Delete(volunteerId);
+            VolunteerManager.Observers.NotifyListUpdated(); //stage 5   
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -131,10 +134,83 @@ internal class VolunteerImplementation : IVolunteer
 
             // Attempt to add the new volunteer to the data layer
             _dal.Volunteer.Create(newVolunteer);
+            VolunteerManager.Observers.NotifyListUpdated(); //stage 5   
         }
         catch (DO.DalAlreadyExistException ex)
         {
             throw new BO.BLAlreadyExistException($"An error occured : we cannot add the volunteer with the ID {volunteer.VolunteerId}.", ex);
         }
     }
+
+    /// <summary>
+    /// This method adds a list observer to the observers list.
+    /// </summary>
+    /// <param name="listObserver">The list of observers</param>
+    public void AddObserver(Action listObserver) =>
+           VolunteerManager.Observers.AddListObserver(listObserver);
+
+    /// <summary>
+    /// This method adds an observer to the observers list.
+    /// </summary>
+    /// <param name="id">The id of the observer</param>
+    /// <param name="observer">The observer to add</param>
+    public void AddObserver(int id, Action observer) =>
+           VolunteerManager.Observers.AddObserver(id, observer);
+
+    /// <summary>
+    /// This method removes a list observer from the observers list.
+    /// </summary>
+    /// <param name="listObserver">The list of observers</param>
+    public void RemoveObserver(Action listObserver) =>
+           VolunteerManager.Observers.RemoveListObserver(listObserver);
+
+    /// <summary>
+    /// This method removes an observer from the observers list.
+    /// </summary>
+    /// <param name="id">The id of the observer </param>
+    /// <param name="observer">The observer to remove </param>
+    public void RemoveObserver(int id, Action observer) =>
+           VolunteerManager.Observers.RemoveObserver(id, observer);
+
+
+    /// <summary>
+    /// This method returns a list of volunteers filtered by the specified system type.
+    /// </summary>
+    /// <param name="filterValue">The system type to filter volunteers by. If null, no filtering is applied.</param>
+    /// <returns>A list of volunteers filtered by the specified system type.</returns>
+    public IEnumerable<BO.VolunteerInList> GetFilteredVolunteersInList(BO.SystemType? filterValue = null)
+    {
+        // Get the full list of volunteers
+        IEnumerable<DO.Volunteer>? volunteers = _dal.Volunteer.ReadAll();
+
+        // Create a list to store the filtered volunteers
+        List<DO.Volunteer> filteredVolunteers = new List<DO.Volunteer>();
+
+        // Filter the list based on the filterValue parameter
+        if (filterValue.HasValue)
+        {
+            foreach (var v in volunteers)
+            {
+                // Get all assignments for the current volunteer
+                IEnumerable<DO.Assignment>? assignments = _dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
+
+                // Get the call ID of the first assignment that has not ended
+                int? actualCallId = assignments?.FirstOrDefault(a => a.End == null)?.CallId;
+
+                // Determine the type of call based on the call ID
+                BO.SystemType typeOfCall = actualCallId is null ? BO.SystemType.None :
+                    (_dal.Call.Read(c => c.CallId == actualCallId) is null ?
+                    BO.SystemType.None : (BO.SystemType)_dal.Call.Read(c => c.CallId == actualCallId).AmbulanceType);
+
+                // Add the volunteer to the filtered list if the type of call matches the filter value
+                if (typeOfCall == filterValue)
+                    filteredVolunteers.Add(v);
+            }
+            volunteers = filteredVolunteers;
+        }
+
+        // Convert the list to BO.VolunteerInList and return
+        return volunteers?.Select(v => VolunteerManager.ConvertToVolunteerInList(v));
+    }
 }
+

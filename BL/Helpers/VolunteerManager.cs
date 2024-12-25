@@ -11,12 +11,12 @@ namespace Helpers;
 internal static class VolunteerManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
-
+    internal static ObserverManager Observers = new(); //stage 5 
     /// <summary>
     /// This method validates the details of a volunteer by checking the email, ID, name, phone number, password, job, and address
     /// with the requirements of each members.
     /// </summary>
-     internal static void ValidateVolunteerDetails(BO.Volunteer volunteer)
+    internal static void ValidateVolunteerDetails(BO.Volunteer volunteer)
     {
         var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         if (!emailRegex.IsMatch(volunteer.Email))

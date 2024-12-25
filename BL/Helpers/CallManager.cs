@@ -8,7 +8,7 @@ namespace Helpers;
 internal static class CallManager
 {
     private static IDal s_dal = Factory.Get;
-
+    internal static ObserverManager Observers = new(); //stage 5 
     /// <summary>
     /// This method converts a DO.Call object to a BO.CallInList object.
     /// </summary>

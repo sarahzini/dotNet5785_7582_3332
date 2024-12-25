@@ -17,7 +17,8 @@ public enum SystemType
 {
     ICUAmbulance=0,
     RegularAmbulance=1, 
-    None
+    None,
+    All
 }
 public enum Statuses
 {
@@ -26,7 +27,8 @@ public enum Statuses
     Closed,
     Expired,
     OpenToRisk,
-    InActionToRisk
+    InActionToRisk,
+    All
 }
 public enum EndStatus
 {
@@ -60,7 +62,8 @@ public enum CallInListField
     BeginTime,
     NameLastVolunteer,
     ExecutedTime,
-    TotalAssignment
+    TotalAssignment,
+    Status
 }
 
 public enum ClosedCallInListField

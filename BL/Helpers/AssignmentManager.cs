@@ -4,6 +4,7 @@ namespace Helpers;
 internal static class AssignmentManager
 {
     private static IDal s_dal = Factory.Get;
+    internal static ObserverManager Observers = new(); //stage 5
 
     /// <summary>
     /// This method updates the assignments based on the new clock.
@@ -15,13 +16,21 @@ internal static class AssignmentManager
         if (assignments == null)
             return;
 
+        bool assignmentUpdated = false; //stage 5
+
         foreach (var assignment in assignments)
         {
             if (s_dal.Call.Read(c=>c.CallId==assignment.CallId)?.MaxEnd < newClock)
             {
-               DO.Assignment newAssign = assignment with { MyEndStatus = DO.EndStatus.Expired };
-               s_dal.Assignment.Update(newAssign);
+                assignmentUpdated = true;
+                DO.Assignment newAssign = assignment with { MyEndStatus = DO.EndStatus.Expired };
+                s_dal.Assignment.Update(newAssign);
+                Observers.NotifyItemUpdated(newAssign.AssignmentId); //stage 5
             }
         }
+        if ( assignmentUpdated) //stage 5
+            Observers.NotifyListUpdated(); //stage 5
     }
+
 }
+

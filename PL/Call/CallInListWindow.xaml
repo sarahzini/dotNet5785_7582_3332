@@ -1,0 +1,54 @@
+﻿<Window x:Class="PL.Call.CallInListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Call"
+        mc:Ignorable="d"
+        Title="Call In List" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <!--External Grid-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid/>
+        <!--Internal, Upper Grid-->
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Select status call:" HorizontalAlignment="Left" Margin="145,0,0,0" VerticalAlignment="Center" Grid.Column="0"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
+                      Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      SelectedValue="{Binding Path=Status, Mode=TwoWay}"  SelectionChanged="FilteredCall_SelectionChanged">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FF110606" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
+        </Grid>
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=CallList}" SelectionChanged="FilteredCall_SelectionChanged" Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB">
+            <ListView.Foreground>
+                <SolidColorBrush Color="#FFEB0404"/>
+            </ListView.Foreground>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Call Id" Width="Auto" DisplayMemberBinding="{Binding CallId}" />
+                    <GridViewColumn Header="Range Time To End" Width="Auto" DisplayMemberBinding="{Binding RangeTimeToEnd}" />
+                    <GridViewColumn Header="Name Last Volunteer" Width="Auto" DisplayMemberBinding="{Binding NameLastVolunteer}" />
+                    <GridViewColumn Header="Executed Time" Width="Auto" DisplayMemberBinding="{Binding ExecutedTime}" />
+                    <GridViewColumn Header="Status" Width="Auto" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="Total Assignment" Width="Auto" DisplayMemberBinding="{Binding TotalAssignment}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+    </Grid>
+</Window>
+

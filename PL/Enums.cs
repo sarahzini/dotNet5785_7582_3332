@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace PL
+{
+
+    /// <summary>
+    /// For the filter of the volunteer list.
+    /// </summary>
+    internal class SystemTypeCollection : IEnumerable
+    {
+        static readonly IEnumerable<BO.SystemType> s_enums = (Enum.GetValues(typeof(BO.SystemType)) as IEnumerable<BO.SystemType>)!;
+        public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+    }
+
+    /// <summary>
+    /// For the filter of the call list.
+    /// </summary>
+    internal class StatusCallCollection : IEnumerable
+    {
+        static readonly IEnumerable<BO.Statuses> s_enums = (Enum.GetValues(typeof(BO.Statuses)) as IEnumerable<BO.Statuses>)!;
+        public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+    }
+}
