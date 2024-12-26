@@ -19,9 +19,9 @@ namespace PL.Volunteer
     /// </summary>
     public partial class VolunteerWindow : Window
     {
-        public VolunteerWindow()
-        {
-            InitializeComponent();
+        public VolunteerWindow() { 
+            
+            InitializeComponent(); 
         }
     }
 }
