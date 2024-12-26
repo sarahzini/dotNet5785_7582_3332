@@ -35,7 +35,7 @@ public partial class VolunteerInListWindow : Window
     public static readonly DependencyProperty VolunteerListProperty =
         DependencyProperty.Register("CourseList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerInListWindow), new PropertyMetadata(null));
     private void queryVolunteerList()
-         =>VolunteerList = (Ambulance == BO.SystemType.All) ?
+         => VolunteerList = (Ambulance == BO.SystemType.All) ?
                    s_bl?.Volunteer.GetVolunteersInList()! : s_bl?.Volunteer.GetFilteredVolunteersInList(Ambulance)!;
 
     private void volunteerListObserver()
@@ -47,8 +47,37 @@ public partial class VolunteerInListWindow : Window
     private void Window_Closed(object sender, EventArgs e)
         => s_bl.Call.RemoveObserver(volunteerListObserver);
 
-    private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    public BO.VolunteerInList? SelectedVolunteer { get; set; }
+
+    private void lsvUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
+        if (SelectedVolunteer != null)
+            new VolunteerWindow("Update", SelectedVolunteer.VolunteerId).Show();
+    }
+
+    private void btnAdd_Click(object sender, RoutedEventArgs e)
+    {
+        new VolunteerWindow("Add", 0).Show();
 
     }
+
+    private void btnDelete_Click(object sender, RoutedEventArgs e)
+    {
+        MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this volunteer ?", "Delete Confirmation",
+                                                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+        try
+        {
+            if (confirmation == MessageBoxResult.Yes)
+            {
+                s_bl.Volunteer.DeleteVolunteer(SelectedVolunteer.VolunteerId);
+                queryVolunteerList();
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+    }
+
 }

@@ -26,4 +26,10 @@ namespace PL
         static readonly IEnumerable<BO.Statuses> s_enums = (Enum.GetValues(typeof(BO.Statuses)) as IEnumerable<BO.Statuses>)!;
         public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
     }
+
+    internal class JobCollection : IEnumerable
+    {
+        static readonly IEnumerable<BO.Job> s_enums = (Enum.GetValues(typeof(BO.Job)) as IEnumerable<BO.Job>)!;
+        public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+    }
 }

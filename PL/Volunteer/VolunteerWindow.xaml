@@ -5,15 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="VolunteerWindow" Height="450" Width="800">
+        Title="VolunteerWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--External Grid-->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid/>
-        <!--Internal, Upper Grid-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Id:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+             Text="{Binding Path=CurrentVolunteer.VolunteerId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+             IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"
+             VerticalAlignment="Center" Width="120"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Name:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+             Text="{Binding CurrentVolunteer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+             VerticalAlignment="Center" Width="120"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="PhoneNumber:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+             Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+             VerticalAlignment="Center" Width="120"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Email:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+             Text="{Binding CurrentVolunteer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+             VerticalAlignment="Center" Width="120"/>
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Job:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+              ItemsSource="{Binding Source={StaticResource JobCollectionKey}}" 
+              SelectedValue="{Binding CurrentVolunteer.VolunteerJob, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+              VerticalAlignment="Center" Width="120"/>
+
+            <Label Grid.Row="5" Grid.Column="0" Content="IsActive:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+            <CheckBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+              IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+              VerticalAlignment="Center"/>
+
+            <Button Content="{Binding ButtonText}" Grid.Row="9" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddUpdate_Click"/>
+
     </Grid>
 </Window>
