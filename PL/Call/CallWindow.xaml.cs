@@ -20,7 +20,41 @@ namespace PL.Call;
 public partial class CallWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public BO.CallInList? SelectedCall { get; set; }
+    
+    public CallWindow(string AddOrUpdate, int id)
+    {
+        try
+        {
+            ButtonText = AddOrUpdate == "Add" ? "Add" : "Update";
+            InitializeComponent();
+
+            if (ButtonText == "Add")
+                CurrentCall = new BO.Call()
+                {
+                    CallId = 0,
+                    TypeOfCall = BO.SystemType.None,
+                    Description = "",
+                    CallAddress = "",
+                    CallLatitude = 0,
+                    CallLongitude = 0,
+                    BeginTime = s_bl.Admin.GetClock(),
+                    MaxEndTime = null,
+                    Status = BO.Statuses.Open,
+                    CallAssigns =null
+                };
+            else
+                CurrentCall = s_bl.Call.GetCallDetails(id);
+        }
+        catch (BO.BLDoesNotExistException ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
     string ButtonText
     {
         get => (string)GetValue(ButtonTextProperty);
@@ -28,30 +62,6 @@ public partial class CallWindow : Window
     }
     public static readonly DependencyProperty ButtonTextProperty =
         DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(CallWindow));
-    
-    public CallWindow(string AddOrUpdate, int id)
-    {
-        ButtonText = AddOrUpdate == "Add"?"Add" : "Update";
-        InitializeComponent();
-        if(AddOrUpdate == "Update")
-        {
-            CurrentCall = s_bl.Call.GetCallDetails(id);
-        }
-        if (AddOrUpdate == "Add")
-        {
-            CurrentCall = new BO.Call() 
-            {
-                BeginTime = DateTime.Now,
-                CallAddress = "",
-                Description = "",
-            };
-        }
-    }
-    private void lsvCallList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        if (SelectedCall != null)
-            new CallWindow("uptade", SelectedCall.CallId).Show();
-    }
 
     public BO.Call? CurrentCall
     {
@@ -63,42 +73,50 @@ public partial class CallWindow : Window
         DependencyProperty.Register("CurrentCourse", typeof(BO.Call), typeof(CallWindow), new PropertyMetadata(null));
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
-        if (ButtonText == "Add")
+        try
         {
-            try
+            if (ButtonText == "Add")
             {
-
                 s_bl.Call.AddCall(CurrentCall!);
-                MessageBox.Show($"Call {CurrentCall?.CallId} was successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                MessageBox.Show($"The volunteer {CurrentCall?.CallId} was successfully added!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch (BO.BLAlreadyExistException ex)
+            else
             {
-                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-        }
-        else 
-        {
-            try
-            {
-              
-
                 s_bl.Call.UpdateCallDetails(CurrentCall!);
-                MessageBox.Show($"Student {CurrentCall?.CallId} was successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            catch (BO.BLDoesNotExistException ex)
-            {
-                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show($"The volunteer {CurrentCall?.CallId} was successfully updated!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+        catch (BO.BLAlreadyExistException ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BO.BLDoesNotExistException ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BO.BLFormatException ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    } 
+    private void callObserver()
+    {
+        int id = CurrentCall!.CallId;
+        CurrentCall = null;
+        CurrentCall = s_bl.Call.GetCallDetails(id);
+
+    }
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (CurrentCall!.CallId != 0)
+            s_bl.Call.AddObserver(CurrentCall!.CallId, callObserver);
+    }
+    private void Window_Closed(object sender, EventArgs e)
+    {
+        s_bl.Call.RemoveObserver(CurrentCall!.CallId, callObserver);
     }
 }

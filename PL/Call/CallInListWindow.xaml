@@ -33,7 +33,8 @@
                 </ComboBox.Background>
             </ComboBox>
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=CallList}" SelectionChanged="FilteredCall_SelectionChanged" Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" MouseDoubleClick="ListView_MouseDoubleClick">
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=CallList}" SelectedItem="{Binding SelectedCall}"
+                  Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" MouseDoubleClick="lsvUpdate_MouseDoubleClick">
             <ListView.Foreground>
                 <SolidColorBrush Color="#FFEB0404"/>
             </ListView.Foreground>
@@ -45,10 +46,17 @@
                     <GridViewColumn Header="Executed Time" Width="Auto" DisplayMemberBinding="{Binding ExecutedTime}" />
                     <GridViewColumn Header="Status" Width="Auto" DisplayMemberBinding="{Binding Status}" />
                     <GridViewColumn Header="Total Assignment" Width="Auto" DisplayMemberBinding="{Binding TotalAssignment}" />
+                    <GridViewColumn Header="Actions" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Click="btnDelete_Click" Tag="{Binding CallId}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="Button_Click"/>
+        <Button Content="Add" Click="btnAdd_Click" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" />
     </Grid>
 </Window>
 

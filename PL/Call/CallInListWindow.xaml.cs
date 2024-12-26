@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.Volunteer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,11 +50,35 @@ public partial class CallInListWindow : Window
     private void Window_Closed(object sender, EventArgs e)
         => s_bl.Call.RemoveObserver(callListObserver);
 
-    private void Button_Click(object sender, RoutedEventArgs e)
+    public BO.CallInList? SelectedCall { get; set; }
+
+    private void lsvUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        string action = "Add"; 
-        int callId = 0; 
-        var callWindow = new CallWindow(action, callId);
-        callWindow.Show();
+        if (SelectedCall != null)
+            new CallWindow("Update", SelectedCall.CallId).Show();
+    }
+    private void btnAdd_Click(object sender, RoutedEventArgs e)
+    {
+        new CallWindow("Add", 0).Show();
+
+    }
+
+    private void btnDelete_Click(object sender, RoutedEventArgs e)
+    {
+        MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this call ?", "Delete Confirmation",
+                                                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+        try
+        {
+            if (confirmation == MessageBoxResult.Yes)
+            {
+                s_bl.Volunteer.DeleteVolunteer(SelectedCall.CallId);
+                queryCallList();
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
     }
 }

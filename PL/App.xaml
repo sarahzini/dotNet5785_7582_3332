@@ -7,7 +7,7 @@
         <local:StatusCallCollection x:Key="StatusCallCollectionKey"/>
         <local:SystemTypeCollection x:Key="SystemTypeCollectionKey"/>
         <local:JobCollection x:Key="JobCollectionKey"/>
-        <local:JobCollection x:Key="ConvertUpdateToTrueKey"/>
+        <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
 
     </Application.Resources>
 

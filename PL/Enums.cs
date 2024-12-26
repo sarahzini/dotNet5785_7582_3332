@@ -32,4 +32,5 @@ namespace PL
         static readonly IEnumerable<BO.Job> s_enums = (Enum.GetValues(typeof(BO.Job)) as IEnumerable<BO.Job>)!;
         public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
     }
+
 }

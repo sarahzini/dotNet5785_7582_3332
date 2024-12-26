@@ -27,18 +27,18 @@
 
                 <Label Grid.Row="0" Grid.Column="0" Content="Id:" HorizontalAlignment="Left" Margin="2" VerticalAlignment="Center" />
                 <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="NaN" Margin="2" 
-                         Text="{Binding CurrentCourse.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         IsReadOnly="{Binding ButtonText}" 
+                         Text="{Binding CurrentCall.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                         IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"
                          VerticalAlignment="Center" Width="120"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Address:" HorizontalAlignment="Left" Margin="2" VerticalAlignment="Center"/>
                 <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Height="NaN" Margin="2" 
-                         Text="{Binding CurrentCourse.Address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                         Text="{Binding CurrentCall.Address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                          VerticalAlignment="Center" Width="120"/>
 
                 <Label Grid.Row="4" Grid.Column="0" Content="Open time:" HorizontalAlignment="Left" Margin="2" VerticalAlignment="Center"/>
                 <DatePicker IsEnabled="false"  Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Height="NaN" Margin="2" 
-                            SelectedDate="{Binding CurrentCourse.BeginTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                            SelectedDate="{Binding CurrentCall.BeginTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                             VerticalAlignment="Center" Width="120"/>
 
                 <Label Grid.Row="5" Grid.Column="0" Content="Max time to end the call:" 
@@ -47,7 +47,7 @@
                 <DatePicker IsEnabled="true" Grid.Row="5" Grid.Column="1" 
                             Visibility="{Binding ButtonText}" 
                             HorizontalAlignment="Left" Height="NaN" Margin="2" 
-                            SelectedDate="{Binding CurrentCourse.MaxEndTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                            SelectedDate="{Binding CurrentCall.MaxEndTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                             VerticalAlignment="Center" Width="120"/>
 
                 <Label Grid.Row="6" Grid.Column="0" Content="Status:" 
@@ -57,19 +57,19 @@
                           Visibility="{Binding ButtonText}" IsEnabled="False"
                           IsReadOnly="True"
                           HorizontalAlignment="Left" Height="NaN" Margin="2" 
-                          ItemsSource="{Binding Source={StaticResource YearsCollectionKey}}"
-                          SelectedValue="{Binding CurrentCourse.Status, Mode=TwoWay}" 
+                          ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
+                          SelectedValue="{Binding CurrentCall.Status, Mode=TwoWay}" 
                           VerticalAlignment="Center" Width="120"/>
 
                 <Label Grid.Row="7" Grid.Column="0" Content="Description:" HorizontalAlignment="Left" Margin="2" VerticalAlignment="Center"/>
                 <TextBox Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Height="NaN" Margin="2" 
-                         Text="{Binding CurrentCourse.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                         Text="{Binding CurrentCall.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                          VerticalAlignment="Center" Width="120"/>
 
                 <Label Grid.Row="8" Grid.Column="0" Content="Ambulance type" HorizontalAlignment="Left" Margin="2" VerticalAlignment="Center"/>
                 <ComboBox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" Height="NaN" Margin="2" 
-                          ItemsSource="{Binding Source={StaticResource StatusEnumCollectionKey}}"
-                          SelectedValue="{Binding CurrentCourse.AmbulanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                          ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
+                          SelectedValue="{Binding CurrentCall.AmbulanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                           VerticalAlignment="Center" Width="120"/>
             </Grid>
             <Button Content="{Binding ButtonText}" HorizontalAlignment="Center" Margin="0,45,0,45" Padding="5" Click="btnAddUpdate_Click"/>
