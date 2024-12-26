@@ -26,7 +26,9 @@
                       Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" SelectionChanged="FilteredVolunteer_SelectionChanged" />
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}" SelectionChanged="ListView_SelectionChanged" Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB">
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}" SelectedItem="{Binding SelectedVolunteer}" 
+                  MouseDoubleClick="lsvUpdate_MouseDoubleClick"
+                  Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB">
             <ListView.Foreground>
                 <SolidColorBrush Color="#FFEB0404"/>
             </ListView.Foreground>
@@ -49,6 +51,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Click="btnAdd_Click" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
     </Grid>
 </Window>
