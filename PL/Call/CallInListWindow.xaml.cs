@@ -49,5 +49,11 @@ public partial class CallInListWindow : Window
     private void Window_Closed(object sender, EventArgs e)
         => s_bl.Call.RemoveObserver(callListObserver);
 
-
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        string action = "Add"; 
+        int callId = 0; 
+        var callWindow = new CallWindow(action, callId);
+        callWindow.Show();
+    }
 }

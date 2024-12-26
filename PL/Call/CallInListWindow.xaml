@@ -33,7 +33,7 @@
                 </ComboBox.Background>
             </ComboBox>
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=CallList}" SelectionChanged="FilteredCall_SelectionChanged" Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB">
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=CallList}" SelectionChanged="FilteredCall_SelectionChanged" Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" MouseDoubleClick="ListView_MouseDoubleClick">
             <ListView.Foreground>
                 <SolidColorBrush Color="#FFEB0404"/>
             </ListView.Foreground>
@@ -48,7 +48,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="Button_Click"/>
     </Grid>
 </Window>
 
