@@ -19,10 +19,12 @@ internal static class CallManager
 
         string? name = s_dal.Volunteer.Read(volunteer => volunteer.VolunteerId == assign?.VolunteerId)?.Name;
 
-        TimeSpan? exTime=null;
+        TimeSpan? exTime = null;
         if (assign?.End != null) exTime = assign.End - call.OpenTime;
 
-        BO.Statuses status= ToDeterminateStatus(assign,call);
+        BO.Statuses status = ToDeterminateStatus(assign, call);
+
+        TimeSpan? rangeTimeToEnd = status == BO.Statuses.Expired ? TimeSpan.Zero : call.MaxEnd - s_dal.Config.Clock;
 
         return new BO.CallInList
         {
@@ -60,7 +62,7 @@ internal static class CallManager
     /// <summary>
     /// This method converts a DO.Call object to a BO.OpenCallInList.
     /// </summary>
-    internal static BO.OpenCallInList ConvertToOpenCallInList(DO.Call call,int volunteerId)
+    internal static BO.OpenCallInList ConvertToOpenCallInList(DO.Call call, int volunteerId)
     {
         double? volunteerLong = s_dal.Volunteer.Read(volunteerId)?.Longitude;
         double? volunteerLat = s_dal.Volunteer.Read(volunteerId)?.Latitude;
@@ -72,15 +74,15 @@ internal static class CallManager
         return new BO.OpenCallInList
         {
             CallId = call.CallId,
-            TypeOfCall=(BO.SystemType)call.AmbulanceType,
-            Description=call.Description,
-            CallAddress=call.Address,
-            BeginTime= call.OpenTime,
-            MaxEndTime=call.MaxEnd,
-            VolunteerDistanceToCall=distance
+            TypeOfCall = (BO.SystemType)call.AmbulanceType,
+            Description = call.Description,
+            CallAddress = call.Address,
+            BeginTime = call.OpenTime,
+            MaxEndTime = call.MaxEnd,
+            VolunteerDistanceToCall = distance
         };
     } //changer distance
-   
+
     /// <summary>
     /// This method converts a BO.Call object to a DO.Call object.
     /// </summary>
@@ -142,13 +144,16 @@ internal static class CallManager
     /// </summary>
     private static BO.Statuses ToDeterminateStatus(DO.Assignment? assign, DO.Call call)
     {
-        if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd ) { return BO.Statuses.Expired; }
-        else if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange) 
+        if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd) { return BO.Statuses.Expired; }
+        else if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange)
         { return BO.Statuses.OpenToRisk; }
-        else if (assign?.End == null) { return call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange ?
-                BO.Statuses.InActionToRisk :BO.Statuses.InAction; }
+        else if (assign?.End == null)
+        {
+            return call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange ?
+                BO.Statuses.InActionToRisk : BO.Statuses.InAction;
+        }
         else if (assign.MyEndStatus == DO.EndStatus.Completed) { return BO.Statuses.Closed; }
-        else if (assign.MyEndStatus == DO.EndStatus.Expired ) { return BO.Statuses.Expired; }
+        else if (assign.MyEndStatus == DO.EndStatus.Expired) { return BO.Statuses.Expired; }
         else { return BO.Statuses.Open; }
 
     }
@@ -165,7 +170,7 @@ internal static class CallManager
     /// <summary>
     /// This method checks the details of a call.
     /// </summary>
-     internal static void ValidateCallDetails(BO.Call call)
+    internal static void ValidateCallDetails(BO.Call call)
     {
         //checks wether the Maxendtime is greater than the call start time and the current time
         if (call.MaxEndTime <= call.BeginTime || call.MaxEndTime <= DateTime.Now)
@@ -173,74 +178,76 @@ internal static class CallManager
             throw new BO.BLFormatException("The maximum end time must be greater than the call start time and the current time.");
         }
 
-        if (call.TypeOfCall != BO.SystemType.RegularAmbulance && call.TypeOfCall != BO.SystemType.RegularAmbulance)
-        {
-            throw new BO.BLFormatException("Type of the call must be either 'Regular Ambulance' or 'ICU Ambulance'.");
-        }
-
         //the adress details will be check after the call of this function
     }
-
-    /// <summary>
-    /// The HttpClient instance is used to make HTTP requests to external services.
-    /// In the context of the CallManager class, it is used to interact with the LocationIQ API 
-    /// to get the coordinates of an address.
-    /// </summary>
-    private static readonly HttpClient httpClient = new HttpClient();
-
-    // LocationIQ API key
-    private const string LocationIQApiKey = "pk.3abfd5d3f5b2b87a10e7cb0d73c2c30e";
-
-    /// <summary>
-    /// This method returns the latitude and longitude coordinates of a given address.
-    /// </summary>
-    public static (double Latitude, double Longitude) GetCoordinatesFromAddress(string address)
+    public static class GetCoordinatesFromAddressSync
     {
-        if (string.IsNullOrWhiteSpace(address))
+        private const string GoogleApiKey = "AIzaSyCuGWKseIQvrkb9Yk3U14e_9K9pltkSwug";
+
+        public static (double Latitude, double Longitude) GetCoordinates(string address)
         {
-            throw new ArgumentException("The address cannot be null or empty.", nameof(address));
-        }
-
-        string url = $"https://us1.locationiq.com/v1/search.php?key={LocationIQApiKey}&q={Uri.EscapeDataString(address)}&format=json";
-
-        try
-        {
-            HttpResponseMessage response = httpClient.GetAsync(url).Result;
-            response.EnsureSuccessStatusCode();
-
-            string responseBody = response.Content.ReadAsStringAsync().Result;
-            var locationData = JsonSerializer.Deserialize<LocationIQResponse[]>(responseBody);
-
-            if (locationData == null || locationData.Length == 0)
+            if (string.IsNullOrWhiteSpace(address))
             {
-                throw new Exception("Invalid address.");
+                throw new ArgumentException("The address cannot be null or empty.", nameof(address));
             }
 
-            double latitude = double.Parse(locationData[0].Latitude);
-            double longitude = double.Parse(locationData[0].Longitude);
+            string url = $"https://maps.googleapis.com/maps/api/geocode/json?address={Uri.EscapeDataString(address)}&key={GoogleApiKey}";
 
-            return (latitude, longitude);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("An error occurred while retrieving the coordinates.", ex);
+            try
+            {
+                using (var webClient = new WebClient())
+                {
+                    string response = webClient.DownloadString(url);
+                    var geocodeResponse = JsonSerializer.Deserialize<GoogleGeocodeResponse>(response);
+
+                    if (geocodeResponse == null || geocodeResponse.Status != "OK" || geocodeResponse.Results.Length == 0)
+                    {
+                        throw new Exception($"Address not found or invalid response from Google Maps API: {geocodeResponse?.Status}");
+                    }
+
+                    double latitude = geocodeResponse.Results[0].Geometry.Location.Lat;
+                    double longitude = geocodeResponse.Results[0].Geometry.Location.Lng;
+
+                    return (latitude, longitude);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while retrieving the coordinates: {ex.Message}");
+                throw;
+            }
         }
     }
 
-    /// <summary>
-    /// This class is used to deserialize the response from the LocationIQ API.
-    /// </summary>
-    private class LocationIQResponse
+    // Classes pour désérialiser la réponse de l'API Google Maps
+    public class GoogleGeocodeResponse
     {
-        public string? Latitude { get; set; }
-        public string? Longitude { get; set; }
+        public string Status { get; set; }
+        public GoogleGeocodeResult[] Results { get; set; }
     }
 
-    /// <summary>
-    /// Checks if the coordinates of a call match the coordinates of the address.
-    /// </summary>
-    internal static bool AreCoordinatesMatching(BO.Call call)
+    public class GoogleGeocodeResult
     {
-        return GetCoordinatesFromAddress(call.CallAddress) == (call.CallLatitude, call.CallLongitude);
+        public GoogleGeometry Geometry { get; set; }
+    }
+
+    public class GoogleGeometry
+    {
+        public GoogleLocation Location { get; set; }
+    }
+
+    public class GoogleLocation
+    {
+        public double Lat { get; set; }
+        public double Lng { get; set; }
+    }
+
+/// <summary>
+/// Checks if the coordinates of a call match the coordinates of the address.
+/// </summary>
+   internal static  bool AreCoordinatesMatching(BO.Call call)
+    {
+        var (latitude, longitude) = GetCoordinatesFromAddressSync.GetCoordinates(call.CallAddress);
+        return (latitude, longitude) == (call.CallLatitude, call.CallLongitude);
     }
 }

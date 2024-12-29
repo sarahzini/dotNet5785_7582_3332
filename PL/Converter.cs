@@ -9,9 +9,7 @@ using System.Windows;
 
 namespace PL;
 
-internal class Converter
-{
-    class ConvertUpdateToVisible : IValueConverter
+    public class ConvertUpdateToVisible : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -23,5 +21,11 @@ internal class Converter
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
     }
+    public class ConvertUpdateToTrue : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (string)value == "Update";
 
-}
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
+

@@ -14,7 +14,7 @@
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid/>
+
         <!--Internal, Upper Grid-->
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
@@ -26,6 +26,8 @@
                       Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" SelectionChanged="FilteredVolunteer_SelectionChanged" />
         </Grid>
+
+        <!--ListView for Volunteers-->
         <ListView Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}" SelectedItem="{Binding SelectedVolunteer}" 
                   MouseDoubleClick="lsvUpdate_MouseDoubleClick"
                   Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB">
@@ -48,9 +50,18 @@
                     <GridViewColumn Header="Expired Calls" Width="Auto" DisplayMemberBinding="{Binding ExpiredCalls}" />
                     <GridViewColumn Header="Type Of Call" Width="Auto" DisplayMemberBinding="{Binding TypeOfCall}" />
                     <GridViewColumn Header="Actual Call Id" Width="Auto" DisplayMemberBinding="{Binding ActualCallId}" />
+                    <GridViewColumn Header="Actions" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Click="btnDeleteVolunteer_Click" Tag="{Binding VolunteerId}" Width="80" Height="30" Background="Red" Foreground="White"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <!--Add Button-->
         <Button Content="Add" Click="btnAdd_Click" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
     </Grid>
 </Window>

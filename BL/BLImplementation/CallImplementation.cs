@@ -3,6 +3,7 @@ using BO;
 using DO;
 using Helpers;
 using BlImplementation;
+using static Helpers.CallManager;
 
 namespace BlImplementation;
 
@@ -111,8 +112,10 @@ internal class CallImplementation : ICall
         {
             CallManager.ValidateCallDetails(callUptade);
 
-            // Update the latitude and longitude based on the validated address
-            (callUptade.CallLatitude, callUptade.CallLongitude) = CallManager.GetCoordinatesFromAddress(callUptade.CallAddress);
+            if (callUptade?.CallLatitude == null && callUptade?.CallLongitude == null)
+            {// Update the latitude and longitude based on the validated address
+                (callUptade.CallLatitude, callUptade.CallLongitude) = GetCoordinatesFromAddressSync.GetCoordinates(callUptade.CallAddress);
+            }
 
             // Convert the business object to a data object by calling a method in manager
             DO.Call callUpdate = CallManager.ConvertToDataCall(callUptade);

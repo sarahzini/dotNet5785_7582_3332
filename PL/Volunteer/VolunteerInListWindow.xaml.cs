@@ -33,7 +33,7 @@ public partial class VolunteerInListWindow : Window
     }
 
     public static readonly DependencyProperty VolunteerListProperty =
-        DependencyProperty.Register("CourseList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerInListWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("VolunteerInList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerInListWindow), new PropertyMetadata(null));
     private void queryVolunteerList()
          => VolunteerList = (Ambulance == BO.SystemType.All) ?
                    s_bl?.Volunteer.GetVolunteersInList()! : s_bl?.Volunteer.GetFilteredVolunteersInList(Ambulance)!;
@@ -61,7 +61,7 @@ public partial class VolunteerInListWindow : Window
 
     }
 
-    private void btnDelete_Click(object sender, RoutedEventArgs e)
+    private void btnDeleteVolunteer_Click(object sender, RoutedEventArgs e)
     {
         MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this volunteer ?", "Delete Confirmation",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);

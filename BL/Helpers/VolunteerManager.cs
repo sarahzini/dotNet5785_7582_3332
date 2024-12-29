@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Net;
 using System.Text.RegularExpressions;
+using static Helpers.CallManager;
 
 namespace Helpers;
 internal static class VolunteerManager
@@ -29,10 +30,10 @@ internal static class VolunteerManager
             throw new BO.BLFormatException("ID must contain exactly 9 digits.");
         }
 
-        var nameRegex = new Regex(@"^[a-zA-Z]+$");
+        var nameRegex = new Regex(@"^[a-zA-Z\s]+$");
         if (!nameRegex.IsMatch(volunteer.Name))
         {
-            throw new BO.BLFormatException("Name must contain only letters.");
+            throw new BO.BLFormatException("Name must contain only letters and spaces.");
         }
 
         var phoneRegex = new Regex(@"^\d{10}$");
@@ -57,7 +58,20 @@ internal static class VolunteerManager
     /// </summary>
     internal static DO.Volunteer ConvertToDataVolunteer(BO.Volunteer volunteer)
     {
-        (double latitude, double longitude) = CallManager.GetCoordinatesFromAddress(volunteer.VolunteerAddress);
+        double? latitude=null;
+        double? longitude=null;
+
+        if (volunteer.VolunteerLatitude != null)
+        {
+            latitude = volunteer.VolunteerLatitude;
+            longitude = volunteer.VolunteerLongitude;
+
+        }
+        else if (!string.IsNullOrEmpty(volunteer.VolunteerAddress))
+        {
+            (latitude, longitude) = GetCoordinatesFromAddressSync.GetCoordinates(volunteer.VolunteerAddress);
+        }
+
         return new DO.Volunteer
         {
             VolunteerId = volunteer.VolunteerId,
@@ -147,13 +161,27 @@ internal static class VolunteerManager
         DO.Assignment? assign = s_dal.Assignment.Read(a => a.VolunteerId == volunteerId && a.End == null);
         DO.Call? callInProgress = assign is null ? null : s_dal.Call.Read(assign.CallId);
 
-        (double latitude, double longitude) = CallManager.GetCoordinatesFromAddress(volunteer.Address);
+        double? latitude;
+        double? longitude;
 
+        if (volunteer.Latitude != null)
+        {
+            latitude = volunteer.Latitude;
+            longitude = volunteer.Longitude;
 
+        }
+        else
+        {
+            (latitude, longitude) = GetCoordinatesFromAddressSync.GetCoordinates(volunteer.Address);
+        }
 
-        double distance = Math.Sqrt(
-   Math.Pow((double)(longitude - callInProgress.Longitude), 2) +
-   Math.Pow((double)(latitude - callInProgress.Latitude), 2));
+        double distance = 0;
+        if (callInProgress != null)
+        {
+             distance = Math.Sqrt(
+                  Math.Pow((double)(longitude - callInProgress.Longitude), 2) +
+                  Math.Pow((double)(latitude - callInProgress.Latitude), 2));
+        }
 
 
         return new BO.Volunteer

@@ -195,10 +195,23 @@ public static class Initialization
 
         for (int i = 0; i < addresses.Length; i++)
         {
-            DateTime start = s_dal!.Config.Clock.AddMinutes(-40); // 40 minutes before the current time
-            int range = 30; // The maximum gap in minutes, here 30 minutes
-            DateTime startTime = start.AddMinutes(s_rand.Next(range)); // The end time is random between 0 and 30 minutes after the start time
-            DateTime endTime = startTime.AddMinutes(s_rand.Next(30));
+            DateTime start = s_dal!.Config.Clock.AddMinutes(-120); // 120 minutes before the current time
+            DateTime startTime = start.AddMinutes(s_rand.Next(60)); // The end time is random between 0 and 59 minutes after start
+            DateTime? maxEnd;
+
+            if (types[i] == SystemType.ICUAmbulance)
+            {
+                maxEnd = startTime.AddMinutes(s_rand.Next(20));
+            }
+            else if (i % 5 == 0)// RegularAmbulance (sometimes no time limit)
+            {
+                maxEnd = null;
+            }
+            else
+            {
+                maxEnd = startTime.AddMinutes(s_rand.Next(90));
+
+            }
 
 
             Call call = new(0,
@@ -208,7 +221,7 @@ public static class Initialization
                 startTime,
                 types[i],
                 descriptions[i],
-                endTime);
+                maxEnd);
             s_dal!.Call?.Create(call);
         }
 
@@ -236,24 +249,24 @@ public static class Initialization
             Volunteer volunteer = activeVolunteers[s_rand.Next(activeVolunteers.Count)];
 
             // Generate random start time for the assignment between the start of the call and 20 minutes after
-            DateTime startTime = call.OpenTime.AddMinutes(s_rand.Next(20));
+            DateTime startTime = call.OpenTime.AddMinutes(s_rand.Next(10));
 
 
             // Generate random end time for the assignment
 
             DateTime? endTime;
             i++;
-            if (i % 3 == 0) { endTime = null; }
+            if (i % 4 == 0) { endTime = null; }
             else { endTime = startTime.AddMinutes(s_rand.Next(20)); }
 
             EndStatus? endStatus;
 
-            if (endTime == null) 
-            { endStatus=null; }
+            if(endTime == null && s_dal.Config.Clock > call.MaxEnd)
+                endStatus = EndStatus.Expired;
+            else if(endTime == null)
+                endStatus = null;
             else if (endTime < call.MaxEnd)
-            {
                 endStatus = (EndStatus)s_rand.Next(1, 3); // Randomly choose between Completed, SelfCancelled and ManagerCancelled
-            }
             else
                 endStatus = EndStatus.Expired;
 

@@ -26,44 +26,78 @@ public partial class CallInListWindow : Window
     public CallInListWindow() => InitializeComponent();
     public BO.Statuses Status { get; set; } = BO.Statuses.All;
 
+    /// <summary>
+    /// This method returns the value of the CallList (with IEnumerable).
+    /// </summary>
     public IEnumerable<BO.CallInList> CallList
     {
         get { return (IEnumerable<BO.CallInList>)GetValue(CallListProperty); }
         set { SetValue(CallListProperty, value); }
     }
 
+    /// <summary>
+    /// This method returns the value of the CallList (with DependencyProperty).
+    /// </summary>
     public static readonly DependencyProperty CallListProperty =
-        DependencyProperty.Register("CourseList", typeof(IEnumerable<BO.CallInList>), typeof(CallInListWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("CallList", typeof(IEnumerable<BO.CallInList>), typeof(CallInListWindow), new PropertyMetadata(null));
 
+    /// <summary>
+    /// This method filters the call list based on the selected status.
+    /// </summary>
     private void FilteredCall_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryCallList();
 
+    /// <summary>
+    /// This method queries the call list based on the selected status.
+    /// </summary>
     private void queryCallList()
          =>CallList = (Status == BO.Statuses.All) ?
                    s_bl?.Call.GetSortedCallsInList()! : s_bl?.Call.GetSortedCallsInList(BO.CallInListField.Status, Status,null)!;
-    
+
+    /// <summary>
+    /// This method calls the call list observer.
+    /// </summary>
     private void callListObserver()
         => queryCallList();
- 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
+
+    /// <summary>
+    /// This method loads the call list window.
+    /// </summary>
+     private void Window_Loaded(object sender, RoutedEventArgs e)
     => s_bl.Call.AddObserver(callListObserver);
 
+    /// <summary>
+    /// This method closes the call list window.
+    /// </summary>
     private void Window_Closed(object sender, EventArgs e)
         => s_bl.Call.RemoveObserver(callListObserver);
 
+    /// <summary>
+    /// This method gets the selected call.
+    /// </summary>
     public BO.CallInList? SelectedCall { get; set; }
 
+    /// <summary>
+    /// This method opens the call window for updating the selected call.
+    /// </summary>
     private void lsvUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (SelectedCall != null)
             new CallWindow("Update", SelectedCall.CallId).Show();
     }
+
+    /// <summary>
+    /// This method opens the call window for adding a new call.
+    /// </summary>
     private void btnAdd_Click(object sender, RoutedEventArgs e)
     {
         new CallWindow("Add", 0).Show();
 
     }
 
-    private void btnDelete_Click(object sender, RoutedEventArgs e)
+    /// <summary>
+    /// This method deletes the selected call.
+    /// </summary>
+   private void btnDelete_Click(object sender, RoutedEventArgs e)
     {
         MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this call ?", "Delete Confirmation",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -71,7 +105,7 @@ public partial class CallInListWindow : Window
         {
             if (confirmation == MessageBoxResult.Yes)
             {
-                s_bl.Volunteer.DeleteVolunteer(SelectedCall.CallId);
+                s_bl.Call.DeleteCall(SelectedCall.CallId);
                 queryCallList();
             }
         }

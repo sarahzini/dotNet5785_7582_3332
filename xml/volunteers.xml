@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Volunteers>
   <Volunteer>
-    <Id>31165910</Id>
+    <Id>32119934</Id>
     <Name>Sarah Cohen</Name>
     <PhoneNumber>052-3918274</PhoneNumber>
     <Email>Sarah.Cohen@gmail.com</Email>
@@ -11,11 +11,11 @@
     <Longitude>35.2175388</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>22.115477007962202</distance>
+    <distance>38.70372541963989</distance>
     <MyWhichDistance>WalkingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>29687931</Id>
+    <Id>27737576</Id>
     <Name>Osher Mizrahi</Name>
     <PhoneNumber>050-5639842</PhoneNumber>
     <Email>Osher.Mizrahi@yahoo.com</Email>
@@ -25,11 +25,11 @@
     <Longitude>35.2214706</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>99.7496299873778</distance>
+    <distance>37.551026025791366</distance>
     <MyWhichDistance>WalkingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>37907618</Id>
+    <Id>23925139</Id>
     <Name>Yaara Levi</Name>
     <PhoneNumber>054-1283795</PhoneNumber>
     <Email>Yaara.Levi@outlook.com</Email>
@@ -39,11 +39,11 @@
     <Longitude>35.216553</Longitude>
     <MyJob>Manager</MyJob>
     <active>true</active>
-    <distance>57.523953914315804</distance>
+    <distance>5.06080575955854</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>26791465</Id>
+    <Id>15100844</Id>
     <Name>Eli Ben-David</Name>
     <PhoneNumber>053-6472391</PhoneNumber>
     <Email>Eli.BenDavid@mail.com</Email>
@@ -53,11 +53,11 @@
     <Longitude>35.188818</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>48.79752084108476</distance>
+    <distance>66.40763146092384</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>25712583</Id>
+    <Id>38831724</Id>
     <Name>Maya Shapiro</Name>
     <PhoneNumber>058-9042318</PhoneNumber>
     <Email>Maya.Shapiro@icloud.com</Email>
@@ -67,11 +67,11 @@
     <Longitude>35.2226839</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>43.6925753632713</distance>
+    <distance>28.777783926169775</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>11956877</Id>
+    <Id>31005544</Id>
     <Name>Yair Katz</Name>
     <PhoneNumber>050-9834657</PhoneNumber>
     <Email>Yair.Katz@googlemail.com</Email>
@@ -81,11 +81,11 @@
     <Longitude>35.2221859</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>90.06109501738851</distance>
+    <distance>4.768457020160488</distance>
     <MyWhichDistance>DrivingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>10511897</Id>
+    <Id>24441191</Id>
     <Name>Noa Peretz</Name>
     <PhoneNumber>052-7512386</PhoneNumber>
     <Email>Noa.Peretz@hotmail.com</Email>
@@ -95,11 +95,11 @@
     <Longitude>35.2226822</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>false</active>
-    <distance>19.095483061672713</distance>
+    <distance>53.105105515700515</distance>
     <MyWhichDistance>WalkingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>20736457</Id>
+    <Id>33335793</Id>
     <Name>Aviad Cohen</Name>
     <PhoneNumber>053-4326759</PhoneNumber>
     <Email>Aviad.Cohen@live.com</Email>
@@ -109,11 +109,11 @@
     <Longitude>35.215608</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>22.461761042986204</distance>
+    <distance>52.538645913009994</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>25493466</Id>
+    <Id>30620177</Id>
     <Name>Tamar Israeli</Name>
     <PhoneNumber>054-1863420</PhoneNumber>
     <Email>Tamar.Israeli@protonmail.com</Email>
@@ -123,11 +123,11 @@
     <Longitude>35.178086</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>66.4638695659576</distance>
+    <distance>2.5915721195786445</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>17854063</Id>
+    <Id>38209064</Id>
     <Name>Lior Baruch</Name>
     <PhoneNumber>058-2917463</PhoneNumber>
     <Email>Lior.Baruch@aol.com</Email>
@@ -137,11 +137,11 @@
     <Longitude>35.2151934</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>97.81620234015422</distance>
+    <distance>4.110937408702564</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>18997352</Id>
+    <Id>39247612</Id>
     <Name>Daniella Rosen</Name>
     <PhoneNumber>050-3275641</PhoneNumber>
     <Email>Daniella.Rosen@zoho.com</Email>
@@ -151,11 +151,11 @@
     <Longitude>35.2017399</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>18.70372220264438</distance>
+    <distance>65.0911790793168</distance>
     <MyWhichDistance>WalkingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>18623964</Id>
+    <Id>15571638</Id>
     <Name>Oren Goldstein</Name>
     <PhoneNumber>052-5068493</PhoneNumber>
     <Email>Oren.Goldstein@fastmail.com</Email>
@@ -165,11 +165,11 @@
     <Longitude>35.2249504</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>9.954485923038137</distance>
+    <distance>93.84175890978912</distance>
     <MyWhichDistance>DrivingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>27657934</Id>
+    <Id>24272501</Id>
     <Name>Michal Avrahami</Name>
     <PhoneNumber>053-7821594</PhoneNumber>
     <Email>Michal.Avrahami@ymail.com</Email>
@@ -179,11 +179,11 @@
     <Longitude>35.195831</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>false</active>
-    <distance>50.05701446167872</distance>
+    <distance>12.768016396332516</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>32256499</Id>
+    <Id>27473912</Id>
     <Name>Nadav Shulman</Name>
     <PhoneNumber>054-9342105</PhoneNumber>
     <Email>Nadav.Shulman@hushmail.com</Email>
@@ -193,11 +193,11 @@
     <Longitude>35.2224285</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>11.669075826607466</distance>
+    <distance>86.57818560320779</distance>
     <MyWhichDistance>WalkingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>28031896</Id>
+    <Id>25443695</Id>
     <Name>Rachel Dubinsky</Name>
     <PhoneNumber>058-6120394</PhoneNumber>
     <Email>Rachel.Dubinsky@msn.com</Email>
@@ -207,11 +207,11 @@
     <Longitude>35.2023972</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>95.42782510348225</distance>
+    <distance>17.010987303171575</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>37570902</Id>
+    <Id>17740572</Id>
     <Name>Uri Dahan</Name>
     <PhoneNumber>050-7461283</PhoneNumber>
     <Email>Uri.Dahan@comcast.net</Email>
@@ -221,11 +221,11 @@
     <Longitude>35.212409</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>62.08173130286693</distance>
+    <distance>15.709222107394105</distance>
     <MyWhichDistance>DrivingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>20331936</Id>
+    <Id>18642450</Id>
     <Name>Yael Chaimovitz</Name>
     <PhoneNumber>052-9784530</PhoneNumber>
     <Email>Yael.Chaimovitz@outlook.co.il</Email>
@@ -235,11 +235,11 @@
     <Longitude>35.2244155</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>49.58510695081788</distance>
+    <distance>44.36696409263311</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>12787967</Id>
+    <Id>16057782</Id>
     <Name>Ronit Gross</Name>
     <PhoneNumber>053-5289761</PhoneNumber>
     <Email>Ronit.Gross@tutanota.com</Email>
@@ -249,11 +249,11 @@
     <Longitude>35.1880402</Longitude>
     <MyJob>Manager</MyJob>
     <active>true</active>
-    <distance>46.281189460276764</distance>
+    <distance>78.08920978075194</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>19134811</Id>
+    <Id>26718293</Id>
     <Name>Meir Ziv</Name>
     <PhoneNumber>054-3175928</PhoneNumber>
     <Email>Meir.Ziv@me.com</Email>
@@ -263,11 +263,11 @@
     <Longitude>35.2207611</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>false</active>
-    <distance>36.31339063154001</distance>
+    <distance>21.363747981844817</distance>
     <MyWhichDistance>DrivingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>24776311</Id>
+    <Id>11029886</Id>
     <Name>Tal Ben-Ari</Name>
     <PhoneNumber>058-8456201</PhoneNumber>
     <Email>Tal.BenAri@icloud.com</Email>
@@ -277,7 +277,7 @@
     <Longitude>35.162764</Longitude>
     <MyJob>Volunteer</MyJob>
     <active>true</active>
-    <distance>72.08447512602993</distance>
+    <distance>17.46014368335117</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
 </Volunteers>
