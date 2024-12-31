@@ -11,13 +11,13 @@ internal class VolunteerImplementation : IVolunteer
     /// <summary>
     /// This method logs in a volunteer by name and password, and returns the job of the volunteer.
     /// </summary>
-    DO.Job IVolunteer.Login(string name, string password)
+    DO.Job IVolunteer.Login(int id, string password)
     {
-        DO.Volunteer? volunteer = _dal.Volunteer.Read(volunteer => volunteer.Name == name);
+        DO.Volunteer? volunteer = _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == id);
 
         if (volunteer == null)
         {
-            throw new BO.BLDoesNotExistException($"Volunteer {name} does not exist in the system !");
+            throw new BO.BLDoesNotExistException($"Volunteer with the id number: {id} does not exist in the system !");
         }
 
         if (volunteer.Password != password)

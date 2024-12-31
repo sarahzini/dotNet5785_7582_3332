@@ -1,27 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PL.Call;
+using PL.Volunteer;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace PL;
-
-/// <summary>
-/// Interaction logic for Login.xaml
-/// </summary>
-public partial class Login : Window
+namespace PL
 {
-    public Login()
+    public partial class Login : Window
     {
-        InitializeComponent();
-    }
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        public Login()
+        {
+            InitializeComponent();
+        }
+        BO.Volunteer? CurrentVolunteer
+        {
+            get { return (BO.Volunteer?)GetValue(CurrentVolunteerProperty); }
+            set { SetValue(CurrentVolunteerProperty, value); }
+        }
+
+        public static readonly DependencyProperty CurrentVolunteerProperty=
+       DependencyProperty.Register("CurrentCall", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            { // Perform login logic here
+                var job = s_bl.Volunteer?.Login(CurrentVolunteer.VolunteerId, CurrentVolunteer.Password);
+                if (job != null)
+                {
+                    if (job == DO.Job.Manager)
+                    {
+                        MessageBox.Show("Login successful! Welcome, Manager.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // Open manager window
+                        new ManagerWindow().Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login successful! Welcome, Volunteer.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // Open volunteer window
+                        new VolunteerWindow().Show();
+                    }
+
+                }
+            }
+            
+            catch(BO.BLIncorrectPassword ex )
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BO.BLDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
 }
