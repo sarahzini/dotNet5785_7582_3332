@@ -23,7 +23,6 @@ public partial class MainWindow : Window
    
     public MainWindow() 
     { 
-        new Login().Show();
         InitializeComponent();
     } 
 
