@@ -54,7 +54,7 @@ internal static class AdminManager //stage 4
         AssignmentManager.PeriodicAssignmentsUpdates(oldClock, newClock);
 
         //Calling all the observers of clock update
-        ClockUpdatedObservers?.Invoke(); //prepared for stage 5
+        ClockUpdatedObservers?.Invoke(); 
     }
     #endregion Stage 4
 

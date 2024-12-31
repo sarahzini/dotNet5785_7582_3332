@@ -1,12 +1,12 @@
-﻿<Window x:Class="PL.Call.CallInListWindow"
+﻿<Window x:Class="PL.HistoricWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Call"
+        xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Call In List" Height="640" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        Title="HistoricWindow" Height="450" Width="800"
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--External Grid-->
     <Grid>
         <Grid.RowDefinitions>
@@ -33,7 +33,7 @@
                 </ComboBox.Background>
             </ComboBox>
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=CallList}" SelectedItem="{Binding SelectedCall}"
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=ClosedCalls}" SelectedItem="{Binding SelectedCall}"
                   Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" MouseDoubleClick="lsvUpdate_MouseDoubleClick">
             <ListView.Foreground>
                 <SolidColorBrush Color="#FFEB0404"/>
@@ -41,25 +41,14 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Call Id" Width="Auto" DisplayMemberBinding="{Binding CallId}" />
-                    <GridViewColumn Header="Range Time To End" Width="Auto" DisplayMemberBinding="{Binding RangeTimeToEnd}" />
-                    <GridViewColumn Header="Name Last Volunteer" Width="Auto" DisplayMemberBinding="{Binding NameLastVolunteer}" />
-                    <GridViewColumn Header="Executed Time" Width="Auto" DisplayMemberBinding="{Binding ExecutedTime}" />
-                    <GridViewColumn Header="Status" Width="Auto" DisplayMemberBinding="{Binding Status}" />
-                    <GridViewColumn Header="Total Assignment" Width="Auto" DisplayMemberBinding="{Binding TotalAssignment}" />
-                    <GridViewColumn Header="Actions" Width="Auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Content="Delete" Click="btnDelete_Click" Tag="{Binding CallId}" Margin="0,0,5,0"/>
-                                    <Button Content="Cancel Assignment" Click="btnCancel_Click" Tag="{Binding CallId}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Type of Call" Width="Auto" DisplayMemberBinding="{Binding TypeOfCall}" />
+                    <GridViewColumn Header="Address" Width="Auto" DisplayMemberBinding="{Binding CallAddress}" />
+                    <GridViewColumn Header="Begin Time" Width="Auto" DisplayMemberBinding="{Binding BeginTime}" />
+                    <GridViewColumn Header="Begin Assignment Time" Width="Auto" DisplayMemberBinding="{Binding BeginActionTime}" />
+                    <GridViewColumn Header="End Assignment Time" Width="Auto" DisplayMemberBinding="{Binding EndActionTime}" />
+                    <GridViewColumn Header="Type of end" Width="Auto" DisplayMemberBinding="{Binding TypeOfEnd}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Click="btnAdd_Click" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" />
     </Grid>
 </Window>
-

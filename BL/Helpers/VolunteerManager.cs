@@ -109,7 +109,6 @@ internal static class VolunteerManager
                 {
                     DO.EndStatus.Completed => completedCount++,
                     DO.EndStatus.SelfCancelled => canceledCount++,
-                    DO.EndStatus.ManagerCancelled => canceledCount++,
                     DO.EndStatus.Expired => expiredCount++,
                     _ => nothing++
                 };
@@ -151,7 +150,6 @@ internal static class VolunteerManager
                 {
                     DO.EndStatus.Completed => completedCount++,
                     DO.EndStatus.SelfCancelled => canceledCount++,
-                    DO.EndStatus.ManagerCancelled => canceledCount++,
                     DO.EndStatus.Expired => expiredCount++,
                     _ => nothing++
                 };

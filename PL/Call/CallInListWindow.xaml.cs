@@ -115,4 +115,24 @@ public partial class CallInListWindow : Window
         }
 
     }
+
+    private void btnCancel_Click(object sender, RoutedEventArgs e)
+    {
+        MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to cancel the actual assignment to this call ?", "Cancel Confirmation",
+                                                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+        try
+        {
+            if (confirmation == MessageBoxResult.Yes)
+            {
+               // s_bl.Call.DeleteCall(SelectedCall.CallId);
+                //queryCallList();
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+    }
+
 }

@@ -101,6 +101,8 @@ namespace PL.Volunteer
                 {
                     s_bl.Volunteer.AddVolunteer(CurrentVolunteer!);
                     MessageBox.Show($"The volunteer with the ID number : {CurrentVolunteer?.VolunteerId} was successfully added!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //ici il faut ajouter le changement dans le volunteerin list et aussi dan le DAL
+                    // ds le else aussi
                 }
                 else
                 {
