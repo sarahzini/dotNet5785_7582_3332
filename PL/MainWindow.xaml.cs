@@ -20,7 +20,12 @@ public partial class MainWindow : Window
 {
     /// To gain access to the BL layer, we need to use the Factory class.
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public MainWindow() => InitializeComponent();
+   
+    public MainWindow() 
+    { 
+        new Login().Show();
+        InitializeComponent();
+    } 
 
     public TimeSpan RiskRange
     {
