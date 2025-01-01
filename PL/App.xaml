@@ -7,6 +7,8 @@
         <local:StatusCallCollection x:Key="StatusCallCollectionKey"/>
         <local:SystemTypeCollection x:Key="SystemTypeCollectionKey"/>
         <local:JobCollection x:Key="JobCollectionKey"/>
+        <local:DistanceTypeCollection x:Key="DistanceTypeCollectionKey"/>
+        <local:ClosedCallFieldCollection x:Key="ClosedCallFieldCollectionKey"/>
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey" />
     </Application.Resources>
 </Application>

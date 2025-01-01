@@ -16,12 +16,12 @@ namespace PL;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainManagerWindow : Window
 {
     /// To gain access to the BL layer, we need to use the Factory class.
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
    
-    public MainWindow() 
+    public MainManagerWindow(int id) 
     { 
         InitializeComponent();
     } 
@@ -32,7 +32,7 @@ public partial class MainWindow : Window
         set { SetValue(RiskRangeProperty, value); }
     }
     public static readonly DependencyProperty RiskRangeProperty =
-        DependencyProperty.Register("RiskRange", typeof(TimeSpan), typeof(MainWindow));
+        DependencyProperty.Register("RiskRange", typeof(TimeSpan), typeof(MainManagerWindow));
 
     public DateTime CurrentTime
     {
@@ -40,7 +40,7 @@ public partial class MainWindow : Window
         set { SetValue(CurrentTimeProperty, value); }
     }
     public static readonly DependencyProperty CurrentTimeProperty =
-        DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
+        DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainManagerWindow));
 
     private void btnAddOneMinute_Click(object sender, RoutedEventArgs e)
     {

@@ -212,5 +212,10 @@ internal class VolunteerImplementation : IVolunteer
         // Convert the list to BO.VolunteerInList and return
         return volunteers?.Select(v => VolunteerManager.ConvertToVolunteerInList(v));
     }
+
+    public string GetName(int volunteerId)
+    {
+        return _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == volunteerId).Name;
+    }
 }
 

@@ -16,15 +16,17 @@
         </Grid.RowDefinitions>
         <Grid/>
         <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto" RenderTransformOrigin="0.546,0.421">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Select status call:" HorizontalAlignment="Left" Margin="145,0,0,0" VerticalAlignment="Center" Grid.Column="0"/>
+            <Label Grid.Column="1" Content="Filter:" HorizontalAlignment="Left" Margin="45,0,0,0" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
-                      Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      SelectedValue="{Binding Path=Status, Mode=TwoWay}"  SelectionChanged="FilteredCall_SelectionChanged">
+                      Grid.Column="1"
+                      SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="148,0,425,0"
+                      SelectionChanged="FilteredCall_SelectionChanged">
+
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -32,9 +34,16 @@
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
+
+            <Label Grid.Column="1" Content="Sort By:" HorizontalAlignment="Left" Margin="418,0,0,0" VerticalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallFieldCollectionKey}}"
+                      SelectionChanged="SortedCall_SelectionChanged"
+                      SelectedValue="{Binding Path=Field, Mode=TwoWay}"
+                      Grid.Column="1" HorizontalAlignment="Left" Margin="523,0,0,0" VerticalAlignment="Center" Width="265" Height="32"/>
+
         </Grid>
         <ListView Grid.Row="1" ItemsSource="{Binding Path=ClosedCalls}" SelectedItem="{Binding SelectedCall}"
-                  Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" MouseDoubleClick="lsvUpdate_MouseDoubleClick">
+                  Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" >
             <ListView.Foreground>
                 <SolidColorBrush Color="#FFEB0404"/>
             </ListView.Foreground>

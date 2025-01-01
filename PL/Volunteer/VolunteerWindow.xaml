@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="VolunteerWindow" Height="450" Width="800"
+        Title="VolunteerWindow" Height="346" Width="312"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--External Grid-->
     <Grid>
@@ -61,6 +61,6 @@
                   IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                   VerticalAlignment="Center"/>
 
-        <Button Content="{Binding ButtonText}" Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAddUpdate_Click"/>
+        <Button Content="{Binding ButtonText}" Grid.Row="7" HorizontalAlignment="Left" Width="100" Click="btnAddUpdate_Click" Grid.Column="1" Margin="23,10,0,-35"/>
     </Grid>
 </Window>

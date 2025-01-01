@@ -72,10 +72,7 @@ namespace PL.Call
             if (SelectedCall != null)
             {
                 // Display the details of the selected call
-                MessageBox.Show(
-                                $"Description: {SelectedCall.Description}\n" +
-                                //faire tosafot
-                                , MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Description: {SelectedCall.Description}\n","Description", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

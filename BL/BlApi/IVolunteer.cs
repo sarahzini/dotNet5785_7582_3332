@@ -15,5 +15,6 @@ public interface IVolunteer: IObservable
     void UpdateVolunteer(int requesterId, BO.Volunteer volunteer);
     void DeleteVolunteer(int volunteerId);
     void AddVolunteer(BO.Volunteer volunteer);
+    string GetName(int volunteerId);
 
 }

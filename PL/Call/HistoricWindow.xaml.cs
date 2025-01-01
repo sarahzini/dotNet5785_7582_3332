@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.Volunteer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,14 @@ namespace PL
         {
             InitializeComponent();
             ClosedCalls = s_bl.Call.SortClosedCalls(id,null,null);
+            volunteerId = id;
         }
+
+        public int volunteerId { get; set; }
+        private void FilteredCall_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryClosedCallsListFilter();
+
+        private void SortedCall_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryClosedCallsListFilter();
+
 
         public BO.ClosedCallInList? SelectedCall { get; set; }
 
@@ -39,6 +47,14 @@ namespace PL
         public static readonly DependencyProperty ClosedCallsProperty =
             DependencyProperty.Register("MyProperty", typeof(int), typeof(HistoricWindow), new PropertyMetadata(0));
 
+        public BO.SystemType Ambulance { get; set; } = BO.SystemType.All;
+
+        public BO.ClosedCallInListField Field { get; set; } = BO.ClosedCallInListField.CallId;
         
+
+        private void queryClosedCallsListFilter()
+             => ClosedCalls = (Ambulance == BO.SystemType.All) ?
+                       s_bl?.Call.SortClosedCalls(volunteerId, null, Field)! : s_bl?.Call.SortClosedCalls(volunteerId, Ambulance, Field)!; 
+
     }
 }
