@@ -9,6 +9,7 @@ internal static class CallManager
 {
     private static IDal s_dal = Factory.Get;
     internal static ObserverManager Observers = new(); //stage 5 
+    private static string googleApiKey = "AIzaSyCuGWKseIQvrkb9Yk3U14e_9K9pltkSwug";
     /// <summary>
     /// This method converts a DO.Call object to a BO.CallInList object.
     /// </summary>
@@ -180,74 +181,35 @@ internal static class CallManager
 
         //the adress details will be check after the call of this function
     }
-    public static class GetCoordinatesFromAddressSync
+
+
+    
+    /// <summary>
+    /// Represents a business object containing call details.
+    /// </summary>
+    public class Call
     {
-        private const string GoogleApiKey = "AIzaSyCuGWKseIQvrkb9Yk3U14e_9K9pltkSwug";
+        public string CallAddress { get; set; }
+        public double CallLatitude { get; set; }
+        public double CallLongitude { get; set; }
+    }
 
-        public static (double Latitude, double Longitude) GetCoordinates(string address)
+    public static class CallUtils
+    {
+        /// <summary>
+        /// Checks if the coordinates of a call match the coordinates of the address.
+        /// </summary>
+        /// <param name="call">The call object containing address and coordinates.</param>
+        /// <returns>A boolean indicating whether the coordinates match.</returns>
+        public static async Task<bool> AreCoordinatesMatchingAsync(Call call)
         {
-            if (string.IsNullOrWhiteSpace(address))
-            {
-                throw new ArgumentException("The address cannot be null or empty.", nameof(address));
-            }
+            if (call == null) throw new ArgumentNullException(nameof(call));
 
-            string url = $"https://maps.googleapis.com/maps/api/geocode/json?address={Uri.EscapeDataString(address)}&key={GoogleApiKey}";
+            var (latitude, longitude) = await GeocodingService.GetCoordinatesAsync(call.CallAddress);
 
-            try
-            {
-                using (var webClient = new WebClient())
-                {
-                    string response = webClient.DownloadString(url);
-                    var geocodeResponse = JsonSerializer.Deserialize<GoogleGeocodeResponse>(response);
-
-                    if (geocodeResponse == null || geocodeResponse.Status != "OK" || geocodeResponse.Results.Length == 0)
-                    {
-                        throw new Exception($"Address not found or invalid response from Google Maps API: {geocodeResponse?.Status}");
-                    }
-
-                    double latitude = geocodeResponse.Results[0].Geometry.Location.Lat;
-                    double longitude = geocodeResponse.Results[0].Geometry.Location.Lng;
-
-                    return (latitude, longitude);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred while retrieving the coordinates: {ex.Message}");
-                throw;
-            }
+            const double tolerance = 0.0001; // Define a tolerance for floating-point comparisons
+            return Math.Abs(latitude - call.CallLatitude) < tolerance && Math.Abs(longitude - call.CallLongitude) < tolerance;
         }
     }
-
-    // Classes pour désérialiser la réponse de l'API Google Maps
-    public class GoogleGeocodeResponse
-    {
-        public string Status { get; set; }
-        public GoogleGeocodeResult[] Results { get; set; }
-    }
-
-    public class GoogleGeocodeResult
-    {
-        public GoogleGeometry Geometry { get; set; }
-    }
-
-    public class GoogleGeometry
-    {
-        public GoogleLocation Location { get; set; }
-    }
-
-    public class GoogleLocation
-    {
-        public double Lat { get; set; }
-        public double Lng { get; set; }
-    }
-
-/// <summary>
-/// Checks if the coordinates of a call match the coordinates of the address.
-/// </summary>
-   internal static  bool AreCoordinatesMatching(BO.Call call)
-    {
-        var (latitude, longitude) = GetCoordinatesFromAddressSync.GetCoordinates(call.CallAddress);
-        return (latitude, longitude) == (call.CallLatitude, call.CallLongitude);
-    }
 }
+

@@ -114,7 +114,7 @@ internal class CallImplementation : ICall
 
             if (callUptade?.CallLatitude == null && callUptade?.CallLongitude == null)
             {// Update the latitude and longitude based on the validated address
-                (callUptade.CallLatitude, callUptade.CallLongitude) = GetCoordinatesFromAddressSync.GetCoordinates(callUptade.CallAddress);
+                (callUptade.CallLatitude, callUptade.CallLongitude) = GeocodeService.GetCoordinates(callUptade.CallAddress);
             }
 
             // Convert the business object to a data object by calling a method in manager

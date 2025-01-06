@@ -69,7 +69,7 @@ internal static class VolunteerManager
         }
         else if (!string.IsNullOrEmpty(volunteer.VolunteerAddress))
         {
-            (latitude, longitude) = GetCoordinatesFromAddressSync.GetCoordinates(volunteer.VolunteerAddress);
+            (latitude, longitude) = GeocodeService.GetCoordinates(volunteer.VolunteerAddress);
         }
 
         return new DO.Volunteer
@@ -170,7 +170,7 @@ internal static class VolunteerManager
         }
         else
         {
-            (latitude, longitude) = GetCoordinatesFromAddressSync.GetCoordinates(volunteer.Address);
+            (latitude, longitude) = GeocodeService.GetCoordinates(volunteer.Address);
         }
 
         double distance = 0;
