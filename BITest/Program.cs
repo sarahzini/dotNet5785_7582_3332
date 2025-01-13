@@ -263,13 +263,13 @@ internal class Program
     /// </summary>
     private static void Login()
     {
-        Console.Write("Enter your name: ");
-        string? name = Console.ReadLine();
+        Console.Write("Enter your id: ");
+        int id = int.Parse(Console.ReadLine());
         Console.Write("Enter your password: ");
         string? password = Console.ReadLine();
 
-        DO.Job job = s_bl.Volunteer.Login(name, password);
-        Console.WriteLine($"Welcome to the {job} {name} !");
+        DO.Job job = s_bl.Volunteer.Login(id, password);
+        Console.WriteLine($"Welcome to the {job} {id} !");
     }
 
     /// <summary>

@@ -20,12 +20,15 @@ internal static class AssignmentManager
 
         foreach (var assignment in assignments)
         {
-            if (s_dal.Call.Read(c=>c.CallId==assignment.CallId)?.MaxEnd < newClock)
+            if (assignment.End == null)
             {
-                assignmentUpdated = true;
-                DO.Assignment newAssign = assignment with { MyEndStatus = DO.EndStatus.Expired };
-                s_dal.Assignment.Update(newAssign);
-                Observers.NotifyItemUpdated(newAssign.AssignmentId); //stage 5
+                if (s_dal.Call.Read(c => c.CallId == assignment.CallId)?.MaxEnd < newClock)
+                {
+                    assignmentUpdated = true;
+                    DO.Assignment newAssign = assignment with { MyEndStatus = DO.EndStatus.Expired };
+                    s_dal.Assignment.Update(newAssign);
+                    Observers.NotifyItemUpdated(newAssign.AssignmentId); //stage 5
+                }
             }
         }
         if ( assignmentUpdated) //stage 5

@@ -9,7 +9,6 @@ internal static class CallManager
 {
     private static IDal s_dal = Factory.Get;
     internal static ObserverManager Observers = new(); //stage 5 
-    private static string googleApiKey = "AIzaSyCuGWKseIQvrkb9Yk3U14e_9K9pltkSwug";
     /// <summary>
     /// This method converts a DO.Call object to a BO.CallInList object.
     /// </summary>
@@ -21,11 +20,14 @@ internal static class CallManager
         string? name = s_dal.Volunteer.Read(volunteer => volunteer.VolunteerId == assign?.VolunteerId)?.Name;
 
         TimeSpan? exTime = null;
-        if (assign?.End != null) exTime = assign.End - call.OpenTime;
+        if (assign?.MyEndStatus == DO.EndStatus.Completed) exTime = assign.End - call.OpenTime;
 
         BO.Statuses status = ToDeterminateStatus(assign, call);
 
-        TimeSpan? rangeTimeToEnd = status == BO.Statuses.Expired ? TimeSpan.Zero : call.MaxEnd - s_dal.Config.Clock;
+        TimeSpan? rangeTimeToEnd=null;
+
+        if (status== BO.Statuses.Expired) rangeTimeToEnd = TimeSpan.Zero;
+        else if(status != BO.Statuses.Closed) rangeTimeToEnd= call.MaxEnd - s_dal.Config.Clock;
 
         return new BO.CallInList
         {
@@ -33,7 +35,7 @@ internal static class CallManager
             CallId = call.CallId,
             TypeOfCall = (BO.SystemType)call.AmbulanceType,
             BeginTime = call.OpenTime,
-            RangeTimeToEnd = call.MaxEnd - s_dal.Config.Clock,
+            RangeTimeToEnd = rangeTimeToEnd,
             NameLastVolunteer = name,
             ExecutedTime = exTime,
             Status = status,
@@ -148,6 +150,7 @@ internal static class CallManager
         if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd) { return BO.Statuses.Expired; }
         else if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange)
         { return BO.Statuses.OpenToRisk; }
+        else if (assign==null ) { return BO.Statuses.Open; }
         else if (assign?.End == null)
         {
             return call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange ?
@@ -180,36 +183,6 @@ internal static class CallManager
         }
 
         //the adress details will be check after the call of this function
-    }
-
-
-    
-    /// <summary>
-    /// Represents a business object containing call details.
-    /// </summary>
-    public class Call
-    {
-        public string CallAddress { get; set; }
-        public double CallLatitude { get; set; }
-        public double CallLongitude { get; set; }
-    }
-
-    public static class CallUtils
-    {
-        /// <summary>
-        /// Checks if the coordinates of a call match the coordinates of the address.
-        /// </summary>
-        /// <param name="call">The call object containing address and coordinates.</param>
-        /// <returns>A boolean indicating whether the coordinates match.</returns>
-        public static async Task<bool> AreCoordinatesMatchingAsync(Call call)
-        {
-            if (call == null) throw new ArgumentNullException(nameof(call));
-
-            var (latitude, longitude) = await GeocodingService.GetCoordinatesAsync(call.CallAddress);
-
-            const double tolerance = 0.0001; // Define a tolerance for floating-point comparisons
-            return Math.Abs(latitude - call.CallLatitude) < tolerance && Math.Abs(longitude - call.CallLongitude) < tolerance;
-        }
     }
 }
 

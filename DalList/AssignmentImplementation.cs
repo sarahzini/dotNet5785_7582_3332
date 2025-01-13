@@ -16,8 +16,7 @@ internal class AssignmentImplementation : IAssignment
     public void Create(Assignment assignment)
     {
         int newId = Config._nextAssignmentId;
-        int newCallId = Config._nextCallId;
-        Assignment newAssignment = assignment with { AssignmentId = newId, CallId = newCallId };
+        Assignment newAssignment = assignment with { AssignmentId = newId };
         DataSource.Assignments.Add(newAssignment);
     }
 

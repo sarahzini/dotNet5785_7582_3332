@@ -13,14 +13,16 @@ public enum DistanceType
     WalkingDistance, 
     DrivingDistance 
 }
-public enum SystemType 
+public enum SystemType
 {
-    ICUAmbulance, 
-    RegularAmbulance
+    ICUAmbulance = 0,
+    RegularAmbulance = 1,
+    None,
+    All
 }
 public enum EndStatus
 {
-    Completed,
+    Completed=1,
     SelfCancelled, 
     ManagerCancelled, 
     Expired

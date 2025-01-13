@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Main;
+namespace PL;
 
 /// <summary>
 /// Interaction logic for MainVolunteerWindow.xaml
@@ -28,7 +28,7 @@ public partial class MainVolunteerWindow : Window
         {
             InitializeComponent();
             BO.Volunteer? CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
-            if(CurrentVolunteer.CurrentCall != null)
+            if (CurrentVolunteer.CurrentCall != null)
                 ButtonText = "Actual Call";
             else
                 ButtonText = "Assignment to a call";
@@ -75,12 +75,12 @@ public partial class MainVolunteerWindow : Window
     {
         if (ButtonText == "Assignment to a call")
             new AssignmentWindow().ShowDialog();
-        else 
-           new CurrentCallWindow(CurrentVolunteer).ShowDialog();
+        else
+            new CurrentCallWindow(CurrentVolunteer).ShowDialog();
     }
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)
     {
-        new UpdateVolunteer(CurrentVolunteer).ShowDialog();
+        //new UpdateVolunteer(CurrentVolunteer).ShowDialog();
     }
 }

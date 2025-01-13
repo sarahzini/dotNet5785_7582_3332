@@ -67,7 +67,7 @@ internal class CallImplementation : ICall
             {
                 calls = calls?.OrderBy(call => sortProperty.GetValue(call));
             }
-        }
+        } 
         else
         {
             // Default sorting by CallId
@@ -106,22 +106,19 @@ internal class CallImplementation : ICall
     /// The data is then converted to a data object by calling a method in the CallManager 
     /// using the ConvertToDataCall method and the call is updated in the data layer.
     /// </summary>
-    void ICall.UpdateCallDetails(BO.Call callUptade)
+    void ICall.UpdateCallDetails(BO.Call callUpdate)
     {
         try
         {
-            CallManager.ValidateCallDetails(callUptade);
+            CallManager.ValidateCallDetails(callUpdate);
 
-            if (callUptade?.CallLatitude == null && callUptade?.CallLongitude == null)
-            {// Update the latitude and longitude based on the validated address
-                (callUptade.CallLatitude, callUptade.CallLongitude) = GeocodeService.GetCoordinates(callUptade.CallAddress);
-            }
+            (callUpdate.CallLatitude, callUpdate.CallLongitude) = GeocodingService.GetCoordinates(callUpdate.CallAddress);
 
             // Convert the business object to a data object by calling a method in manager
-            DO.Call callUpdate = CallManager.ConvertToDataCall(callUptade);
+            DO.Call DOCallUpdate = CallManager.ConvertToDataCall(callUpdate);
 
             // Attempt to update the call in the data layer
-            _dal.Call.Update(callUpdate);
+            _dal.Call.Update(DOCallUpdate);
             CallManager.Observers.NotifyItemUpdated(callUpdate.CallId); //stage 5   
             CallManager.Observers.NotifyListUpdated(); //stage 5   
 
@@ -172,6 +169,8 @@ internal class CallImplementation : ICall
         {
             // Validate call details
             CallManager.ValidateCallDetails(call);
+
+            (call.CallLatitude, call.CallLongitude) = GeocodingService.GetCoordinates(call.CallAddress);
 
             // Convert BO.call to DO.Call
             DO.Call newCall = CallManager.ConvertToDataCall(call);

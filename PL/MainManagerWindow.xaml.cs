@@ -20,11 +20,11 @@ public partial class MainManagerWindow : Window
 {
     /// To gain access to the BL layer, we need to use the Factory class.
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-   
-    public MainManagerWindow(int id) 
-    { 
+
+    public MainManagerWindow(int id=0)
+    {
         InitializeComponent();
-    } 
+    }
 
     public TimeSpan RiskRange
     {
@@ -94,7 +94,7 @@ public partial class MainManagerWindow : Window
     private void btnCalls_Click(object sender, RoutedEventArgs e)
     { new CallInListWindow().Show(); }
 
-    private void btnInitialization_Click(object sender, RoutedEventArgs e) 
+    private void btnInitialization_Click(object sender, RoutedEventArgs e)
     {
         //helped by IA
         MessageBoxResult confirmation = MessageBox.Show("You are going to Initialize", "Init Confirmation",
@@ -104,7 +104,7 @@ public partial class MainManagerWindow : Window
         {
             foreach (Window window in Application.Current.Windows)
             {
-                if (window != this) 
+                if (window != this)
                 {
                     window.Close();
                 }
@@ -116,7 +116,7 @@ public partial class MainManagerWindow : Window
             Mouse.OverrideCursor = null;
         }
     }
-    private void btnReset_Click(object sender, RoutedEventArgs e) 
+    private void btnReset_Click(object sender, RoutedEventArgs e)
     {
         //helped by IA
         MessageBoxResult confirmation = MessageBox.Show("You are going to Reset !", "Reset Confirmation",

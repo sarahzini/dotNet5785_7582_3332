@@ -1,72 +1,59 @@
 ﻿namespace Helpers;
-using System.Text.Json;
+using System;
+using System.Net.Http;
+using BO;
+using Newtonsoft.Json.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-
-public static class GeocodingService
+/// <summary>
+/// The GeocodingHelper class provides a method to retrieve geographical coordinates (latitude and longitude)
+/// for a given address using the LocationIQ API.
+/// </summary>
+public class GeocodingService
 {
-    private static readonly HttpClient HttpClient = new HttpClient();
+    // The URL of the LocationIQ API
+    private const string BaseUrl = "https://eu1.locationiq.com/v1/search.php";
 
-    private const string GoogleApiKey = "AIzaSyCuGWKseIQvrkb9Yk3U14e_9K9pltkSwug"; // API key
-
-    /// <summary>
-    /// Gets the coordinates (latitude, longitude) for a given address.
-    /// </summary>
-    /// <param name="address">The address to geocode.</param>
-    /// <returns>A tuple containing latitude and longitude.</returns>
-    /// <exception cref="ArgumentException">Thrown when the address is null or empty.</exception>
-    /// <exception cref="Exception">Thrown when the API response is invalid or unsuccessful.</exception>
-    public static async Task<(double Latitude, double Longitude)> GetCoordinatesAsync(string address)
+    // our API key
+    private const string ApiKey = "675b1b0034c57582409131rpj9f815d";
+    public static (double latitude, double longitude) GetCoordinates(string address)
     {
-        if (string.IsNullOrWhiteSpace(address))
+        using (var client = new HttpClient())
         {
-            throw new ArgumentException("The address cannot be null or empty.", nameof(address));
+            // Build the URL for the API request
+            var url = $"{BaseUrl}?key={ApiKey}&q={Uri.EscapeDataString(address)}&format=json";
+
+            try
+            {
+                // Send the request
+                var response = client.GetStringAsync(url).Result;
+
+                // If the response is empty, throw an exception
+                if (string.IsNullOrEmpty(response))
+                {
+                    throw new BLFormatException("The Adress is empty.");
+                }
+
+                // Parse the response into JSON format
+                var jsonResponse = JArray.Parse(response);
+
+                // If no results are returned, throw an exception
+                if (jsonResponse.Count == 0)
+                {
+                    throw new BLFormatException("The address is invalid or not found.");
+                }
+
+                // Extract the coordinates (latitude and longitude) from the response
+                var latitude = double.Parse(jsonResponse[0]["lat"].ToString());
+                var longitude = double.Parse(jsonResponse[0]["lon"].ToString());
+
+                return (latitude, longitude);
+            }
+            catch (Exception ex)
+            {
+                // If an error occurs, throw an exception with the error details
+                throw new BLFormatException("An error occurred while retrieving coordinates for the address: " + ex.Message);
+            }
         }
-
-        string url = $"https://maps.googleapis.com/maps/api/geocode/json?address={Uri.EscapeDataString(address)}&key={GoogleApiKey}";
-
-        var response = await HttpClient.GetStringAsync(url);
-        var geocodeResponse = JsonSerializer.Deserialize<GoogleGeocodeResponse>(response);
-
-        if (geocodeResponse == null || geocodeResponse.Results.Length == 0)
-        {
-            throw new Exception($"Address not found or invalid response from Google Maps API: {geocodeResponse?.Status}");
-        }
-
-        var location = geocodeResponse.Results[0].Geometry.Location;
-        return (location.Lat, location.Lng);
     }
-    /// <summary>
-    /// Represents a response from the Google Geocoding API.
-    /// </summary>
-    public class GoogleGeocodeResponse
-    {
-        public string Status { get; set; }
-        public GoogleGeocodeResult[] Results { get; set; }
-    }
-
-    /// <summary>
-    /// Represents a single result from the Google Geocoding API.
-    /// </summary>
-    public class GoogleGeocodeResult
-    {
-        public GoogleGeometry Geometry { get; set; }
-    }
-
-    /// <summary>
-    /// Represents the geometry object in the Google Geocoding API response.
-    /// </summary>
-    public class GoogleGeometry
-    {
-        public GoogleLocation Location { get; set; }
-    }
-
-    /// <summary>
-    /// Represents the location object in the Google Geocoding API response.
-    /// </summary>
-    public class GoogleLocation
-    {
-        public double Lat { get; set; }
-        public double Lng { get; set; }
-    }
-
 }

@@ -47,7 +47,6 @@ public partial class VolunteerInListWindow : Window
     private void Window_Closed(object sender, EventArgs e)
         => s_bl.Call.RemoveObserver(volunteerListObserver);
 
-    public BO.VolunteerInList? SelectedVolunteer { get; set; }
 
     private void lsvUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
@@ -63,6 +62,8 @@ public partial class VolunteerInListWindow : Window
         new VolunteerWindow("Add", 0).Show();
     }
 
+    public BO.VolunteerInList? SelectedVolunteer { get; set; }
+
     private void btnDeleteVolunteer_Click(object sender, RoutedEventArgs e)
     {
         MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this volunteer ?", "Delete Confirmation",
@@ -71,7 +72,7 @@ public partial class VolunteerInListWindow : Window
         {
             if (confirmation == MessageBoxResult.Yes)
             {
-                s_bl.Volunteer.DeleteVolunteer(SelectedVolunteer.VolunteerId);            }
+                s_bl.Volunteer.DeleteVolunteer(SelectedVolunteer!.VolunteerId);            }
         }
         catch (Exception ex)
         {

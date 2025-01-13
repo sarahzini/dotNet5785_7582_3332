@@ -53,7 +53,7 @@
                     <GridViewColumn Header="Actions" Width="Auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" Click="btnDeleteVolunteer_Click" Tag="{Binding VolunteerId}" Width="80" Height="30" Background="Red" Foreground="White"/>
+                                <Button Content="Delete" Click="btnDeleteVolunteer_Click" Tag="{Binding SelectedVolunteer}" Width="80" Height="30" Background="Red" Foreground="White"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

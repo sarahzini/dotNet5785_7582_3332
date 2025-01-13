@@ -1,4 +1,5 @@
 ﻿namespace DalTest;
+using System;
 using DalApi;
 using DO;
 public static class Initialization
@@ -97,8 +98,8 @@ public static class Initialization
             Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer,
             Job.Manager, Job.Volunteer, Job.Volunteer };
 
-        bool[] actives = { true, true, true, true, true, true, false, true, true,
-            true, true, true, false, true, true, true, true, true, false, true };
+        bool[] actives = { true, true, false, false, true, true, true, true, true,
+            true, true, true, true, true, true, true, true, true, true, true };
 
         DistanceType[] DistanceTypes = {DistanceType.WalkingDistance, DistanceType.WalkingDistance,
             DistanceType.AirDistance, DistanceType.AirDistance, DistanceType.AirDistance,
@@ -172,8 +173,8 @@ public static class Initialization
             SystemType.RegularAmbulance, SystemType.ICUAmbulance, SystemType.RegularAmbulance,
             SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
             SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
-            SystemType.RegularAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
-            SystemType.RegularAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
+            SystemType.RegularAmbulance, SystemType.ICUAmbulance, SystemType.ICUAmbulance,
+            SystemType.RegularAmbulance, SystemType.ICUAmbulance, SystemType.ICUAmbulance,
             SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
             SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
             SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance };
@@ -193,15 +194,16 @@ public static class Initialization
           "Hypothermia from exposure to cold.","Collapse due to dehydration.","Boat accident rescue.","Child with a high fever."
         };
 
-        for (int i = 0; i < addresses.Length; i++)
+        //15 first calls in the last 5 hours
+        for (int i = 0; i < 15; i++)
         {
-            DateTime start = s_dal!.Config.Clock.AddMinutes(-120); // 120 minutes before the current time
-            DateTime startTime = start.AddMinutes(s_rand.Next(60)); // The end time is random between 0 and 59 minutes after start
+            DateTime start = s_dal!.Config.Clock.AddMinutes(-300); // 300 minutes before the current time
+            DateTime startTime = start.AddMinutes(s_rand.Next(30)); // The end time is random between 0 and 59 minutes after start
             DateTime? maxEnd;
 
             if (types[i] == SystemType.ICUAmbulance)
             {
-                maxEnd = startTime.AddMinutes(s_rand.Next(20));
+                maxEnd = startTime.AddMinutes(s_rand.Next(10, 40));
             }
             else if (i % 5 == 0)// RegularAmbulance (sometimes no time limit)
             {
@@ -209,7 +211,7 @@ public static class Initialization
             }
             else
             {
-                maxEnd = startTime.AddMinutes(s_rand.Next(90));
+                maxEnd = startTime.AddMinutes(s_rand.Next(10,60));
 
             }
 
@@ -224,6 +226,75 @@ public static class Initialization
                 maxEnd);
             s_dal!.Call?.Create(call);
         }
+
+        //15 next calls in the last 4 hours
+
+        for (int i = 15; i < 30; i++)
+        {
+            DateTime start = s_dal!.Config.Clock.AddMinutes(-240);
+            DateTime startTime = start.AddMinutes(s_rand.Next(30)); // The end time is random between 0 and 59 minutes after start
+            DateTime? maxEnd;
+
+            if (types[i] == SystemType.ICUAmbulance)
+            {
+                maxEnd = startTime.AddMinutes(s_rand.Next(10,30));
+            }
+            else if (i % 5 == 0)// RegularAmbulance (sometimes no time limit)
+            {
+                maxEnd = null;
+            }
+            else
+            {
+                maxEnd = startTime.AddMinutes(s_rand.Next(10,60));
+
+            }
+
+
+            Call call = new(0,
+                addresses[i],
+                latitudes[i],
+                longitudes[i],
+                startTime,
+                types[i],
+                descriptions[i],
+                maxEnd);
+            s_dal!.Call?.Create(call);
+        }
+
+        //rest of the calls in the last 2 hours
+        for (int i = 30; i < addresses.Length; i++)
+        {
+            DateTime start = s_dal!.Config.Clock.AddMinutes(-120);
+            DateTime startTime = start.AddMinutes(s_rand.Next(120)); // The end time is random between 0 and 59 minutes after start
+            DateTime? maxEnd;
+
+            if (types[i] == SystemType.ICUAmbulance)
+            {
+                maxEnd = startTime.AddMinutes(s_rand.Next(40,300));
+            }
+            else if (i % 5 == 0)// RegularAmbulance (sometimes no time limit)
+            {
+                maxEnd = null;
+            }
+            else
+            {
+                maxEnd = startTime.AddMinutes(s_rand.Next(60,300));
+
+            }
+
+
+            Call call = new(0,
+                addresses[i],
+                latitudes[i],
+                longitudes[i],
+                startTime,
+                types[i],
+                descriptions[i],
+                maxEnd);
+            s_dal!.Call?.Create(call);
+        }
+
+       
 
     }
 
@@ -240,41 +311,113 @@ public static class Initialization
         //converting the IEnumerable to List
         List<Volunteer> volunteers = s_dal!.Volunteer?.ReadAll()?.ToList() ?? new List<Volunteer>();
         List<Call> calls = s_dal!.Call?.ReadAll()?.ToList() ?? new List<Call>();
-        int i = 1;
+        int i = 0;
 
-        foreach (var call in calls)
+        // Take the first 15 calls
+        foreach (var call in calls.Take(30))
         {
-            // Randomly select a volunteer from the active volunteers
-            List<Volunteer> activeVolunteers = volunteers.Where(v => v.IsActive).ToList();
-            Volunteer volunteer = activeVolunteers[s_rand.Next(activeVolunteers.Count)];
+            // Generate random start time for the assignment between the start of the call and 3 minutes after
+            DateTime startTime = call.OpenTime.AddSeconds(s_rand.Next(120));
+            DateTime? endTime;
 
-            // Generate random start time for the assignment between the start of the call and 20 minutes after
-            DateTime startTime = call.OpenTime.AddMinutes(s_rand.Next(10));
-
+            if (call.MaxEnd == null)
+            {
+                endTime = startTime.AddMinutes(s_rand.Next(30));
+            }
+            else { 
+            // Calculate the total minutes between startTime and call.MaxEnd
+            int totalMinutes = (int)(call.MaxEnd - startTime)?.TotalMinutes;
 
             // Generate random end time for the assignment
-
-            DateTime? endTime;
-            i++;
-            if (i % 4 == 0) { endTime = null; }
-            else { endTime = startTime.AddMinutes(s_rand.Next(20)); }
+            endTime = startTime.AddMinutes(s_rand.Next(totalMinutes));
+            }
 
             EndStatus? endStatus;
 
-            if(endTime == null && s_dal.Config.Clock > call.MaxEnd)
+            if (i% 8 == 0&& call.MaxEnd!=null)
+            {
+                endTime = call.MaxEnd;
                 endStatus = EndStatus.Expired;
-            else if(endTime == null)
-                endStatus = null;
-            else if (endTime < call.MaxEnd)
-                endStatus = (EndStatus)s_rand.Next(1, 3); // Randomly choose between Completed, SelfCancelled and ManagerCancelled
+            }
             else
-                endStatus = EndStatus.Expired;
+            {
+                endStatus = EndStatus.Completed; 
+            }
+
+            Volunteer volunteer = volunteers[i];
 
             // Create the assignment
             Assignment assignment = new(0, call.CallId, volunteer.VolunteerId, startTime, endTime, endStatus);
             s_dal!.Assignment?.Create(assignment);
+            i++;
+            if (i == 17)
+                i = 0;
+        }
+
+        foreach (var call in calls.Skip(30).Take(10)) {
+
+            // Generate random start time for the assignment between the start of the call and 3 minutes after
+            DateTime startTime = call.OpenTime.AddSeconds(s_rand.Next(120));
+
+            // Generate random end time for the assignment
+
+            DateTime? endTime = startTime.AddMinutes(s_rand.Next(10));
+            while (endTime >= call.MaxEnd)
+                 endTime = startTime.AddMinutes(s_rand.Next(10));
+
+            EndStatus? endStatus;
+            endStatus = (EndStatus)s_rand.Next(2, 4); // Randomly choose between , SelfCancelled and ManagerCancelled (Not Completed!!!)
+            
+
+            Volunteer volunteer = volunteers[i];
+
+            // Create the assignment
+            Assignment assignment = new(0, call.CallId, volunteer.VolunteerId, startTime, endTime, endStatus);
+            s_dal!.Assignment?.Create(assignment);
+            i++;
+            if (i == 17)
+                i = 0;
 
         }
+
+        //because the active volunteers is after 4 in the vec
+        i = 4;
+
+        //second assignment for those calls
+        foreach (var call in calls.Skip(30).Take(10)) {
+            // Generate random start time for the assignment between the start of the call and 3 minutes after
+            DateTime startTime = call.OpenTime.AddMinutes(s_rand.Next(15));
+
+            // Generate random end time for the assignment
+
+            DateTime? endTime=null;
+
+            EndStatus? endStatus=null;
+
+            if ( s_dal.Config.Clock > call.MaxEnd)
+            {
+                endStatus = EndStatus.Expired;
+                endTime = call.MaxEnd;
+            }
+            else if(i==7 && call.MaxEnd!=null)
+            {
+                // Calculate the total minutes between startTime and call.MaxEnd
+                int totalMinutes = (int)(call.MaxEnd - startTime)?.TotalMinutes;
+
+                // Generate random end time for the assignment
+                endTime = startTime.AddMinutes(s_rand.Next(totalMinutes));
+                endStatus = EndStatus.Completed;
+            }
+
+
+            Volunteer volunteer = volunteers[i];
+            // Create the assignment
+            Assignment assignment = new(0, call.CallId, volunteer.VolunteerId, startTime, endTime, endStatus);
+            s_dal!.Assignment?.Create(assignment);
+
+            i++;
+        }
+
     }
 
     /// <summary>

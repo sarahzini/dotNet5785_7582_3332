@@ -32,7 +32,7 @@ public enum Statuses
 }
 public enum EndStatus
 {
-    Completed,
+    Completed=1,
     SelfCancelled,
     ManagerCancelled,
     Expired

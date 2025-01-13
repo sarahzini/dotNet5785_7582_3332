@@ -61,15 +61,9 @@ internal static class VolunteerManager
         double? latitude=null;
         double? longitude=null;
 
-        if (volunteer.VolunteerLatitude != null)
+        if (!string.IsNullOrEmpty(volunteer.VolunteerAddress))
         {
-            latitude = volunteer.VolunteerLatitude;
-            longitude = volunteer.VolunteerLongitude;
-
-        }
-        else if (!string.IsNullOrEmpty(volunteer.VolunteerAddress))
-        {
-            (latitude, longitude) = GeocodeService.GetCoordinates(volunteer.VolunteerAddress);
+            (latitude, longitude) = GeocodingService.GetCoordinates(volunteer.VolunteerAddress);
         }
 
         return new DO.Volunteer
@@ -105,20 +99,23 @@ internal static class VolunteerManager
         {
             foreach (var a in assignments)
             {
-                _ = a.MyEndStatus switch
+                if (a.MyEndStatus != null)
                 {
-                    DO.EndStatus.Completed => completedCount++,
-                    DO.EndStatus.SelfCancelled => canceledCount++,
-                    DO.EndStatus.Expired => expiredCount++,
-                    _ => nothing++
-                };
+                    _ = a.MyEndStatus switch
+                    {
+                        DO.EndStatus.Completed => completedCount++,
+                        DO.EndStatus.SelfCancelled => canceledCount++,
+                        DO.EndStatus.ManagerCancelled => canceledCount++,
+                        DO.EndStatus.Expired => expiredCount++,
+                        _ => nothing++
+                    };
+                }
             }
         }
 
         int? actualCallId = assignments?.FirstOrDefault(a => a.End == null)?.CallId;
         BO.SystemType typeOfCall = actualCallId is null ? BO.SystemType.None :
-            (s_dal.Call.Read(c => c.CallId == actualCallId) is null ? 
-            BO.SystemType.None : (BO.SystemType)s_dal.Call.Read(c => c.CallId == actualCallId).AmbulanceType);
+            (BO.SystemType)((s_dal.Call.Read(c => c.CallId == actualCallId).AmbulanceType));
 
         return new BO.VolunteerInList
         {
@@ -159,26 +156,12 @@ internal static class VolunteerManager
         DO.Assignment? assign = s_dal.Assignment.Read(a => a.VolunteerId == volunteerId && a.End == null);
         DO.Call? callInProgress = assign is null ? null : s_dal.Call.Read(assign.CallId);
 
-        double? latitude;
-        double? longitude;
-
-        if (volunteer.Latitude != null)
-        {
-            latitude = volunteer.Latitude;
-            longitude = volunteer.Longitude;
-
-        }
-        else
-        {
-            (latitude, longitude) = GeocodeService.GetCoordinates(volunteer.Address);
-        }
-
         double distance = 0;
         if (callInProgress != null)
         {
              distance = Math.Sqrt(
-                  Math.Pow((double)(longitude - callInProgress.Longitude), 2) +
-                  Math.Pow((double)(latitude - callInProgress.Latitude), 2));
+                  Math.Pow((double)(volunteer.Longitude - callInProgress.Longitude), 2) +
+                  Math.Pow((double)(volunteer.Latitude - callInProgress.Latitude), 2));
         }
 
 
@@ -223,7 +206,7 @@ internal static class VolunteerManager
         if (oldVolunteer?.Name != updatedVolunteer.Name)
         { throw new BLInvalidOperationException("Name cannot be changed."); }
         if(oldVolunteer?.MyJob != updatedVolunteer.MyJob&& !isManager)
-        { throw new BLInvalidOperationException("Job cannot be changed by volunteer."); }
+        { throw new BLInvalidOperationException("You cannot change this member because you are not a Manager."); }
         //bonus : we authorized the volunteer to change his transport type
     }
 
