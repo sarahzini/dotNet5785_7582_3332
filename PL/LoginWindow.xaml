@@ -3,15 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+        mc:Ignorable="d"
         Title="Login Window" SizeToContent="WidthAndHeight"
         Background="#FFF5F5F5"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" 
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Icon="Images/Login.png"
+        >
+
+    <Window.Resources>
+        <!-- Define the coulor red as ressource -->
+        <Color x:Key="StarRedColor">#FF832121</Color>
+        <SolidColorBrush x:Key="StarRedBrush" Color="{StaticResource StarRedColor}" />
+    </Window.Resources>
+
     <Grid>
-        <Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="350" Padding="20"
-                CornerRadius="0" Background="White" BorderBrush="#FFB22222" BorderThickness="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="169*"/>
+        </Grid.ColumnDefinitions>
+        <Border VerticalAlignment="Center" HorizontalAlignment="Left" Width="350" Padding="20"
+                CornerRadius="0" BorderThickness="2" BorderBrush="#FF832121" Grid.ColumnSpan="2">
+            <!--ImageBrush for backgroud image -->
+            <Border.Background>
+                <ImageBrush ImageSource="Images/Login.png" Stretch="UniformToFill" />
+            </Border.Background>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -22,7 +39,7 @@
 
                 <!-- Title -->
                 <TextBlock Grid.Row="0" Margin="0,0,0,20" Text="MDA Login" FontSize="24" FontWeight="Bold"
-                           HorizontalAlignment="Center" Foreground="#FFB22222">
+                           HorizontalAlignment="Center" Foreground="#FF832121">
                     <TextBlock.Effect>
                         <DropShadowEffect ShadowDepth="2" BlurRadius="4" Color="Gray"/>
                     </TextBlock.Effect>
@@ -33,19 +50,19 @@
                     <TextBlock Margin="0,0,0,5" Text="ID:" FontWeight="Bold" Foreground="#FF333333"/>
                     <TextBox Name="IdBox" Height="30" Padding="5"
                              Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                             BorderBrush="#FFB22222" BorderThickness="1" Background="#FFFFFAFA"/>
+                             BorderBrush="{StaticResource StarRedBrush}" BorderThickness="1" Background="#FFFFFAFA"/>
                 </StackPanel>
 
                 <!-- Password Input -->
                 <StackPanel Grid.Row="2" Margin="0,0,0,20">
                     <TextBlock Margin="0,0,0,5" Text="Password:" FontWeight="Bold" Foreground="#FF333333"/>
-                    <PasswordBox Height="30" Padding="5" Background="#FFFFFAFA" BorderBrush="#FFB22222" BorderThickness="1"
+                    <PasswordBox Height="30" Padding="5" Background="#FFFFFAFA" BorderBrush="{StaticResource StarRedBrush}" BorderThickness="1"
                            PasswordChanged="PasswordBox_PasswordChanged" />
                 </StackPanel>
 
                 <!-- Login Button -->
                 <Button Grid.Row="3" Content="Login" Width="120" Height="35" FontWeight="Bold" Foreground="White"
-                        Background="#FFB22222" BorderThickness="0" HorizontalAlignment="Center" Cursor="Hand" Click="btnLoginButton_Click">
+                        Background="{StaticResource StarRedBrush}" BorderThickness="0" HorizontalAlignment="Center" Cursor="Hand" Click="btnLoginButton_Click">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Template">

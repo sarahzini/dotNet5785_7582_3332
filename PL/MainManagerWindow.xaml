@@ -3,35 +3,110 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Main Window" Height="450" Width="800"
+        Title="Manager Window" Height="450" Width="633"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Loaded="Window_Loaded" 
-        Closed="Window_Closed">
+        Closed="Window_Closed"
+        Icon="Images/Login.png"
+        Background="#FFF5F5F5">
 
-    <!--External Grid-->
-    <Grid>
+    <Window.Resources>
+        <Color x:Key="CustomColor">#FF832121</Color>
+        <SolidColorBrush x:Key="CustomBrush" Color="{StaticResource CustomColor}" />
+        <Style x:Key="RedBorderButtonStyle" TargetType="Button">
+            <Setter Property="BorderBrush" Value="{StaticResource CustomBrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="{StaticResource CustomBrush}" />
+        </Style>
+        <Style x:Key="RedBorderTextBoxStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="{StaticResource CustomBrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="{StaticResource CustomBrush}" />
+        </Style>
+    </Window.Resources>
+
+
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label Content="Welcome to the MDA volunteer system" HorizontalAlignment="Left" Margin="300,10,0,0" VerticalAlignment="Top" Width="230" Height="33" Grid.RowSpan="2"/>
-        <Button Content="Update" Click="btnSetRR_Click" HorizontalAlignment="Left" Margin="50,208,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Button Content="Reset" HorizontalAlignment="Left" Margin="671,59,0,0" Grid.Row="1" Click="btnReset_Click" VerticalAlignment="Top" RenderTransformOrigin="0.522,0.621"/>
-        <Button Content="Initialization" HorizontalAlignment="Left" Margin="669,23,0,0" Grid.Row="1" Click="btnInitialization_Click" VerticalAlignment="Top"/>
-        <Button Content="Volunteers" HorizontalAlignment="Left" Margin="259,156,0,0" Grid.Row="1" Click="btnVolunteers_Click" VerticalAlignment="Top"/>
-        <Button Content="Calls" HorizontalAlignment="Left" Margin="456,156,0,0" Grid.Row="1" Click="btnCalls_Click" VerticalAlignment="Top"/>
 
-        <!-- Uniform Buttons -->
-        <Button Content="A Minute" Click="btnAddOneMinute_Click" HorizontalAlignment="Left" Margin="21,54,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
-        <Button Content="An Hour" Click="btnAddOneHour_Click" HorizontalAlignment="Left" Margin="21,74,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" Height="19"/>
-        <Button Content="A Day" Click="btnAddOneDay_Click" HorizontalAlignment="Left" Margin="21,93,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
-        <Button Content="A Month" Click="btnAddOneMonth_Click" HorizontalAlignment="Left" Margin="21,113,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
-        <Button Content="A Year" Click="btnAddOneYear_Click" HorizontalAlignment="Left" Margin="21,133,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
+        <!-- Header -->
+        <Border Background="{StaticResource CustomBrush}" Height="50" Grid.Row="0" Margin="-9,0,-9,0">
+            <TextBlock Text="Manager System - MDA" FontSize="20" FontWeight="Bold" Foreground="White"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </Border>
 
-        <Label Content="{Binding CurrentTime}" HorizontalAlignment="Left" Margin="21,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="34" Width="153"/>
-        <TextBox  Text="{Binding RiskRange, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="11,185,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <!-- Content Area -->
+        <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Section: Time Management -->
+            <StackPanel Grid.Column="0" VerticalAlignment="Top">
+                <Label Content="{Binding CurrentTime}" Height="34" Width="135" Foreground="{StaticResource CustomBrush}" />
+                <Button Content="Add a Minute" Click="btnAddOneMinute_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
+                <Button Content="Add an Hour" Click="btnAddOneHour_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
+                <Button Content="Add a Day" Click="btnAddOneDay_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
+                <Button Content="Add a Month" Click="btnAddOneMonth_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
+                <Button Content="Add a Year" Click="btnAddOneYear_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
+            </StackPanel>
+
+            <!-- Center Section: Calls and Volunteers -->
+            <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="168" Width="262" Margin="0,72,0,0" Grid.RowSpan="2">
+                <TextBlock Text="Managing Calls and Volunteers" FontSize="18" FontWeight="Bold" Foreground="{StaticResource CustomBrush}" Margin="0,0,0,20" Height="28" />
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Height="24" Margin="0,0,10,0" Source="Images/Phone.png" />
+                    <Button Grid.Column="1" Content="Calls" Height="40" FontSize="20" Click="btnCalls_Click" Background="{StaticResource CustomBrush}" Foreground="White" Margin="10,0,10,0" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Height="24" Margin="0,0,10,0" Source="Images/V.png" />
+                    <Button Grid.Column="1" Content="Volunteers" Height="40" FontSize="20" Click="btnVolunteers_Click" Background="{StaticResource CustomBrush}" Foreground="White" Margin="10,0,10,0" />
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" VerticalAlignment="Top" Height="Auto" Margin="0,37,0,0">
+                <!-- Group 1: Risk Range Button and TextBox -->
+                <StackPanel>
+                    <Button Content="Risk Range" Click="btnSetRR_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
+                    <TextBox Text="{Binding RiskRange, UpdateSourceTrigger=PropertyChanged}" Width="140" Height="25" TextWrapping="Wrap" Style="{StaticResource RedBorderTextBoxStyle}" />
+                </StackPanel>
+
+                <!-- Spacer -->
+                <StackPanel Height="20" />
+
+                <!-- Group 2: Initialization and Reset Buttons -->
+                <StackPanel>
+                    <Button Content="Initialization" Click="btnInitialization_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
+                    <Button Content="Reset" Click="btnReset_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" Height="22" />
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+
+        <!-- Footer -->
+        <Border Grid.Row="1" Background="{StaticResource CustomBrush}" Margin="-9,321,-9,0">
+            <TextBlock Text="MDA Management System © 2025" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="12" />
+        </Border>
     </Grid>
 </Window>

@@ -14,10 +14,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Login.png" />
+    <None Remove="Images\Phone.png" />
+    <None Remove="Images\V.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Login.png" />
+    <Resource Include="Images\Phone.png" />
+    <Resource Include="Images\V.png" />
   </ItemGroup>
 </Project>

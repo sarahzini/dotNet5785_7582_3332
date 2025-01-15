@@ -68,7 +68,7 @@ public partial class MainManagerWindow : Window
     }
     private void btnSetRR_Click(object sender, RoutedEventArgs e)
     {
-        s_bl.Admin.SetRiskRange(RiskRange);
+       s_bl.Admin.SetRiskRange(RiskRange);
     }
 
     private void clockObserver() => CurrentTime = s_bl.Admin.GetClock();
