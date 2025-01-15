@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
         Title="Volunteer In List" Height="640" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+         Loaded="Window_Loaded" Closed="Window_Closed">
     <!--External Grid-->
     <Grid>
         <Grid.RowDefinitions>
@@ -16,50 +17,48 @@
         </Grid.RowDefinitions>
 
         <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto" RenderTransformOrigin="0.358,0.385">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Select type of actual call:" HorizontalAlignment="Left" Margin="145,0,0,0" VerticalAlignment="Center" Grid.Column="0"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
-                      Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" SelectionChanged="FilteredVolunteer_SelectionChanged" />
+            <ComboBox SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}"
+                      ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}" HorizontalAlignment="Left"
+                       SelectionChanged="FilteredVolunteer_SelectionChanged" Width="202" Grid.ColumnSpan="2" Margin="304,0,0,0" />
         </Grid>
 
-        <!--ListView for Volunteers-->
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}" SelectedItem="{Binding SelectedVolunteer}" 
-                  MouseDoubleClick="lsvUpdate_MouseDoubleClick"
-                  Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB">
-            <ListView.Foreground>
-                <SolidColorBrush Color="#FFEB0404"/>
-            </ListView.Foreground>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" Width="Auto" DisplayMemberBinding="{Binding VolunteerId}" />
-                    <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Is Active" Width="Auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsEnabled="False" IsChecked="{Binding Path=IsActive}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Completed Calls" Width="Auto" DisplayMemberBinding="{Binding CompletedCalls}" />
-                    <GridViewColumn Header="Canceled Calls" Width="Auto" DisplayMemberBinding="{Binding CanceledCalls}" />
-                    <GridViewColumn Header="Expired Calls" Width="Auto" DisplayMemberBinding="{Binding ExpiredCalls}" />
-                    <GridViewColumn Header="Type Of Call" Width="Auto" DisplayMemberBinding="{Binding TypeOfCall}" />
-                    <GridViewColumn Header="Actual Call Id" Width="Auto" DisplayMemberBinding="{Binding ActualCallId}" />
-                    <GridViewColumn Header="Actions" Width="Auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Delete" Click="btnDeleteVolunteer_Click" Tag="{Binding SelectedVolunteer}" Width="80" Height="30" Background="Red" Foreground="White"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}"
+          SelectedItem="{Binding SelectedVolunteer, Mode=TwoWay}"
+          AutoGenerateColumns="False"
+          MouseDoubleClick="lsvUpdate_MouseDoubleClick"
+          Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding VolunteerId}" Width="Auto"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="Auto"/>
+                <DataGridTemplateColumn Header="Is Active" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsEnabled="False" IsChecked="{Binding Path=IsActive}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Completed Calls" Binding="{Binding CompletedCalls}" Width="Auto"/>
+                <DataGridTextColumn Header="Canceled Calls" Binding="{Binding CanceledCalls}" Width="Auto"/>
+                <DataGridTextColumn Header="Expired Calls" Binding="{Binding ExpiredCalls}" Width="Auto"/>
+                <DataGridTextColumn Header="Type Of Call" Binding="{Binding TypeOfCall}" Width="Auto"/>
+                <DataGridTextColumn Header="Current Call Id" Binding="{Binding ActualCallId}" Width="Auto"/>
+                <DataGridTemplateColumn Header="" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" Click="btnDeleteVolunteer_Click" Width="80" Height="30" Background="Red" Foreground="White"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
 
         <!--Add Button-->
         <Button Content="Add" Click="btnAdd_Click" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>

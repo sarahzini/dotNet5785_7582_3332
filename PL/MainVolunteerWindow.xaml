@@ -7,15 +7,15 @@
         mc:Ignorable="d"
         Title="MainVolunteerWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-    <Grid>
+    <Grid RenderTransformOrigin="0.505,0.524">
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Button Content="Update my Detail" HorizontalAlignment="Left" Width="146" Click="btnUpdate_Click" Margin="320,132,0,269" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <Button Content="Call Historic" HorizontalAlignment="Left" Margin="320,239,0,0" VerticalAlignment="Top" Click="btnHistoric_Click" Height="33" Width="146" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <Button Content="{Binding ButtonText}" HorizontalAlignment="Left" Margin="316,188,0,0" VerticalAlignment="Top" Width="150" Click="btnAssignment_Click" Height="29" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Button Content="Update my Detail" HorizontalAlignment="Left" Width="146" Click="btnUpdate_Click" Margin="320,114,0,269"/>
+        <Button Content="Call Historic" HorizontalAlignment="Left" Margin="320,239,0,0" VerticalAlignment="Top" Click="btnHistoric_Click" Height="48" Width="146"/>
+        <Button Content="{Binding ButtonText}" HorizontalAlignment="Left" Margin="316,188,0,0" VerticalAlignment="Top" Width="150" Click="btnAssignment_Click" Height="46"/>
         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="0" Margin="320,127,0,0" VerticalAlignment="Top" Width="0"/>
     </Grid>
 </Window>
