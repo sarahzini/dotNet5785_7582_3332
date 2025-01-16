@@ -31,7 +31,7 @@ public class GeocodingService
                 // If the response is empty, throw an exception
                 if (string.IsNullOrEmpty(response))
                 {
-                    throw new BLFormatException("The Adress is empty.");
+                    throw new BLFormatException("The Address is empty.");
                 }
 
                 // Parse the response into JSON format
