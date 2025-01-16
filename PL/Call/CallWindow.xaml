@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
-        Title="Call Window" Height="450" Width="800">
+        Title="Call Window" Height="450" Width="800"
+        Icon="pack://application:,,,/PL;component/Images/Login.png">
     <Grid>
         <StackPanel>
             <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="45,45,45,0">

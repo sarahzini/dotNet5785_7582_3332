@@ -6,7 +6,8 @@
         mc:Ignorable="d"
         Title="Assignment Window" Height="700" Width="900"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-         Loaded="Window_Loaded" Closed="Window_Closed">
+        Icon="pack://application:,,,/PL;component/Images/Login.png"
+        Loaded="Window_Loaded" Closed="Window_Closed">
     <!--External Grid-->
     <Grid Margin="20">
         <Grid.RowDefinitions>

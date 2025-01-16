@@ -266,4 +266,18 @@
     <distance>50</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
+  <Volunteer>
+    <Id>345976781</Id>
+    <Name>Sarah Gozal</Name>
+    <PhoneNumber>0584110037</PhoneNumber>
+    <Email>gozalsarah@gmail.com</Email>
+    <Password></Password>
+    <Address>Rabbi Israel Najara 26 St, Jerusalem, Israel</Address>
+    <Latitude>31.759595</Latitude>
+    <Longitude>35.215315</Longitude>
+    <MyJob>Manager</MyJob>
+    <active>true</active>
+    <distance />
+    <MyWhichDistance>AirDistance</MyWhichDistance>
+  </Volunteer>
 </Volunteers>

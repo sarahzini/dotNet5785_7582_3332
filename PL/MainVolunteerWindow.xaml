@@ -47,27 +47,27 @@
             <!-- Images -->
             <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0">
                 <Image Height="50" Width="50" Source="Images/BlockNote.png" />
-                <Image Height="50" Width="50" Source="Images/UptadeDetails.png" Margin="0,10" />
-                <Image Height="50" Width="50" Source="Images/Phone.png" Margin="0,10" />
+                <Image Height="50" Width="50" Source="Images/UptadeDetails.png" Margin="0,10,0,0" />
+                <Image Height="50" Width="50" Source="Images/Phone.png" Margin="0,10,0,0" />
             </StackPanel>
 
             <!-- Buttons -->
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                <Button Content="Assignment" Width="200" Height="50" 
-                        Click="btnAssignment_Click" Style="{StaticResource RedBorderButtonStyle}" 
-                        Margin="0,5" Background="#FF832121" Foreground="White" />
+                <Button Content="Historic Calls" Width="200" Height="50" 
+                        Click="btnHistoric_Click" Style="{StaticResource RedBorderButtonStyle}" 
+                        Margin="0,5" Background="White" Foreground="#FF832121" />
                 <Button Content="Update my Details" Width="200" Height="50" 
                         Click="btnUpdate_Click" Style="{StaticResource RedBorderButtonStyle}" 
-                        Margin="0,5" Foreground="White" Background="#FF832121" />
+                         Margin="0,5" Background="White" Foreground="#FF832121" />
                 <Button Content="{Binding ButtonText}" Width="200" Height="50" 
-                        Click="btnHistoric_Click" Style="{StaticResource RedBorderButtonStyle}" 
-                        Margin="0,5" Foreground="White" Background="#FF832121" />
+                        Click="btnAssignment_Click" Style="{StaticResource RedBorderButtonStyle}" 
+                        Margin="0,5" Background="White" Foreground="#FF832121" />
             </StackPanel>
         </Grid>
 
         <!-- Footer -->
-        <Border Background="{StaticResource CustomBrush}" Height="50" Grid.Row="2">
-            <TextBlock Text="MDA Volunteer System © 2025" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="12" />
+        <Border Background="{StaticResource CustomBrush}" Grid.Row="1" Height="50" Margin="-9,295,-9,0">
+            <TextBlock Text="MDA Volunteer System © 2025" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="12" Height="30" />
         </Border>
     </Grid>
 </Window>

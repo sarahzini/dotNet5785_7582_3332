@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\BlockNote.png" />
     <None Remove="Images\Login.png" />
     <None Remove="Images\Phone.png" />
     <None Remove="Images\UptadeDetails.png" />
@@ -29,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\BlockNote.png" />
     <Resource Include="Images\Login.png" />
     <Resource Include="Images\Phone.png" />
     <Resource Include="Images\UptadeDetails.png" />

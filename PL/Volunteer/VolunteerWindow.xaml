@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
         Title="VolunteerWindow" Height="346" Width="312"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+         Icon="pack://application:,,,/PL;component/Images/Login.png">
     <!--External Grid-->
     <Grid>
         <Grid.RowDefinitions>

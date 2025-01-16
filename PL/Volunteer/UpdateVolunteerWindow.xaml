@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
         Title="UpdateVolunteer" Height="450" Width="800"
-         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-        <!--External Grid-->
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+       Icon="pack://application:,,,/PL;component/Images/Login.png">
+    <!--External Grid-->
         <Grid Margin="0,0,0,12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
