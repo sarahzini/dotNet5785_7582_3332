@@ -5,9 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Manager Window" Height="450" Width="633"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Loaded="Window_Loaded" 
-        Closed="Window_Closed"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" 
         Icon="Images/Login.png"
         Background="#FFF5F5F5">
 
@@ -32,7 +30,8 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="108*" />
+            <RowDefinition Height="257*"/>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -43,7 +42,7 @@
         </Border>
 
         <!-- Content Area -->
-        <Grid Grid.Row="1" >
+        <Grid Grid.Row="1" Grid.RowSpan="2" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="2*"/>
@@ -105,7 +104,7 @@
         </Grid>
 
         <!-- Footer -->
-        <Border Grid.Row="1" Background="{StaticResource CustomBrush}" Margin="-9,321,-9,0">
+        <Border Grid.Row="2" Background="{StaticResource CustomBrush}" Margin="-9,213,-9,0">
             <TextBlock Text="MDA Management System © 2025" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="12" />
         </Border>
     </Grid>
