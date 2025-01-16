@@ -39,7 +39,7 @@
             <ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallFieldCollectionKey}}"
                       SelectionChanged="SortedCall_SelectionChanged"
                       SelectedValue="{Binding Path=Field, Mode=TwoWay}"
-                      Grid.Column="1" HorizontalAlignment="Left" Margin="523,0,0,0" VerticalAlignment="Center" Width="265" Height="32"/>
+                      Grid.Column="1" HorizontalAlignment="Left" Margin="135,3,0,0" VerticalAlignment="Top" Width="265" Height="32"/>
 
         </Grid>
         <ListView Grid.Row="1" ItemsSource="{Binding Path=ClosedCalls}" SelectedItem="{Binding SelectedCall}"

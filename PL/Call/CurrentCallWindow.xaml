@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
-        Title="CurrentCallWindow" Height="298" Width="456"
-    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        Title="CurrentCallWindow" Height="400" Width="520"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--External Grid-->
-    <Grid>
+    <Grid Height="400" VerticalAlignment="Top" Margin="0,0,155,0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -24,44 +26,58 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Id:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="AssignId:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
         <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding Path=CurrentVolunteer.VolunteerId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                 IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"
-                 VerticalAlignment="Center" Width="120"/>
+         Text="{Binding Path=CurrentCall.AssignId, Mode=OneWay}" 
+         IsReadOnly="True" VerticalAlignment="Center" Width="200"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Name:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="CallId:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding CurrentVolunteer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Center" Width="120"/>
+         Text="{Binding Path=CurrentCall.CallId, Mode=OneWay}" 
+         IsReadOnly="True" VerticalAlignment="Center" Width="200"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="PhoneNumber:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="TypeOfCall:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
         <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Center" Width="120"/>
+         Text="{Binding Path=CurrentCall.TypeOfCall, Mode=OneWay}" 
+         IsReadOnly="True" VerticalAlignment="Center" Width="200"/>
 
-        <Label Grid.Row="3" Grid.Column="0" Content="Email:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Description:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
         <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding CurrentVolunteer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Center" Width="120"/>
+         Text="{Binding Path=CurrentCall.Description, Mode=OneWay}" 
+         IsReadOnly="True" VerticalAlignment="Center" Width="200"/>
 
-        <Label Grid.Row="4" Grid.Column="0" Content="Address:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="CallAddress:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
         <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding CurrentVolunteer.VolunteerAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Center" Width="120"/>
+         Text="{Binding Path=CurrentCall.CallAddress, Mode=OneWay}" 
+         IsReadOnly="True" VerticalAlignment="Center" Width="200"/>
 
-        <Label Grid.Row="5" Grid.Column="0" Content="Job:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                  ItemsSource="{Binding Source={StaticResource JobCollectionKey}}" 
-                  SelectedValue="{Binding CurrentVolunteer.VolunteerJob, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                  VerticalAlignment="Center" Width="120"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="BeginTime:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+         Text="{Binding Path=CurrentCall.BeginTime, Mode=OneWay}" 
+         IsReadOnly="True" VerticalAlignment="Center" Width="200"/>
 
-        <Label Grid.Row="6" Grid.Column="0" Content="IsActive:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <CheckBox Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                  IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                  VerticalAlignment="Center"/>
-        <Button Grid.Column="1" Content="Cancel Assignment" Click="btnCancel_Click" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="7" VerticalAlignment="Top"/>
-        <Button Grid.Column="1" Content="End Assignment" Click="btnFinish_Click" HorizontalAlignment="Left" Margin="150,10,0,0" Grid.Row="7" Height="20" VerticalAlignment="Top"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="MaxEndTime:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+         Text="{Binding Path=CurrentCall.MaxEndTime, Mode=OneWay}" 
+         IsReadOnly="True" VerticalAlignment="Center" Width="200"/>
+
+        <Label Grid.Row="7" Grid.Column="0" Content="BeginActionTime:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+         Text="{Binding Path=CurrentCall.BeginActionTime, Mode=OneWay}" 
+         IsReadOnly="True" VerticalAlignment="Center" Width="200"/>
+
+        <Label Grid.Row="8" Grid.Column="0" Content="VolunteerDistanceToCall:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+         Text="{Binding Path=CurrentCall.VolunteerDistanceToCall, Mode=OneWay}" 
+         IsReadOnly="True" VerticalAlignment="Center" Width="200"/>
+
+        <Label Grid.Row="9" Grid.Column="0" Content="Status:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+         Text="{Binding Path=CurrentCall.Status, Mode=OneWay}" 
+         IsReadOnly="True" VerticalAlignment="Center" Width="200"/>
+
+        <Button Grid.Column="1" Content="Cancel Assignment" Click="btnCancel_Click" HorizontalAlignment="Left" Margin="10,53,0,0" Grid.Row="9" VerticalAlignment="Top"/>
+        <Button Grid.Column="1" Content="End Assignment" Click="btnFinish_Click" HorizontalAlignment="Left" Margin="138,53,0,0" Grid.Row="9" Height="20" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -98,7 +98,7 @@ public static class Initialization
             Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer, Job.Volunteer,
             Job.Manager, Job.Volunteer, Job.Volunteer };
 
-        bool[] actives = { true, true, false, false, true, true, true, true, true,
+        bool[] actives = { true, false, true, false, true, true, true, true, true,
             true, true, true, true, true, true, true, true, true, true, true };
 
         DistanceType[] DistanceTypes = {DistanceType.WalkingDistance, DistanceType.WalkingDistance,

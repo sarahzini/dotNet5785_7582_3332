@@ -45,7 +45,7 @@ namespace PL
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ClosedCallsProperty =
-            DependencyProperty.Register("MyProperty", typeof(int), typeof(HistoricWindow), new PropertyMetadata(0));
+            DependencyProperty.Register(nameof(ClosedCalls), typeof(IEnumerable<ClosedCallInList>), typeof(HistoricWindow), new PropertyMetadata(null));
 
         public BO.SystemType Ambulance { get; set; } = BO.SystemType.All;
 

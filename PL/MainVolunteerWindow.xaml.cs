@@ -3,6 +3,7 @@ using PL.Volunteer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,9 +28,9 @@ public partial class MainVolunteerWindow : Window
         try
         {
             InitializeComponent();
-            BO.Volunteer? CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
+            CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
             if (CurrentVolunteer.CurrentCall != null)
-                ButtonText = "Actual Call";
+                ButtonText = "Current Call Details";
             else
                 ButtonText = "Assignment to a call";
         }
@@ -53,7 +54,7 @@ public partial class MainVolunteerWindow : Window
     /// This method returns the value of the Current Volunteer
     /// </summary>
     public static readonly DependencyProperty CurrentVolunteerProperty =
-        DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(MainVolunteerWindow), new PropertyMetadata(null));
 
     string ButtonText
     {
@@ -65,18 +66,18 @@ public partial class MainVolunteerWindow : Window
     /// 
     /// </summary>
     public static readonly DependencyProperty ButtonTextProperty =
-        DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow));
+        DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(MainVolunteerWindow), new PropertyMetadata(null));
 
     private void btnHistoric_Click(object sender, RoutedEventArgs e)
     {
-        new HistoricWindow(CurrentVolunteer!.VolunteerId).ShowDialog();
+        new HistoricWindow(CurrentVolunteer!.VolunteerId).ShowDialog(); //pourquoi cette ligne ne mqrche pas et CurrentVolunteer renvoit null alors qu il ne l est pas
     }
     private void btnAssignment_Click(object sender, RoutedEventArgs e)
     {
         if (ButtonText == "Assignment to a call")
             new AssignmentWindow().ShowDialog();
         else
-            new CurrentCallWindow(CurrentVolunteer).ShowDialog();
+            new CurrentCallWindow(CurrentVolunteer.CurrentCall, CurrentVolunteer.VolunteerId).ShowDialog();
     }
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)

@@ -369,14 +369,6 @@
     <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <AssignmentId>1046</AssignmentId>
-    <CallId>100000036</CallId>
-    <VolunteerId>22606042</VolunteerId>
-    <Begin>2025-01-13T23:06:11</Begin>
-    <End xsi:nil="true" />
-    <MyEndStatus xsi:nil="true" />
-  </Assignment>
-  <Assignment>
     <AssignmentId>1047</AssignmentId>
     <CallId>100000037</CallId>
     <VolunteerId>24503710</VolunteerId>
@@ -399,5 +391,13 @@
     <Begin>2025-01-13T21:26:11</Begin>
     <End>2025-01-13T22:18:11</End>
     <MyEndStatus>Expired</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1046</AssignmentId>
+    <CallId>100000036</CallId>
+    <VolunteerId>22606042</VolunteerId>
+    <Begin>2025-01-13T23:06:11</Begin>
+    <End>2025-01-13T23:13:11</End>
+    <MyEndStatus>Completed</MyEndStatus>
   </Assignment>
 </ArrayOfAssignment>

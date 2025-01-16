@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainVolunteerWindow" Height="450" Width="800"
+        Title="MainVolunteerWindow" Height="431" Width="517"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-    <Grid RenderTransformOrigin="0.505,0.524">
+    <Grid RenderTransformOrigin="0.505,0.524" Margin="0,0,10,-6">
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Button Content="Update my Detail" HorizontalAlignment="Left" Width="146" Click="btnUpdate_Click" Margin="320,114,0,269"/>
-        <Button Content="Call Historic" HorizontalAlignment="Left" Margin="320,239,0,0" VerticalAlignment="Top" Click="btnHistoric_Click" Height="48" Width="146"/>
-        <Button Content="{Binding ButtonText}" HorizontalAlignment="Left" Margin="316,188,0,0" VerticalAlignment="Top" Width="150" Click="btnAssignment_Click" Height="46"/>
+        <Button Content="Update my Details" HorizontalAlignment="Left" Width="146" Click="btnUpdate_Click" Margin="132,65,0,318"/>
+        <Button Content="Calls Historic" HorizontalAlignment="Left" Margin="136,162,0,0" VerticalAlignment="Top" Click="btnHistoric_Click" Height="48" Width="146"/>
+        <Button Content="{Binding ButtonText}" HorizontalAlignment="Left" Margin="132,106,0,0" VerticalAlignment="Top" Width="150" Click="btnAssignment_Click" Height="46"/>
         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="0" Margin="320,127,0,0" VerticalAlignment="Top" Width="0"/>
     </Grid>
 </Window>
