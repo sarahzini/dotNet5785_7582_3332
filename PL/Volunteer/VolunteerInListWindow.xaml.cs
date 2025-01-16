@@ -33,7 +33,7 @@ public partial class VolunteerInListWindow : Window
     }
 
     public static readonly DependencyProperty VolunteerListProperty =
-        DependencyProperty.Register("VolunteerInList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerInListWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerInListWindow), new PropertyMetadata(null));
     private void queryVolunteerList()
          => VolunteerList = (Ambulance == BO.SystemType.All) ?
                    s_bl?.Volunteer.GetVolunteersInList()! : s_bl?.Volunteer.GetFilteredVolunteersInList(Ambulance)!;

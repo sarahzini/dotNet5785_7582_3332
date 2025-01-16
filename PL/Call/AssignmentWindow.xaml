@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Assignment Window" Height="700" Width="900"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+         Loaded="Window_Loaded" Closed="Window_Closed">
     <!--External Grid-->
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -45,20 +46,18 @@
                 <GridView>
                     <GridViewColumn Header="Call ID" Width="100" DisplayMemberBinding="{Binding CallId}" />
                     <GridViewColumn Header="Type of Call" Width="150" DisplayMemberBinding="{Binding TypeOfCall}" />
-                    <GridViewColumn Header="Address" Width="200" DisplayMemberBinding="{Binding Address}" />
-                    <GridViewColumn Header="Begin Time" Width="120" DisplayMemberBinding="{Binding BeginTime}" />
-                    <GridViewColumn Header="Max End Time" Width="120" DisplayMemberBinding="{Binding MaxEndTime}" />
-                    <GridViewColumn Header="Distance" Width="150" DisplayMemberBinding="{Binding VolunteerDistance}" />
-                    <GridViewColumn Header="Actions" Width="150">
+                    <GridViewColumn Header="Address" Width="200" DisplayMemberBinding="{Binding CallAddress}" />
+                    <GridViewColumn Header="Begin Time" Width="200" DisplayMemberBinding="{Binding BeginTime}" />
+                    <GridViewColumn Header="Max End Time" Width="200" DisplayMemberBinding="{Binding MaxEndTime}" />
+                    <GridViewColumn Header="Distance" Width="100" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
+                    <GridViewColumn Header="" Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button Content="Choose" Click="btnChoose_Click" Tag="{Binding CallId}" 
+                                    <Button Content="Assign to this Call" Click="btnChoose_Click" Tag="{Binding CallId}" 
                                             Background="#FF28A745" Foreground="White" FontWeight="Bold"
-                                            Width="80" Height="30" Margin="5,0"/>
-                                    <Button Content="Details" Click="btnDetails_Click" Tag="{Binding CallId}" 
-                                            Background="#FFB22222" Foreground="White" FontWeight="Bold"
-                                            Width="80" Height="30" Margin="5,0"/>
+                                            Width="180" Height="30" Margin="5,0"/>
+                                    
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

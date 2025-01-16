@@ -75,13 +75,13 @@ public partial class MainVolunteerWindow : Window
     private void btnAssignment_Click(object sender, RoutedEventArgs e)
     {
         if (ButtonText == "Assignment to a call")
-            new AssignmentWindow().ShowDialog();
+            new AssignmentWindow(CurrentVolunteer.VolunteerId).ShowDialog();
         else
             new CurrentCallWindow(CurrentVolunteer.CurrentCall, CurrentVolunteer.VolunteerId).ShowDialog();
     }
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)
     {
-        //new UpdateVolunteer(CurrentVolunteer).ShowDialog();
+        new UpdateVolunteerWindow(CurrentVolunteer).ShowDialog();
     }
 }

@@ -225,8 +225,14 @@ internal class CallImplementation : ICall
     {
         // Get the full list of calls with the filter of id
         IEnumerable<DO.Call>? calls = _dal.Call.ReadAll()
-            .Where(call => _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.VolunteerId == volunteerId
-            && _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.End == null);
+            .Where(call => _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.End == null);
+
+        //take just the call that are in the max distance of volunteer 
+        calls=calls.Where(call => Math.Sqrt(
+        Math.Pow((double)(_dal.Volunteer.Read(volunteerId).Longitude - call.Longitude), 2) +
+        Math.Pow((double)(_dal.Volunteer.Read(volunteerId).Longitude - call.Latitude), 2))
+
+        < _dal.Volunteer.Read(volunteerId).MaxDistance);
 
         // Filter the list based on the callType parameter
         if (callType.HasValue)
@@ -237,7 +243,7 @@ internal class CallImplementation : ICall
         // Sort the list based on the sortField parameter
         if (sortField.HasValue)
         {
-            calls = calls?.OrderBy(call => call.GetType().GetProperty(sortField.ToString()).GetValue(call, null));
+            //calls = calls?.OrderBy(call => call.GetType().GetProperty(sortField.ToString()).GetValue(call, null));
         }
         else
         {

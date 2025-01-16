@@ -239,20 +239,6 @@
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>35867859</Id>
-    <Name>Ronit Gross</Name>
-    <PhoneNumber>053-5289761</PhoneNumber>
-    <Email>Ronit.Gross@tutanota.com</Email>
-    <Password>RonitG321</Password>
-    <Address>101 Sderot Yerushalayim Street, Jerusalem, Israel</Address>
-    <Latitude>31.7797692</Latitude>
-    <Longitude>35.1880402</Longitude>
-    <MyJob>Manager</MyJob>
-    <active>true</active>
-    <distance>75.52999587219448</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>11482336</Id>
     <Name>Tal Ben-Ari</Name>
     <PhoneNumber>058-8456201</PhoneNumber>
@@ -264,6 +250,20 @@
     <MyJob>Volunteer</MyJob>
     <active>true</active>
     <distance>1.4589746471877274</distance>
+    <MyWhichDistance>AirDistance</MyWhichDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>345887582</Id>
+    <Name>Sarah Zini</Name>
+    <PhoneNumber>0585240603</PhoneNumber>
+    <Email>sarahzini3@gmail.com</Email>
+    <Password>Sarah12</Password>
+    <Address>Rabbi Israel Najara St 26, Jerusalem,Israel</Address>
+    <Latitude>31.759595</Latitude>
+    <Longitude>35.215315</Longitude>
+    <MyJob>Manager</MyJob>
+    <active>true</active>
+    <distance>50</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
 </Volunteers>

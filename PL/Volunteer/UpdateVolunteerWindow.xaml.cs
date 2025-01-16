@@ -13,15 +13,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Main;
+namespace PL.Volunteer;
 
 /// <summary>
 /// Interaction logic for UpdateVolunteer.xaml
 /// </summary>
-public partial class UpdateVolunteer : Window
+public partial class UpdateVolunteerWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public UpdateVolunteer(BO.Volunteer? v)
+    public UpdateVolunteerWindow(BO.Volunteer? v)
     {
         InitializeComponent();
         CurrentVolunteer = v;
@@ -37,14 +37,15 @@ public partial class UpdateVolunteer : Window
     /// This method returns the value of the Current Volunteer
     /// </summary>
     public static readonly DependencyProperty CurrentVolunteerProperty =
-        DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(UpdateVolunteerWindow), new PropertyMetadata(null));
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)
     {
         try
         {
             s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer!.VolunteerId, CurrentVolunteer!);
-            MessageBox.Show($"The volunteer with the ID {CurrentVolunteer?.VolunteerId} was successfully updated!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"The details of {CurrentVolunteer?.Name} was successfully updated!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Close();
 
         }
         catch (BO.BLDoesNotExistException ex)
@@ -59,33 +60,5 @@ public partial class UpdateVolunteer : Window
         {
             MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-    }
-
-    private void volunteerObserver()
-    {
-        int id = CurrentVolunteer!.VolunteerId;
-        CurrentVolunteer = null;
-        CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
-
-    }
-
-    /// <summary>
-    /// This method loads the window.
-    /// </summary>
-    private void Window_Loaded(object sender, RoutedEventArgs e)
-    {
-        if (CurrentVolunteer!.VolunteerId != 0)
-            s_bl.Volunteer.AddObserver(CurrentVolunteer!.VolunteerId, volunteerObserver);
-    }
-
-    /// <summary>
-    /// This method closes the window.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-
-    private void Window_Closed(object sender, EventArgs e)
-    {
-        s_bl.Volunteer.RemoveObserver(CurrentVolunteer!.VolunteerId, volunteerObserver);
     }
 }

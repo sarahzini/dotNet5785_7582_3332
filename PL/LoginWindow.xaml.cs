@@ -1,6 +1,5 @@
 ﻿using PL.Call;
 using PL.Volunteer;
-using PL.Main;
 using System.Diagnostics.Eventing.Reader;
 using System.Windows;
 using System.Windows.Controls;

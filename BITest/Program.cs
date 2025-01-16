@@ -37,10 +37,6 @@ internal class Program
     static void Main(string[] args)
     {
 
-        //Console.Write("Enter your adress: ");
-        //string? password = Console.ReadLine();
-        //(double latitude, double longitude) = Helpers.GeocodingService.GetCoordinates(password);
-
         Console.WriteLine("Welcome to the MDA Volunteers System !:");
         try
         {

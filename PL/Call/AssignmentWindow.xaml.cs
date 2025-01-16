@@ -14,12 +14,14 @@ namespace PL.Call
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public BO.Statuses Status { get; set; } = BO.Statuses.All;
-        public AssignmentWindow()
+        public AssignmentWindow(int id)
         {
             InitializeComponent();
+            OpenCallList = s_bl.Call.SortOpenCalls(id,null,null);
+            id = id;
         }
 
-        public IEnumerable<BO.OpenCallInList> OpenCallList
+        public IEnumerable<BO.OpenCallInList>? OpenCallList
         {
             get { return (IEnumerable<BO.OpenCallInList>)GetValue(OpenCallInListProperty); }
             set { SetValue(OpenCallInListProperty, value); }
@@ -30,11 +32,6 @@ namespace PL.Call
 
         private void queryOpenCalInlList() 
         {
-            if(s_bl.Call != null)
-            {
-                if (Status == BO.Statuses.Open || Status == BO.Statuses.OpenToRisk)
-                { OpenCallList = (IEnumerable<OpenCallInList>)s_bl.Call.GetSortedCallsInList(); }
-            }
         }
         private void OpenCallListObserver()
             => queryOpenCalInlList();
@@ -50,30 +47,17 @@ namespace PL.Call
         /// </summary>
         public BO.OpenCallInList? SelectedCall { get; set; }
 
+        public int id { get; set; }
+
         private void btnChoose_Click(object sender, RoutedEventArgs e)
         {
-         
-            if (SelectedCall != null)
-            {
-                // Move the call to the "In Progress" state
-                //OpenCallInList.(selectedCall);
+            //VolunteerInProgressCalls.Add(selectedCall);
+            s_bl.Call.AssignCallToVolunteer(id, SelectedCall.CallId);
 
-                //VolunteerInProgressCalls.Add(selectedCall);
-
-                // Optionally notify the user
-                MessageBox.Show($"You are now assigned to call {SelectedCall.CallId}.",
+            // Notify the user
+            MessageBox.Show($"You are now assigned to call {SelectedCall.CallId}:{SelectedCall.Description}.",
                                 "Call Assigned", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
         }
 
-
-        private void btnDetails_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedCall != null)
-            {
-                // Display the details of the selected call
-                MessageBox.Show($"Description: {SelectedCall.Description}\n","Description", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
     }
 }
