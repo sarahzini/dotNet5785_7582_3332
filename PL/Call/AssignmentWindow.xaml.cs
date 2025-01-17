@@ -28,7 +28,7 @@ namespace PL.Call
         }
 
         public static readonly DependencyProperty OpenCallInListProperty =
-            DependencyProperty.Register("OpenCallInList", typeof(IEnumerable<BO.OpenCallInList>), typeof(AssignmentWindow));
+            DependencyProperty.Register("OpenCallList", typeof(IEnumerable<BO.OpenCallInList>), typeof(AssignmentWindow), new PropertyMetadata(null));
 
         private void queryOpenCalInlList() 
         {

@@ -24,6 +24,7 @@ public partial class MainManagerWindow : Window
     public MainManagerWindow(int id=0)
     {
         InitializeComponent();
+        id = id;
     }
 
     public TimeSpan RiskRange
@@ -88,8 +89,10 @@ public partial class MainManagerWindow : Window
         s_bl.Admin.RemoveConfigObserver(configObserver);
     }
 
+    public int id { get; set; };
+
     private void btnVolunteers_Click(object sender, RoutedEventArgs e)
-    { new VolunteerInListWindow().Show(); }
+    { new VolunteerInListWindow( id).Show(); }
 
     private void btnCalls_Click(object sender, RoutedEventArgs e)
     { new CallInListWindow().Show(); }

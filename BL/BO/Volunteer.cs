@@ -32,7 +32,7 @@ public class Volunteer
     public Job VolunteerJob { get; set; }
     public bool IsActive { get; set; } = false;
     public double? MaxVolunteerDistance { get; set; } = null;
-    public DistanceType VolunteerDT { get; set; } // bonus: we can set it
+    public DistanceType VolunteerDT { get; set; } 
     public int CompletedCalls { get; init; }
     public int CancelledCalls { get; init; }
     public int ExpiredCalls { get; init; }

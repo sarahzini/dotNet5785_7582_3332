@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,7 +23,13 @@ public partial class VolunteerInListWindow : Window
 {
     /// To gain access to the BL layer, we need to use the Factory class.
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public VolunteerInListWindow() => InitializeComponent();
+    public VolunteerInListWindow(int id)
+    {
+        InitializeComponent();
+        requesterId = id;
+    }
+
+    public int requesterId { get; set; } ;
     public BO.SystemType Ambulance { get; set; } = BO.SystemType.All;
 
     private void FilteredVolunteer_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryVolunteerList();

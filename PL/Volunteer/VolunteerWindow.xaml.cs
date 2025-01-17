@@ -20,7 +20,7 @@ namespace PL.Volunteer
     public partial class VolunteerWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public VolunteerWindow(string AddOrUpdate, int id)
+        public VolunteerWindow(string AddOrUpdate, int id,int requesterId)
         {
             try
             {
@@ -47,6 +47,8 @@ namespace PL.Volunteer
                         CurrentCall = null };
                 else 
                     CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
+
+                requesterId = requesterId;
             }
             catch (BO.BLDoesNotExistException ex)
             {
@@ -58,6 +60,8 @@ namespace PL.Volunteer
             }
 
         }
+
+        public int requesterId { get; set; }
         /// <summary>
         /// This method returns the value of the Button text
         /// </summary>
@@ -76,7 +80,7 @@ namespace PL.Volunteer
         /// <summary>
         /// 
         /// </summary>
-        string ButtonText
+        public string ButtonText
         {
             get => (string)GetValue(ButtonTextProperty);
             init => SetValue(ButtonTextProperty, value);
@@ -101,13 +105,11 @@ namespace PL.Volunteer
                 {
                     s_bl.Volunteer.AddVolunteer(CurrentVolunteer!);
                     MessageBox.Show($"The volunteer with the ID number : {CurrentVolunteer?.VolunteerId} was successfully added!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //ici il faut ajouter le changement dans le volunteerin list et aussi dan le DAL
-                    // ds le else aussi
+                   
                 }
                 else
                 {
                     s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer!.VolunteerId, CurrentVolunteer!);
-                    //we will change the parameter of id in stage 6 because it depens of screen login
                     MessageBox.Show($"The volunteer with the ID number: {CurrentVolunteer?.VolunteerId} was successfully updated!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }

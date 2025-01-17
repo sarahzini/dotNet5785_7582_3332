@@ -22,7 +22,7 @@
                    HorizontalAlignment="Center" Margin="0,0,0,20" />
 
         <!--ListView Section-->
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=OpenCallInList}" SelectedItem="{Binding SelectedCall}"
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=OpenCallList}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
                   BorderBrush="#FFB22222" Background="#FFFDFDFD" Margin="0,0,0,0"
                   Padding="10">
             <ListView.ItemContainerStyle>
@@ -66,6 +66,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Canvas/>
 
     </Grid>
 </Window>
