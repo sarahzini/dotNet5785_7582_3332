@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="UpdateVolunteer" Height="450" Width="800"
+        Title="UpdateVolunteer" Height="320" Width="359"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
        Icon="pack://application:,,,/PL;component/Images/Login.png">
     <!--External Grid-->
@@ -56,9 +56,15 @@
               Text="{Binding CurrentVolunteer.MaxVolunteerDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
               VerticalAlignment="Center" Width="120"/>
 
-         
+        <!-- New Password Field -->
+        <Label Grid.Row="6" Grid.Column="0" Content="Password:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+        Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+        VerticalAlignment="Center" Width="120"/>
 
-        <Button Content="Update" Grid.Row="8" HorizontalAlignment="Left" Width="75" Click="btnUpdate_Click" Grid.Column="1" Margin="25,17,0,-3"/>
+
+
+        <Button Content="Update" Grid.Row="8" HorizontalAlignment="Left" Width="75" Click="btnUpdate_Click" Grid.Column="1" Margin="25,54,0,-56" Foreground="#FF832121" BorderBrush="#FFDDDDDD" OpacityMask="#FFDDDDDD"/>
 
     </Grid>
 </Window>
