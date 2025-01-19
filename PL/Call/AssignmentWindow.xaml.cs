@@ -51,11 +51,14 @@ namespace PL.Call
 
         private void btnChoose_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            var call = button?.CommandParameter as BO.OpenCallInList;
+
             //VolunteerInProgressCalls.Add(selectedCall);
-            s_bl.Call.AssignCallToVolunteer(id, SelectedCall.CallId);
+            s_bl.Call.AssignCallToVolunteer(id, call.CallId);
 
             // Notify the user
-            MessageBox.Show($"You are now assigned to call {SelectedCall.CallId}:{SelectedCall.Description}.",
+            MessageBox.Show($"You are now assigned to call {call.CallId}:{call.Description}.",
                                 "Call Assigned", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 

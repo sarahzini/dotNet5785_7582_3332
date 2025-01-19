@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="VolunteerWindow" Height="350" Width="312"
+        Title="VolunteerWindow" Height="400" Width="312"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png">
     <!--External Grid-->
@@ -26,11 +26,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+
+
             <!-- Added new row definition -->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -59,29 +56,39 @@
                  Text="{Binding CurrentVolunteer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                  VerticalAlignment="Center" Width="120"/>
 
-        <Label Grid.Row="4" Grid.Column="0" Content="Max Distance To a Call:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Address:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
         <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+                 Text="{Binding CurrentVolunteer.VolunteerAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                 VerticalAlignment="Center" Width="120"/>
+
+        <Label Grid.Row="5" Grid.Column="0" Content="Max Distance To a Call:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
                  Text="{Binding CurrentVolunteer.MaxVolunteerDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                  VerticalAlignment="Center" Width="120"/>
 
-        <Label Grid.Row="5" Grid.Column="0" Content="WhichDistance:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+        <Label Grid.Row="6" Grid.Column="0" Content="WhichDistance:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
                  Text="AirDistance" 
                  VerticalAlignment="Center" Width="120" IsReadOnly="True"/>
 
-        <Label Grid.Row="6" Grid.Column="0" Content="Job:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+        <Label Grid.Row="7" Grid.Column="0" Content="Job:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
                   ItemsSource="{Binding Source={StaticResource JobCollectionKey}}" 
                   SelectedValue="{Binding CurrentVolunteer.VolunteerJob, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                   VerticalAlignment="Center" Width="120"/>
 
-        <Label Grid.Row="7" Grid.Column="0" Content="IsActive:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <CheckBox Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+        <Label Grid.Row="8" Grid.Column="0" Content="Password:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+                     Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                     VerticalAlignment="Center" Width="120"/>
+
+        <Label Grid.Row="9" Grid.Column="0" Content="IsActive:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <CheckBox Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
                   IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                   VerticalAlignment="Center"/>
 
-        <Button Content="{Binding ButtonText}" Grid.Row="8" HorizontalAlignment="Left" Width="63" Click="btnAddUpdate_Click" Grid.Column="1" Margin="23,3,0,10" Grid.RowSpan="7"/>
-        <Button Content="Current Call" Grid.Row="12" HorizontalAlignment="Left" Width="78" Click="btnCurrentCall_Click" Margin="49,15,0,18" Grid.RowSpan="3"
+        <Button Content="{Binding ButtonText}" Grid.Row="10" HorizontalAlignment="Left" Width="63" Click="btnAddUpdate_Click" Grid.Column="1" Margin="23,3,0,10" Grid.RowSpan="7"/>
+        <Button Content="Current Call" Grid.Row="17" HorizontalAlignment="Left" Width="78" Click="btnCurrentCall_Click" Margin="49,15,0,18" Grid.RowSpan="3"
         Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverterKey}}"/>
     </Grid>
 </Window>

@@ -55,7 +55,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button Content="Assign to this Call" Click="btnChoose_Click" Tag="{Binding CallId}" 
+                                    <Button Content="Assign to this Call" Click="btnChoose_Click"  CommandParameter="{Binding}" 
                                             Background="#FF28A745" Foreground="White" FontWeight="Bold"
                                             Width="180" Height="30" Margin="5,0"/>
                                     

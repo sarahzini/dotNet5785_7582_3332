@@ -40,7 +40,10 @@ public partial class VolunteerInListWindow : Window
     }
 
     public static readonly DependencyProperty VolunteerListProperty =
-        DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerInListWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("VolunteerList", 
+            typeof(IEnumerable<BO.VolunteerInList>),
+            typeof(VolunteerInListWindow), 
+            new PropertyMetadata(null));
     private void queryVolunteerList()
          => VolunteerList = (Ambulance == BO.SystemType.All) ?
                    s_bl?.Volunteer.GetVolunteersInList()! : s_bl?.Volunteer.GetFilteredVolunteersInList(Ambulance)!;
@@ -59,7 +62,7 @@ public partial class VolunteerInListWindow : Window
     {
         if (SelectedVolunteer != null)
         {
-            new VolunteerWindow("Update", SelectedVolunteer.VolunteerId,requesterId).Show();        }
+            new VolunteerWindow("Update", SelectedVolunteer.VolunteerId,requesterId).Show(); }
 
     }
 
@@ -68,7 +71,19 @@ public partial class VolunteerInListWindow : Window
         new VolunteerWindow("Add", 0, requesterId).Show();
     }
 
+    /*
+    public BO.VolunteerInList? SelectedVolunteer
+    {
+        get { return (BO.VolunteerInList?)GetValue(SelectedVolunteerProperty); }
+        set { SetValue(SelectedVolunteerProperty, value); }
+    }
+
+    public static readonly DependencyProperty SelectedVolunteerProperty =
+        DependencyProperty.Register("SelectedVolunteer", typeof(BO.VolunteerInList), typeof(VolunteerInListWindow), new PropertyMetadata(null));
+    */
+
     public BO.VolunteerInList? SelectedVolunteer { get; set; }
+
 
     private void btnDeleteVolunteer_Click(object sender, RoutedEventArgs e)
     {
@@ -76,6 +91,8 @@ public partial class VolunteerInListWindow : Window
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
         try
         {
+            //BO.VolunteerInList volunteer = SelectedVolunteer!;
+
             if (confirmation == MessageBoxResult.Yes)
             {
                 s_bl.Volunteer.DeleteVolunteer(SelectedVolunteer!.VolunteerId);

@@ -19,14 +19,14 @@
             <!-- Buttons Section -->
         </Grid.RowDefinitions>
 
-
-
-
         <!-- ListView Section -->
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}" 
-                  SelectedItem="{Binding SelectedVolunteer, Mode=TwoWay}"
-                  BorderBrush="#FFB22222" Background="#FFFDFDFD" 
-                  Padding="10" Margin="0,0,0,0" SelectionChanged="FilteredVolunteer_SelectionChanged">
+        <ListView Grid.Row="1" 
+ItemsSource="{Binding VolunteerList}" 
+          SelectedItem="{Binding SelectedVolunteer}"
+          MouseDoubleClick="lsvUpdate_MouseDoubleClick"
+          SelectionChanged="FilteredVolunteer_SelectionChanged"
+          BorderBrush="#FFB22222" Background="#FFFDFDFD" 
+                  Padding="10" Margin="0,0,0,0" >
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Margin" Value="0,0,0,10" />
@@ -64,11 +64,9 @@
                     <GridViewColumn Header="" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button Content="Delete" Click="btnDeleteVolunteer_Click" Tag="{Binding VolunteerId}" 
+                                <Button Content="Delete" Click="btnDeleteVolunteer_Click" 
                                             Background="Red" Foreground="White" FontWeight="Bold"
                                             Width="80" Height="30" Margin="5,0" />
-                                </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
