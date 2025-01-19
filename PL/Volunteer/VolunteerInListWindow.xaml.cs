@@ -29,7 +29,7 @@ public partial class VolunteerInListWindow : Window
         requesterId = id;
     }
 
-    public int requesterId { get; set; } ;
+    public int requesterId { get; set; } 
     public BO.SystemType Ambulance { get; set; } = BO.SystemType.All;
 
     private void FilteredVolunteer_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryVolunteerList();
@@ -59,13 +59,13 @@ public partial class VolunteerInListWindow : Window
     {
         if (SelectedVolunteer != null)
         {
-            new VolunteerWindow("Update", SelectedVolunteer.VolunteerId).Show();        }
+            new VolunteerWindow("Update", SelectedVolunteer.VolunteerId,requesterId).Show();        }
 
     }
 
     private void btnAdd_Click(object sender, RoutedEventArgs e)
     {
-        new VolunteerWindow("Add", 0).Show();
+        new VolunteerWindow("Add", 0, requesterId).Show();
     }
 
     public BO.VolunteerInList? SelectedVolunteer { get; set; }

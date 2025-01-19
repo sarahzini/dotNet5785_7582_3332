@@ -89,7 +89,7 @@ public partial class MainManagerWindow : Window
         s_bl.Admin.RemoveConfigObserver(configObserver);
     }
 
-    public int id { get; set; };
+    public int id { get; set; }
 
     private void btnVolunteers_Click(object sender, RoutedEventArgs e)
     { new VolunteerInListWindow( id).Show(); }

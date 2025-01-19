@@ -52,7 +52,7 @@ internal class CallImplementation : ICall
         // Filter calls if filterField and filterValue are provided
         if (filterField != null && filterValue != null)
         {
-            var filterProperty = typeof(BO.CallInList).GetProperty(filterField.ToString());
+            var filterProperty = typeof(BO.CallInList).GetProperty(filterField?.ToString());
             if (filterProperty != null)
             {
                 calls = calls?.Where(call => filterProperty.GetValue(call)?.Equals(filterValue) == true);

@@ -36,6 +36,10 @@ internal class Program
     static readonly IBl s_bl = BlApi.Factory.Get();
     static void Main(string[] args)
     {
+        string? adress = Console.ReadLine();
+        (double latitude,double longitude)=Helpers.GeocodingService.GetCoordinates(adress);
+        Console.WriteLine($"{latitude}{longitude}:");
+
 
         Console.WriteLine("Welcome to the MDA Volunteers System !:");
         try
