@@ -59,10 +59,8 @@ public partial class VolunteerInListWindow : Window
 
 
     private void lsvUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        if (SelectedVolunteer != null)
-        {
-            new VolunteerWindow("Update", SelectedVolunteer.VolunteerId,requesterId).Show(); }
+    { 
+        new VolunteerWindow("Update", SelectedVolunteer.VolunteerId,requesterId).Show(); 
 
     }
 
@@ -87,15 +85,17 @@ public partial class VolunteerInListWindow : Window
 
     private void btnDeleteVolunteer_Click(object sender, RoutedEventArgs e)
     {
+
+        var button = sender as Button;
+        var volunteer = button?.CommandParameter as BO.VolunteerInList; // Assuming Volunteer is the type of your items in the list
+
         MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this volunteer ?", "Delete Confirmation",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
         try
         {
-            //BO.VolunteerInList volunteer = SelectedVolunteer!;
-
             if (confirmation == MessageBoxResult.Yes)
             {
-                s_bl.Volunteer.DeleteVolunteer(SelectedVolunteer!.VolunteerId);
+                s_bl.Volunteer.DeleteVolunteer(volunteer.VolunteerId);
             }
         }
         catch (Exception ex)

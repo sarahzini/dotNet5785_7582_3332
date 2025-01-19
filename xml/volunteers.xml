@@ -239,20 +239,6 @@
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>15989724</Id>
-    <Name>Ronit Gross</Name>
-    <PhoneNumber>053-5289761</PhoneNumber>
-    <Email>Ronit.Gross@tutanota.com</Email>
-    <Password>RonitG321</Password>
-    <Address>101 Sderot Yerushalayim Street, Jerusalem, Israel</Address>
-    <Latitude>31.7797692</Latitude>
-    <Longitude>35.1880402</Longitude>
-    <MyJob>Manager</MyJob>
-    <active>true</active>
-    <distance>24.688319814327276</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>37002344</Id>
     <Name>Meir Ziv</Name>
     <PhoneNumber>054-3175928</PhoneNumber>
