@@ -5,66 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="UpdateVolunteer" Height="320" Width="359"
+        Title="Update Volunteer" Height="320" Width="245"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
        Icon="pack://application:,,,/PL;component/Images/Login.png">
+
+    <Window.Resources>
+        <Color x:Key="CustomColor">#FF832121</Color>
+        <SolidColorBrush x:Key="CustomBrush" Color="{StaticResource CustomColor}" />
+        <Style x:Key="RedBorderButtonStyle" TargetType="Button">
+            <Setter Property="BorderBrush" Value="{StaticResource CustomBrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="{StaticResource CustomBrush}" />
+        </Style>
+        <Style x:Key="RedBorderTextBoxStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="{StaticResource CustomBrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="{StaticResource CustomBrush}" />
+        </Style>
+    </Window.Resources>
     <!--External Grid-->
-        <Grid Margin="0,0,0,12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+    <Grid Margin="0,0,0,12">
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Id:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Id:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
               Text="{Binding Path=CurrentVolunteer.VolunteerId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-              VerticalAlignment="Center" Width="120" IsReadOnly="True"/>
+              VerticalAlignment="Center" Width="120" IsReadOnly="True" Style ="{StaticResource RedBorderTextBoxStyle}"/>
 
-            <Label Grid.Row="1" Grid.Column="0" Content="Name:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+        <Label Grid.Row="1" Grid.Column="0" Content="Name:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
               Text="{Binding CurrentVolunteer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-              VerticalAlignment="Center" Width="120"/>
+              VerticalAlignment="Center" Width="120" Style ="{StaticResource RedBorderTextBoxStyle}"/>
 
-            <Label Grid.Row="2" Grid.Column="0" Content="PhoneNumber:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+        <Label Grid.Row="2" Grid.Column="0" Content="PhoneNumber:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
               Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-              VerticalAlignment="Center" Width="120"/>
+              VerticalAlignment="Center" Width="120" Style ="{StaticResource RedBorderTextBoxStyle}"/>
 
-            <Label Grid.Row="3" Grid.Column="0" Content="Email:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+        <Label Grid.Row="3" Grid.Column="0" Content="Email:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
               Text="{Binding CurrentVolunteer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-              VerticalAlignment="Center" Width="120"/>
+              VerticalAlignment="Center" Width="120" Style ="{StaticResource RedBorderTextBoxStyle}"/>
 
-            <Label Grid.Row="4" Grid.Column="0" Content="Address:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+        <Label Grid.Row="4" Grid.Column="0" Content="Address:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
               Text="{Binding CurrentVolunteer.VolunteerAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-              VerticalAlignment="Center" Width="120"/>
+              VerticalAlignment="Center" Width="120" Style ="{StaticResource RedBorderTextBoxStyle}"/>
 
-            <Label Grid.Row="5" Grid.Column="0" Content="Max Distance :" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
+        <Label Grid.Row="5" Grid.Column="0" Content="Max Distance :" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
               Text="{Binding CurrentVolunteer.MaxVolunteerDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-              VerticalAlignment="Center" Width="120"/>
+              VerticalAlignment="Center" Width="120" Style ="{StaticResource RedBorderTextBoxStyle}"/>
 
-        <!-- New Password Field -->
         <Label Grid.Row="6" Grid.Column="0" Content="Password:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
         <TextBox Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
         Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-        VerticalAlignment="Center" Width="120"/>
+        VerticalAlignment="Center" Width="120" Style ="{StaticResource RedBorderTextBoxStyle}"/>
 
 
 
-        <Button Content="Update" Grid.Row="8" HorizontalAlignment="Left" Width="75" Click="btnUpdate_Click" Grid.Column="1" Margin="25,54,0,-56" Foreground="#FF832121" BorderBrush="#FFDDDDDD" OpacityMask="#FFDDDDDD"/>
-
+        <Button Content="Update" Grid.Row="8" HorizontalAlignment="Left" Width="75" Click="btnUpdate_Click" Grid.Column="1" Margin="19,27,0,-29"  Style="{StaticResource RedBorderButtonStyle}" />
     </Grid>
 </Window>
