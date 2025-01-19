@@ -26,6 +26,7 @@ public partial class UpdateVolunteerWindow : Window
         InitializeComponent();
         CurrentVolunteer = v;
     }
+   
 
     public BO.Volunteer? CurrentVolunteer
     {

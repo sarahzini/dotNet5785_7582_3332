@@ -16,6 +16,7 @@
   <ItemGroup>
     <None Remove="Images\BlockNote.png" />
     <None Remove="Images\Login.png" />
+    <None Remove="Images\Logo.png" />
     <None Remove="Images\Phone.png" />
     <None Remove="Images\UptadeDetails.png" />
     <None Remove="Images\V.png" />
@@ -32,6 +33,7 @@
   <ItemGroup>
     <Resource Include="Images\BlockNote.png" />
     <Resource Include="Images\Login.png" />
+    <Resource Include="Images\Logo.png" />
     <Resource Include="Images\Phone.png" />
     <Resource Include="Images\UptadeDetails.png" />
     <Resource Include="Images\V.png" />
