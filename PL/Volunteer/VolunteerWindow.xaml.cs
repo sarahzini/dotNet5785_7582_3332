@@ -94,12 +94,22 @@ namespace PL.Volunteer
         public static readonly DependencyProperty ButtonTextProperty =
             DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow));
 
-        /// <summary>
-        /// This method adds or updates a volunteer depending on the button text.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+        private void btnCurrentCall_Click(object sender, RoutedEventArgs e)
+        {
+           if (CurrentVolunteer!.CurrentCall != null)
+           {
+               new CurrentCall(CurrentVolunteer!.CurrentCall!).ShowDialog();
+           }
+            
+        }
+
+            /// <summary>
+            /// This method adds or updates a volunteer depending on the button text.
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            /// 
+            private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
             {

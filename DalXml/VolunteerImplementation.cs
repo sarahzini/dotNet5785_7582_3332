@@ -27,7 +27,7 @@ internal class VolunteerImplementation : IVolunteer
             Latitude: (double?)v.Element("Latitude"),
             Longitude: (double?)v.Element("Longitude"),
             MyJob: (Job)Enum.Parse(typeof(Job), (string?)v.Element("MyJob") ?? "Volunteer"),
-            IsActive: (bool?)v.Element("active") ?? false,
+            IsActive: (bool?)v.Element("active") ?? true,
             MaxDistance: (double?)v.Element("distance"),
             MyDistanceType: (DistanceType)Enum.Parse(typeof(DistanceType), (string?)v.Element("MyWhichDistance") ?? "AirDistance")
         );

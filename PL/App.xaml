@@ -10,6 +10,7 @@
         <local:DistanceTypeCollection x:Key="DistanceTypeCollectionKey"/>
         <local:ClosedCallFieldCollection x:Key="ClosedCallFieldCollectionKey"/>
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey" />
-        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverterKey" />
+        <local:TrueToVisibilityConverter x:Key="TrueToVisibilityConverterKey" />
     </Application.Resources>
 </Application>

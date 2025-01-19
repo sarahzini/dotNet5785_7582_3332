@@ -5,12 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="VolunteerWindow" Height="600" Width="312"
+        Title="VolunteerWindow" Height="350" Width="312"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png">
-    <Window.Resources>
-        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-    </Window.Resources>
     <!--External Grid-->
     <Grid Margin="0,0,-16,-329">
         <Grid.RowDefinitions>
@@ -83,58 +80,8 @@
                   IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                   VerticalAlignment="Center"/>
 
-        <Button Content="{Binding ButtonText}" Grid.Row="8" HorizontalAlignment="Left" Width="63" Click="btnAddUpdate_Click" Grid.Column="1" Margin="23,3,0,30" Grid.RowSpan="3"/>
-
-        <!-- CurrentCall properties -->
-        <Label Grid.Row="9" Grid.Column="0" Content="Current Call AssignId:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-        <TextBox Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-         Text="{Binding CurrentVolunteer.CurrentCall.AssignId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-         VerticalAlignment="Center" Width="120" IsReadOnly="True" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-
-        <Label Grid.Row="10" Grid.Column="0" Content="Current Call Id:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-        <TextBox Grid.Row="10" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-         Text="{Binding CurrentVolunteer.CurrentCall.CallId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-         VerticalAlignment="Center" Width="120" IsReadOnly="True" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-
-        <Label Grid.Row="11" Grid.Column="0" Content="Type Of Call:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-        <TextBox Grid.Row="11" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-         Text="{Binding CurrentVolunteer.CurrentCall.TypeOfCall, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-         VerticalAlignment="Center" Width="120" IsReadOnly="True" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-
-        <Label Grid.Row="12" Grid.Column="0" Content="Description:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-        <TextBox Grid.Row="12" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-         Text="{Binding CurrentVolunteer.CurrentCall.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-         VerticalAlignment="Center" Width="120" IsReadOnly="True" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-
-        <Label Grid.Row="13" Grid.Column="0" Content="Call Address:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-        <TextBox Grid.Row="13" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-         Text="{Binding CurrentVolunteer.CurrentCall.CallAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-         VerticalAlignment="Center" Width="120" IsReadOnly="True" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-
-        <Label Grid.Row="14" Grid.Column="0" Content="Begin Time:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-        <TextBox Grid.Row="14" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-         Text="{Binding CurrentVolunteer.CurrentCall.BeginTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-         VerticalAlignment="Center" Width="120" IsReadOnly="True" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-
-        <Label Grid.Row="15" Grid.Column="0" Content="Max End Time:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-        <TextBox Grid.Row="15" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-         Text="{Binding CurrentVolunteer.CurrentCall.MaxEndTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-         VerticalAlignment="Center" Width="120" IsReadOnly="True" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-
-        <Label Grid.Row="16" Grid.Column="0" Content="Begin Action Time:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-        <TextBox Grid.Row="16" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-         Text="{Binding CurrentVolunteer.CurrentCall.BeginActionTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-         VerticalAlignment="Center" Width="120" IsReadOnly="True" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-
-        <Label Grid.Row="17" Grid.Column="0" Content="Volunteer Distance To Call:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-        <TextBox Grid.Row="17" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-         Text="{Binding CurrentVolunteer.CurrentCall.VolunteerDistanceToCall, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-         VerticalAlignment="Center" Width="120" IsReadOnly="True" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-
-        <Label Grid.Row="18" Grid.Column="0" Content="Status:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-        <TextBox Grid.Row="18" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-         Text="{Binding CurrentVolunteer.CurrentCall.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-         VerticalAlignment="Center" Width="120" IsReadOnly="True" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverter}}"/>
-
+        <Button Content="{Binding ButtonText}" Grid.Row="8" HorizontalAlignment="Left" Width="63" Click="btnAddUpdate_Click" Grid.Column="1" Margin="23,3,0,10" Grid.RowSpan="7"/>
+        <Button Content="Current Call" Grid.Row="12" HorizontalAlignment="Left" Width="78" Click="btnCurrentCall_Click" Margin="49,15,0,18" Grid.RowSpan="3"
+        Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverterKey}}"/>
     </Grid>
 </Window>

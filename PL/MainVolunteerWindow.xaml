@@ -71,7 +71,8 @@
                         Click="btnUpdate_Click" Style="{StaticResource RedBorderButtonStyle}" 
                          Margin="0,5" Background="White" Foreground="#FF832121" />
                 <Button Content="{Binding ButtonText}" Width="200" Height="50" 
-                        Click="btnAssignment_Click" Style="{StaticResource RedBorderButtonStyle}" 
+                        Click="btnAssignment_Click" Style="{StaticResource RedBorderButtonStyle}"
+                        Visibility="{Binding CurrentVolunteer.IsActive, Converter={StaticResource TrueToVisibilityConverterKey}}"
                         Margin="0,5" Background="White" Foreground="#FF832121" />
             </StackPanel>
         </Grid>

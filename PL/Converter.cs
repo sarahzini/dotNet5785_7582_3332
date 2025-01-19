@@ -7,22 +7,36 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows;
 
-namespace PL;
-
-public class NullToVisibilityConverter : IValueConverter
+namespace PL
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+
+    public class NullToVisibilityConverter : IValueConverter
     {
-        return value == null ? Visibility.Collapsed : Visibility.Visible;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value == null ? Visibility.Hidden : Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public class TrueToVisibilityConverter : IValueConverter
     {
-        throw new NotImplementedException();
-    }
-}
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (bool)value == true ? Visibility.Visible : Visibility.Collapsed;
+        }
 
-public class ConvertUpdateToVisible : IValueConverter
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ConvertUpdateToVisible : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -34,6 +48,8 @@ public class ConvertUpdateToVisible : IValueConverter
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
     }
+
+
     public class ConvertUpdateToTrue : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (string)value == "Update";
@@ -43,12 +59,12 @@ public class ConvertUpdateToVisible : IValueConverter
     }
     public class PasswordConverter : IValueConverter
     {
-       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-         => string.Empty;
-    
-       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) 
-         => value.ToString();
-    
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+          => string.Empty;
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+          => value.ToString();
+
     }
-    
+}
 
