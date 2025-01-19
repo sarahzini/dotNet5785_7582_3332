@@ -30,7 +30,7 @@ public class Volunteer
     public double? VolunteerLatitude { get; set; } = null;
     public double? VolunteerLongitude { get; set; } = null;
     public Job VolunteerJob { get; set; }
-    public bool IsActive { get; set; } = false;
+    public bool IsActive { get; set; } = true;
     public double? MaxVolunteerDistance { get; set; } = null;
     public DistanceType VolunteerDT { get; set; } 
     public int CompletedCalls { get; init; }

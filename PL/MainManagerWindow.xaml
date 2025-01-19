@@ -7,7 +7,9 @@
         Title="Manager Window" Height="450" Width="633"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" 
         Icon="Images/Login.png"
-        Background="#FFF5F5F5">
+        Background="#FFF5F5F5"
+        Loaded="Window_Loaded" Closed="Window_Closed"
+        >
 
     <Window.Resources>
         <Color x:Key="CustomColor">#FF832121</Color>

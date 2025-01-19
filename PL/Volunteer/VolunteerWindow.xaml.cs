@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
+using PL;
 
 namespace PL.Volunteer
 {
@@ -103,8 +105,21 @@ namespace PL.Volunteer
             {
                 if (ButtonText == "Add")
                 {
-                    s_bl.Volunteer.AddVolunteer(CurrentVolunteer!);
+                    CurrentVolunteer!.Password = GenerateRandomPassword();
+                    MessageBoxResult choice = MessageBox.Show($"The Password per default: {CurrentVolunteer!.Password}. Do you want to change it ?", "Set Password",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (choice == MessageBoxResult.Yes)
+                    {
+                        s_bl.Volunteer.AddVolunteer(CurrentVolunteer!);
+                        new PasswordWindow(CurrentVolunteer!);
+                    }
+                    else
+                    {
+                        s_bl.Volunteer.AddVolunteer(CurrentVolunteer!);
+                    }
                     MessageBox.Show($"The volunteer with the ID number : {CurrentVolunteer?.VolunteerId} was successfully added!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
                    
                 }
                 else
@@ -129,6 +144,30 @@ namespace PL.Volunteer
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private static string GenerateRandomPassword()
+        {
+            const string lowerChars = "abcdefghijklmnopqrstuvwxyz";
+            const string upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string digits = "0123456789";
+            const string allChars = lowerChars + upperChars + digits;
+
+            Random random = new Random();
+            StringBuilder Password = new StringBuilder();
+
+            // Ensure at least one uppercase letter and one digit
+            Password.Append(upperChars[random.Next(upperChars.Length)]);
+            Password.Append(digits[random.Next(digits.Length)]);
+
+            // Fill the rest of the Password length (6 characters) with random characters
+            for (int i = 2; i < 6; i++)
+            {
+                Password.Append(allChars[random.Next(allChars.Length)]);
+            }
+
+            // Shuffle the characters in the Password to ensure randomness
+            return new string(Password.ToString().OrderBy(c => random.Next()).ToArray());
         }
 
         /// <summary>
