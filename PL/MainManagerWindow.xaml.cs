@@ -99,7 +99,6 @@ public partial class MainManagerWindow : Window
 
     private void btnInitialization_Click(object sender, RoutedEventArgs e)
     {
-        //helped by IA
         MessageBoxResult confirmation = MessageBox.Show("You are going to Initialize", "Init Confirmation",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
 

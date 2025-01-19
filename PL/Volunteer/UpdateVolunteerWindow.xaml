@@ -71,7 +71,7 @@
                 </StackPanel>
 
 
-                <Button Content="Update" Click="btnUpdate_Click" HorizontalAlignment="Left" Margin="32,311,0,-2" Grid.Row="1" Grid.Column="1" BorderBrush="#FFDA291C" Background="#FFDDDDDD" Foreground="#FFDA291C" OpacityMask="Black" />
+                <Button Content="Update" Click="btnUpdate_Click" HorizontalAlignment="Left" Margin="32,311,0,-2" Grid.Row="1" Grid.Column="1" BorderBrush="#FFDA291C" Foreground="#FFDA291C" OpacityMask="Black" Background="#FFDDDDDD" />
             </Grid>
 
         </Border>
