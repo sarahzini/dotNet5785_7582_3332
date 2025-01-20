@@ -32,19 +32,16 @@ namespace PL.Volunteer
 
             if (textBox.Text.Length > actualPassword.Length)
             {
-                // Caractère ajouté
+                
                 actualPassword += textBox.Text.Substring(actualPassword.Length);
             }
             else if (textBox.Text.Length < actualPassword.Length)
             {
-                // Caractère(s) supprimé(s)
                 actualPassword = actualPassword.Substring(0, textBox.Text.Length);
             }
 
-            // Mettre à jour le Password pour le binding
             Password = actualPassword;
 
-            // Afficher les étoiles
             textBox.Text = new string('*', actualPassword.Length);
             textBox.CaretIndex = caretIndex;
         }
