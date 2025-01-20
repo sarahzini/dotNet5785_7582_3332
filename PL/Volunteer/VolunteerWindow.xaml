@@ -71,7 +71,7 @@
 
                 <TextBlock Text="ID:" Style="{StaticResource RedTextStyle}" />
                 <TextBox Text="{Binding Path=CurrentVolunteer.VolunteerId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                         Visibility="{Binding ButtonText, Converter={StaticResource ConvertUpdateToVisibleKey}}" Margin="0,0,0,10" IsReadOnly="True"/>
+                         IsEnabled="{Binding ButtonText, Converter={StaticResource ConvertAddToTrueKey}}" Margin="0,0,0,10" IsReadOnly="True"/>
 
                 <TextBlock Text="Phone Number:" Style="{StaticResource RedTextStyle}" />
                 <TextBox  Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />
@@ -85,15 +85,16 @@
                 <TextBlock Text="Max Distance To a Call:" Style="{StaticResource RedTextStyle}" />
                 <TextBox  Text="{Binding CurrentVolunteer.MaxVolunteerDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />
 
-                <TextBlock Text="Which Distance:" Style="{StaticResource RedTextStyle}" />
-                <TextBox Text="AirDistance"   Margin="0,0,0,10" />
+                <TextBlock Text="Which Distance:" Style="{StaticResource RedTextStyle}" IsEnabled="False"/>
+                <TextBox Text="AirDistance"   Margin="0,0,0,10" IsReadOnly="True"/>
 
                 <TextBlock Text="Job:"  Style="{StaticResource RedTextStyle}" />
                 <ComboBox  ItemsSource="{Binding Source={StaticResource JobCollectionKey}}" 
                   SelectedValue="{Binding CurrentVolunteer.VolunteerJob, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />
 
                 <TextBlock Text="Password:" Style="{StaticResource RedTextStyle}" />
-                <TextBox Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Margin="0,0,0,10" Width="618" />
+                <TextBox Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  
+                          IsEnabled="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}" Margin="0,0,0,10" Width="618" />
 
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <TextBlock Text="IsActive:" Style="{StaticResource RedTextStyle}" />

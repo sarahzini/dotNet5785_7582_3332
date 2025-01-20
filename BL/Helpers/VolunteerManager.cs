@@ -19,23 +19,20 @@ internal static class VolunteerManager
     /// </summary>
     internal static void ValidateVolunteerDetails(BO.Volunteer volunteer)
     {
-        var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-        if (!emailRegex.IsMatch(volunteer.Email))
-        {
-            throw new BO.BLFormatException("Invalid email format.");
-        }
-
-        if (!int.TryParse(volunteer.VolunteerId.ToString(), out int parsedId) || volunteer.VolunteerId.ToString().Length != 9)
-        {
-            throw new BO.BLFormatException("ID must contain exactly 9 digits.");
-        }
-
         var nameRegex = new Regex(@"^[a-zA-Z\s]+$");
         if (!nameRegex.IsMatch(volunteer.Name))
         {
             throw new BO.BLFormatException("Name must contain only letters and spaces.");
         }
-
+        if (!int.TryParse(volunteer.VolunteerId.ToString(), out int parsedId) || volunteer.VolunteerId.ToString().Length != 9 || (volunteer.VolunteerId.ToString().Length != 8))
+        {
+            throw new BO.BLFormatException("ID must contain exactly 8-9 digits.");
+        }
+        var emailRegex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+        if (!emailRegex.IsMatch(volunteer.Email))
+        {
+            throw new BO.BLFormatException("Invalid email format.");
+        }
         var phoneRegex = new Regex(@"^\d{10}$");
         if (!phoneRegex.IsMatch(volunteer.PhoneNumber))
         {
@@ -203,8 +200,8 @@ internal static class VolunteerManager
     /// </summary>
     internal static void CheckAuthorisationToUpdate(DO.Volunteer? oldVolunteer, DO.Volunteer updatedVolunteer, bool isManager)
     {
-        if (oldVolunteer?.Name != updatedVolunteer.Name)
-        { throw new BLInvalidOperationException("Name cannot be changed."); }
+        //if (oldVolunteer?.Name != updatedVolunteer.Name)
+        //{ throw new BLInvalidOperationException("Name cannot be changed."); }
         if(oldVolunteer?.MyJob != updatedVolunteer.MyJob&& !isManager)
         { throw new BLInvalidOperationException("You cannot change this member because you are not a Manager."); }
         //bonus : we authorized the volunteer to change his transport type

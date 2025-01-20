@@ -30,18 +30,48 @@ internal class VolunteerImplementation : IVolunteer
     /// <summary>
     /// This method returns a list of volunteers based on the isActive and sortField parameters.
     /// </summary>
-    IEnumerable<VolunteerInList>? IVolunteer.GetVolunteersInList(bool? isActive, VolunteerInListFieldSort? sortField)
+    public IEnumerable<BO.VolunteerInList> GetVolunteersInList(bool? isActive = null, BO.SystemType? filterValue = null, VolunteerInListFieldSort? sortField = null)
     {
         // Get the full list of volunteers
         IEnumerable<DO.Volunteer>? volunteers = _dal.Volunteer.ReadAll();
 
-        // Filter the list based on the isActive parameter
+        // Filter by isActive if specified
         if (isActive.HasValue)
         {
             volunteers = volunteers?.Where(v => v.IsActive == isActive.Value);
         }
 
-        // Sort the list based on the sortField parameter
+        // Filter by SystemType if specified
+        if (filterValue.HasValue && filterValue != BO.SystemType.All)
+        {
+            var filteredVolunteers = new List<DO.Volunteer>();
+
+            foreach (var v in volunteers ?? Enumerable.Empty<DO.Volunteer>())
+            {
+                // Get current assignment for the volunteer
+                var assignments = _dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
+                var currentAssignment = assignments?.FirstOrDefault(a => a.End == null);
+
+                if (currentAssignment != null)
+                {
+                    // Get the call type
+                    var call = _dal.Call.Read(c => c.CallId == currentAssignment.CallId);
+                    if (call != null && (BO.SystemType)call.AmbulanceType == filterValue)
+                    {
+                        filteredVolunteers.Add(v);
+                    }
+                }
+                else if (filterValue == BO.SystemType.None)
+                {
+                    // If no current assignment and filter is None, include the volunteer
+                    filteredVolunteers.Add(v);
+                }
+            }
+
+            volunteers = filteredVolunteers;
+        }
+
+        // Sort the list if specified
         if (sortField.HasValue)
         {
             volunteers = volunteers?.OrderBy(v => v.GetType().GetProperty(sortField.ToString())?.GetValue(v, null));
@@ -51,8 +81,8 @@ internal class VolunteerImplementation : IVolunteer
             volunteers = volunteers?.OrderBy(v => v.VolunteerId);
         }
 
-        // Convert the list to BO.VolunteerInList and return
-        return volunteers?.Select(v => VolunteerManager.ConvertToVolunteerInList(v));
+        // Convert to BO.VolunteerInList and return
+        return volunteers?.Select(v => VolunteerManager.ConvertToVolunteerInList(v)) ?? Enumerable.Empty<BO.VolunteerInList>();
     }
 
     /// <summary>
@@ -72,7 +102,7 @@ internal class VolunteerImplementation : IVolunteer
     {
         try
         {
-            if (requesterId != volunteer.VolunteerId || !CallManager.IsRequesterManager(requesterId))
+            if (requesterId != volunteer.VolunteerId && !CallManager.IsRequesterManager(requesterId))
             {
                 throw new BLInvalidOperationException("Requester is not authorized to update the volunteer");
             }
@@ -171,47 +201,6 @@ internal class VolunteerImplementation : IVolunteer
     /// <param name="observer">The observer to remove </param>
     public void RemoveObserver(int id, Action observer) =>
            VolunteerManager.Observers.RemoveObserver(id, observer);
-
-
-    /// <summary>
-    /// This method returns a list of volunteers filtered by the specified system type.
-    /// </summary>
-    /// <param name="filterValue">The system type to filter volunteers by. If null, no filtering is applied.</param>
-    /// <returns>A list of volunteers filtered by the specified system type.</returns>
-    public IEnumerable<BO.VolunteerInList> GetFilteredVolunteersInList(BO.SystemType? filterValue = null)
-    {
-        // Get the full list of volunteers
-        IEnumerable<DO.Volunteer>? volunteers = _dal.Volunteer.ReadAll();
-
-        // Create a list to store the filtered volunteers
-        List<DO.Volunteer> filteredVolunteers = new List<DO.Volunteer>();
-
-        // Filter the list based on the filterValue parameter
-        if (filterValue.HasValue)
-        {
-            foreach (var v in volunteers)
-            {
-                // Get all assignments for the current volunteer
-                IEnumerable<DO.Assignment>? assignments = _dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
-
-                // Get the call ID of the first assignment that has not ended
-                int? actualCallId = assignments?.FirstOrDefault(a => a.End == null)?.CallId;
-
-                // Determine the type of call based on the call ID
-                BO.SystemType typeOfCall = actualCallId is null ? BO.SystemType.None :
-                    (_dal.Call.Read(c => c.CallId == actualCallId) is null ?
-                    BO.SystemType.None : (BO.SystemType)_dal.Call.Read(c => c.CallId == actualCallId).AmbulanceType);
-
-                // Add the volunteer to the filtered list if the type of call matches the filter value
-                if (typeOfCall == filterValue)
-                    filteredVolunteers.Add(v);
-            }
-            volunteers = filteredVolunteers;
-        }
-
-        // Convert the list to BO.VolunteerInList and return
-        return volunteers?.Select(v => VolunteerManager.ConvertToVolunteerInList(v));
-    }
 
     public string GetName(int volunteerId)
     {
