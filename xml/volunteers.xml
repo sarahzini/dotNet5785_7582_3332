@@ -267,34 +267,6 @@
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>345887582</Id>
-    <Name>sarah zini</Name>
-    <PhoneNumber>0585240603</PhoneNumber>
-    <Email>sarahz@gmail.com</Email>
-    <Password>Toutoune20101</Password>
-    <Address>Bet Adfus 9, Jerusalem,Israel</Address>
-    <Latitude>31.785123</Latitude>
-    <Longitude>35.192849</Longitude>
-    <MyJob>Manager</MyJob>
-    <active>true</active>
-    <distance>70</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
-  </Volunteer>
-  <Volunteer>
-    <Id>341096212</Id>
-    <Name>Shirel Sarfati</Name>
-    <PhoneNumber>0539855586</PhoneNumber>
-    <Email>shirelsarfati25@gmail.com</Email>
-    <Password>Yehiel2023</Password>
-    <Address>hanurit 43, Netanya, Israel</Address>
-    <Latitude>32.2701656</Latitude>
-    <Longitude>34.8396543</Longitude>
-    <MyJob>Manager</MyJob>
-    <active>true</active>
-    <distance>80</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>230543332</Id>
     <Name>Sara Heymann</Name>
     <PhoneNumber>0557708634</PhoneNumber>
@@ -306,6 +278,20 @@
     <MyJob>Manager</MyJob>
     <active>true</active>
     <distance>50</distance>
+    <MyWhichDistance>AirDistance</MyWhichDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>345887582</Id>
+    <Name>Sarah Zini</Name>
+    <PhoneNumber>0585240603</PhoneNumber>
+    <Email>sarahz@gmail.com</Email>
+    <Password>Toutoune20101</Password>
+    <Address>Bet Adfus 7, Jerusalem,Israel</Address>
+    <Latitude>31.780242</Latitude>
+    <Longitude>35.186325</Longitude>
+    <MyJob>Manager</MyJob>
+    <active>true</active>
+    <distance>70</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
 </Volunteers>
