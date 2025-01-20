@@ -24,7 +24,7 @@ internal static class VolunteerManager
         {
             throw new BO.BLFormatException("Name must contain only letters and spaces.");
         }
-        if (!int.TryParse(volunteer.VolunteerId.ToString(), out int parsedId) || volunteer.VolunteerId.ToString().Length != 9 || (volunteer.VolunteerId.ToString().Length != 8))
+        if (!int.TryParse(volunteer.VolunteerId.ToString(), out int parsedId) || (volunteer.VolunteerId.ToString().Length != 9 && volunteer.VolunteerId.ToString().Length != 8))
         {
             throw new BO.BLFormatException("ID must contain exactly 8-9 digits.");
         }

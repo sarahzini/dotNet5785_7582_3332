@@ -102,7 +102,7 @@ public partial class MainVolunteerWindow : Window
     }
     private void btnHistoric_Click(object sender, RoutedEventArgs e)
     {
-        new HistoricWindow(CurrentVolunteer!.VolunteerId).ShowDialog(); 
+        new HistoricWindow(CurrentVolunteer.VolunteerId).ShowDialog(); 
     }
     private void btnAssignment_Click(object sender, RoutedEventArgs e)
     {

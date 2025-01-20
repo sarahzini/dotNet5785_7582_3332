@@ -122,7 +122,8 @@ namespace PL.Volunteer
                     if (choice == MessageBoxResult.Yes)
                     {
                         s_bl.Volunteer.AddVolunteer(CurrentVolunteer!);
-                        new PasswordWindow(CurrentVolunteer!);
+
+                        new PasswordWindow(CurrentVolunteer!).ShowDialog();
                     }
                     else
                     {

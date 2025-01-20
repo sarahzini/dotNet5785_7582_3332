@@ -19,7 +19,7 @@ namespace PL.Call
         public AssignmentWindow(int Id)
         {
             InitializeComponent();
-            OpenCallList = s_bl.Call.SortOpenCalls(id,null,null);
+            OpenCallList = s_bl.Call.SortOpenCalls(Id,null,null);
             id = Id;
         }
 
