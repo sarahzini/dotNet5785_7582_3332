@@ -80,7 +80,19 @@ public partial class VolunteerInListWindow : Window
         DependencyProperty.Register("SelectedVolunteer", typeof(BO.VolunteerInList), typeof(VolunteerInListWindow), new PropertyMetadata(null));
     */
 
-    public BO.VolunteerInList? SelectedVolunteer { get; set; }
+    public BO.VolunteerInList? SelectedVolunteer
+    {
+        get { return (BO.VolunteerInList?)GetValue(SelectedVolunteerProperty); }
+        set { SetValue(SelectedVolunteerProperty, value); }
+    }
+
+    public static readonly DependencyProperty SelectedVolunteerProperty =
+        DependencyProperty.Register(nameof(SelectedVolunteer),
+            typeof(BO.VolunteerInList),
+            typeof(VolunteerInListWindow),
+            new PropertyMetadata(null));
+
+   // public BO.VolunteerInList? SelectedVolunteer { get; set; }
 
 
     private void btnDeleteVolunteer_Click(object sender, RoutedEventArgs e)

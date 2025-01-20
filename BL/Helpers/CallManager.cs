@@ -45,7 +45,7 @@ internal static class CallManager
     /// <summary>
     /// This method converts a DO.Call object to a BO.ClosedCallInList.
     /// </summary>
-    internal static BO.ClosedCallInList ConvertToClosedCallInList(DO.Call call)
+    internal static BO.ClosedCallInList ConverStToClosedCallInList(DO.Call call)
     {
         IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.CallId);
         DO.Assignment? assign = assignments.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();

@@ -28,7 +28,6 @@ public partial class MainVolunteerWindow : Window
         try
         {
             InitializeComponent();
-
             CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
             if (CurrentVolunteer.CurrentCall != null)
                 ButtonText = "Current Call Details";
@@ -47,7 +46,7 @@ public partial class MainVolunteerWindow : Window
 
     public BO.Volunteer CurrentVolunteer
     {
-        get { return (BO.Volunteer?)GetValue(CurrentVolunteerProperty); }
+        get { return (BO.Volunteer)GetValue(CurrentVolunteerProperty); }
         set { SetValue(CurrentVolunteerProperty, value); }
     }
 
@@ -110,7 +109,7 @@ public partial class MainVolunteerWindow : Window
         if (ButtonText == "Assignment to a call")
             new AssignmentWindow(CurrentVolunteer.VolunteerId).ShowDialog();
         else
-            new CurrentCallWindow(CurrentVolunteer.CurrentCall, CurrentVolunteer.VolunteerId).ShowDialog();
+            new CurrentCallWindow(CurrentVolunteer.CurrentCall!, CurrentVolunteer.VolunteerId).ShowDialog();
     }
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)

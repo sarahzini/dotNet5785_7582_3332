@@ -16,11 +16,11 @@ namespace PL.Call
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public BO.Statuses Status { get; set; } = BO.Statuses.All;
-        public AssignmentWindow(int id)
+        public AssignmentWindow(int Id)
         {
             InitializeComponent();
             OpenCallList = s_bl.Call.SortOpenCalls(id,null,null);
-            id = id;
+            id = Id;
         }
 
         public IEnumerable<BO.OpenCallInList>? OpenCallList
@@ -55,7 +55,20 @@ namespace PL.Call
         /// <summary>
         /// This method gets the selected call.
         /// </summary>
-        public BO.OpenCallInList? SelectedCall { get; set; }
+
+
+
+        public BO.OpenCallInList? SelectedCall
+        {
+            get { return (BO.OpenCallInList?)GetValue(SelectedCallProperty); }
+            set { SetValue(SelectedCallProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedCall.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedCallProperty =
+            DependencyProperty.Register("SelectedCall", typeof(BO.OpenCallInList), typeof(AssignmentWindow), new PropertyMetadata(null));
+
+
 
         public int id { get; set; }
 
@@ -64,7 +77,7 @@ namespace PL.Call
             var button = sender as Button;
             var call = button?.CommandParameter as BO.OpenCallInList;
 
-            s_bl.Call.AssignCallToVolunteer(id, call.CallId);
+            s_bl.Call.AssignCallToVolunteer(id, call!.CallId);
 
             // Notify the user
             MessageBox.Show($"You are now assigned to call {call.CallId}:{call.Description}.",

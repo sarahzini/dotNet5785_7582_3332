@@ -34,8 +34,18 @@ namespace PL
 
         private void SortedCall_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryClosedCallsListFilter();
 
+        public BO.ClosedCallInList? SelectedCall
+        {
+            get { return (BO.ClosedCallInList?)GetValue(SelectedCallProperty); }
+            set { SetValue(SelectedCallProperty, value); }
+        }
 
-        public BO.ClosedCallInList? SelectedCall { get; set; }
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedCallProperty =
+            DependencyProperty.Register(nameof(SelectedCall), typeof(BO.ClosedCallInList), typeof(HistoricWindow), new PropertyMetadata(null));
+
+
+        //public BO.ClosedCallInList? SelectedCall { get; set; }
 
         public IEnumerable<ClosedCallInList>? ClosedCalls
         {

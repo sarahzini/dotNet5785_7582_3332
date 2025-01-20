@@ -44,7 +44,7 @@
                       SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="122,2,0,0" VerticalAlignment="Top" Width="265" Height="32"/>
 
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=ClosedCalls}" SelectedItem="{Binding SelectedCall}"
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=ClosedCalls}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
                   Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" >
             <ListView.Foreground>
                 <SolidColorBrush Color="#FFEB0404"/>

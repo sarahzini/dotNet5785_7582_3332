@@ -321,14 +321,6 @@
     <MyEndStatus>ManagerCancelled</MyEndStatus>
   </Assignment>
   <Assignment>
-    <AssignmentId>1040</AssignmentId>
-    <CallId>100000030</CallId>
-    <VolunteerId>10052454</VolunteerId>
-    <Begin>2025-01-19T16:43:45</Begin>
-    <End xsi:nil="true" />
-    <MyEndStatus xsi:nil="true" />
-  </Assignment>
-  <Assignment>
     <AssignmentId>1042</AssignmentId>
     <CallId>100000032</CallId>
     <VolunteerId>18056045</VolunteerId>
@@ -407,5 +399,13 @@
     <Begin>2025-01-19T16:42:45</Begin>
     <End xsi:nil="true" />
     <MyEndStatus xsi:nil="true" />
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1040</AssignmentId>
+    <CallId>100000030</CallId>
+    <VolunteerId>10052454</VolunteerId>
+    <Begin>2025-01-19T16:43:45</Begin>
+    <End>2025-01-19T16:42:45</End>
+    <MyEndStatus>Completed</MyEndStatus>
   </Assignment>
 </ArrayOfAssignment>

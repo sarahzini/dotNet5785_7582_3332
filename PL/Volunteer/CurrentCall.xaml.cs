@@ -33,5 +33,5 @@ public partial class CurrentCall : Window
 
     // Using a DependencyProperty as the backing store for Current.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty CurrentProperty =
-        DependencyProperty.Register("Current", typeof(BO.CallInProgress), typeof(CurrentCall), new PropertyMetadata(0));
+        DependencyProperty.Register("Current", typeof(BO.CallInProgress), typeof(CurrentCall), new PropertyMetadata(null));
 }

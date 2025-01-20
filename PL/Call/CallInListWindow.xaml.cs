@@ -79,7 +79,19 @@ public partial class CallInListWindow : Window
     /// <summary>
     /// This method gets the selected call.
     /// </summary>
-    public BO.CallInList SelectedCall { get; set; }
+    
+
+    public BO.CallInList SelectedCall
+    {
+        get { return (BO.CallInList)GetValue(SelectedCallProperty); }
+        set { SetValue(SelectedCallProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for SelectedCall.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty SelectedCallProperty =
+        DependencyProperty.Register("SelectedCall", typeof(BO.CallInList), typeof(CallInListWindow), new PropertyMetadata(null));
+
+
 
     /// <summary>
     /// This method opens the call window for updating the selected call.
