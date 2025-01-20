@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="VolunteerWindow" Height="643" Width="806"
+        Title="VolunteerWindow" Height="677" Width="679"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png">
 
@@ -50,26 +50,27 @@
     </Window.Resources>
 
     <!-- Card Border -->
-    <Border Style="{StaticResource CardStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="754" Height="598" Grid.ColumnSpan="2">
+    <Border Style="{StaticResource CardStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="660" Height="583" Grid.ColumnSpan="2">
         <Grid Margin="-8,66,0,0" Height="379" VerticalAlignment="Top">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" MinHeight="0" />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="303*" />
+                <ColumnDefinition Width="26*" />
+                <ColumnDefinition Width="429*"/>
             </Grid.ColumnDefinitions>
 
 
 
             <!-- Personal Details -->
-            <StackPanel Grid.Row="1" Margin="7,10,10,-73" Grid.ColumnSpan="2">
+            <StackPanel Grid.Row="1" Margin="0,10,10,-146" Grid.ColumnSpan="3">
                 <TextBlock Text="Name:" Style="{StaticResource RedTextStyle}" />
                 <TextBox Text="{Binding CurrentVolunteer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" />
 
                 <TextBlock Text="ID:" Style="{StaticResource RedTextStyle}" />
-                <TextBox Text="{Binding Path=CurrentVolunteer.VolunteerId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" />
+                <TextBox Text="{Binding Path=CurrentVolunteer.VolunteerId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" IsReadOnly="True"/>
 
                 <TextBlock Text="Phone Number:" Style="{StaticResource RedTextStyle}" />
                 <TextBox  Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />
@@ -91,18 +92,21 @@
                   SelectedValue="{Binding CurrentVolunteer.VolunteerJob, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />
 
                 <TextBlock Text="Password:" Style="{StaticResource RedTextStyle}" />
-                <TextBox Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Margin="0,0,0,10" />
+                <TextBox Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Margin="0,0,0,10" Width="618" />
 
-                <TextBlock Text="IsActive:" Style="{StaticResource RedTextStyle}" />
-                <CheckBox IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" Height="27" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="IsActive:" Style="{StaticResource RedTextStyle}" />
+                    <CheckBox IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Height="14" Width="24" />
 
-
+                </StackPanel >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" Height="31" Width="140" Margin="10,0" Style="{StaticResource RedButtonStyle}" />
+                    <Button Content="Current Call" Height="31" Width="140" Click="btnCurrentCall_Click" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverterKey}}" Margin="10,0" Style="{StaticResource RedButtonStyle}"/>
+                </StackPanel>
             </StackPanel>
-            <Image   Source="pack://application:,,,/PL;component/Images/Logo.png" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="54" Margin="264,-78,0,0" VerticalAlignment="Top" Width="153"/>
-            <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="43" Margin="142,451,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="133"/>
 
-            <Button Content="Current Call" Grid.Column="1" HorizontalAlignment="Left" Height="43" Style="{StaticResource RedButtonStyle}" Margin="142,451,0,0" Grid.Row="1" VerticalAlignment="Top" Width="133" Click="btnCurrentCall_Click" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverterKey}}" />
 
+            <Image   Source="pack://application:,,,/PL;component/Images/Logo.png" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="48" Margin="240,-78,0,0" VerticalAlignment="Top" Width="177"/>
 
         </Grid>
     </Border>

@@ -8,7 +8,7 @@
         Title="CurrentCall" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         >
-    <Grid Margin="0,0,-16,-329">
+    <Grid Margin="0,0,-21,-6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
