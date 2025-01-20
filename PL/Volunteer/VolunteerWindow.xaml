@@ -5,90 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="VolunteerWindow" Height="400" Width="312"
+        Title="VolunteerWindow" Height="643" Width="806"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png">
-    <!--External Grid-->
-    <Grid Margin="0,0,-16,-329">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+
+    <Window.Resources>
+        <Color x:Key="MDAColor">#FFDA291C</Color>
+        <SolidColorBrush x:Key="MDABrush" Color="{StaticResource MDAColor}" />
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="15" />
+            <Setter Property="BorderBrush" Value="{StaticResource MDABrush}" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Padding" Value="15" />
+        </Style>
+        <Style x:Key="RedTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource MDABrush}" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style x:Key="RedButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource MDABrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="BorderBrush" Value="{StaticResource MDABrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+
+    <!-- Card Border -->
+    <Border Style="{StaticResource CardStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="754" Height="598" Grid.ColumnSpan="2">
+        <Grid Margin="-8,66,0,0" Height="379" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
 
 
-            <!-- Added new row definition -->
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Id:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding Path=CurrentVolunteer.VolunteerId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                 IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"
-                 VerticalAlignment="Center" Width="120"/>
+            <!-- Personal Details -->
+            <StackPanel Grid.Row="1" Margin="7,10,10,-73" Grid.ColumnSpan="2">
+                <TextBlock Text="Name:" Style="{StaticResource RedTextStyle}" />
+                <TextBox Text="{Binding CurrentVolunteer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" />
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Name:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding CurrentVolunteer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Center" Width="120"/>
+                <TextBlock Text="ID:" Style="{StaticResource RedTextStyle}" />
+                <TextBox Text="{Binding Path=CurrentVolunteer.VolunteerId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" />
 
-        <Label Grid.Row="2" Grid.Column="0" Content="PhoneNumber:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Center" Width="120"/>
+                <TextBlock Text="Phone Number:" Style="{StaticResource RedTextStyle}" />
+                <TextBox  Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />
 
-        <Label Grid.Row="3" Grid.Column="0" Content="Email:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding CurrentVolunteer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Center" Width="120"/>
+                <TextBlock Text="Email:" Style="{StaticResource RedTextStyle}" />
+                <TextBox Text="{Binding CurrentVolunteer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" />
 
-        <Label Grid.Row="4" Grid.Column="0" Content="Address:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding CurrentVolunteer.VolunteerAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Center" Width="120"/>
+                <TextBlock Text="Address:" Style="{StaticResource RedTextStyle}" />
+                <TextBox  Text="{Binding CurrentVolunteer.VolunteerAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />
 
-        <Label Grid.Row="5" Grid.Column="0" Content="Max Distance To a Call:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="{Binding CurrentVolunteer.MaxVolunteerDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                 VerticalAlignment="Center" Width="120"/>
+                <TextBlock Text="Max Distance To a Call:" Style="{StaticResource RedTextStyle}" />
+                <TextBox  Text="{Binding CurrentVolunteer.MaxVolunteerDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />
 
-        <Label Grid.Row="6" Grid.Column="0" Content="WhichDistance:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                 Text="AirDistance" 
-                 VerticalAlignment="Center" Width="120" IsReadOnly="True"/>
+                <TextBlock Text="Which Distance:" Style="{StaticResource RedTextStyle}" />
+                <TextBox Text="AirDistance"   Margin="0,0,0,10" />
 
-        <Label Grid.Row="7" Grid.Column="0" Content="Job:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                  ItemsSource="{Binding Source={StaticResource JobCollectionKey}}" 
-                  SelectedValue="{Binding CurrentVolunteer.VolunteerJob, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                  VerticalAlignment="Center" Width="120"/>
+                <TextBlock Text="Job:"  Style="{StaticResource RedTextStyle}" />
+                <ComboBox  ItemsSource="{Binding Source={StaticResource JobCollectionKey}}" 
+                  SelectedValue="{Binding CurrentVolunteer.VolunteerJob, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />
 
-        <Label Grid.Row="8" Grid.Column="0" Content="Password:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                     Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                     VerticalAlignment="Center" Width="120"/>
+                <TextBlock Text="Password:" Style="{StaticResource RedTextStyle}" />
+                <TextBox Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"   Margin="0,0,0,10" />
 
-        <Label Grid.Row="9" Grid.Column="0" Content="IsActive:" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center"/>
-        <CheckBox Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" Margin="3" 
-                  IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                  VerticalAlignment="Center"/>
+                <TextBlock Text="IsActive:" Style="{StaticResource RedTextStyle}" />
+                <CheckBox IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" Height="27" />
 
-        <Button Content="{Binding ButtonText}" Grid.Row="10" HorizontalAlignment="Left" Width="63" Click="btnAddUpdate_Click" Grid.Column="1" Margin="23,3,0,10" Grid.RowSpan="7"/>
-        <Button Content="Current Call" Grid.Row="17" HorizontalAlignment="Left" Width="78" Click="btnCurrentCall_Click" Margin="49,15,0,18" Grid.RowSpan="3"
-        Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverterKey}}"/>
-    </Grid>
+
+            </StackPanel>
+            <Image   Source="pack://application:,,,/PL;component/Images/Logo.png" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="54" Margin="264,-78,0,0" VerticalAlignment="Top" Width="153"/>
+            <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Height="43" Margin="142,451,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="133"/>
+
+            <Button Content="Current Call" Grid.Column="1" HorizontalAlignment="Left" Height="43" Style="{StaticResource RedButtonStyle}" Margin="142,451,0,0" Grid.Row="1" VerticalAlignment="Top" Width="133" Click="btnCurrentCall_Click" Visibility="{Binding CurrentVolunteer.CurrentCall, Converter={StaticResource NullToVisibilityConverterKey}}" />
+
+
+        </Grid>
+    </Border>
 </Window>
