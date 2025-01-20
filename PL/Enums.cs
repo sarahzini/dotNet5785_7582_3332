@@ -50,3 +50,11 @@ internal class OpenCallFieldCollection : IEnumerable
     static readonly IEnumerable<BO.OpenCallInListField> s_enums = (Enum.GetValues(typeof(BO.OpenCallInListField)) as IEnumerable<BO.OpenCallInListField>)!;
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+
+internal class CallInListFieldCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.CallInListField> s_enums = (Enum.GetValues(typeof(BO.CallInListField)) as IEnumerable<BO.CallInListField>)!;
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}
+
+

@@ -6,9 +6,63 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows;
+using BO;
 
 namespace PL
 {
+    public class StatusToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            switch ((BO.Statuses)value)
+                {
+                    case BO.Statuses.Expired:
+                    case BO.Statuses.Closed:
+                    case BO.Statuses.InAction:
+                    case BO.Statuses.InActionToRisk:
+                    return false;
+                    case BO.Statuses.Open:
+                    case BO.Statuses.OpenToRisk:
+                    case BO.Statuses.All:
+                        return true;
+                    default:
+                        return false;
+                }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class StatusOpenToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            switch ((BO.Statuses)value)
+            {
+                case BO.Statuses.Expired:
+                case BO.Statuses.Closed:
+                    return false;
+                case BO.Statuses.InAction:
+                case BO.Statuses.InActionToRisk:
+                case BO.Statuses.Open:
+                case BO.Statuses.OpenToRisk:
+                case BO.Statuses.All:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     public class NullToVisibilityConverter : IValueConverter
     {

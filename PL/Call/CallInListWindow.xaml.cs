@@ -23,8 +23,13 @@ public partial class CallInListWindow : Window
 {
     /// To gain access to the BL layer, we need to use the Factory class.
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public CallInListWindow() => InitializeComponent();
-    public BO.Statuses Status { get; set; } = BO.Statuses.All;
+    public CallInListWindow(int id) {
+        InitializeComponent();
+        requesterId = id;
+    }
+    public BO.CallInListField Sort { get; set; } = BO.CallInListField.CallId;
+    public BO.Statuses Filter { get; set; } = BO.Statuses.All;
+
 
     /// <summary>
     /// This method returns the value of the CallList (with IEnumerable).
@@ -50,8 +55,8 @@ public partial class CallInListWindow : Window
     /// This method queries the call list based on the selected status.
     /// </summary>
     private void queryCallList()
-         =>CallList = (Status == BO.Statuses.All) ?
-                   s_bl?.Call.GetSortedCallsInList()! : s_bl?.Call.GetSortedCallsInList(BO.CallInListField.Status, Status,null)!;
+         =>CallList = (Filter == BO.Statuses.All) ?
+                   s_bl?.Call.GetSortedCallsInList(null,null,Sort)! : s_bl?.Call.GetSortedCallsInList(BO.CallInListField.Status, Filter,Sort)!;
 
     /// <summary>
     /// This method calls the call list observer.
@@ -74,7 +79,7 @@ public partial class CallInListWindow : Window
     /// <summary>
     /// This method gets the selected call.
     /// </summary>
-    public BO.CallInList? SelectedCall { get; set; }
+    public BO.CallInList SelectedCall { get; set; }
 
     /// <summary>
     /// This method opens the call window for updating the selected call.
@@ -82,7 +87,7 @@ public partial class CallInListWindow : Window
     private void lsvUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (SelectedCall != null)
-            new CallWindow("Update", SelectedCall.CallId).Show();
+            new UpdateCallWindow(SelectedCall.CallId).Show();
     }
 
     /// <summary>
@@ -90,7 +95,7 @@ public partial class CallInListWindow : Window
     /// </summary>
     private void btnAdd_Click(object sender, RoutedEventArgs e)
     {
-        new CallWindow("Add", 0).Show();
+        new AddCallWindow().Show();
 
     }
 
@@ -106,7 +111,6 @@ public partial class CallInListWindow : Window
             if (confirmation == MessageBoxResult.Yes)
             {
                 s_bl.Call.DeleteCall(SelectedCall.CallId);
-                queryCallList();
             }
         }
         catch (Exception ex)
@@ -116,6 +120,7 @@ public partial class CallInListWindow : Window
 
     }
 
+    public int requesterId { get; set; }
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
         MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to cancel the actual assignment to this call ?", "Cancel Confirmation",
@@ -124,8 +129,7 @@ public partial class CallInListWindow : Window
         {
             if (confirmation == MessageBoxResult.Yes)
             {
-               // s_bl.Call.DeleteCall(SelectedCall.CallId);
-                //queryCallList();
+                s_bl.Call.CancelAssignment(requesterId,(SelectedCall.AssignId));
             }
         }
         catch (Exception ex)

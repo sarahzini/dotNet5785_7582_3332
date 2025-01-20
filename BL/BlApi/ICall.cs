@@ -17,7 +17,7 @@ namespace BlApi;
     public IEnumerable<BO.ClosedCallInList>? SortClosedCalls(int volunteerId, BO.SystemType? callType, BO.ClosedCallInListField? sortField);
     public IEnumerable<BO.OpenCallInList>? SortOpenCalls(int volunteerId, BO.SystemType? callType, BO.OpenCallInListField? sortField);
     public void CompleteCall(int volunteerId, int assignmentId); 
-    public void CancelAssignment(int requesterId, int assignmentId); 
+    public void CancelAssignment(int requesterId, int? assignmentId); 
     public void AssignCallToVolunteer(int volunteerId, int callId); 
 
 }

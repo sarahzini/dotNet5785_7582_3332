@@ -79,9 +79,6 @@ namespace PL
             s_bl.Call.RemoveObserver(callsObserver);
         }
 
-        private void Window_Closed_1(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

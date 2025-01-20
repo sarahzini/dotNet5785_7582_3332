@@ -49,7 +49,11 @@ internal class CallImplementation : ICall
     IEnumerable<BO.CallInList>? ICall.GetSortedCallsInList(CallInListField? filterField=null, object? filterValue=null, CallInListField? sortField=null)
     {
         // Get all calls
-        var calls = _dal.Call.ReadAll();
+        var allCalls = _dal.Call.ReadAll();
+
+        // Convert to CallInList and return
+        IEnumerable<BO.CallInList>? calls= allCalls?.Select(call => CallManager.ConvertToCallInList(call)).ToList();
+
         // Filter calls if filterField and filterValue are provided
         if (filterField != null && filterValue != null)
         {
@@ -68,15 +72,15 @@ internal class CallImplementation : ICall
             {
                 calls = calls?.OrderBy(call => sortProperty.GetValue(call));
             }
-        } 
+        }
         else
         {
             // Default sorting by CallId
             calls = calls?.OrderBy(call => call.CallId);
         }
 
-        // Convert to CallInList and return
-        return calls?.Select(call => CallManager.ConvertToCallInList(call)).ToList();
+        return calls;
+
     }
 
     /// <summary>
@@ -321,7 +325,7 @@ internal class CallImplementation : ICall
     /// This mehod cancels an assignment by its Id it first checks if the requester is authorized to cancel the assignment
     /// by checking if the requester is the volunteer assigned to the assignment or a manager.
     /// </summary>
-    void ICall.CancelAssignment(int requesterId, int assignmentId)
+    void ICall.CancelAssignment(int requesterId, int? assignmentId)
     {
         try
         {

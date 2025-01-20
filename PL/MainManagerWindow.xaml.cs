@@ -95,7 +95,7 @@ public partial class MainManagerWindow : Window
     { new VolunteerInListWindow( id).Show(); }
 
     private void btnCalls_Click(object sender, RoutedEventArgs e)
-    { new CallInListWindow().Show(); }
+    { new CallInListWindow(id).Show(); }
 
     private void btnInitialization_Click(object sender, RoutedEventArgs e)
     {

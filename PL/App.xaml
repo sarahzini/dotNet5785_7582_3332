@@ -13,5 +13,8 @@
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverterKey" />
         <local:TrueToVisibilityConverter x:Key="TrueToVisibilityConverterKey" />
         <local:OpenCallFieldCollection x:Key="OpenCallFieldCollectionKey" />
+        <local:StatusToVisibilityConverter x:Key="StatusToVisibilityConverterKey" />
+        <local:StatusOpenToVisibilityConverter x:Key="StatusOpenToVisibilityConverterKey" />
+        <local:CallInListFieldCollection x:Key="CallInListFieldCollectionKey" />
     </Application.Resources>
 </Application>

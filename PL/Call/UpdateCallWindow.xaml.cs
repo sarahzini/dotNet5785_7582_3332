@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Volunteer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,35 +17,18 @@ using System.Windows.Shapes;
 namespace PL.Call;
 
 /// <summary>
-/// Interaction logic for CallWindow.xaml
+/// Interaction logic for UpdateCallWindow.xaml
 /// </summary>
-public partial class CallWindow : Window
+public partial class UpdateCallWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
-    public CallWindow(string AddOrUpdate, int id)
+    public UpdateCallWindow(int CallId)
     {
         try
         {
-            ButtonText = AddOrUpdate == "Add" ? "Add" : "Update";
             InitializeComponent();
 
-            if (ButtonText == "Add")
-                CurrentCall = new BO.Call()
-                {
-                    CallId = 0,
-                    TypeOfCall = BO.SystemType.None,
-                    Description = "",
-                    CallAddress = "",
-                    CallLatitude = 0,
-                    CallLongitude = 0,
-                    BeginTime = s_bl.Admin.GetClock(),
-                    MaxEndTime = null,
-                    Status = BO.Statuses.Open,
-                    CallAssigns = null
-                };
-            else
-                CurrentCall = s_bl.Call.GetCallDetails(id);
+            CurrentCall = s_bl.Call.GetCallDetails(CallId);
         }
         catch (BO.BLDoesNotExistException ex)
         {
@@ -55,18 +39,6 @@ public partial class CallWindow : Window
             MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-    
-    /// <summary>
-    /// This method returns the value of the Button text
-    /// </summary>
-     string ButtonText
-    {
-        get => (string)GetValue(ButtonTextProperty);
-        init => SetValue(ButtonTextProperty, value);
-    }
-    public static readonly DependencyProperty ButtonTextProperty =
-        DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(CallWindow));
-
     /// <summary>
     /// This method gets the current call and set 
     /// </summary>
@@ -77,32 +49,22 @@ public partial class CallWindow : Window
     }
 
     public static readonly DependencyProperty CurrentCallProperty =
-        DependencyProperty.Register("CurrentCall", typeof(BO.Call), typeof(CallWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("CurrentCall", typeof(BO.Call), typeof(UpdateCallWindow), new PropertyMetadata(null));
 
     /// <summary>
     /// This method depending on the button text will either add or uptade a call.
     /// </summary>
-    private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+    private void btnUpdate_Click(object sender, RoutedEventArgs e)
     {
         try
         {
             // Combine date and time for MaxEndTime
             CurrentCall.MaxEndTime = CombineDateAndTime(MaxEndDatePicker.SelectedDate, MaxEndTimeTextBox.Text);
 
-            if (ButtonText == "Add")
-            {
-                s_bl.Call.AddCall(CurrentCall!);
-                MessageBox.Show($"The Call with the ID number : {CurrentCall?.CallId} was successfully added!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
+            
                 s_bl.Call.UpdateCallDetails(CurrentCall!);
                 MessageBox.Show($"The Call with the ID number : {CurrentCall?.CallId} was successfully updated!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-        catch (BO.BLAlreadyExistException ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            
         }
         catch (BO.BLDoesNotExistException ex)
         {
@@ -117,6 +79,12 @@ public partial class CallWindow : Window
             MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    private void btnAssignments_Click(object sender, RoutedEventArgs e) { 
+
+         new CallAssignmentWindow(CurrentCall!.CallAssigns!).ShowDialog();
+    }
+        
 
     /// <summary>
     /// This method combines a date and time to create a DateTime object.
@@ -137,6 +105,7 @@ public partial class CallWindow : Window
         return new DateTime(date.Value.Year, date.Value.Month, date.Value.Day, hours, minutes, seconds);
     }
 
+
     /// <summary>
     /// This method calls the observer.
     /// </summary>
@@ -152,8 +121,7 @@ public partial class CallWindow : Window
     /// </summary>
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        if (CurrentCall!.CallId != 0)
-            s_bl.Call.AddObserver(CurrentCall!.CallId, callObserver);
+        s_bl.Call.AddObserver(CurrentCall!.CallId, callObserver);
     }
 
     /// <summary>

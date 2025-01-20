@@ -28,6 +28,7 @@ public partial class MainVolunteerWindow : Window
         try
         {
             InitializeComponent();
+
             CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
             if (CurrentVolunteer.CurrentCall != null)
                 ButtonText = "Current Call Details";
@@ -44,7 +45,7 @@ public partial class MainVolunteerWindow : Window
         }
     }
 
-    public BO.Volunteer? CurrentVolunteer
+    public BO.Volunteer CurrentVolunteer
     {
         get { return (BO.Volunteer?)GetValue(CurrentVolunteerProperty); }
         set { SetValue(CurrentVolunteerProperty, value); }
@@ -74,7 +75,6 @@ public partial class MainVolunteerWindow : Window
     private void volunteerObserver()
     {
         int id = CurrentVolunteer!.VolunteerId;
-        CurrentVolunteer = null;
         CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
         if (CurrentVolunteer.CurrentCall != null)
             ButtonText = "Current Call Details";
