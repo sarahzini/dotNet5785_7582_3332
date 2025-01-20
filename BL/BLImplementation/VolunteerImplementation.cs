@@ -204,7 +204,7 @@ internal class VolunteerImplementation : IVolunteer
 
     public string GetName(int volunteerId)
     {
-        return _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == volunteerId).Name;
+        return _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == volunteerId)?.Name;
     }
 }
 
