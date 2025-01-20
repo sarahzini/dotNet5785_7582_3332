@@ -57,5 +57,13 @@ namespace PL
         static readonly IEnumerable<BO.CallInListField> s_enums = (Enum.GetValues(typeof(BO.CallInListField)) as IEnumerable<BO.CallInListField>)!;
         public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
     }
+
+    internal class VolunteerInListFieldCollection : IEnumerable
+    {
+        static readonly IEnumerable<BO.VolunteerInListFieldSort> s_enums = (Enum.GetValues(typeof(BO.VolunteerInListFieldSort)) as IEnumerable<BO.VolunteerInListFieldSort>)!;
+        public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+    }
 }
+
+
 

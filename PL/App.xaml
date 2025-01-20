@@ -18,6 +18,7 @@
         <local:CallInListFieldCollection x:Key="CallInListFieldCollectionKey" />
         <local:ConvertUpdateToVisible x:Key="ConvertUpdateToVisibleKey" />
         <local:VisibilityDeleteButtonConverter x:Key="VisibilityDeleteButtonConverterKey" />
-        <local:PasswordToStarsConverter x:Key="PasswordConverter" />
+        <local:ConvertAddToTrue x:Key="ConvertAddToTrueKey" />
+        <local:VolunteerInListFieldCollection x:Key="VolunteerInListFieldCollectionKey" />
     </Application.Resources>
 </Application>

@@ -88,8 +88,8 @@
                       ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}" HorizontalAlignment="Left"
                        SelectionChanged="FilteredVolunteer_SelectionChanged" Width="202" Margin="932,-4,0,4" Grid.ColumnSpan="2" />
         <Label Content="Sort by:" HorizontalAlignment="Left" Margin="50,-4,0,0" VerticalAlignment="Top" Grid.Column="0" Foreground="Firebrick" Grid.RowSpan="2"/>
-        <ComboBox SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}"
-               ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}" HorizontalAlignment="Left"
+        <ComboBox SelectedValue="{Binding Path=Field, Mode=TwoWay}"
+               ItemsSource="{Binding Source={StaticResource VolunteerInListFieldCollectionKey}}" HorizontalAlignment="Left"
                 SelectionChanged="FilteredVolunteer_SelectionChanged" Width="202" Margin="133,-4,0,4" />
     </Grid>
 </Window>

@@ -9,8 +9,7 @@ public interface IVolunteer: IObservable
     /// Alls the Methods that are used, they are implemented in the CallImplementation class
     /// </summary>
     DO.Job Login(int id, string password);
-    IEnumerable<BO.VolunteerInList>? GetVolunteersInList(bool? isActive = null, VolunteerInListFieldSort? sortField = null);
-    IEnumerable<BO.VolunteerInList> GetFilteredVolunteersInList(BO.SystemType? filterField = null);
+    IEnumerable<BO.VolunteerInList>? GetVolunteersInList(bool? isActive = null, BO.SystemType? filterValue = null, VolunteerInListFieldSort? sortField = null);
     BO.Volunteer GetVolunteerDetails(int volunteerId);
     void UpdateVolunteer(int requesterId, BO.Volunteer volunteer);
     void DeleteVolunteer(int volunteerId);

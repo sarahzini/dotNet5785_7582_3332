@@ -31,6 +31,7 @@ public partial class VolunteerInListWindow : Window
 
     public int requesterId { get; set; } 
     public BO.SystemType Ambulance { get; set; } = BO.SystemType.All;
+    public BO.VolunteerInListFieldSort Field { get; set; } = BO.VolunteerInListFieldSort.VolunteerId;
 
     private void FilteredVolunteer_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryVolunteerList();
     public IEnumerable<BO.VolunteerInList> VolunteerList
@@ -46,7 +47,7 @@ public partial class VolunteerInListWindow : Window
             new PropertyMetadata(null));
     private void queryVolunteerList()
          => VolunteerList = (Ambulance == BO.SystemType.All) ?
-                   s_bl?.Volunteer.GetVolunteersInList()! : s_bl?.Volunteer.GetFilteredVolunteersInList(Ambulance)!;
+                   s_bl?.Volunteer.GetVolunteersInList()! : s_bl?.Volunteer.GetVolunteersInList(null,Ambulance,Field)!;
 
     private void volunteerListObserver()
         => queryVolunteerList();
