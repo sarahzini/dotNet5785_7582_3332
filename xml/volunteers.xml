@@ -294,4 +294,18 @@
     <distance>70</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
+  <Volunteer>
+    <Id>23043343</Id>
+    <Name>S h</Name>
+    <PhoneNumber>0557708630</PhoneNumber>
+    <Email>S@g.com</Email>
+    <Password>wawU1r</Password>
+    <Address>8 Dov Hoz Street, Jerusalem, Israel</Address>
+    <Latitude>31.759595</Latitude>
+    <Longitude>35.215315</Longitude>
+    <MyJob>Volunteer</MyJob>
+    <active>true</active>
+    <distance>30</distance>
+    <MyWhichDistance>AirDistance</MyWhichDistance>
+  </Volunteer>
 </Volunteers>
