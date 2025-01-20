@@ -60,7 +60,7 @@ public partial class VolunteerInListWindow : Window
 
     private void lsvUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     { 
-        new VolunteerWindow("Update", SelectedVolunteer.VolunteerId,requesterId).Show(); 
+        new VolunteerWindow("Update", SelectedVolunteer!.VolunteerId,requesterId).Show(); 
 
     }
 
@@ -68,17 +68,6 @@ public partial class VolunteerInListWindow : Window
     {
         new VolunteerWindow("Add", 0, requesterId).Show();
     }
-
-    /*
-    public BO.VolunteerInList? SelectedVolunteer
-    {
-        get { return (BO.VolunteerInList?)GetValue(SelectedVolunteerProperty); }
-        set { SetValue(SelectedVolunteerProperty, value); }
-    }
-
-    public static readonly DependencyProperty SelectedVolunteerProperty =
-        DependencyProperty.Register("SelectedVolunteer", typeof(BO.VolunteerInList), typeof(VolunteerInListWindow), new PropertyMetadata(null));
-    */
 
     public BO.VolunteerInList? SelectedVolunteer
     {
@@ -92,22 +81,15 @@ public partial class VolunteerInListWindow : Window
             typeof(VolunteerInListWindow),
             new PropertyMetadata(null));
 
-   // public BO.VolunteerInList? SelectedVolunteer { get; set; }
-
-
     private void btnDeleteVolunteer_Click(object sender, RoutedEventArgs e)
     {
-
-        var button = sender as Button;
-        var volunteer = button?.CommandParameter as BO.VolunteerInList; // Assuming Volunteer is the type of your items in the list
-
         MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this volunteer ?", "Delete Confirmation",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
         try
         {
             if (confirmation == MessageBoxResult.Yes)
             {
-                s_bl.Volunteer.DeleteVolunteer(volunteer.VolunteerId);
+                s_bl.Volunteer.DeleteVolunteer(SelectedVolunteer!.VolunteerId);
             }
         }
         catch (Exception ex)

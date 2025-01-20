@@ -70,7 +70,8 @@
                 <TextBox Text="{Binding CurrentVolunteer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" />
 
                 <TextBlock Text="ID:" Style="{StaticResource RedTextStyle}" />
-                <TextBox Text="{Binding Path=CurrentVolunteer.VolunteerId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" IsReadOnly="True"/>
+                <TextBox Text="{Binding Path=CurrentVolunteer.VolunteerId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                         Visibility="{Binding ButtonText, Converter={StaticResource ConvertUpdateToVisibleKey}}" Margin="0,0,0,10" IsReadOnly="True"/>
 
                 <TextBlock Text="Phone Number:" Style="{StaticResource RedTextStyle}" />
                 <TextBox  Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />

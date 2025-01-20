@@ -16,5 +16,7 @@
         <local:StatusToVisibilityConverter x:Key="StatusToVisibilityConverterKey" />
         <local:StatusOpenToVisibilityConverter x:Key="StatusOpenToVisibilityConverterKey" />
         <local:CallInListFieldCollection x:Key="CallInListFieldCollectionKey" />
+        <local:ConvertUpdateToVisible x:Key="ConvertUpdateToVisibleKey" />
+        <local:VisibilityDeleteButtonConverter x:Key="VisibilityDeleteButtonConverterKey" />
     </Application.Resources>
 </Application>
