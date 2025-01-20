@@ -1,69 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace PL.Volunteer;
-
-/// <summary>
-/// Interaction logic for PasswordWindow.xaml
-/// </summary>
-public partial class PasswordWindow : Window
+namespace PL.Volunteer
 {
-    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public PasswordWindow(BO.Volunteer? CurrentVolunteer)
+    public partial class PasswordWindow : Window
     {
-        InitializeComponent();
-        Password = CurrentVolunteer!.Password;
-        CurrentVolunteer = CurrentVolunteer;
-    }
+        private readonly BlApi.IBl bl = BlApi.Factory.Get();
+        private readonly BO.Volunteer volunteer;
+        private string actualPassword = string.Empty;
 
-    BO.Volunteer? CurrentVolunteer { get; set; }
-    public string Password
-    {
-        get { return (string)GetValue(PasswordProperty); }
-        set { SetValue(PasswordProperty, value); }
-    }
-
-    // Using a DependencyProperty as the backing store for Password.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty PasswordProperty =
-        DependencyProperty.Register("Password", typeof(string), typeof(PasswordWindow), new PropertyMetadata(0));
-
-    private void btnPassword_Click(object sender, RoutedEventArgs e)
-    {
-        try
+        public PasswordWindow(BO.Volunteer volunteer)
         {
-            if (!(Password.Any(char.IsUpper) && Password.Any(char.IsDigit)))
+            InitializeComponent();
+            this.volunteer = volunteer;
+        }
+
+        public string Password
+        {
+            get { return (string)GetValue(PasswordProperty); }
+            set { SetValue(PasswordProperty, value); }
+        }
+
+        public static readonly DependencyProperty PasswordProperty =
+            DependencyProperty.Register("Password", typeof(string), typeof(PasswordWindow), new PropertyMetadata(string.Empty));
+
+        private void txtPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            int caretIndex = textBox.CaretIndex;
+
+            if (textBox.Text.Length > actualPassword.Length)
             {
-                throw new Exception("Password must contain at least one uppercase letter and one number. Please try again.");
+                // Caractère ajouté
+                actualPassword += textBox.Text.Substring(actualPassword.Length);
+            }
+            else if (textBox.Text.Length < actualPassword.Length)
+            {
+                // Caractère(s) supprimé(s)
+                actualPassword = actualPassword.Substring(0, textBox.Text.Length);
             }
 
-            CurrentVolunteer!.Password = Password;
-            s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer!.VolunteerId, CurrentVolunteer!);
-            MessageBox.Show($"The password is recorded", "", MessageBoxButton.OK, MessageBoxImage.Information);
-            this.Close();
+            // Mettre à jour le Password pour le binding
+            Password = actualPassword;
 
+            // Afficher les étoiles
+            textBox.Text = new string('*', actualPassword.Length);
+            textBox.CaretIndex = caretIndex;
         }
-        catch (BO.BLDoesNotExistException ex)
+
+        private void btnUpdatePassword_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        catch (BO.BLFormatException ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            try
+            {
+                if (string.IsNullOrEmpty(actualPassword))
+                {
+                    MessageBox.Show("Password cannot be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                volunteer.Password = actualPassword;
+                bl.Volunteer.UpdateVolunteer(volunteer.VolunteerId, volunteer);
+                MessageBox.Show("Password updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

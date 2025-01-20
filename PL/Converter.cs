@@ -129,14 +129,24 @@ namespace PL
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
     }
-    public class PasswordConverter : IValueConverter
+    
+ 
+  public class PasswordToStarsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-          => string.Empty;
+        {
+            if (value is string password)
+            {
+                return new string('*', password.Length); // Retourne une chaîne d'étoiles
+            }
+            return string.Empty;
+        }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-          => value.ToString();
-
+        {
+            throw new NotImplementedException("One-way binding only.");
+        }
     }
+
 }
 
