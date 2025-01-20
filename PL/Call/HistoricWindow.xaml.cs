@@ -48,13 +48,40 @@ namespace PL
             DependencyProperty.Register(nameof(ClosedCalls), typeof(IEnumerable<ClosedCallInList>), typeof(HistoricWindow), new PropertyMetadata(null));
 
         public BO.SystemType Ambulance { get; set; } = BO.SystemType.All;
-
         public BO.ClosedCallInListField Field { get; set; } = BO.ClosedCallInListField.CallId;
         
 
         private void queryClosedCallsListFilter()
              => ClosedCalls = (Ambulance == BO.SystemType.All) ?
-                       s_bl?.Call.SortClosedCalls(volunteerId, null, Field)! : s_bl?.Call.SortClosedCalls(volunteerId, Ambulance, Field)!; 
+                       s_bl?.Call.SortClosedCalls(volunteerId, null, Field)! : s_bl?.Call.SortClosedCalls(volunteerId, Ambulance, Field)!;
 
+        /// <summary>
+        /// This method calls the volunteer observer.
+        /// </summary>
+        private void callsObserver() => queryClosedCallsListFilter();
+
+        /// <summary>
+        /// This method loads the window.
+        /// </summary>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            s_bl.Call.AddObserver(callsObserver);
+        }
+
+        /// <summary>
+        /// This method closes the window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            s_bl.Call.RemoveObserver(callsObserver);
+        }
+
+        private void Window_Closed_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

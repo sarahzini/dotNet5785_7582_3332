@@ -29,7 +29,7 @@
             <ColumnDefinition Width="173*"/>
         </Grid.ColumnDefinitions>
         <!-- Card Border -->
-        <Border Style="{StaticResource CardStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="550" Height="418" Grid.ColumnSpan="2" Margin="25,0,0,0">
+        <Border Style="{StaticResource CardStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="542" Height="502" Grid.ColumnSpan="2" Margin="33,0,0,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -45,7 +45,7 @@
                        Grid.Row="0" Grid.ColumnSpan="2" Height="40" HorizontalAlignment="Left" Margin="198,-6,0,16" />
 
                 <!-- Personal Details -->
-                <StackPanel Grid.Row="1" Margin="7,10,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="333">
+                <StackPanel Grid.Row="1" Margin="7,10,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="367">
                     <TextBlock Text="Name:" Style="{StaticResource RedTextStyle}" />
                     <TextBox Text="{Binding CurrentVolunteer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" />
 
@@ -68,10 +68,16 @@
                     <!-- Password Field -->
                     <TextBlock Text="Password:" Style="{StaticResource RedTextStyle}" />
                     <TextBox Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsEnabled="False" />
+                    <TextBlock Text="Is Active:" Style="{StaticResource RedTextStyle}" Width="487" />
+
+                    <!-- IsActive Field -->
+                    <CheckBox 
+                         IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" />
+
                 </StackPanel>
 
 
-                <Button Content="Update" Click="btnUpdate_Click" HorizontalAlignment="Left" Margin="32,311,0,-2" Grid.Row="1" Grid.Column="1" BorderBrush="#FFDA291C" Foreground="#FFDA291C" OpacityMask="Black" Background="#FFDDDDDD" />
+                <Button Content="Update" Click="btnUpdate_Click" HorizontalAlignment="Left" Margin="23,373,0,13" Grid.Row="1" Grid.Column="1" BorderBrush="#FFDA291C" Foreground="#FFDA291C" OpacityMask="Black" Background="#FFDDDDDD" Width="57" />
             </Grid>
 
         </Border>

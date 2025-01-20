@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="HistoricWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Icon="pack://application:,,,/PL;component/Images/Login.png">
+        Icon="pack://application:,,,/PL;component/Images/Login.png"
+        Loaded="Window_Loaded" Closed="Window_Closed"
+        >
     <!--External Grid-->
     <Grid>
         <Grid.RowDefinitions>
@@ -25,7 +27,7 @@
             <Label Grid.Column="1" Content="Filter:" HorizontalAlignment="Left" Margin="45,0,0,0" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
                       Grid.Column="1"
-                      SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="148,0,425,0"
+                      SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="131,0,69,0"
                       SelectionChanged="FilteredCall_SelectionChanged">
 
                 <ComboBox.Background>
@@ -36,11 +38,10 @@
                 </ComboBox.Background>
             </ComboBox>
 
-            <Label Grid.Column="1" Content="Sort By:" HorizontalAlignment="Left" Margin="418,0,0,0" VerticalAlignment="Center"/>
+            <Label Content="Sort By:" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallFieldCollectionKey}}"
                       SelectionChanged="SortedCall_SelectionChanged"
-                      SelectedValue="{Binding Path=Field, Mode=TwoWay}"
-                      Grid.Column="1" HorizontalAlignment="Left" Margin="135,3,0,0" VerticalAlignment="Top" Width="265" Height="32"/>
+                      SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="122,2,0,0" VerticalAlignment="Top" Width="265" Height="32"/>
 
         </Grid>
         <ListView Grid.Row="1" ItemsSource="{Binding Path=ClosedCalls}" SelectedItem="{Binding SelectedCall}"

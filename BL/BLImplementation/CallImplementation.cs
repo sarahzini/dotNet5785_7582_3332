@@ -5,6 +5,7 @@ using Helpers;
 using BlImplementation;
 using static Helpers.CallManager;
 
+
 namespace BlImplementation;
 
 internal class CallImplementation : ICall
@@ -160,7 +161,7 @@ internal class CallImplementation : ICall
 
     /// <summary>
     /// This method adds a new call to the data layer it first checks if the call details are valid
-    /// by using the ValidateCsllDetails method then converts the business object to a data object( BO.call to DO.Call).
+    /// by using the ValidateCallDetails method then converts the business object to a data object( BO.call to DO.Call).
     /// Then the call is added to the data layer.
     /// </summary>
     void ICall.AddCall(BO.Call call)
@@ -193,8 +194,7 @@ internal class CallImplementation : ICall
     {
         // Get the full list of calls with the filter of id
         IEnumerable<DO.Call>? calls = _dal.Call.ReadAll()?
-            .Where(call => _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.VolunteerId == volunteerId
-            && _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.End != null);
+            .Where(call => _dal.Assignment.Read(assignment => assignment.VolunteerId == volunteerId&& assignment.CallId == call.CallId)?.End!=null);
 
         // Filter the list based on the callType parameter
         if (callType.HasValue)
@@ -202,18 +202,29 @@ internal class CallImplementation : ICall
             calls = calls?.Where(call => call.AmbulanceType == (DO.SystemType)callType);
         }
 
+        
+        // Convert the list to BO.ClosedCallInList and return with the good sort 
+        IEnumerable<ClosedCallInList>? c = calls?.Select(call => CallManager.ConvertToClosedCallInList(call)).ToList();
+
         // Sort the list based on the sortField parameter
         if (sortField.HasValue)
         {
-            //calls = calls?.OrderBy(call => call.GetType().GetProperty(sortField.ToString()).GetValue(call, null));
+            c = sortField switch
+            {
+                ClosedCallInListField.CallId => c?.OrderBy(call => call.CallId),
+                ClosedCallInListField.BeginTime => c?.OrderBy(call => call.BeginTime),
+                ClosedCallInListField.BeginActionTime => c?.OrderBy(call => call.BeginActionTime),
+                ClosedCallInListField.EndTime => c?.OrderBy(call => call.EndActionTime),
+                ClosedCallInListField.TypeOfEnd => c?.OrderBy(call => call.TypeOfEnd),
+                _ => c?.OrderBy(call => call.CallId)
+            };
+
+            return c;
         }
         else
         {
-            calls = calls?.OrderBy(call => call.CallId);
+            return c?.OrderBy(call => call.CallId);
         }
-
-        // Convert the list to BO.ClosedCallInList and return
-        return calls?.Select(call => CallManager.ConvertToClosedCallInList(call)).ToList();
 
     }
 
@@ -240,17 +251,26 @@ internal class CallImplementation : ICall
             calls = calls?.Where(call => call.AmbulanceType == (DO.SystemType)callType);
         }
 
+        IEnumerable<OpenCallInList>? c= calls?.Select(call => CallManager.ConvertToOpenCallInList(call, volunteerId)).ToList();
+
         // Sort the list based on the sortField parameter
         if (sortField.HasValue)
         {
-            //calls = calls?.OrderBy(call => call.GetType().GetProperty(sortField.ToString()).GetValue(call, null));
+            c = sortField switch
+            {
+                OpenCallInListField.CallId => c?.OrderBy(call => call.CallId),
+                OpenCallInListField.BeginTime => c?.OrderBy(call => call.BeginTime),
+                OpenCallInListField.MaxEndTime => c?.OrderBy(call => call.MaxEndTime),
+                OpenCallInListField.VolunteerDistanceToCall => c?.OrderBy(call => call.VolunteerDistanceToCall),
+                _ => c?.OrderBy(call => call.CallId)
+            };
+
+            return c;
         }
         else
         {
-            calls = calls?.OrderBy(call => call.CallId);
+            return c?.OrderBy(call => call.CallId);
         }
-
-        return calls?.Select(call => CallManager.ConvertToOpenCallInList(call, volunteerId)).ToList();
     }
 
     /// <summary>
@@ -285,6 +305,11 @@ internal class CallImplementation : ICall
 
             // Attempt to update the assignment in the data layer
             _dal.Assignment.Update(updatedAssignment);
+            CallManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(assignment.CallId);
+            VolunteerManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyItemUpdated(assignment.VolunteerId);
+
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -301,7 +326,7 @@ internal class CallImplementation : ICall
         try
         {
             // Fetch the assignment from the data layer
-            DO.Assignment? assignment = _dal.Assignment.Read(assignmentId);
+            DO.Assignment? assignment = _dal.Assignment.Read(a=>a.AssignmentId==assignmentId&&a.End==null);
 
             // Check if the requester is authorized to cancel the assignment
             bool isAuthorized = requesterId == assignment?.VolunteerId || CallManager.IsRequesterManager(requesterId);
@@ -325,6 +350,10 @@ internal class CallImplementation : ICall
 
             // Attempt to update the assignment in the data layer
             _dal.Assignment.Update(updatedAssignment);
+            CallManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(assignment.CallId);
+            VolunteerManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyItemUpdated(assignment.VolunteerId);
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -373,6 +402,10 @@ internal class CallImplementation : ICall
 
             // Attempt to add the new assignment to the data layer
             _dal.Assignment.Create(newAssignment);
+            CallManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(callId);
+            VolunteerManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyItemUpdated(volunteerId);
         }
         catch (DO.DalAlreadyExistException ex)
         {

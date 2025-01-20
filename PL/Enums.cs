@@ -44,3 +44,9 @@ internal class ClosedCallFieldCollection : IEnumerable
     static readonly IEnumerable<BO.ClosedCallInListField> s_enums = (Enum.GetValues(typeof(BO.ClosedCallInListField)) as IEnumerable<BO.ClosedCallInListField>)!;
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+
+internal class OpenCallFieldCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.OpenCallInListField> s_enums = (Enum.GetValues(typeof(BO.OpenCallInListField)) as IEnumerable<BO.OpenCallInListField>)!;
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}

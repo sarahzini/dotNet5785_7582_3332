@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
-        Title="CurrentCallWindow" Height="400" Width="520"
+        Title="CurrentCallWindow" Height="400" Width="584"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" 
         Icon="pack://application:,,,/PL;component/Images/Login.png">
     <!--External Grid-->

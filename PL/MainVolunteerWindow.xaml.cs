@@ -56,21 +56,54 @@ public partial class MainVolunteerWindow : Window
     public static readonly DependencyProperty CurrentVolunteerProperty =
         DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(MainVolunteerWindow), new PropertyMetadata(null));
 
-    string ButtonText
+    public string ButtonText
     {
         get => (string)GetValue(ButtonTextProperty);
-        init => SetValue(ButtonTextProperty, value);
+        set => SetValue(ButtonTextProperty, value);
     }
 
     /// <summary>
     /// 
     /// </summary>
     public static readonly DependencyProperty ButtonTextProperty =
-        DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(MainVolunteerWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("ButtonText", typeof(string), typeof(MainVolunteerWindow), new PropertyMetadata(null));
 
+    /// <summary>
+    /// This method calls the volunteer observer.
+    /// </summary>
+    private void volunteerObserver()
+    {
+        int id = CurrentVolunteer!.VolunteerId;
+        CurrentVolunteer = null;
+        CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
+        if (CurrentVolunteer.CurrentCall != null)
+            ButtonText = "Current Call Details";
+        else
+            ButtonText = "Assignment to a call";
+
+    }
+
+    /// <summary>
+    /// This method loads the window.
+    /// </summary>
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+      s_bl.Volunteer.AddObserver(CurrentVolunteer!.VolunteerId, volunteerObserver);
+    }
+
+    /// <summary>
+    /// This method closes the window.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+
+    private void Window_Closed(object sender, EventArgs e)
+    {
+        s_bl.Volunteer.RemoveObserver(CurrentVolunteer!.VolunteerId, volunteerObserver);
+    }
     private void btnHistoric_Click(object sender, RoutedEventArgs e)
     {
-        new HistoricWindow(CurrentVolunteer!.VolunteerId).ShowDialog(); //pourquoi cette ligne ne mqrche pas et CurrentVolunteer renvoit null alors qu il ne l est pas
+        new HistoricWindow(CurrentVolunteer!.VolunteerId).ShowDialog(); 
     }
     private void btnAssignment_Click(object sender, RoutedEventArgs e)
     {

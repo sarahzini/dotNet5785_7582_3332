@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Volunteer Window" Height="431" Width="517"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Icon="Images/Login.png">
+        Icon="Images/Login.png"
+        Loaded="Window_Loaded" Closed="Window_Closed">
     <Window.Resources>
         <Color x:Key="CustomColor">#FF832121</Color>
         <SolidColorBrush x:Key="CustomBrush" Color="{StaticResource CustomColor}" />
@@ -72,7 +73,7 @@
                          Margin="0,5" Background="White" Foreground="#FF832121" />
                 <Button Content="{Binding ButtonText}" Width="200" Height="50" 
                         Click="btnAssignment_Click" Style="{StaticResource RedBorderButtonStyle}"
-                        Visibility="{Binding CurrentVolunteer.IsActive, Converter={StaticResource TrueToVisibilityConverterKey}}"
+                        IsEnabled="{Binding CurrentVolunteer.IsActive, Converter={StaticResource TrueToVisibilityConverterKey}}"
                         Margin="0,5" Background="White" Foreground="#FF832121" />
             </StackPanel>
         </Grid>

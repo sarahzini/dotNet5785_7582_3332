@@ -19,7 +19,16 @@
         <!--Title Section-->
         <TextBlock Text="Choose the call closest to you to respond quickly!" 
                    FontSize="24" FontWeight="Bold" Foreground="#FFB22222"
-                   HorizontalAlignment="Center" Margin="0,0,0,20" />
+                   HorizontalAlignment="Left" Margin="-6,4,0,16" Width="403" />
+        <Label Content="Filter:" HorizontalAlignment="Left" Margin="594,18,0,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
+                  SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="649,14,69,592"
+                  SelectionChanged="FilteredCall_SelectionChanged" Grid.RowSpan="2" />
+
+        <Label Content="Sort By:" HorizontalAlignment="Left" Margin="356,24,0,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource OpenCallFieldCollectionKey}}"
+                  SelectionChanged="SortedCall_SelectionChanged"
+                  SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="412,0,0,0" VerticalAlignment="Center" Width="123" Height="32" RenderTransformOrigin="0.463,0.612" />
 
         <!--ListView Section-->
         <ListView Grid.Row="1" ItemsSource="{Binding Path=OpenCallList}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
@@ -45,20 +54,19 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Call ID" Width="100" DisplayMemberBinding="{Binding CallId}" />
-                    <GridViewColumn Header="Type of Call" Width="150" DisplayMemberBinding="{Binding TypeOfCall}" />
+                    <GridViewColumn Header="Call ID" Width="80" DisplayMemberBinding="{Binding CallId}" />
+                    <GridViewColumn Header="Emergency" Width="90" DisplayMemberBinding="{Binding TypeOfCall}" />
                     <GridViewColumn Header="Address" Width="200" DisplayMemberBinding="{Binding CallAddress}" />
                     <GridViewColumn Header="Begin Time" Width="200" DisplayMemberBinding="{Binding BeginTime}" />
                     <GridViewColumn Header="Max End Time" Width="200" DisplayMemberBinding="{Binding MaxEndTime}" />
-                    <GridViewColumn Header="Distance" Width="100" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
-                    <GridViewColumn Header="" Width="200">
+                    <GridViewColumn Header="Distance from your position" Width="100" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
+                    <GridViewColumn Header="" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Button Content="Assign to this Call" Click="btnChoose_Click"  CommandParameter="{Binding}" 
                                             Background="#FF28A745" Foreground="White" FontWeight="Bold"
                                             Width="180" Height="30" Margin="5,0"/>
-                                    
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -66,7 +74,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Canvas/>
-
+        <Canvas Margin="0,0,0,3"/>
     </Grid>
 </Window>

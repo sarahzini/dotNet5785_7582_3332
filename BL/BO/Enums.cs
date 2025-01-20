@@ -71,14 +71,16 @@ public enum ClosedCallInListField
     CallId,
     BeginTime,
     BeginActionTime,
-    EndTime
+    EndTime,
+    TypeOfEnd
 }
 
 public enum OpenCallInListField
 {
     CallId,
     BeginTime,
-    RangeTimeToEnd,
+    MaxEndTime,
+    VolunteerDistanceToCall
 }
 
 public enum VolunteerMethods

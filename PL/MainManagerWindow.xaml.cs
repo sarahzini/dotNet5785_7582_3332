@@ -120,7 +120,6 @@ public partial class MainManagerWindow : Window
     }
     private void btnReset_Click(object sender, RoutedEventArgs e)
     {
-        //helped by IA
         MessageBoxResult confirmation = MessageBox.Show("You are going to Reset !", "Reset Confirmation",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
 
