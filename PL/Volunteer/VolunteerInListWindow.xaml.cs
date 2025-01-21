@@ -47,7 +47,7 @@ public partial class VolunteerInListWindow : Window
             new PropertyMetadata(null));
     private void queryVolunteerList()
          => VolunteerList = (Ambulance == BO.SystemType.All) ?
-                   s_bl?.Volunteer.GetVolunteersInList()! : s_bl?.Volunteer.GetVolunteersInList(null,Ambulance,Field)!;
+                   s_bl?.Volunteer.GetVolunteersInList(null,null,Field)! : s_bl?.Volunteer.GetVolunteersInList(null,Ambulance,Field)!;
 
     private void volunteerListObserver()
         => queryVolunteerList();

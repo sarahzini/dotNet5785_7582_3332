@@ -74,7 +74,7 @@
                     <!-- Personal Details -->
                     <StackPanel Margin="10,39,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="441" Grid.RowSpan="2">
                         <TextBlock Text="Address:" Style="{StaticResource RedTextStyle}" />
-                        <TextBox Text="{Binding CurrentCall.Address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding CurrentCall.Address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10"/>
 
 
                         <TextBlock Text="Max time to end the call: " Style="{StaticResource RedTextStyle}" />
@@ -93,7 +93,7 @@
                         <TextBlock Text="Ambulance type" Style="{StaticResource RedTextStyle}" />
                         <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
                           SelectedValue="{Binding CurrentCall.AmbulanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                           Margin="0,0,0,10" IsReadOnly="True"/>
+                           Margin="0,0,0,10" />
 
                     </StackPanel>
                 </Grid>

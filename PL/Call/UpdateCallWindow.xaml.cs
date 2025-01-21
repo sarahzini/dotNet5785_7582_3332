@@ -26,9 +26,10 @@ public partial class UpdateCallWindow : Window
     {
         try
         {
-            InitializeComponent();
 
             CurrentCall = s_bl.Call.GetCallDetails(CallId);
+            InitializeComponent();
+
         }
         catch (BO.BLDoesNotExistException ex)
         {

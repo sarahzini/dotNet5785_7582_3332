@@ -75,35 +75,35 @@
                     <!-- Personal Details -->
                     <StackPanel Margin="10,0,10,28" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Height="441" Grid.RowSpan="2">
                         <TextBlock Text="Assignment Id:" Style="{StaticResource RedTextStyle}" Height="25" />
-                        <TextBox Text="{Binding CurrentVolunteer.CurrentCall.AssignId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Current.AssignId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" IsReadOnly="True"/>
 
                         <TextBlock Text="Call Id:" Style="{StaticResource RedTextStyle}" />
-                        <TextBox Text="{Binding CurrentVolunteer.CurrentCall.CallId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Current.CallId, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
 
 
                         <TextBlock Text="Emergency:" Style="{StaticResource RedTextStyle}" />
-                        <TextBox Text="{Binding CurrentVolunteer.CurrentCall.TypeOfCall, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Current.TypeOfCall, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" IsReadOnly="True"/>
 
                         <TextBlock Text="Description:" Style="{StaticResource RedTextStyle}" />
-                        <TextBox Text="{Binding CurrentVolunteer.CurrentCall.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Current.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" IsReadOnly="True"/>
 
                         <TextBlock Text="Address:" Style="{StaticResource RedTextStyle}" />
-                        <TextBox Text="{Binding CurrentVolunteer.CurrentCall.CallAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Current.CallAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="0,0,0,10" IsReadOnly="True"/>
 
                         <TextBlock Text="Begin Time:" Style="{StaticResource RedTextStyle}" />
-                        <TextBox Text="{Binding CurrentVolunteer.CurrentCall.BeginTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Current.BeginTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
 
                         <TextBlock Text="Max End Time:" Style="{StaticResource RedTextStyle}" />
-                        <TextBox Text="{Binding CurrentVolunteer.CurrentCall.MaxEndTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Current.MaxEndTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
 
                         <TextBlock Text="Begin Action Time:" Style="{StaticResource RedTextStyle}" />
-                        <TextBox Text="{Binding CurrentVolunteer.CurrentCall.BeginActionTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Current.BeginActionTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
 
                         <TextBlock Text="Distance From The Call:" Style="{StaticResource RedTextStyle}" />
-                        <TextBox Text="{Binding CurrentVolunteer.CurrentCall.VolunteerDistanceToCall, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Current.VolunteerDistanceToCall, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
 
                         <TextBlock Text="Status:" Style="{StaticResource RedTextStyle}" />
-                        <TextBox Text="{Binding CurrentVolunteer.CurrentCall.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
+                        <TextBox Text="{Binding Current.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
 
                     </StackPanel>
                 </Grid>

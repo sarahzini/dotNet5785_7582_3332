@@ -18,9 +18,10 @@ namespace PL.Call
         public BO.Statuses Status { get; set; } = BO.Statuses.All;
         public AssignmentWindow(int Id)
         {
-            InitializeComponent();
-            OpenCallList = s_bl.Call.SortOpenCalls(Id,null,null);
             id = Id;
+            OpenCallList = s_bl.Call.SortOpenCalls(Id, null, null);
+            InitializeComponent();
+           
         }
 
         public IEnumerable<BO.OpenCallInList>? OpenCallList
@@ -82,6 +83,7 @@ namespace PL.Call
             // Notify the user
             MessageBox.Show($"You are now assigned to call {call.CallId}:{call.Description}.",
                                 "Call Assigned", MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Close();
         }
 
     }

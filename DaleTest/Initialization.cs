@@ -23,9 +23,10 @@ public static class Initialization
             "Michal Avrahami", "Nadav Shulman", "Rachel Dubinsky", "Uri Dahan", "Yael Chaimovitz", "Ronit Gross",
             "Meir Ziv", "Tal Ben-Ari" };
 
-        string[] phoneNumbers = { "052-3918274", "050-5639842", "054-1283795", "053-6472391", "058-9042318", "050-9834657",
-            "052-7512386", "053-4326759", "054-1863420", "058-2917463", "050-3275641", "052-5068493", "053-7821594",
-            "054-9342105", "058-6120394", "050-7461283", "052-9784530", "053-5289761", "054-3175928", "058-8456201" };
+        string[] phoneNumbers = { "0523918274", "0505639842", "0541283795", "0536472391", "0589042318", "0509834657",
+"0527512386", "0534326759", "0541863420", "0582917463", "0503275641", "0525068493", "0537821594",
+"0549342105", "0586120394", "0507461283", "0529784530", "0535289761", "0543175928", "0588456201"
+};
 
         string[] emails = { "Sarah.Cohen@gmail.com", "Osher.Mizrahi@yahoo.com", "Yaara.Levi@outlook.com", "Eli.BenDavid@mail.com",
             "Maya.Shapiro@icloud.com", "Yair.Katz@googlemail.com", "Noa.Peretz@hotmail.com", "Aviad.Cohen@live.com",
