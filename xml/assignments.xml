@@ -400,4 +400,12 @@
     <End xsi:nil="true" />
     <MyEndStatus xsi:nil="true" />
   </Assignment>
+  <Assignment>
+    <AssignmentId>1050</AssignmentId>
+    <CallId>100000049</CallId>
+    <VolunteerId>345887582</VolunteerId>
+    <Begin>2025-01-21T11:57:40</Begin>
+    <End>2025-01-21T11:57:40</End>
+    <MyEndStatus>Completed</MyEndStatus>
+  </Assignment>
 </ArrayOfAssignment>

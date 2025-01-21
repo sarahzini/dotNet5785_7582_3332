@@ -280,4 +280,18 @@
     <distance>56.86647547628877</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
+  <Volunteer>
+    <Id>345887582</Id>
+    <Name>Sarah Zini</Name>
+    <PhoneNumber>0585240603</PhoneNumber>
+    <Email>sarahzini3@gmail.com</Email>
+    <Password>Toutoune20101</Password>
+    <Address>Bet Adfus 7, Jerusalem,Israel</Address>
+    <Latitude>31.780242</Latitude>
+    <Longitude>35.186325</Longitude>
+    <MyJob>Manager</MyJob>
+    <active>false</active>
+    <distance>50</distance>
+    <MyWhichDistance>AirDistance</MyWhichDistance>
+  </Volunteer>
 </Volunteers>
