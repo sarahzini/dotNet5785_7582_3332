@@ -13,7 +13,10 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     DO.Job IVolunteer.Login(int id, string password)
     {
-        DO.Volunteer? volunteer = _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == id);
+        DO.Volunteer? volunteer;
+            
+       lock (AdminManager.BlMutex)
+            volunteer = _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == id);
 
         if (volunteer == null)
         {
@@ -33,7 +36,9 @@ internal class VolunteerImplementation : IVolunteer
     public IEnumerable<BO.VolunteerInList> GetVolunteersInList(bool? isActive = null, BO.SystemType? filterValue = null, VolunteerInListFieldSort? sortField = null)
     {
         // Get the full list of volunteers
-        IEnumerable<DO.Volunteer>? volunteers = _dal.Volunteer.ReadAll();
+        IEnumerable<DO.Volunteer>? volunteers;
+        lock (AdminManager.BlMutex)
+            volunteers = _dal.Volunteer.ReadAll();
 
         // Filter by isActive if specified
         if (isActive.HasValue)
@@ -48,14 +53,21 @@ internal class VolunteerImplementation : IVolunteer
 
             foreach (var v in volunteers ?? Enumerable.Empty<DO.Volunteer>())
             {
+
+                IEnumerable<DO.Assignment>? assignments;
+
                 // Get current assignment for the volunteer
-                var assignments = _dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
+                lock (AdminManager.BlMutex)
+                   assignments = _dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
                 var currentAssignment = assignments?.FirstOrDefault(a => a.End == null);
 
                 if (currentAssignment != null)
                 {
+                    DO.Call? call;
+
                     // Get the call type
-                    var call = _dal.Call.Read(c => c.CallId == currentAssignment.CallId);
+                    lock (AdminManager.BlMutex)
+                       call = _dal.Call.Read(c => c.CallId == currentAssignment.CallId);
                     if (call != null && (BO.SystemType)call.AmbulanceType == filterValue)
                     {
                         filteredVolunteers.Add(v);
@@ -90,7 +102,11 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     BO.Volunteer IVolunteer.GetVolunteerDetails(int volunteerId)
     {
-        DO.Volunteer? volunteer = _dal.Volunteer.Read(volunteerId);
+        DO.Volunteer? volunteer;
+
+        lock (AdminManager.BlMutex)
+            volunteer = _dal.Volunteer.Read(volunteerId);
+
         if (volunteer == null)
         {
             throw new BO.BLDoesNotExistException($"Volunteer {volunteerId} does not exist in the system !");
@@ -100,6 +116,7 @@ internal class VolunteerImplementation : IVolunteer
     }
     public void UpdateVolunteer(int requesterId, BO.Volunteer volunteer)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
             if (requesterId != volunteer.VolunteerId && !CallManager.IsRequesterManager(requesterId))
@@ -110,14 +127,18 @@ internal class VolunteerImplementation : IVolunteer
             // Validate volunteer details
             VolunteerManager.ValidateVolunteerDetails(volunteer);
 
-            DO.Volunteer? oldVolunteer = _dal.Volunteer.Read(volunteer.VolunteerId);
+            DO.Volunteer? oldVolunteer;
+            lock (AdminManager.BlMutex)
+                oldVolunteer = _dal.Volunteer.Read(volunteer.VolunteerId);
+
             DO.Volunteer updatedVolunteer = oldVolunteer is null ? throw new BO.BLDoesNotExistException($"Volunteer {volunteer.Name} doesn't exist in the system !")
                 : VolunteerManager.ConvertToDataVolunteer(volunteer);
 
             VolunteerManager.CheckAuthorisationToUpdate(oldVolunteer, updatedVolunteer, CallManager.IsRequesterManager(requesterId));
 
             // Attempt to update the volunteer in the data layer
-            _dal.Volunteer.Update(updatedVolunteer);
+            lock (AdminManager.BlMutex)
+                _dal.Volunteer.Update(updatedVolunteer);
             VolunteerManager.Observers.NotifyItemUpdated(updatedVolunteer.VolunteerId); //stage 5   
             VolunteerManager.Observers.NotifyListUpdated(); //stage 5   
         }
@@ -128,16 +149,21 @@ internal class VolunteerImplementation : IVolunteer
     }
     public void DeleteVolunteer(int volunteerId)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
-            IEnumerable<DO.Assignment>? assignments = _dal.Assignment.ReadAll(a => a.VolunteerId == volunteerId);
+            IEnumerable<DO.Assignment>? assignments;
+            lock (AdminManager.BlMutex)
+                assignments = _dal.Assignment.ReadAll(a => a.VolunteerId == volunteerId);
 
             if (assignments?.Any(a => a.End == null) == true)
             {
                 throw new BLInvalidOperationException($"Volunteer {volunteerId} is currently assigned to a call and cannot be deleted");
             }
 
-            _dal.Volunteer.Delete(volunteerId);
+            lock (AdminManager.BlMutex)
+                _dal.Volunteer.Delete(volunteerId);
+
             VolunteerManager.Observers.NotifyListUpdated(); //stage 5   
         }
         catch (DO.DalDoesNotExistException ex)
@@ -154,6 +180,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <exception cref="BO.BLAlreadyExistException"></exception>
     public void AddVolunteer(BO.Volunteer volunteer)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
             // Validate volunteer details
@@ -163,7 +190,8 @@ internal class VolunteerImplementation : IVolunteer
             DO.Volunteer newVolunteer = VolunteerManager.ConvertToDataVolunteer(volunteer);
 
             // Attempt to add the new volunteer to the data layer
-            _dal.Volunteer.Create(newVolunteer);
+            lock (AdminManager.BlMutex)
+                _dal.Volunteer.Create(newVolunteer);
             VolunteerManager.Observers.NotifyListUpdated(); //stage 5   
         }
         catch (DO.DalAlreadyExistException ex)
@@ -204,7 +232,8 @@ internal class VolunteerImplementation : IVolunteer
 
     public string GetName(int volunteerId)
     {
-        return _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == volunteerId)?.Name;
+        lock (AdminManager.BlMutex)
+            return _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == volunteerId)?.Name;
     }
 }
 

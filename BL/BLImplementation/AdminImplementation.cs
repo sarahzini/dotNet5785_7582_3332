@@ -13,15 +13,19 @@ internal class AdminImplementation : IAdmin
     /// This method advances the clock by the specified time unit.
     /// </summary>
     /// <param name="unit"></param>
-    public void ForwardClock(BO.TimeUnit unit) => AdminManager.UpdateClock(unit switch
+    public void ForwardClock(BO.TimeUnit unit)
     {
-        BO.TimeUnit.Minute => AdminManager.Now.AddMinutes(1),
-        BO.TimeUnit.Hour => AdminManager.Now.AddHours(1),
-        BO.TimeUnit.Day => AdminManager.Now.AddDays(1),
-        BO.TimeUnit.Month => AdminManager.Now.AddMonths(1),
-        BO.TimeUnit.Year => AdminManager.Now.AddYears(1),
-        _ => DateTime.MinValue
-    });
+        AdminManager.ThrowOnSimulatorIsRunning();
+        AdminManager.UpdateClock(unit switch
+        {
+            BO.TimeUnit.Minute => AdminManager.Now.AddMinutes(1),
+            BO.TimeUnit.Hour => AdminManager.Now.AddHours(1),
+            BO.TimeUnit.Day => AdminManager.Now.AddDays(1),
+            BO.TimeUnit.Month => AdminManager.Now.AddMonths(1),
+            BO.TimeUnit.Year => AdminManager.Now.AddYears(1),
+            _ => DateTime.MinValue
+        });
+    }
 
     /// <summary>
     /// This method returns the risk range.
@@ -36,6 +40,7 @@ internal class AdminImplementation : IAdmin
     /// </summary>
     public void SetRiskRange(TimeSpan riskRange)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         _dal.Config.RiskRange = riskRange;
     }
 
@@ -56,6 +61,15 @@ internal class AdminImplementation : IAdmin
         AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
         AdminManager.ResetDB(); //stage 7
     }
+
+    public void StartSimulator(int interval)  //stage 7
+    {
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
+        AdminManager.Start(interval); //stage 7
+    }
+    public void StopSimulator()
+        => AdminManager.Stop(); //stage 7
+
 
     /// <summary>
     /// This method adds a clock observer.
@@ -84,5 +98,7 @@ internal class AdminImplementation : IAdmin
     /// <param name="configObserver">The config observer to remove</param>
     public void RemoveConfigObserver(Action configObserver) =>
            AdminManager.ConfigUpdatedObservers -= configObserver;
+
+
 
 }

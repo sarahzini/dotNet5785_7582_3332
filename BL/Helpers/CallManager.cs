@@ -1,4 +1,5 @@
-﻿using DalApi;
+﻿using BO;
+using DalApi;
 using System.Net;
 using System.Text.Json;
 namespace Helpers;
@@ -14,10 +15,14 @@ internal static class CallManager
     /// </summary>
     internal static BO.CallInList ConvertToCallInList(DO.Call call)
     {
-        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == call.CallId);
+        IEnumerable<DO.Assignment>? assignments;
+        lock (AdminManager.BlMutex)
+            assignments = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == call.CallId);
         DO.Assignment? assign = assignments?.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
 
-        string? name = s_dal.Volunteer.Read(volunteer => volunteer.VolunteerId == assign?.VolunteerId)?.Name;
+        string? name;
+        lock (AdminManager.BlMutex)
+            name = s_dal.Volunteer.Read(volunteer => volunteer.VolunteerId == assign?.VolunteerId)?.Name;
 
         TimeSpan? exTime = null;
         if (assign?.MyEndStatus == DO.EndStatus.Completed) exTime = assign.End - call.OpenTime;
@@ -47,7 +52,9 @@ internal static class CallManager
     /// </summary>
     internal static BO.ClosedCallInList ConvertToClosedCallInList(DO.Call call)
     {
-        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.CallId);
+        IEnumerable<DO.Assignment>? assignments;
+        lock (AdminManager.BlMutex)
+            assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.CallId);
         DO.Assignment? assign = assignments.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
 
         return new BO.ClosedCallInList
@@ -67,12 +74,11 @@ internal static class CallManager
     /// </summary>
     internal static BO.OpenCallInList ConvertToOpenCallInList(DO.Call call, int volunteerId)
     {
-        double? volunteerLong = s_dal.Volunteer.Read(volunteerId)?.Longitude;
-        double? volunteerLat = s_dal.Volunteer.Read(volunteerId)?.Latitude;
+        DO.Volunteer? volunteer;
+        lock (AdminManager.BlMutex)
+            volunteer = s_dal.Volunteer.Read(volunteerId);
 
-        double distance = Math.Sqrt(
-        Math.Pow((double)(volunteerLong - call.Longitude), 2) +
-        Math.Pow((double)(volunteerLat - call.Latitude), 2));
+        double distance = CalculOfDistance(call,volunteer);
 
         return new BO.OpenCallInList
         {
@@ -84,7 +90,7 @@ internal static class CallManager
             MaxEndTime = call.MaxEnd,
             VolunteerDistanceToCall = distance
         };
-    } //changer distance
+    } 
 
     /// <summary>
     /// This method converts a BO.Call object to a DO.Call object.
@@ -111,7 +117,9 @@ internal static class CallManager
     {
 
         // Get the call assignments from the data layer
-        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == call.CallId);
+        IEnumerable<DO.Assignment>? assignments;
+        lock (AdminManager.BlMutex)
+            assignments = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == call.CallId);
 
         DO.Assignment? assign = assignments?.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
         BO.Statuses status = ToDeterminateStatus(assign, call);
@@ -167,7 +175,9 @@ internal static class CallManager
     /// </summary>
     internal static bool IsRequesterManager(int requesterId)
     {
-        DO.Volunteer? user = s_dal.Volunteer.Read(requesterId);
+        DO.Volunteer? user;
+        lock (AdminManager.BlMutex)
+                user= s_dal.Volunteer.Read(requesterId);
         return user is null ? false : user?.MyJob == DO.Job.Manager;
     }
 
@@ -183,6 +193,14 @@ internal static class CallManager
         }
 
         //the adress details will be check after the call of this function
+    }
+
+    internal static double CalculOfDistance(DO.Call call, DO.Volunteer volunteer )
+    {
+        return Math.Sqrt(
+        Math.Pow((double)(volunteer.Longitude - call.Longitude), 2) +
+        Math.Pow((double)(volunteer.Latitude - call.Latitude), 2));
+
     }
 }
 

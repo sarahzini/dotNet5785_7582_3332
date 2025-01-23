@@ -11,7 +11,9 @@ internal static class AssignmentManager
     /// </summary>
     internal static void PeriodicAssignmentsUpdates(DateTime oldClock, DateTime newClock)
     {
-        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll();
+        IEnumerable<DO.Assignment>? assignments;
+        lock (AdminManager.BlMutex)
+                 assignments= s_dal.Assignment.ReadAll();
 
         if (assignments == null)
             return;
@@ -22,11 +24,15 @@ internal static class AssignmentManager
         {
             if (assignment.End == null)
             {
-                if (s_dal.Call.Read(c => c.CallId == assignment.CallId)?.MaxEnd < newClock)
+                DateTime? maxEnd;
+                lock (AdminManager.BlMutex)
+                    maxEnd = s_dal.Call.Read(c => c.CallId == assignment.CallId)?.MaxEnd;
+                if (maxEnd < newClock)
                 {
                     assignmentUpdated = true;
                     DO.Assignment newAssign = assignment with { MyEndStatus = DO.EndStatus.Expired };
-                    s_dal.Assignment.Update(newAssign);
+                    lock (AdminManager.BlMutex)
+                        s_dal.Assignment.Update(newAssign);
                     VolunteerManager.Observers.NotifyItemUpdated(newAssign.VolunteerId); //stage 5
                     CallManager.Observers.NotifyItemUpdated(newAssign.CallId);
                 }

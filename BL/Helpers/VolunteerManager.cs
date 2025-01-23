@@ -87,7 +87,10 @@ internal static class VolunteerManager
     /// <returns></returns>
     internal static BO.VolunteerInList ConvertToVolunteerInList(DO.Volunteer v)
     {
-        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
+        IEnumerable<DO.Assignment>? assignments;
+
+        lock (AdminManager.BlMutex)
+             assignments = s_dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
 
         int completedCount=0, canceledCount=0, expiredCount=0;
         int nothing = 0;
@@ -111,7 +114,11 @@ internal static class VolunteerManager
         }
 
         int? actualCallId = assignments?.FirstOrDefault(a => a.End == null)?.CallId;
-        BO.SystemType typeOfCall = actualCallId is null ? BO.SystemType.None :
+
+        BO.SystemType typeOfCall;
+
+        lock (AdminManager.BlMutex)
+            typeOfCall = actualCallId is null ? BO.SystemType.None :
             (BO.SystemType)((s_dal.Call.Read(c => c.CallId == actualCallId).AmbulanceType));
 
         return new BO.VolunteerInList
@@ -132,7 +139,10 @@ internal static class VolunteerManager
     /// </summary>
     internal static BO.Volunteer ConvertToLogicalVolunteer(DO.Volunteer volunteer, int volunteerId)
     {
-        IEnumerable<DO.Assignment>? assignments = s_dal.Assignment.ReadAll(a => a.VolunteerId == volunteerId);
+        IEnumerable<DO.Assignment>? assignments;
+
+        lock (AdminManager.BlMutex)
+            assignments = s_dal.Assignment.ReadAll(a => a.VolunteerId == volunteerId);
 
         int completedCount = 0, canceledCount = 0, expiredCount = 0, nothing = 0;
 
@@ -150,15 +160,19 @@ internal static class VolunteerManager
             }
         }
 
-        DO.Assignment? assign = s_dal.Assignment.Read(a => a.VolunteerId == volunteerId && a.End == null);
-        DO.Call? callInProgress = assign is null ? null : s_dal.Call.Read(assign.CallId);
+        DO.Assignment? assign;
+        DO.Call? callInProgress;
+
+        lock (AdminManager.BlMutex)
+        {
+            assign = s_dal.Assignment.Read(a => a.VolunteerId == volunteerId && a.End == null);
+            callInProgress = assign is null ? null : s_dal.Call.Read(assign.CallId);
+        }
 
         double distance = 0;
         if (callInProgress != null)
         {
-             distance = Math.Sqrt(
-                  Math.Pow((double)(volunteer.Longitude - callInProgress.Longitude), 2) +
-                  Math.Pow((double)(volunteer.Latitude - callInProgress.Latitude), 2));
+             distance = CallManager.CalculOfDistance(callInProgress,volunteer);
         }
 
 
@@ -204,7 +218,6 @@ internal static class VolunteerManager
         //{ throw new BLInvalidOperationException("Name cannot be changed."); }
         if(oldVolunteer?.MyJob != updatedVolunteer.MyJob&& !isManager)
         { throw new BLInvalidOperationException("You cannot change this member because you are not a Manager."); }
-        //bonus : we authorized the volunteer to change his transport type
     }
 
 }
