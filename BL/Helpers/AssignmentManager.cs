@@ -27,12 +27,16 @@ internal static class AssignmentManager
                     assignmentUpdated = true;
                     DO.Assignment newAssign = assignment with { MyEndStatus = DO.EndStatus.Expired };
                     s_dal.Assignment.Update(newAssign);
-                    Observers.NotifyItemUpdated(newAssign.AssignmentId); //stage 5
+                    VolunteerManager.Observers.NotifyItemUpdated(newAssign.VolunteerId); //stage 5
+                    CallManager.Observers.NotifyItemUpdated(newAssign.CallId);
                 }
             }
         }
-        if ( assignmentUpdated) //stage 5
-            Observers.NotifyListUpdated(); //stage 5
+        if (assignmentUpdated) //stage 5
+        {
+            VolunteerManager.Observers.NotifyListUpdated(); //stage 5
+            CallManager.Observers.NotifyListUpdated(); //stage 5
+        }
     }
 
 }

@@ -408,4 +408,12 @@
     <End>2025-01-21T11:57:40</End>
     <MyEndStatus>Completed</MyEndStatus>
   </Assignment>
+  <Assignment>
+    <AssignmentId>1051</AssignmentId>
+    <CallId>100000040</CallId>
+    <VolunteerId>26290444</VolunteerId>
+    <Begin>2025-01-21T11:57:40</Begin>
+    <End>2025-01-21T11:57:40</End>
+    <MyEndStatus>SelfCancelled</MyEndStatus>
+  </Assignment>
 </ArrayOfAssignment>

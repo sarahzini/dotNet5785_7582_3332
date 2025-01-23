@@ -286,7 +286,7 @@ internal class CallImplementation : ICall
         try
         {
             // Fetch the assignment from the data layer
-            DO.Assignment? assignment = _dal.Assignment.Read(assignmentId);
+            DO.Assignment? assignment = _dal.Assignment.Read(a=> a.End==null && assignmentId== volunteerId);
 
             // Check if the volunteer is authorized to end the treatment
             if (assignment?.VolunteerId != volunteerId)

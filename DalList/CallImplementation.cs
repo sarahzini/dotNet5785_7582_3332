@@ -1,6 +1,7 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 
 /// <summary>
 /// The CallImplementations file contains implementations of methods and
@@ -13,6 +14,7 @@ internal class CallImplementations : ICall
     /// Creates a new call and adds it to the data source.
     /// </summary>
     /// <param name="call">The call to be added.</param>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Create(Call call)
     {
         int newCallId = Config._nextCallId;
@@ -25,6 +27,7 @@ internal class CallImplementations : ICall
     /// </summary>
     /// <param name="id">The ID of the call to be deleted.</param>
     /// <exception cref="DalDoesNotExistException">Thrown when a call with the specified ID does not exist.</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Delete(int id)
     {
         foreach (var call in DataSource.Calls)
@@ -41,6 +44,7 @@ internal class CallImplementations : ICall
     /// <summary>
     /// Deletes all calls from the data source.
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void DeleteAll()
     {
         DataSource.Calls.Clear();
@@ -51,6 +55,7 @@ internal class CallImplementations : ICall
     /// </summary>
     /// <param name="id">The ID of the call to be read.</param>
     /// <returns>The call with the specified ID, or null if not found.</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public Call? Read(int id) => DataSource.Calls.FirstOrDefault(call => call.CallId == id);
 
     /// <summary>
@@ -58,6 +63,7 @@ internal class CallImplementations : ICall
     /// </summary>
     /// <param name="filter">The filter condition to match.</param>
     /// <returns>The first call that matches the filter condition, or null if not found.</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public Call? Read(Func<Call, bool> filter) => DataSource.Calls.FirstOrDefault(filter);
 
     /// <summary>
@@ -65,6 +71,7 @@ internal class CallImplementations : ICall
     /// </summary>
     /// <param name="filter">The filter condition to match, or null to return all calls.</param>
     /// <returns>A collection of calls that match the filter condition, or all calls if no filter is specified.</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
         => filter == null
             ? DataSource.Calls.Select(item => item)
@@ -75,6 +82,7 @@ internal class CallImplementations : ICall
     /// </summary>
     /// <param name="item">The call with updated information.</param>
     /// <exception cref="DalDoesNotExistException">Thrown when a call with the specified ID does not exist.</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Update(Call item)
     {
         foreach (var call in DataSource.Calls)

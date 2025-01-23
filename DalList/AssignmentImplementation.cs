@@ -1,6 +1,7 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 
 /// <summary>
 /// The AssignmentImplementations file contains implementations of methods and
@@ -13,6 +14,7 @@ internal class AssignmentImplementation : IAssignment
     /// Creates a new assignment and adds it to the data source.
     /// </summary>
     /// <param name="assignment">The assignment to be added.</param>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Create(Assignment assignment)
     {
         int newId = Config._nextAssignmentId;
@@ -25,6 +27,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="id">The ID of the assignment to be deleted.</param>
     /// <exception cref="DalDoesNotExistException">Thrown when an assignment with the specified ID does not exist.</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Delete(int id)
     {
         foreach (var assignment in DataSource.Assignments)
@@ -41,6 +44,7 @@ internal class AssignmentImplementation : IAssignment
     /// <summary>
     /// Deletes all assignments from the data source.
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void DeleteAll()
     {
         DataSource.Assignments.Clear();
@@ -51,6 +55,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="id">The ID of the assignment to be read.</param>
     /// <returns>The assignment with the specified ID, or null if not found.</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public Assignment? Read(int id) => DataSource.Assignments.FirstOrDefault(assignment => assignment.AssignmentId == id);
 
     /// <summary>
@@ -58,6 +63,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="filter">The filter condition to match.</param>
     /// <returns>The first assignment that matches the filter condition, or null if not found.</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public Assignment? Read(Func<Assignment, bool> filter) => DataSource.Assignments.FirstOrDefault(filter);
 
     /// <summary>
@@ -65,6 +71,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="filter">The filter condition to match, or null to return all assignments.</param>
     /// <returns>A collection of assignments that match the filter condition, or all assignments if no filter is specified.</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
         => filter == null
             ? DataSource.Assignments.Select(item => item)
@@ -75,6 +82,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="item">The assignment with updated information.</param>
     /// <exception cref="DalDoesNotExistException">Thrown when an assignment with the specified ID does not exist.</exception>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Update(Assignment item)
     {
         foreach (var assignment in DataSource.Assignments)

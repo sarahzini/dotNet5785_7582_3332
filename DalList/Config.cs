@@ -1,4 +1,5 @@
 ﻿
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 namespace Dal;
 
@@ -21,17 +22,29 @@ internal static class Config
 
     /// Represents the global system clock for the application.
     /// Initialized to the current date and time at the moment the class is loaded.
-    internal static DateTime Clock { get; set; } = DateTime.Now;
+    internal static DateTime Clock {
+        [MethodImpl(MethodImplOptions.Synchronized)] 
+        get;
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        set; 
+    } = DateTime.Now;
 
 
-    // Define a risk range of 30 minutes
-    internal static TimeSpan RiskRange { get; set; } = TimeSpan.FromMinutes(30);
+        // Define a risk range of 30 minutes
+        internal static TimeSpan RiskRange
+    {
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        get;
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        set;
+    } = TimeSpan.FromMinutes(30);
 
     /// <summary>
     /// Resets the configuration parameters to their initial values.
     /// This includes resetting the next course ID to the starting ID
     /// and synchronizing the global system clock to the current date and time.
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     internal static void Reset()
     {
         _AssignmentId = MinAssignmentId;
