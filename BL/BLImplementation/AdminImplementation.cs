@@ -44,10 +44,8 @@ internal class AdminImplementation : IAdmin
     /// </summary>
     public void InitializeDB()
     {
-        DalTest.Initialization.Do();
-        AdminManager.UpdateClock( AdminManager.Now);
-        AdminManager.RiskRange = AdminManager.RiskRange;
-
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
+        AdminManager.InitializeDB(); //stage 7
     }
 
     /// <summary>
@@ -55,9 +53,8 @@ internal class AdminImplementation : IAdmin
     /// </summary>
     public void ResetDB()
     {
-        _dal.ResetDB();
-        AdminManager.UpdateClock(AdminManager.Now);
-        AdminManager.RiskRange = AdminManager.RiskRange;
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
+        AdminManager.ResetDB(); //stage 7
     }
 
     /// <summary>

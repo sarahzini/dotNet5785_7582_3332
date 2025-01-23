@@ -1,4 +1,6 @@
-﻿namespace Dal
+﻿using System.Runtime.CompilerServices;
+
+namespace Dal
 {
     /// <summary>
     /// The Config class manages configuration settings for the DalXml project.
@@ -16,28 +18,36 @@
         // Property for the next assignment ID
         internal static int NextAssignmentId
         {
+            [MethodImpl(MethodImplOptions.Synchronized)]
             get => XMLTools.GetAndIncreaseConfigIntVal(s_data_config_xml, "NextAssignmentId");
+            [MethodImpl(MethodImplOptions.Synchronized)]
             set => XMLTools.SetConfigIntVal(s_data_config_xml, "NextAssignmentId", value);
         }
 
         // Property for the next call ID
         internal static int NextCallId
         {
+            [MethodImpl(MethodImplOptions.Synchronized)]
             get => XMLTools.GetAndIncreaseConfigIntVal(s_data_config_xml, "NextCallId");
+            [MethodImpl(MethodImplOptions.Synchronized)]
             set => XMLTools.SetConfigIntVal(s_data_config_xml, "NextCallId", value);
         }
 
         // Property for the system clock
         internal static DateTime Clock
         {
+            [MethodImpl(MethodImplOptions.Synchronized)]
             get => XMLTools.GetConfigDateVal(s_data_config_xml, "Clock");
+            [MethodImpl(MethodImplOptions.Synchronized)]
             set => XMLTools.SetConfigDateVal(s_data_config_xml, "Clock", value);
         }
 
         // Property for the risk range
         internal static TimeSpan RiskRange
         {
+            [MethodImpl(MethodImplOptions.Synchronized)]
             get => TimeSpan.FromMinutes(XMLTools.GetConfigIntVal(s_data_config_xml, "RiskRange"));
+            [MethodImpl(MethodImplOptions.Synchronized)]
             set => XMLTools.SetConfigIntVal(s_data_config_xml, "RiskRange", (int)value.TotalMinutes);
         }
 
