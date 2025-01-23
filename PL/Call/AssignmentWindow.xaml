@@ -4,12 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Assignment Window" Height="700" Width="900"
+        Title="Assignment Window" Height="863" Width="1092"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed">
     <!--External Grid-->
-    <Grid Margin="20">
+    <Grid Margin="2,24,8,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="530*"/>
+            <ColumnDefinition Width="11*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -17,23 +21,31 @@
         </Grid.RowDefinitions>
 
         <!--Title Section-->
-        <TextBlock Text="Choose the call closest to you to respond quickly!" 
-                   FontSize="24" FontWeight="Bold" Foreground="#FFB22222"
-                   HorizontalAlignment="Left" Margin="-6,4,0,16" Width="403" />
-        <Label Content="Filter:" HorizontalAlignment="Left" Margin="594,18,0,0" VerticalAlignment="Top"/>
+        <TextBlock Text="Choose the call closest from you to respond quickly!" 
+                   FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
+                   HorizontalAlignment="Center" Margin="0,4,0,23" Width="602" />
+        <Label Content="Filter:" HorizontalAlignment="Left" Margin="530,21,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="56" Foreground="#FFEB0404"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
-                  SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="649,14,69,592"
-                  SelectionChanged="FilteredCall_SelectionChanged" Grid.RowSpan="2" />
+                  SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="597,20,251,0" VerticalAlignment="Top" Height="25"
+                  SelectionChanged="FilteredCall_SelectionChanged" Grid.Row="1" />
 
-        <Label Content="Sort By:" HorizontalAlignment="Left" Margin="356,24,0,0" VerticalAlignment="Top"/>
+        <Label Content="Sort By:" HorizontalAlignment="Left" Margin="211,21,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1" Foreground="#FFEB0404" Width="55"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource OpenCallFieldCollectionKey}}"
                   SelectionChanged="SortedCall_SelectionChanged"
-                  SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="412,0,0,0" VerticalAlignment="Center" Width="123" Height="32" RenderTransformOrigin="0.463,0.612" />
+                  SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="273,21,0,0" VerticalAlignment="Top" Width="159" Height="25" RenderTransformOrigin="0.463,0.612" Grid.Row="1" />
 
         <!--ListView Section-->
         <ListView Grid.Row="1" ItemsSource="{Binding Path=OpenCallList}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
-                  BorderBrush="#FFB22222" Background="#FFFDFDFD" Margin="0,0,0,0"
-                  Padding="10">
+                  BorderBrush="#FFEB0404" Background="#FFFDFDFD"
+                  Padding="10" Margin="0,66,10,20" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="1044" Grid.ColumnSpan="2">
+            <ListView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.208"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-1.663"/>
+                </TransformGroup>
+            </ListView.RenderTransform>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Margin" Value="0,0,0,10"/>
@@ -46,7 +58,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="#FFFFE0E0"/>
-                            <Setter Property="Foreground" Value="#FFB22222"/>
+                            <Setter Property="Foreground" Value="#FFEB0404"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -55,17 +67,17 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Call ID" Width="80" DisplayMemberBinding="{Binding CallId}" />
-                    <GridViewColumn Header="Emergency" Width="90" DisplayMemberBinding="{Binding TypeOfCall}" />
+                    <GridViewColumn Header="Emergency Type" Width="105" DisplayMemberBinding="{Binding TypeOfCall}" />
                     <GridViewColumn Header="Address" Width="200" DisplayMemberBinding="{Binding CallAddress}" />
-                    <GridViewColumn Header="Begin Time" Width="200" DisplayMemberBinding="{Binding BeginTime}" />
-                    <GridViewColumn Header="Max End Time" Width="200" DisplayMemberBinding="{Binding MaxEndTime}" />
-                    <GridViewColumn Header="Distance from your position" Width="100" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
-                    <GridViewColumn Header="" Width="150">
+                    <GridViewColumn Header="Begin Time" Width="180" DisplayMemberBinding="{Binding BeginTime}" />
+                    <GridViewColumn Header="Max End Time" Width="180" DisplayMemberBinding="{Binding MaxEndTime}" />
+                    <GridViewColumn Header="Distance From You " Width="120" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
+                    <GridViewColumn Header="Respond to Call" Width="160">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button Content="Assign to this Call" Click="btnChoose_Click"  CommandParameter="{Binding}" 
-                                            Background="#FF28A745" Foreground="White" FontWeight="Bold"
+                                    <Button Content="Take Action" Click="btnChoose_Click"  CommandParameter="{Binding}" 
+                                            Background="#FFEB0404" Foreground="White" FontWeight="Bold"
                                             Width="180" Height="30" Margin="5,0"/>
                                 </StackPanel>
                             </DataTemplate>
@@ -74,6 +86,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Canvas Margin="0,0,0,3"/>
+
     </Grid>
 </Window>

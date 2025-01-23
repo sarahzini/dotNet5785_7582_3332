@@ -197,20 +197,6 @@
     <MyWhichDistance>WalkingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>11342438</Id>
-    <Name>Rachel Dubinsky</Name>
-    <PhoneNumber>0586120394</PhoneNumber>
-    <Email>Rachel.Dubinsky@msn.com</Email>
-    <Password>Rachel78</Password>
-    <Address>63 Tchernichovsky Street, Jerusalem, Israel</Address>
-    <Latitude>31.7632657</Latitude>
-    <Longitude>35.2023972</Longitude>
-    <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>8.078434610504715</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>37463410</Id>
     <Name>Uri Dahan</Name>
     <PhoneNumber>0507461283</PhoneNumber>
@@ -278,6 +264,20 @@
     <MyJob>Volunteer</MyJob>
     <active>true</active>
     <distance>56.86647547628877</distance>
+    <MyWhichDistance>AirDistance</MyWhichDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>23043332</Id>
+    <Name>Sara Heymann</Name>
+    <PhoneNumber>0557708630</PhoneNumber>
+    <Email>Sara@gmail.com</Email>
+    <Password>Sarahey12</Password>
+    <Address>12 Jaffa St, Jerusalem, Israel</Address>
+    <Latitude>31.89893</Latitude>
+    <Longitude>35.193703</Longitude>
+    <MyJob>Manager</MyJob>
+    <active>true</active>
+    <distance>10</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
 </Volunteers>

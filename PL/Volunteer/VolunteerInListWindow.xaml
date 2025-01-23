@@ -4,15 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Volunteer In List" Height="700" Width="1186"
+        Title="Volunteer In List" Height="815" Width="1186"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed">
     <!-- External Grid -->
-    <Grid Margin="20">
+    <Grid Margin="20,90,20,37">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="971*"/>
-            <ColumnDefinition Width="175*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -28,8 +28,8 @@
               ItemsSource="{Binding VolunteerList}"
               SelectedItem="{Binding SelectedVolunteer, Mode=TwoWay}"
               MouseDoubleClick="lsvUpdate_MouseDoubleClick"
-              BorderBrush="#FFB22222" Background="#FFFDFDFD" 
-                  Padding="10" Grid.ColumnSpan="2" >
+              BorderBrush="#FFEB0404" Background="#FFFDFDFD" 
+                  Padding="10" >
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Margin" Value="0,0,0,10" />
@@ -42,7 +42,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="#FFFFE0E0" />
-                            <Setter Property="Foreground" Value="#FFB22222" />
+                            <Setter Property="Foreground" Value="#FFEB0404" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -78,18 +78,21 @@
         </ListView>
 
         <!-- Buttons Section -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="488,20,0,0">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0" Width="170">
             <Button Content="Add Volunteer" Click="btnAdd_Click" 
-                    Background="#FFB22222" Foreground="White" FontWeight="Bold"
+                    Background="#FFEB0404" Foreground="White" FontWeight="Bold"
                     Width="150" Height="50" Margin="10,0" />
         </StackPanel>
-        <Label Content="Select type of actual call:" HorizontalAlignment="Left" Margin="785,-4,0,0" VerticalAlignment="Top" Grid.Column="0" Foreground="Firebrick" Grid.RowSpan="2"/>
+        <Label Content="Select type of actual call:" HorizontalAlignment="Left" Margin="784,23,0,0" VerticalAlignment="Top" Grid.Column="0" Foreground="#FFEB0404" Height="26" Width="140"/>
         <ComboBox SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}"
                       ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}" HorizontalAlignment="Left"
-                       SelectionChanged="FilteredVolunteer_SelectionChanged" Width="202" Margin="932,-4,0,4" Grid.ColumnSpan="2" />
-        <Label Content="Sort by:" HorizontalAlignment="Left" Margin="50,-4,0,0" VerticalAlignment="Top" Grid.Column="0" Foreground="Firebrick" Grid.RowSpan="2"/>
+                       SelectionChanged="FilteredVolunteer_SelectionChanged" Width="141" Margin="924,24,0,6" />
+        <Label Content="Sort by:" HorizontalAlignment="Left" Margin="341,23,0,0" VerticalAlignment="Top" Grid.Column="0" Foreground="#FFEB0404" Height="27" Width="58" RenderTransformOrigin="0.65,0.694"/>
         <ComboBox SelectedValue="{Binding Path=Field, Mode=TwoWay}"
                ItemsSource="{Binding Source={StaticResource VolunteerInListFieldCollectionKey}}" HorizontalAlignment="Left"
-                SelectionChanged="FilteredVolunteer_SelectionChanged" Width="202" Margin="133,-4,0,4" />
+                SelectionChanged="FilteredVolunteer_SelectionChanged" Width="141" Margin="393,24,0,6" />
+        <TextBlock Text="Volunteer Managment Dashboard" 
+                   FontSize="30" FontWeight="Bold" Foreground="#FFEB0404"
+                   HorizontalAlignment="Left" Margin="345,-75,0,87" Width="562" />
     </Grid>
 </Window>
