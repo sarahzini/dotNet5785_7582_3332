@@ -13,7 +13,7 @@ internal static class AssignmentManager
     {
         IEnumerable<DO.Assignment>? assignments;
         lock (AdminManager.BlMutex)
-                 assignments= s_dal.Assignment.ReadAll();
+                 assignments= s_dal.Assignment.ReadAll().ToList();
 
         if (assignments == null)
             return;
