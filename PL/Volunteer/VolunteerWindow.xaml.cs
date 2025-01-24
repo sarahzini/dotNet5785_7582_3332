@@ -181,21 +181,32 @@ namespace PL.Volunteer
             return new string(Password.ToString().OrderBy(c => random.Next()).ToArray());
         }
 
+        private volatile bool _observerWorking = false; //stage 7
+
+
         /// <summary>
         /// This method calls the volunteer observer.
         /// </summary>
-        private void volunteerObserver() 
+        private void volunteerObserver() //stage 7
         {
-            int id = CurrentVolunteer!.VolunteerId;
-            CurrentVolunteer = null;
-            CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
-                
+            if (!_observerWorking)
+            {
+                _observerWorking = true;
+                _ = Dispatcher.BeginInvoke(() =>
+                {
+                    int id = CurrentVolunteer!.VolunteerId;
+                    CurrentVolunteer = null;
+                    CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
+                    _observerWorking = false;
+                });
+            }
         }
+
 
         /// <summary>
         /// This method loads the window.
         /// </summary>
-         private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (CurrentVolunteer!.VolunteerId != 0)
                 s_bl.Volunteer.AddObserver(CurrentVolunteer!.VolunteerId, volunteerObserver);

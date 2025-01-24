@@ -140,7 +140,13 @@ internal class VolunteerImplementation : IVolunteer
             lock (AdminManager.BlMutex)
                 _dal.Volunteer.Update(updatedVolunteer);
             VolunteerManager.Observers.NotifyItemUpdated(updatedVolunteer.VolunteerId); //stage 5   
-            VolunteerManager.Observers.NotifyListUpdated(); //stage 5   
+            VolunteerManager.Observers.NotifyListUpdated(); //stage 5
+
+            if (oldVolunteer.Address != updatedVolunteer.Address)
+            {
+                //compute the coordinates asynchronously without waiting for the results
+                _ = GeocodingService.updateCoordinatesForVolunteerAddressAsync(updatedVolunteer); //stage 7
+            }
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -192,7 +198,11 @@ internal class VolunteerImplementation : IVolunteer
             // Attempt to add the new volunteer to the data layer
             lock (AdminManager.BlMutex)
                 _dal.Volunteer.Create(newVolunteer);
-            VolunteerManager.Observers.NotifyListUpdated(); //stage 5   
+            VolunteerManager.Observers.NotifyListUpdated(); //stage 5
+
+            //compute the coordinates asynchronously without waiting for the results
+            _ = GeocodingService.updateCoordinatesForVolunteerAddressAsync(newVolunteer); //stage 7
+
         }
         catch (DO.DalAlreadyExistException ex)
         {

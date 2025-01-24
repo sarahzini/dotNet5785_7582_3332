@@ -16,8 +16,8 @@ public record Call
   //The Call properties
   int CallId,
   string Address,
-  double Latitude,
-  double Longitude,
+  double? Latitude,
+  double? Longitude,
   DateTime OpenTime,
   SystemType AmbulanceType,
   string? Description = null,

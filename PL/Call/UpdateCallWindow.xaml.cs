@@ -106,16 +106,27 @@ public partial class UpdateCallWindow : Window
         return new DateTime(date.Value.Year, date.Value.Month, date.Value.Day, hours, minutes, seconds);
     }
 
+    private volatile bool _observerWorking = false; //stage 7
 
     /// <summary>
     /// This method calls the observer.
     /// </summary>
-    private void callObserver()
+
+    private void callObserver() //stage 7
     {
-        int id = CurrentCall!.CallId;
-        CurrentCall = null;
-        CurrentCall = s_bl.Call.GetCallDetails(id);
+        if (!_observerWorking)
+        {
+            _observerWorking = true;
+            _ = Dispatcher.BeginInvoke(() =>
+            {
+                int id = CurrentCall!.CallId;
+                CurrentCall = null;
+                CurrentCall = s_bl.Call.GetCallDetails(id);
+                _observerWorking = false;
+            });
+        }
     }
+   
 
     /// <summary>
     /// This method adds an observer to the call.

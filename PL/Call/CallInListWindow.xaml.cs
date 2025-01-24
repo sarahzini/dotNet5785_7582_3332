@@ -61,13 +61,27 @@ public partial class CallInListWindow : Window
     /// <summary>
     /// This method calls the call list observer.
     /// </summary>
+
+    private volatile bool _observerWorking = false; //stage 7
+
     private void callListObserver()
-        => queryCallList();
+    {
+        if (!_observerWorking)
+        {
+            _observerWorking = true;
+            _ = Dispatcher.BeginInvoke(() =>
+            {
+                queryCallList();
+                _observerWorking = false;
+            });
+        }
+    }
+
 
     /// <summary>
     /// This method loads the call list window.
     /// </summary>
-     private void Window_Loaded(object sender, RoutedEventArgs e)
+    private void Window_Loaded(object sender, RoutedEventArgs e)
     => s_bl.Call.AddObserver(callListObserver);
 
     /// <summary>

@@ -98,10 +98,13 @@
 
                 <!-- Group 2: Initialization and Reset Buttons -->
                 <StackPanel>
-                    <Button Content="Initialization" Click="btnInitialization_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
-                    <Button Content="Reset" Click="btnReset_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" Height="22" />
+                    <Button Content="Initialization"  IsEnabled="{Binding isRun}" Click="btnInitialization_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
+                    <Button Content="Reset"  IsEnabled="{Binding isRun}" Click="btnReset_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" Height="22" />
                 </StackPanel>
             </StackPanel>
+            <Button Grid.Column="2" Content="{Binding ButtonText}" HorizontalAlignment="Left" Margin="14,61,0,0" Grid.Row="1" VerticalAlignment="Top" Height="22" Width="118" Click="btnSimulator_Click"/>
+            <TextBlock Grid.Column="2" HorizontalAlignment="Center" Margin="0,218,0,0" TextWrapping="Wrap" Text="Please enter the interval per minute " VerticalAlignment="Top" Width="129" Grid.RowSpan="2"/>
+            <TextBox Text="{Binding Interval}" IsEnabled="{Binding isRun}" Grid.Column="2" HorizontalAlignment="Center" Margin="0,35,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" />
 
         </Grid>
 

@@ -1,4 +1,4 @@
-﻿using BlApi;
+using BlApi;
 using Helpers;
 namespace BlImplementation;
 internal class AdminImplementation : IAdmin
@@ -99,6 +99,17 @@ internal class AdminImplementation : IAdmin
     public void RemoveConfigObserver(Action configObserver) =>
            AdminManager.ConfigUpdatedObservers -= configObserver;
 
+    /// <summary>
+    /// This method adds a simulator stopped observer.
+    /// </summary>
+    /// <param name="observer">The observer to add</param>
+    public void AddSimulatorStoppedObserver(Action observer) =>
+        AdminManager.SimulatorStoppedObservers += observer;
 
-
+    /// <summary>
+    /// This method removes a simulator stopped observer.
+    /// </summary>
+    /// <param name="observer">The observer to remove</param>
+    public void RemoveSimulatorStoppedObserver(Action observer) =>
+        AdminManager.SimulatorStoppedObservers -= observer;
 }

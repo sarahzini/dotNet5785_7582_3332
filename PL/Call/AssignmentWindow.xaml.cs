@@ -44,8 +44,22 @@ namespace PL.Call
         private void FilteredCall_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryOpenCalInlList();
 
         private void SortedCall_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryOpenCalInlList();
+
+        private volatile bool _observerWorking = false; //stage 7
+
         private void OpenCallListObserver()
-            => queryOpenCalInlList();
+        {
+            if (!_observerWorking)
+            {
+                _observerWorking = true;
+                _ = Dispatcher.BeginInvoke(() =>
+                {
+                    queryOpenCalInlList();
+                    _observerWorking = false;
+                });
+            }
+        }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
             => s_bl.Call.AddObserver(OpenCallListObserver);

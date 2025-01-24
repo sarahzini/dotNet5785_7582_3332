@@ -97,6 +97,7 @@ internal static class CallManager
     /// </summary>
     internal static DO.Call ConvertToDataCall(BO.Call call)
     {
+        
         return new DO.Call
         {
             CallId = call.CallId,

@@ -68,7 +68,21 @@ namespace PL
         /// <summary>
         /// This method calls the volunteer observer.
         /// </summary>
-        private void callsObserver() => queryClosedCallsListFilter();
+
+        private volatile bool _observerWorking = false; //stage 7
+
+        private void callsObserver()
+        {
+            if (!_observerWorking)
+            {
+                _observerWorking = true;
+                _ = Dispatcher.BeginInvoke(() =>
+                {
+                    queryClosedCallsListFilter();
+                    _observerWorking = false;
+                });
+            }
+        }
 
         /// <summary>
         /// This method loads the window.

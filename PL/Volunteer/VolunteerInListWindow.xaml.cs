@@ -49,8 +49,20 @@ public partial class VolunteerInListWindow : Window
          => VolunteerList = (Ambulance == BO.SystemType.All) ?
                    s_bl?.Volunteer.GetVolunteersInList(null,null,Field)! : s_bl?.Volunteer.GetVolunteersInList(null,Ambulance,Field)!;
 
+    private volatile bool _observerWorking = false; //stage 7
     private void volunteerListObserver()
-        => queryVolunteerList();
+    {
+        if (!_observerWorking)
+        {
+            _observerWorking = true;
+            _ = Dispatcher.BeginInvoke(() =>
+            {
+                queryVolunteerList();
+                _observerWorking = false;
+            });
+        }
+    }
+
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     => s_bl.Volunteer.AddObserver(volunteerListObserver);

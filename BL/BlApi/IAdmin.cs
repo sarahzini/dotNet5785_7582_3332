@@ -1,4 +1,3 @@
-﻿
 namespace BlApi;
 public interface IAdmin
 {
@@ -12,6 +11,8 @@ public interface IAdmin
     void RemoveConfigObserver(Action configObserver);
     void AddClockObserver(Action clockObserver);
     void RemoveClockObserver(Action clockObserver);
-
-
+    void StartSimulator(int interval);
+    void StopSimulator();
+    void AddSimulatorStoppedObserver(Action observer);
+    void RemoveSimulatorStoppedObserver(Action observer);
 }

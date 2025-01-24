@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
 namespace Helpers;
 
@@ -97,6 +97,7 @@ internal static class AdminManager //stage 4
     /// 
     private static volatile bool s_stop = false;
 
+    internal static event Action? SimulatorStoppedObservers; //pour notifier quand le simulateur est arrêté
 
     [MethodImpl(MethodImplOptions.Synchronized)] //stage 7                                                 
     public static void ThrowOnSimulatorIsRunning()
@@ -126,6 +127,7 @@ internal static class AdminManager //stage 4
             s_thread.Interrupt(); //awake a sleeping thread
             s_thread.Name = "ClockRunner stopped";
             s_thread = null;
+            SimulatorStoppedObservers?.Invoke(); // Notifier que le simulateur est arrêté
         }
     }
 

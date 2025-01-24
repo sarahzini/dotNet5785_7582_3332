@@ -21,10 +21,13 @@ public partial class MainManagerWindow : Window
     /// To gain access to the BL layer, we need to use the Factory class.
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-    public MainManagerWindow(int id=0)
+    public MainManagerWindow(int id = 0)
     {
-        InitializeComponent();
         id = id;
+        ButtonText = "Start Simulator";
+        isRun = false;
+        InitializeComponent();
+
     }
 
     public TimeSpan RiskRange
@@ -42,6 +45,82 @@ public partial class MainManagerWindow : Window
     }
     public static readonly DependencyProperty CurrentTimeProperty =
         DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainManagerWindow));
+    public string ButtonText
+    {
+        get { return (string)GetValue(ButtonTextProperty); }
+        set { SetValue(ButtonTextProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for ButtonText.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty ButtonTextProperty =
+        DependencyProperty.Register("ButtonText", typeof(string), typeof(MainManagerWindow), new PropertyMetadata(0));
+    public int Interval
+    {
+        get { return (int)GetValue(IntervalProperty); }
+        set { SetValue(IntervalProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for Interval.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty IntervalProperty =
+        DependencyProperty.Register("Interval", typeof(int), typeof(MainManagerWindow), new PropertyMetadata(0));
+    public bool isRun
+    {
+        get { return (bool)GetValue(isRunProperty); }
+        set { SetValue(isRunProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for isRun.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty isRunProperty =
+        DependencyProperty.Register("isRun", typeof(bool), typeof(MainManagerWindow), new PropertyMetadata(0));
+
+
+
+    private void btnSimulator_Click(object sender, RoutedEventArgs e)
+    {
+        if (ButtonText == "Start Simulator")
+        {
+            ButtonText = "Stop Simulator";
+            isRun = true;
+            s_bl.Admin.StartSimulator(Interval);
+        }
+        else
+        {
+            ButtonText = "Start Simulator";
+            isRun = false;
+            s_bl.Admin.StopSimulator();
+
+        }
+    }
+
+    private volatile bool _clockObserverWorking = false;
+    private void clockObserver() //stage 5
+    {
+        if (!_clockObserverWorking)
+        {
+            _clockObserverWorking = true;
+            _ = Dispatcher.BeginInvoke(() =>
+            {
+                CurrentTime = s_bl.Admin.GetClock();
+                _clockObserverWorking = false;
+            });  //stage 7 (for multithreading)
+        }
+
+    }
+
+    private volatile bool _configObserverWorking = false; //stage 7
+    private void configObserver() //stage 5
+    {
+        if (!_configObserverWorking)
+        {
+            _configObserverWorking = true;
+            _ = Dispatcher.BeginInvoke(() =>
+            { //stage 7 (for multithreading)
+                RiskRange = s_bl.Admin.GetRiskRange();
+                _configObserverWorking = false;
+            });  //stage 7 (for multithreading)
+        }
+
+    }
 
     private void btnAddOneMinute_Click(object sender, RoutedEventArgs e)
     {
@@ -69,11 +148,8 @@ public partial class MainManagerWindow : Window
     }
     private void btnSetRR_Click(object sender, RoutedEventArgs e)
     {
-       s_bl.Admin.SetRiskRange(RiskRange);
+        s_bl.Admin.SetRiskRange(RiskRange);
     }
-
-    private void clockObserver() => CurrentTime = s_bl.Admin.GetClock();
-    private void configObserver() => RiskRange = s_bl.Admin.GetRiskRange();
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
@@ -87,12 +163,14 @@ public partial class MainManagerWindow : Window
     {
         s_bl.Admin.RemoveClockObserver(clockObserver);
         s_bl.Admin.RemoveConfigObserver(configObserver);
+        if (!isRun)
+            s_bl.Admin.StopSimulator();
     }
 
     public int id { get; set; }
 
     private void btnVolunteers_Click(object sender, RoutedEventArgs e)
-    { new VolunteerInListWindow( id).Show(); }
+    { new VolunteerInListWindow(id).Show(); }
 
     private void btnCalls_Click(object sender, RoutedEventArgs e)
     { new CallInListWindow(id).Show(); }
