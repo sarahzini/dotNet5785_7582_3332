@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
-        Title="CallAssignmentWindow" Height="450" Width="800">
+        Title="Call Assignment Window" Height="450" Width="800">
     <!--External Grid-->
-        <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
@@ -20,19 +20,19 @@
 
         <ListView Grid.Row="1" ItemsSource="{Binding Path=CallAssign}"
                   Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" >
-                <ListView.Foreground>
-                    <SolidColorBrush Color="#FFEB0404"/>
-                </ListView.Foreground>
-                <ListView.View>
-                    <GridView>
+            <ListView.Foreground>
+                <SolidColorBrush Color="#FFEB0404"/>
+            </ListView.Foreground>
+            <ListView.View>
+                <GridView>
                     <GridViewColumn Header="Volunteer Id" Width="Auto" DisplayMemberBinding="{Binding VolunteerId}" />
-                        <GridViewColumn Header="Volunteer Name"  Width="Auto" DisplayMemberBinding="{Binding VolunteerName}" />
-                        <GridViewColumn Header="Begin Assignment Time" Width="Auto" DisplayMemberBinding="{Binding BeginActionTime}" />
-                        <GridViewColumn Header="End Assignment Time" Width="Auto" DisplayMemberBinding="{Binding EndActionTime}" />
-                        <GridViewColumn Header="Closure Type" Width="Auto" DisplayMemberBinding="{Binding ClosureType}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </Grid>
-    </Window>
+                    <GridViewColumn Header="Volunteer Name"  Width="Auto" DisplayMemberBinding="{Binding VolunteerName}" />
+                    <GridViewColumn Header="Begin Assignment Time" Width="Auto" DisplayMemberBinding="{Binding BeginActionTime}" />
+                    <GridViewColumn Header="End Assignment Time" Width="Auto" DisplayMemberBinding="{Binding EndActionTime}" />
+                    <GridViewColumn Header="Closure Type" Width="Auto" DisplayMemberBinding="{Binding ClosureType}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
 

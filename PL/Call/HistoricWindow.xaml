@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Content="Filter:" HorizontalAlignment="Left" Margin="45,0,0,0" VerticalAlignment="Center"/>
+            <Label Grid.Column="1" Content="Filter:" HorizontalAlignment="Left" Margin="45,0,0,0" VerticalAlignment="Center" BorderBrush="#FFDA291C" Foreground="#FFDA291C"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
                       Grid.Column="1"
                       SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="131,0,69,0"
@@ -33,15 +33,15 @@
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FF110606" Offset="1"/>
+                        <GradientStop Color="#FFDA291C" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
 
-            <Label Content="Sort By:" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Center"/>
+            <Label Content="Sort By:" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Center" BorderBrush="#FFDA291C" Foreground="#FFDA291C"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallFieldCollectionKey}}"
                       SelectionChanged="SortedCall_SelectionChanged"
-                      SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="122,2,0,0" VerticalAlignment="Top" Width="265" Height="32"/>
+                      SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="122,2,0,0" VerticalAlignment="Top" Width="206" Height="32"/>
 
         </Grid>
         <ListView Grid.Row="1" ItemsSource="{Binding Path=ClosedCalls}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"

@@ -10,6 +10,8 @@
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed">
     <!--External Grid-->
+    
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>

@@ -99,7 +99,7 @@
                         <TextBlock Text="Begin Action Time:" Style="{StaticResource RedTextStyle}" />
                         <TextBox Text="{Binding Current.BeginActionTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
 
-                        <TextBlock Text="Distance From The Call:" Style="{StaticResource RedTextStyle}" />
+                        <TextBlock Text=" Volunteer Distance From The Call:" Style="{StaticResource RedTextStyle}" />
                         <TextBox Text="{Binding Current.VolunteerDistanceToCall, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10" IsReadOnly="True"/>
 
                         <TextBlock Text="Status:" Style="{StaticResource RedTextStyle}" />
