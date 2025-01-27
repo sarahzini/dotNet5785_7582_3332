@@ -54,8 +54,8 @@ internal static class CallManager
     {
         IEnumerable<DO.Assignment>? assignments;
         lock (AdminManager.BlMutex)
-            assignments = s_dal.Assignment.ReadAll().Where(assignment => assignment.CallId == call.CallId);
-        DO.Assignment? assign = assignments.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
+            assignments = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == call.CallId);
+        DO.Assignment? assign = assignments?.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
 
         return new BO.ClosedCallInList
         {
@@ -65,7 +65,7 @@ internal static class CallManager
             BeginTime = call.OpenTime,
             BeginActionTime = assign!.Begin,
             EndActionTime = assign!.End,
-            TypeOfEnd = (BO.EndStatus)assign?.MyEndStatus 
+            TypeOfEnd = (BO.EndStatus)assign.MyEndStatus!
         };
     }
 
@@ -132,7 +132,7 @@ internal static class CallManager
                 VolunteerName = s_dal.Volunteer.Read(assignment.VolunteerId)?.Name,
                 BeginActionTime = assignment.Begin,
                 EndActionTime = assignment.End,
-                ClosureType = assignment.End is null ? null:(BO.EndStatus)assignment!.MyEndStatus
+                ClosureType = assignment.End is null ? null:(BO.EndStatus)assignment!.MyEndStatus!
             })
             .ToList();
 
@@ -196,11 +196,11 @@ internal static class CallManager
         //the adress details will be check after the call of this function
     }
 
-    internal static double CalculOfDistance(DO.Call call, DO.Volunteer volunteer )
+    internal static double CalculOfDistance(DO.Call call, DO.Volunteer? volunteer )
     {
         return Math.Sqrt(
-        Math.Pow((double)(volunteer.Longitude - call.Longitude), 2) +
-        Math.Pow((double)(volunteer.Latitude - call.Latitude), 2));
+        Math.Pow((double)(volunteer!.Longitude! - call.Longitude!), 2) +
+        Math.Pow((double)(volunteer!.Latitude! - call.Latitude!), 2));
 
     }
 }

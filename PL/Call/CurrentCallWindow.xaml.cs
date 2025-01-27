@@ -58,7 +58,7 @@ namespace PL.Call
             {
                 if (confirmation == MessageBoxResult.Yes)
                 { 
-                    s_bl.Call.CancelAssignment(VolunteerId, CurrentCall.AssignId);
+                    s_bl.Call.CancelAssignment(VolunteerId, CurrentCall.AssignId, CurrentCall.Status);
                     MessageBox.Show($"Your recent call {CurrentCall.CallId} succesfully canceled.", "Call Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
 

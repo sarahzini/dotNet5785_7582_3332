@@ -21,13 +21,14 @@ public partial class MainManagerWindow : Window
     /// To gain access to the BL layer, we need to use the Factory class.
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-    public MainManagerWindow(int id = 0)
+    public MainManagerWindow(int Id = 0)
     {
-        id = id;
+        id = Id;
         ButtonText = "Start Simulator";
-        isRun = false;
+        isNotRun = true;
+        CallCounts = s_bl.Call.TypeOfCallCounts();
         InitializeComponent();
-        int[] CallCounts = s_bl.Call.TypeOfCallCounts();
+      
     }
     public int[] CallCounts
     {
@@ -37,7 +38,7 @@ public partial class MainManagerWindow : Window
 
     // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty MyPropertyProperty =
-        DependencyProperty.Register("MyProperty", typeof(int[]), typeof(MainManagerWindow), new PropertyMetadata(0));
+        DependencyProperty.Register("MyProperty", typeof(int[]), typeof(MainManagerWindow));
     public TimeSpan RiskRange
     {
         get { return (TimeSpan)GetValue(RiskRangeProperty); }
@@ -61,7 +62,7 @@ public partial class MainManagerWindow : Window
 
     // Using a DependencyProperty as the backing store for ButtonText.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty ButtonTextProperty =
-        DependencyProperty.Register("ButtonText", typeof(string), typeof(MainManagerWindow), new PropertyMetadata(0));
+        DependencyProperty.Register("ButtonText", typeof(string), typeof(MainManagerWindow), new PropertyMetadata(""));
     public int Interval
     {
         get { return (int)GetValue(IntervalProperty); }
@@ -71,15 +72,15 @@ public partial class MainManagerWindow : Window
     // Using a DependencyProperty as the backing store for Interval.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty IntervalProperty =
         DependencyProperty.Register("Interval", typeof(int), typeof(MainManagerWindow), new PropertyMetadata(0));
-    public bool isRun
+    public bool isNotRun
     {
-        get { return (bool)GetValue(isRunProperty); }
-        set { SetValue(isRunProperty, value); }
+        get { return (bool)GetValue(isNotRunProperty); }
+        set { SetValue(isNotRunProperty, value); }
     }
 
     // Using a DependencyProperty as the backing store for isRun.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty isRunProperty =
-        DependencyProperty.Register("isRun", typeof(bool), typeof(MainManagerWindow), new PropertyMetadata(0));
+    public static readonly DependencyProperty isNotRunProperty =
+        DependencyProperty.Register("isRun", typeof(bool), typeof(MainManagerWindow), new PropertyMetadata(false));
 
 
 
@@ -88,13 +89,13 @@ public partial class MainManagerWindow : Window
         if (ButtonText == "Start Simulator")
         {
             ButtonText = "Stop Simulator";
-            isRun = true;
+            isNotRun = false;
             s_bl.Admin.StartSimulator(Interval);
         }
         else
         {
             ButtonText = "Start Simulator";
-            isRun = false;
+            isNotRun = true;
             s_bl.Admin.StopSimulator();
 
         }
@@ -165,14 +166,38 @@ public partial class MainManagerWindow : Window
         RiskRange = s_bl.Admin.GetRiskRange();
         s_bl.Admin.AddClockObserver(clockObserver);
         s_bl.Admin.AddConfigObserver(configObserver);
+        s_bl.Call.AddObserver(callListObserver);
+
     }
 
     private void Window_Closed(object sender, EventArgs e)
-    {
+    { 
+        if (!isNotRun)
+            s_bl.Admin.StopSimulator();
         s_bl.Admin.RemoveClockObserver(clockObserver);
         s_bl.Admin.RemoveConfigObserver(configObserver);
-        if (!isRun)
-            s_bl.Admin.StopSimulator();
+        s_bl.Call.RemoveObserver(callListObserver);
+    }
+    private void CountCallList()
+        => CallCounts = s_bl.Call.TypeOfCallCounts();
+
+    /// <summary>
+    /// This method calls the call list observer.
+    /// </summary>
+
+    private volatile bool _observerWorking = false; //stage 7
+
+    private void callListObserver()
+    {
+        if (!_observerWorking)
+        {
+            _observerWorking = true;
+            _ = Dispatcher.BeginInvoke(() =>
+            {
+                CountCallList();
+                _observerWorking = false;
+            });
+        }
     }
 
     public int id { get; set; }

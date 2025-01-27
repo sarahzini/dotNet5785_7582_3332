@@ -98,25 +98,34 @@
 
                 <!-- Group 2: Initialization and Reset Buttons -->
                 <StackPanel>
-                    <Button Content="Initialization"  IsEnabled="{Binding isRun}" Click="btnInitialization_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
-                    <Button Content="Reset"  IsEnabled="{Binding isRun}" Click="btnReset_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" Height="22" />
+                    <Button Content="Initialization"  IsEnabled="{Binding isNotRun}" Click="btnInitialization_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
+                    <Button Content="Reset"  IsEnabled="{Binding isNotRun}" Click="btnReset_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" Height="22" />
                 </StackPanel>
             </StackPanel>
             <Button Grid.Column="2" Content="{Binding ButtonText}" HorizontalAlignment="Left" Margin="14,61,0,0" Grid.Row="1" VerticalAlignment="Top" Height="22" Width="118" Click="btnSimulator_Click"/>
-            <TextBlock Grid.Column="2" HorizontalAlignment="Center" Margin="0,218,0,0" TextWrapping="Wrap" Text="Please enter the interval per minute " VerticalAlignment="Top" Width="129" Grid.RowSpan="2"/>
-            <TextBox Text="{Binding Interval}" IsEnabled="{Binding isRun}" Grid.Column="2" HorizontalAlignment="Center" Margin="0,35,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" />
-            <Button Content="Open" Click="btnOpenCalls_Click" HorizontalAlignment="Left" Margin="51,172,0,0" VerticalAlignment="Top" Height="21" Width="68"/>
-            <Button Content="Open In Risk" Click="btnOpenCallsInRisk_Click" HorizontalAlignment="Center" Margin="0,193,0,0" VerticalAlignment="Top" Height="25" Width="85"/>
-            <Button Content="In Action" Click="btnInActionCalls_Click" HorizontalAlignment="Center" Margin="0,1,0,0" Grid.Row="1" VerticalAlignment="Top" Width="85"/>
-            <Button Content="In Action in Risk" Click="btnInActionCallsInRisk_Click" Margin="44,21,44,99" Grid.Row="1"/>
-            <Button Content="Closed" Click="btnClosedCalls_Click" HorizontalAlignment="Left" Margin="51,46,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="58"/>
-            <Button Content="Expired" Click="btnExpiredCalls_Click" Margin="34,65,45,54" Grid.Row="1"/>
-            <Label Content="{Binding  CallCounts[0]}" HorizontalAlignment="Left" Margin="0,167,0,0" VerticalAlignment="Top"/>
-            <Label Content="{Binding  CallCounts[2]}" HorizontalAlignment="Left" Margin="22,204,0,0" VerticalAlignment="Top"/>
-            <Label Content="{Binding  CallCounts[5]}" HorizontalAlignment="Left" Margin="0,21,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-            <Label Content="{Binding  CallCounts[1]}" HorizontalAlignment="Left" Margin="-9,216,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.642,0.135" Grid.RowSpan="2"/>
-            <Label Content="{Binding  CallCounts[3]}" HorizontalAlignment="Left" Margin="-9,41,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-            <Label Content="{Binding  CallCounts[4]}" HorizontalAlignment="Left" Margin="-4,67,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <TextBlock Grid.Column="2" HorizontalAlignment="Center" Margin="0,194,0,0" TextWrapping="Wrap" Text="Please enter the interval per minute " VerticalAlignment="Top" Width="129" Grid.RowSpan="2"/>
+            <TextBox Text="{Binding Interval}" IsEnabled="{Binding isNotRun}" Grid.Column="2" HorizontalAlignment="Center" Margin="0,35,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" />
+            <Button Content="Open" Click="btnOpenCalls_Click" HorizontalAlignment="Left" Margin="66,172,0,0" VerticalAlignment="Top" Height="21" Width="68"/>
+            <Button Content="Open In Risk" Click="btnOpenCallsInRisk_Click" HorizontalAlignment="Left" Margin="64,194,0,0" VerticalAlignment="Top" Height="25" Width="85" Grid.RowSpan="2"/>
+            <Button Content="In Action" Click="btnInActionCalls_Click" HorizontalAlignment="Left" Margin="61,1,0,0" Grid.Row="1" VerticalAlignment="Top" Width="85"/>
+            <Button Content="In Action in Risk" Click="btnInActionCallsInRisk_Click" Margin="55,20,296,100" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Button Content="Closed" Click="btnClosedCalls_Click" HorizontalAlignment="Left" Margin="68,45,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="58"/>
+            <Button Content="Expired" Click="btnExpiredCalls_Click" Margin="63,71,16,49" Grid.Row="1"/>
+            <Label Content="{Binding  CallCounts[0]}" HorizontalAlignment="Left" Margin="7,173,0,0" VerticalAlignment="Top" Height="21" Width="54"/>
+            <Label Content="{Binding  CallCounts[2]}" HorizontalAlignment="Left" Margin="1,195,0,144" Width="60" Grid.RowSpan="2"/>
+            <Label Content="{Binding  CallCounts[5]}" HorizontalAlignment="Left" Margin="1,24,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="44" RenderTransformOrigin="0.5,0.5">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="1.195"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Label Content="{Binding  CallCounts[1]}" HorizontalAlignment="Left" Margin="-9,216,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.642,0.135" Grid.RowSpan="2" Height="26" Width="69"/>
+            <Label Content="{Binding  CallCounts[3]}" HorizontalAlignment="Left" Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="45"/>
+            <Label Content="{Binding  CallCounts[4]}" HorizontalAlignment="Left" Margin="-4,67,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="57"/>
 
         </Grid>
 

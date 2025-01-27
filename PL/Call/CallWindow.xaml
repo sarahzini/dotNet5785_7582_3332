@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
-        Title="Call Window" Height="520" Width="622"
+        Title="Call Window" Height="502" Width="622"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Loaded="Window_Loaded" Closed="Window_Closed">
 
     <Window.Resources>
@@ -51,12 +52,8 @@
 
     <Border Style="{StaticResource CardStyle}" HorizontalAlignment="Center" Width="602" Grid.ColumnSpan="2" Margin="0,10,0,8">
 
-        <Grid Height="589" VerticalAlignment="Top" Margin="0,0,-10,0">
+        <Grid Height="421" VerticalAlignment="Top" Margin="-13,0,-10,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -69,52 +66,33 @@
             <Image Source="pack://application:,,,/PL;component/Images/Logo.png"
                    Grid.Row="0" 
                    HorizontalAlignment="Center" 
-                   Width="100" 
-                   Margin="0,0,0,212" Grid.Column="1" />
+                   Width="112" 
+                   Margin="0,0,0,286" Grid.Column="1" />
 
-            <StackPanel Margin="2,46,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="403" Grid.RowSpan="7">
+            <StackPanel Margin="2,46,-5,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="472" Grid.RowSpan="4">
 
                 <TextBlock Text="Address:" Style="{StaticResource RedTextStyle}" />
-                <TextBox Text="{Binding CurrentCall.Address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                <TextBox Text="{Binding CurrentCall.CallAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                          VerticalAlignment="Center" IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusToVisibilityConverterKey}}" Margin="0,0,0,10"/>
 
                 <TextBlock Text="Open Time:" Style="{StaticResource RedTextStyle}" />
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <DatePicker x:Name="BeginDatePicker" 
-                              IsEnabled="false" 
-                              HorizontalAlignment="Left" 
-                              Margin="2" 
-                              SelectedDate="{Binding CurrentCall.BeginTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                              VerticalAlignment="Center" 
-                              Width="120"/>
-                    <TextBox x:Name="BeginTimeTextBox" 
+                <TextBox x:Name="BeginTimeTextBox" 
                             IsEnabled="false" 
-                            Margin="2" 
-                            Text="{Binding CurrentCall.BeginTime, Mode=TwoWay, StringFormat='{}{0:HH:mm:ss}', NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                            Text="{Binding CurrentCall.BeginTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                             VerticalAlignment="Center" 
-                            Width="118" Height="24"/>
-                </StackPanel>
+                            Margin="0,0,0,10" />
+
 
                 <TextBlock Text="Max Time to End Call:" Style="{StaticResource RedTextStyle}" />
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Visibility="{Binding ButtonText}">
-                    <DatePicker x:Name="MaxEndDatePicker" 
-                              HorizontalAlignment="Left" 
-                              Margin="2" 
-                              SelectedDate="{Binding CurrentCall.MaxEndTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                              VerticalAlignment="Center" 
-                              Width="120"
-                              IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusOpenToVisibilityConverterKey}}"/>
-                    <TextBox x:Name="MaxEndTimeTextBox" 
-                            Margin="2" 
-                            Text="{Binding CurrentCall.MaxEndTime, Mode=TwoWay, StringFormat='{}{0:HH:mm:ss}', NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                <TextBox x:Name="MaxEndTimeTextBox" 
+                            Margin="0,0,0,10" 
+                            Text="{Binding CurrentCall.MaxEndTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                             VerticalAlignment="Center" 
-                            Width="116"
                             IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusOpenToVisibilityConverterKey}}" Height="24"/>
-                </StackPanel>
 
                 <TextBlock Text="Ambulance Type:" Style="{StaticResource RedTextStyle}" />
                 <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
-          SelectedValue="{Binding CurrentCall.AmbulanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+          SelectedValue="{Binding CurrentCall.TypeOfCall, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
           IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusToVisibilityConverterKey}}"
           Margin="0,0,0,10" />
 
@@ -135,13 +113,23 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                     <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click"
                             Style="{StaticResource RedButtonStyle}"
-                            Width="150"
-                            Margin="0,0,20,0"/>
+                            IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusOpenToVisibilityConverterKey}}"
+                            Width="162"
+                            Margin="0,0,20,0" Height="33" RenderTransformOrigin="0.5,0.5">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="0.126"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
                     <Button Content="List Of Assignments" 
                             Click="btnAssignments_Click" 
                             Style="{StaticResource RedButtonStyle}"
-                            Width="150"
-                            Visibility="{Binding CurrentCall.CallAssigns, Converter={StaticResource NullToVisibilityConverterKey}}"/>
+                            Width="160"
+                            Visibility="{Binding CurrentCall.CallAssigns, Converter={StaticResource NullToVisibilityConverterKey}}" Height="33"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

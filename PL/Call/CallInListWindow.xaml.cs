@@ -140,7 +140,7 @@ public partial class CallInListWindow : Window
         {
             if (confirmation == MessageBoxResult.Yes)
             {
-                s_bl.Call.DeleteCall(SelectedCall.CallId);
+                s_bl.Call.DeleteCall(SelectedCall.CallId,SelectedCall.Status);
             }
         }
         catch (Exception ex)
@@ -159,7 +159,7 @@ public partial class CallInListWindow : Window
         {
             if (confirmation == MessageBoxResult.Yes)
             {
-                s_bl.Call.CancelAssignment(requesterId,(SelectedCall.AssignId));
+                s_bl.Call.CancelAssignment(requesterId,SelectedCall.AssignId,SelectedCall.Status);
             }
         }
         catch (Exception ex)

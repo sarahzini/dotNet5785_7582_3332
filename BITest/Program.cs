@@ -36,9 +36,7 @@ internal class Program
     static readonly IBl s_bl = BlApi.Factory.Get();
     static void Main(string[] args)
     {
-        string? adress = Console.ReadLine();
-        (double latitude,double longitude)=Helpers.GeocodingService.GetCoordinates(adress);
-        Console.WriteLine($"{latitude}{longitude}:");
+      
 
 
         Console.WriteLine("Welcome to the MDA Volunteers System !:");
@@ -126,8 +124,13 @@ internal class Program
             {
                 case CallMethods.TypeOfCallCounts:
                     int[] result = s_bl.Call.TypeOfCallCounts();
-                    Console.WriteLine($"Number of ICU calls in the system :{result[0]} ");
-                    Console.WriteLine($"Number of Regular calls in the system :{result[1]} ");
+                    Console.WriteLine($"Number of Open calls in the system: {result[0]}");
+                    Console.WriteLine($"Number of InAction calls in the system: {result[1]}");
+                    Console.WriteLine($"Number of Closed calls in the system: {result[2]}");
+                    Console.WriteLine($"Number of Expired calls in the system: {result[3]}");
+                    Console.WriteLine($"Number of OpenToRisk calls in the system: {result[4]}");
+                    Console.WriteLine($"Number of InActionToRisk calls in the system: {result[5]}");
+
                     break;
                 case CallMethods.GetSortedCallsInList:
                     GetSortedCallsInList();
@@ -286,12 +289,12 @@ internal class Program
         bool? isActive = bool.TryParse(Console.ReadLine(), out bool result) ? result : (bool?)null;
 
         Console.Write("Enter the field to sort by (0 for VolunteerId, 1 for Name, 2 for CompletedCalls, 3 for CancelledCalls, 4 for ExpiredCalls, 5 for ActualCallId, or leave empty and we will sort by Id): ");
-        VolunteerInListFieldSort? sortField = int.TryParse(Console.ReadLine(), out int sortFieldResult) ? (VolunteerInListFieldSort)sortFieldResult : (VolunteerInListFieldSort?)null;
+        //SystemType? sortField = int.TryParse(Console.ReadLine(), out int sortFieldResult) ? (SystemType)sortFieldResult : (SystemType?)null;
 
-        IEnumerable<VolunteerInList>? v = s_bl.Volunteer.GetVolunteersInList(isActive, sortField);
-        foreach(VolunteerInList volunteer in v)
+        //IEnumerable<VolunteerInList>? v = s_bl.Volunteer.GetVolunteersInList(isActive, sortField);
+       // foreach(VolunteerInList volunteer in v)
         {
-            Console.WriteLine(volunteer);
+            //Console.WriteLine(volunteer);
         }
 
     }

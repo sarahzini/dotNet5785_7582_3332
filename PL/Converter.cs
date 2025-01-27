@@ -48,21 +48,23 @@ namespace PL
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
-            switch ((BO.Statuses)value)
+            if (value != null)
             {
-                case BO.Statuses.Expired:
-                case BO.Statuses.Closed:
-                case BO.Statuses.InAction:
-                case BO.Statuses.InActionToRisk:
-                    return false;
-                case BO.Statuses.Open:
-                case BO.Statuses.OpenToRisk:
-                case BO.Statuses.All:
-                    return true;
-                default:
-                    return false;
-            }
+                switch ((BO.Statuses)value)
+                {
+                    case BO.Statuses.Expired:
+                    case BO.Statuses.Closed:
+                    case BO.Statuses.InAction:
+                    case BO.Statuses.InActionToRisk:
+                        return false;
+                    case BO.Statuses.Open:
+                    case BO.Statuses.OpenToRisk:
+                    case BO.Statuses.All:
+                        return true;
+                    default:
+                        return false;
+                }
+            } return true;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -75,21 +77,24 @@ namespace PL
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
-            switch ((BO.Statuses)value)
+            if (value != null)
             {
-                case BO.Statuses.Expired:
-                case BO.Statuses.Closed:
-                    return false;
-                case BO.Statuses.InAction:
-                case BO.Statuses.InActionToRisk:
-                case BO.Statuses.Open:
-                case BO.Statuses.OpenToRisk:
-                case BO.Statuses.All:
-                    return true;
-                default:
-                    return false;
-            }
+
+                switch ((BO.Statuses)value)
+                {
+                    case BO.Statuses.Expired:
+                    case BO.Statuses.Closed:
+                        return false;
+                    case BO.Statuses.InAction:
+                    case BO.Statuses.InActionToRisk:
+                    case BO.Statuses.Open:
+                    case BO.Statuses.OpenToRisk:
+                    case BO.Statuses.All:
+                        return true;
+                    default:
+                        return false;
+                }
+            }return true;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="HistoricWindow" Height="528" Width="1090"
+        Title="HistoricWindow" Height="528" Width="1068"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed">
     <!--External Grid-->
-    <Grid Margin="11,0,18,16" RenderTransformOrigin="0.531,0.514" Height="477" VerticalAlignment="Bottom">
+    <Grid Margin="11,0,23,16" RenderTransformOrigin="0.531,0.514" Height="477" VerticalAlignment="Bottom">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="257*"/>
             <ColumnDefinition Width="255*"/>
@@ -28,17 +28,9 @@
                FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
                HorizontalAlignment="Center" Margin="0,4,0,23" Width="281" Grid.ColumnSpan="2" />
         <Label Content="Filter:" HorizontalAlignment="Left" Margin="16,21,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="56" Foreground="#FFEB0404" Grid.Column="1"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
-                      SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="96,20,232,0" VerticalAlignment="Top" Height="25"
-              SelectionChanged="FilteredCall_SelectionChanged" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Grid.Column="1" >
-            <ComboBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </ComboBox.RenderTransform>
+        <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
+                      SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="106,20,232,0" VerticalAlignment="Top" Height="25"
+              SelectionChanged="FilteredCall_SelectionChanged" Grid.Row="1"  Grid.Column="1" >
         </ComboBox>
 
         <Label Content="Sort By:" HorizontalAlignment="Left" Margin="211,21,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1" Foreground="#FFEB0404" Width="55"/>
@@ -47,9 +39,9 @@
                       SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="273,21,0,0" VerticalAlignment="Top" Width="159" Height="25" RenderTransformOrigin="0.463,0.612" Grid.Row="1" />
 
         <!--ListView Section-->
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=OpenCallList}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=ClosedCalls}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
               BorderBrush="#FFEB0404" Background="#FFFDFDFD"
-              Padding="10" Margin="10,66,6,1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+              Padding="10" Margin="10,66,0,1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="1021">
             <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -82,10 +74,9 @@
                     <GridViewColumn Header="Emergency Type" Width="105" DisplayMemberBinding="{Binding TypeOfCall}" />
                     <GridViewColumn Header="Address" Width="200" DisplayMemberBinding="{Binding CallAddress}" />
                     <GridViewColumn Header="Begin Time" Width="180" DisplayMemberBinding="{Binding BeginTime}" />
-                    <GridViewColumn Header="Max End Time" Width="180" DisplayMemberBinding="{Binding MaxEndTime}" />
-                    <GridViewColumn Header="Distance From You " Width="120" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
-                    <GridViewColumn Header="" Width="auto">
-                    </GridViewColumn>
+                    <GridViewColumn Header="Begin Assignment Time" Width="180" DisplayMemberBinding="{Binding BeginActionTime}" />
+                    <GridViewColumn Header="End Assignment Time" Width="120" DisplayMemberBinding="{Binding EndActionTime}" />
+                    <GridViewColumn Header="Type Of End" Width="150" DisplayMemberBinding="{Binding TypeOfEnd}"/>
                 </GridView>
             </ListView.View>
         </ListView>

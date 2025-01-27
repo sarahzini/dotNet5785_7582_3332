@@ -1,18 +1,4 @@
-﻿using PL.Volunteer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace PL.Call;
 
@@ -80,7 +66,7 @@ public partial class CallWindow : Window
 
     // Using a DependencyProperty as the backing store for ButtonText.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty ButtonTextProperty =
-        DependencyProperty.Register("ButtonText", typeof(string), typeof(CallWindow), new PropertyMetadata(0));
+        DependencyProperty.Register("ButtonText", typeof(string), typeof(CallWindow), new PropertyMetadata(""));
 
 
 
@@ -91,10 +77,8 @@ public partial class CallWindow : Window
     {
         try
         {
-            // Combine date and time for MaxEndTime
-            CurrentCall!.MaxEndTime = CombineDateAndTime(MaxEndDatePicker.SelectedDate, MaxEndTimeTextBox.Text);
-
-            if (ButtonText=="Update")
+            
+            if (ButtonText == "Update")
             {
                 s_bl.Call.UpdateCallDetails(CurrentCall!);
                 MessageBox.Show($"The Call with the ID number : {CurrentCall?.CallId} was successfully updated!", "", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -102,7 +86,7 @@ public partial class CallWindow : Window
             else
             {
                 s_bl.Call.AddCall(CurrentCall!);
-                MessageBox.Show($"The Call with the ID number : {CurrentCall?.CallId} was successfully added!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"The Call was successfully added!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
 
             }
@@ -127,30 +111,14 @@ public partial class CallWindow : Window
         }
     }
 
-    private void btnAssignments_Click(object sender, RoutedEventArgs e) { 
-
-         new CallAssignmentWindow(CurrentCall!.CallAssigns!).ShowDialog();
-    }
-        
-
-    /// <summary>
-    /// This method combines a date and time to create a DateTime object.
-    /// </summary>
-    private DateTime? CombineDateAndTime(DateTime? date, string time)
+    private void btnAssignments_Click(object sender, RoutedEventArgs e)
     {
-        if (date == null )
-           return null;
 
-        var timeParts = time.Split(':');
-        if (timeParts.Length != 3)
-            throw new ArgumentException("The date format is invalid");
-
-        int hours = int.Parse(timeParts[0]);
-        int minutes = int.Parse(timeParts[1]);
-        int seconds = int.Parse(timeParts[2]);
-
-        return new DateTime(date.Value.Year, date.Value.Month, date.Value.Day, hours, minutes, seconds);
+        new CallAssignmentWindow(CurrentCall!.CallAssigns!).ShowDialog();
     }
+
+
+    
 
     private volatile bool _observerWorking = false; //stage 7
 
@@ -172,7 +140,7 @@ public partial class CallWindow : Window
             });
         }
     }
-   
+
 
     /// <summary>
     /// This method adds an observer to the call.

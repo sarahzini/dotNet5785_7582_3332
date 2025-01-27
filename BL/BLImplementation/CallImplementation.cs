@@ -1,4 +1,4 @@
-﻿using BlApi;
+using BlApi;
 using BO;
 using DO;
 using Helpers;
@@ -141,7 +141,7 @@ internal class CallImplementation : ICall
             CallManager.Observers.NotifyItemUpdated(callUpdate.CallId); //stage 5   
             CallManager.Observers.NotifyListUpdated(); //stage 5
 
-            if (oldCall.Address != DOCallUpdate.Address)
+            if (oldCall!.Address != DOCallUpdate.Address)
             {
                 //compute the coordinates asynchronously without waiting for the results
                 _ = GeocodingService.updateCoordinatesForCallAddressAsync(DOCallUpdate); //stage 7
@@ -191,29 +191,29 @@ internal class CallImplementation : ICall
     /// if the call can be deleted by checking if the call has been assigned to a volunteer or it is not open. 
     /// If the conditions are met the call is deleted from the data layer.
     /// </summary>
-    void ICall.DeleteCall(int callId)
+    void ICall.DeleteCall(int callId,BO.Statuses status)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
             DO.Call? call;
             lock (AdminManager.BlMutex)
-                call= _dal.Call.Read(callId);
+                call = _dal.Call.Read(callId);
 
-            IEnumerable<DO.Assignment>? assignments;
-            lock (AdminManager.BlMutex)
-                  assignments= _dal.Assignment.ReadAll(assignment => assignment.CallId == callId);
+            var assignments = _dal.Assignment.ReadAll(assignment => assignment.CallId == callId)?.ToList();
+            bool hasNoAssignments = assignments == null || assignments.Count == 0;
 
             // Check if the call can be deleted
-            if (assignments != null || assignments?.Any(a => a.End != null) == true)
+            if (status == BO.Statuses.Open && hasNoAssignments)
             {
-                throw new BO.BLInvalidOperationException("Call cannot be deleted because the call is not open or has been assigned to a volunteer");
+                // Attempt to delete the call from the data layer
+                lock (AdminManager.BlMutex)
+                    _dal.Call.Delete(callId);
+                CallManager.Observers.NotifyListUpdated(); //stage 5   
             }
+            else
+                throw new BO.BLInvalidOperationException("Call cannot be deleted because the call is not open or has been assigned to a volunteer");
 
-            // Attempt to delete the call from the data layer
-            lock (AdminManager.BlMutex)
-                _dal.Call.Delete(callId);
-            CallManager.Observers.NotifyListUpdated(); //stage 5   
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -231,7 +231,7 @@ internal class CallImplementation : ICall
         IEnumerable<DO.Call>? calls;
         lock (AdminManager.BlMutex)
             calls = _dal.Call.ReadAll()?
-            .Where(call => _dal.Assignment.Read(assignment => assignment.VolunteerId == volunteerId&& assignment.CallId == call.CallId)?.End!=null);
+            .Where(call => _dal.Assignment.ReadAll()?.Any(assignment => assignment.VolunteerId == volunteerId && assignment.CallId == call.CallId && assignment.End != null) == true);
 
         // Filter the list based on the callType parameter
         if (callType.HasValue)
@@ -275,14 +275,17 @@ internal class CallImplementation : ICall
 
         IEnumerable<DO.Call>? calls;
         lock (AdminManager.BlMutex)
-                calls= _dal.Call.ReadAll().Where(call => _dal.Assignment.Read(assignment => assignment.CallId == call.CallId)?.End == null);
+            calls = _dal.Call.ReadAll()?.Where
+            (call => _dal.Assignment.ReadAll()?.Any(assignment => assignment.CallId == call.CallId) is null ? call.MaxEnd < _dal.Config.Clock :
+            _dal.Assignment.ReadAll()?.Any(assignment => assignment.CallId == call.CallId && assignment.End != null &&
+            ((BO.EndStatus)assignment.MyEndStatus! == BO.EndStatus.ManagerCancelled || ((BO.EndStatus)assignment.MyEndStatus == BO.EndStatus.SelfCancelled))) == true);
 
         DO.Volunteer? volunteer;
         lock (AdminManager.BlMutex)
             volunteer= _dal.Volunteer.Read(volunteerId);
 
         //take just the call that are in the max distance of volunteer 
-        calls = calls.Where(call => (CallManager.CalculOfDistance(call,volunteer)< volunteer.MaxDistance));
+        calls = calls?.Where(call => (CallManager.CalculOfDistance(call,volunteer)< volunteer?.MaxDistance));
 
         // Filter the list based on the callType parameter
         if (callType.HasValue)
@@ -342,7 +345,7 @@ internal class CallImplementation : ICall
             // Update the assignment details using the 'with' expression
             DO.Assignment? updatedAssignment;
             lock (AdminManager.BlMutex)
-                updatedAssignment = assignment with
+                updatedAssignment = assignment! with
             {
                 End = _dal.Config.Clock,
                 MyEndStatus = DO.EndStatus.Completed,
@@ -368,7 +371,7 @@ internal class CallImplementation : ICall
     /// This mehod cancels an assignment by its Id it first checks if the requester is authorized to cancel the assignment
     /// by checking if the requester is the volunteer assigned to the assignment or a manager.
     /// </summary>
-    void ICall.CancelAssignment(int requesterId, int? assignmentId)
+    void ICall.CancelAssignment(int requesterId, int? assignmentId, BO.Statuses status)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
         try
@@ -378,6 +381,12 @@ internal class CallImplementation : ICall
             lock (AdminManager.BlMutex)
                    assignment= _dal.Assignment.Read(a=>a.AssignmentId==assignmentId&&a.End==null);
 
+            // Check if the assignment is still open
+            if (status != BO.Statuses.InAction && status != BO.Statuses.InActionToRisk)
+            {
+                throw new BO.BLInvalidOperationException("There is no assignments to this call.");
+            }
+
             // Check if the requester is authorized to cancel the assignment
             bool isAuthorized = requesterId == assignment?.VolunteerId || CallManager.IsRequesterManager(requesterId);
             if (!isAuthorized)
@@ -385,16 +394,10 @@ internal class CallImplementation : ICall
                 throw new BO.BLInvalidOperationException("Requester is not authorized to cancel this assignment.");
             }
 
-            // Check if the assignment is still open
-            if (assignment?.End != null)
-            {
-                throw new BO.BLInvalidOperationException("Cannot cancel an assignment that has already been completed.");
-            }
-
             // Update the assignment details using the 'with' expression
             DO.Assignment? updatedAssignment;
             lock (AdminManager.BlMutex)
-                updatedAssignment = assignment with
+                updatedAssignment = assignment! with
             {
                 End = _dal.Config.Clock,
                 MyEndStatus = requesterId == assignment.VolunteerId ? DO.EndStatus.SelfCancelled : DO.EndStatus.ManagerCancelled

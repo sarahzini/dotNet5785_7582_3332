@@ -80,7 +80,7 @@ public enum OpenCallInListField
     CallId,
     BeginTime,
     MaxEndTime,
-    VolunteerDistanceToCall
+    VolunteerDistanceToCall,
 }
 
 public enum VolunteerMethods
