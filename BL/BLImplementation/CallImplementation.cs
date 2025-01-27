@@ -22,24 +22,28 @@ internal class CallImplementation : ICall
     /// <summary>
     int[] ICall.TypeOfCallCounts()
     {
-        IEnumerable<DO.Call> calls;
-        lock (AdminManager.BlMutex)
-            calls = _dal.Call.ReadAll();
+        IEnumerable<BO.CallInList>? calls= ((ICall)this).GetSortedCallsInList();
 
-        int[] result = new int[2];
+        int[] result = new int[6];
 
         // Group calls by their SystemType and count the number of calls in each group
         var callCountsByType = calls?
-            .GroupBy(call => call.AmbulanceType)
+            .GroupBy(call => call.Status)
             .Select(group => new { Type = group.Key, Count = group.Count() })
             .ToDictionary(g => g.Type, g => g.Count);
 
         // Fill the result array with the counts
         if (callCountsByType != null)
         {
-            result[(int)DO.SystemType.ICUAmbulance] = callCountsByType.ContainsKey(DO.SystemType.ICUAmbulance) ? callCountsByType[DO.SystemType.ICUAmbulance] : 0;
-            result[(int)DO.SystemType.RegularAmbulance] = callCountsByType.ContainsKey(DO.SystemType.RegularAmbulance) ? callCountsByType[DO.SystemType.RegularAmbulance] : 0;
+            result[(int)BO.Statuses.Open] = callCountsByType.ContainsKey(BO.Statuses.Open) ? callCountsByType[BO.Statuses.Open] : 0;
+            result[(int)BO.Statuses.InAction] = callCountsByType.ContainsKey(BO.Statuses.InAction) ? callCountsByType[BO.Statuses.InAction] : 0;
+            result[(int)BO.Statuses.Closed] = callCountsByType.ContainsKey(BO.Statuses.Closed) ? callCountsByType[BO.Statuses.Closed] : 0;
+            result[(int)BO.Statuses.Expired] = callCountsByType.ContainsKey(BO.Statuses.Expired) ? callCountsByType[BO.Statuses.Expired] : 0;
+            result[(int)BO.Statuses.OpenToRisk] = callCountsByType.ContainsKey(BO.Statuses.OpenToRisk) ? callCountsByType[BO.Statuses.OpenToRisk] : 0;
+            result[(int)BO.Statuses.InActionToRisk] = callCountsByType.ContainsKey(BO.Statuses.InActionToRisk) ? callCountsByType[BO.Statuses.InActionToRisk] : 0;
         }
+
+
 
         return result;
     }
@@ -51,7 +55,7 @@ internal class CallImplementation : ICall
     IEnumerable<BO.CallInList>? ICall.GetSortedCallsInList(CallInListField? filterField=null, object? filterValue=null, CallInListField? sortField=null)
     {
         // Get all calls
-        IEnumerable<DO.Call> allCalls;
+        IEnumerable<DO.Call>? allCalls;
         lock (AdminManager.BlMutex)
             allCalls= _dal.Call.ReadAll();
 
@@ -61,7 +65,7 @@ internal class CallImplementation : ICall
         // Filter calls if filterField and filterValue are provided
         if (filterField != null && filterValue != null)
         {
-            var filterProperty = typeof(BO.CallInList).GetProperty(filterField?.ToString());
+            var filterProperty = typeof(BO.CallInList).GetProperty(filterField?.ToString()!);
             if (filterProperty != null)
             {
                 calls = calls?.Where(call => filterProperty.GetValue(call)?.Equals(filterValue) == true);
@@ -71,7 +75,7 @@ internal class CallImplementation : ICall
         // Sort calls if sortField is provided
         if (sortField != null)
         {
-            var sortProperty = typeof(BO.CallInList).GetProperty(sortField.ToString());
+            var sortProperty = typeof(BO.CallInList).GetProperty(sortField.ToString()!);
             if (sortProperty != null)
             {
                 calls = calls?.OrderBy(call => sortProperty.GetValue(call));

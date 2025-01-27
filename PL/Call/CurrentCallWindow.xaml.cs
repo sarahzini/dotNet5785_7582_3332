@@ -22,14 +22,24 @@ namespace PL.Call
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-        public CurrentCallWindow(BO.CallInProgress c,int id)
+        public CurrentCallWindow(BO.CallInProgress c,int id=0)
         {
             InitializeComponent();
             CurrentCall = c;
             VolunteerId = id;
         }
 
-        public int VolunteerId {get; set;}
+        public int VolunteerId
+        {
+            get { return (int)GetValue(VolunteerIdProperty); }
+            set { SetValue(VolunteerIdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for VolunteerId.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty VolunteerIdProperty =
+            DependencyProperty.Register("VolunteerId", typeof(int), typeof(CurrentCallWindow), new PropertyMetadata(0));
+
+
         public BO.CallInProgress CurrentCall
         {
             get { return (BO.CallInProgress)GetValue(CurrentCallProperty); }

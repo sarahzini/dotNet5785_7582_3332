@@ -27,9 +27,17 @@ public partial class MainManagerWindow : Window
         ButtonText = "Start Simulator";
         isRun = false;
         InitializeComponent();
-
+        int[] CallCounts = s_bl.Call.TypeOfCallCounts();
+    }
+    public int[] CallCounts
+    {
+        get { return (int[])GetValue(MyPropertyProperty); }
+        set { SetValue(MyPropertyProperty, value); }
     }
 
+    // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty MyPropertyProperty =
+        DependencyProperty.Register("MyProperty", typeof(int[]), typeof(MainManagerWindow), new PropertyMetadata(0));
     public TimeSpan RiskRange
     {
         get { return (TimeSpan)GetValue(RiskRangeProperty); }
@@ -173,7 +181,39 @@ public partial class MainManagerWindow : Window
     { new VolunteerInListWindow(id).Show(); }
 
     private void btnCalls_Click(object sender, RoutedEventArgs e)
-    { new CallInListWindow(id).Show(); }
+    { new CallInListWindow(id,null).Show(); }
+    private void btnOpenCalls_Click(object sender, RoutedEventArgs e)
+    {
+        new CallInListWindow(id, BO.Statuses.Open).Show();
+    }
+
+    private void btnOpenCallsInRisk_Click(object sender, RoutedEventArgs e)
+    {
+        new CallInListWindow(id, BO.Statuses.OpenToRisk).Show();
+    }
+
+    private void btnInActionCalls_Click(object sender, RoutedEventArgs e)
+    {
+        new CallInListWindow(id, BO.Statuses.InAction).Show();
+    }
+
+    private void btnInActionCallsInRisk_Click(object sender, RoutedEventArgs e)
+    {
+        new CallInListWindow(id, BO.Statuses.InActionToRisk).Show();
+    }
+
+    private void btnClosedCalls_Click(object sender, RoutedEventArgs e)
+    {
+        new CallInListWindow(id, BO.Statuses.Closed).Show();
+    }
+
+    private void btnExpiredCalls_Click(object sender, RoutedEventArgs e)
+    {
+        new CallInListWindow(id, BO.Statuses.Expired).Show();
+    }
+
+
+
 
     private void btnInitialization_Click(object sender, RoutedEventArgs e)
     {

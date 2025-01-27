@@ -105,6 +105,18 @@
             <Button Grid.Column="2" Content="{Binding ButtonText}" HorizontalAlignment="Left" Margin="14,61,0,0" Grid.Row="1" VerticalAlignment="Top" Height="22" Width="118" Click="btnSimulator_Click"/>
             <TextBlock Grid.Column="2" HorizontalAlignment="Center" Margin="0,218,0,0" TextWrapping="Wrap" Text="Please enter the interval per minute " VerticalAlignment="Top" Width="129" Grid.RowSpan="2"/>
             <TextBox Text="{Binding Interval}" IsEnabled="{Binding isRun}" Grid.Column="2" HorizontalAlignment="Center" Margin="0,35,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" />
+            <Button Content="Open" Click="btnOpenCalls_Click" HorizontalAlignment="Left" Margin="51,172,0,0" VerticalAlignment="Top" Height="21" Width="68"/>
+            <Button Content="Open In Risk" Click="btnOpenCallsInRisk_Click" HorizontalAlignment="Center" Margin="0,193,0,0" VerticalAlignment="Top" Height="25" Width="85"/>
+            <Button Content="In Action" Click="btnInActionCalls_Click" HorizontalAlignment="Center" Margin="0,1,0,0" Grid.Row="1" VerticalAlignment="Top" Width="85"/>
+            <Button Content="In Action in Risk" Click="btnInActionCallsInRisk_Click" Margin="44,21,44,99" Grid.Row="1"/>
+            <Button Content="Closed" Click="btnClosedCalls_Click" HorizontalAlignment="Left" Margin="51,46,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="58"/>
+            <Button Content="Expired" Click="btnExpiredCalls_Click" Margin="34,65,45,54" Grid.Row="1"/>
+            <Label Content="{Binding  CallCounts[0]}" HorizontalAlignment="Left" Margin="0,167,0,0" VerticalAlignment="Top"/>
+            <Label Content="{Binding  CallCounts[2]}" HorizontalAlignment="Left" Margin="22,204,0,0" VerticalAlignment="Top"/>
+            <Label Content="{Binding  CallCounts[5]}" HorizontalAlignment="Left" Margin="0,21,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Label Content="{Binding  CallCounts[1]}" HorizontalAlignment="Left" Margin="-9,216,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.642,0.135" Grid.RowSpan="2"/>
+            <Label Content="{Binding  CallCounts[3]}" HorizontalAlignment="Left" Margin="-9,41,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Label Content="{Binding  CallCounts[4]}" HorizontalAlignment="Left" Margin="-4,67,0,0" Grid.Row="1" VerticalAlignment="Top"/>
 
         </Grid>
 

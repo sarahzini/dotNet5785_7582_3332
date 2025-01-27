@@ -25,7 +25,7 @@ public class Call
     public double CallLongitude { get; set; }
     public DateTime BeginTime { get; init; }
     public DateTime? MaxEndTime { get; set; } = null;
-    public Statuses Status { get; set; }
+    public Statuses? Status { get; set; }
     public List<BO.CallAssignInList>? CallAssigns { get; set; } = null;
     public override string ToString() => Helpers.Tools.ToStringProperty(this);
 }

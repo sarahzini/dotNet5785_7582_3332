@@ -86,7 +86,7 @@ internal class VolunteerImplementation : IVolunteer
         // Sort the list if specified
         if (sortField.HasValue)
         {
-            volunteers = volunteers?.OrderBy(v => v.GetType().GetProperty(sortField.ToString())?.GetValue(v, null));
+            volunteers = volunteers?.OrderBy(v => v.GetType().GetProperty(sortField.ToString()!)?.GetValue(v, null));
         }
         else
         {

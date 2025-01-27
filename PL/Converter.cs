@@ -11,6 +11,22 @@ using BO;
 namespace PL
 {
 
+        public class AssignmentVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+                if ((int)value != 0)
+                    return Visibility.Visible;
+                else
+                    return Visibility.Hidden;
+            
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class VisibilityDeleteButtonConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

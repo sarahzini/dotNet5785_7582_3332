@@ -20,5 +20,6 @@
         <local:VisibilityDeleteButtonConverter x:Key="VisibilityDeleteButtonConverterKey" />
         <local:ConvertAddToTrue x:Key="ConvertAddToTrueKey" />
         <local:VolunteerInListFieldCollection x:Key="VolunteerInListFieldCollectionKey" />
+        <local:AssignmentVisibilityConverter x:Key="AssignmentVisibilityConverterKey" />
     </Application.Resources>
 </Application>

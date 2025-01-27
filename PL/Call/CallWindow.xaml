@@ -1,11 +1,11 @@
-<Window x:Class="PL.Call.UpdateCallWindow"
+<Window x:Class="PL.Call.CallWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
-        Title="Call Update Window" Height="520" Width="622"
+        Title="Call Window" Height="520" Width="622"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed">
 
@@ -73,9 +73,6 @@
                    Margin="0,0,0,212" Grid.Column="1" />
 
             <StackPanel Margin="2,46,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="403" Grid.RowSpan="7">
-                <TextBlock Text="Id:" Style="{StaticResource RedTextStyle}" Height="25" />
-                <TextBox Text="{Binding CurrentCall.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         IsReadOnly="True" Margin="0,0,0,10" />
 
                 <TextBlock Text="Address:" Style="{StaticResource RedTextStyle}" />
                 <TextBox Text="{Binding CurrentCall.Address, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
@@ -92,11 +89,10 @@
                               Width="120"/>
                     <TextBox x:Name="BeginTimeTextBox" 
                             IsEnabled="false" 
-                            HorizontalAlignment="Left" 
                             Margin="2" 
                             Text="{Binding CurrentCall.BeginTime, Mode=TwoWay, StringFormat='{}{0:HH:mm:ss}', NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                             VerticalAlignment="Center" 
-                            Width="80"/>
+                            Width="118" Height="24"/>
                 </StackPanel>
 
                 <TextBlock Text="Max Time to End Call:" Style="{StaticResource RedTextStyle}" />
@@ -108,37 +104,36 @@
                               VerticalAlignment="Center" 
                               Width="120"
                               IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusOpenToVisibilityConverterKey}}"/>
-                    <TextBox x:Name="MaxEndTimeTextBox"  
-                            HorizontalAlignment="Left" 
+                    <TextBox x:Name="MaxEndTimeTextBox" 
                             Margin="2" 
                             Text="{Binding CurrentCall.MaxEndTime, Mode=TwoWay, StringFormat='{}{0:HH:mm:ss}', NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                             VerticalAlignment="Center" 
-                            Width="80"
-                            IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusOpenToVisibilityConverterKey}}"/>
+                            Width="116"
+                            IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusOpenToVisibilityConverterKey}}" Height="24"/>
                 </StackPanel>
 
-                <TextBlock Text="Status:" Style="{StaticResource RedTextStyle}" Visibility="{Binding ButtonText}" />
-                <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
-                         SelectedValue="{Binding CurrentCall.Status, Mode=TwoWay}" 
-                         Visibility="{Binding ButtonText}"
-                         IsEnabled="False"
-                         IsReadOnly="True"
-                         Margin="0,0,0,10" />
+                <TextBlock Text="Ambulance Type:" Style="{StaticResource RedTextStyle}" />
+                <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
+          SelectedValue="{Binding CurrentCall.AmbulanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+          IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusToVisibilityConverterKey}}"
+          Margin="0,0,0,10" />
 
                 <TextBlock Text="Description:" Style="{StaticResource RedTextStyle}" />
                 <TextBox Text="{Binding CurrentCall.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
                          IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusToVisibilityConverterKey}}"
                          Margin="0,0,0,10" />
 
-                <TextBlock Text="Ambulance Type:" Style="{StaticResource RedTextStyle}" />
-                <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
-                         SelectedValue="{Binding CurrentCall.AmbulanceType, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                         IsEnabled="{Binding CurrentCall.Status, Converter={StaticResource StatusToVisibilityConverterKey}}"
-                         Margin="0,0,0,10" />
+                <TextBlock Text="Status:" Style="{StaticResource RedTextStyle}" Visibility="{Binding ButtonText}" />
+                <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
+         SelectedValue="{Binding CurrentCall.Status, Mode=TwoWay}" 
+         Visibility="{Binding ButtonText}"
+         IsEnabled="False"
+         IsReadOnly="True"
+         Margin="0,0,0,10" />
+
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                    <Button Content="Update" 
-                            Click="btnUpdate_Click" 
+                    <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click"
                             Style="{StaticResource RedButtonStyle}"
                             Width="150"
                             Margin="0,0,20,0"/>

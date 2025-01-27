@@ -17,17 +17,37 @@ using System.Windows.Shapes;
 namespace PL.Call;
 
 /// <summary>
-/// Interaction logic for UpdateCallWindow.xaml
+/// Interaction logic for CallWindow.xaml
 /// </summary>
-public partial class UpdateCallWindow : Window
+public partial class CallWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public UpdateCallWindow(int CallId)
+    public CallWindow(int CallId)
     {
         try
         {
-
-            CurrentCall = s_bl.Call.GetCallDetails(CallId);
+            if (CallId == 0)
+            {
+                CurrentCall = new BO.Call()
+                {
+                    CallId = 0,
+                    TypeOfCall = BO.SystemType.None,
+                    CallAddress = "",
+                    CallLatitude = 0,
+                    CallLongitude = 0,
+                    Description = "",
+                    BeginTime = s_bl.Admin.GetClock(),
+                    Status = null,
+                    MaxEndTime = s_bl.Admin.GetClock(),
+                    CallAssigns = null
+                };
+                ButtonText = "Add";
+            }
+            else
+            {
+                CurrentCall = s_bl.Call.GetCallDetails(CallId);
+                ButtonText = "Update";
+            }
             InitializeComponent();
 
         }
@@ -50,22 +70,48 @@ public partial class UpdateCallWindow : Window
     }
 
     public static readonly DependencyProperty CurrentCallProperty =
-        DependencyProperty.Register("CurrentCall", typeof(BO.Call), typeof(UpdateCallWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("CurrentCall", typeof(BO.Call), typeof(CallWindow), new PropertyMetadata(null));
+
+    public string ButtonText
+    {
+        get { return (string)GetValue(ButtonTextProperty); }
+        set { SetValue(ButtonTextProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for ButtonText.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty ButtonTextProperty =
+        DependencyProperty.Register("ButtonText", typeof(string), typeof(CallWindow), new PropertyMetadata(0));
+
+
 
     /// <summary>
     /// This method depending on the button text will either add or uptade a call.
     /// </summary>
-    private void btnUpdate_Click(object sender, RoutedEventArgs e)
+    private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
         try
         {
             // Combine date and time for MaxEndTime
-            CurrentCall.MaxEndTime = CombineDateAndTime(MaxEndDatePicker.SelectedDate, MaxEndTimeTextBox.Text);
+            CurrentCall!.MaxEndTime = CombineDateAndTime(MaxEndDatePicker.SelectedDate, MaxEndTimeTextBox.Text);
 
-            
+            if (ButtonText=="Update")
+            {
                 s_bl.Call.UpdateCallDetails(CurrentCall!);
                 MessageBox.Show($"The Call with the ID number : {CurrentCall?.CallId} was successfully updated!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-            
+            }
+            else
+            {
+                s_bl.Call.AddCall(CurrentCall!);
+                MessageBox.Show($"The Call with the ID number : {CurrentCall?.CallId} was successfully added!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+
+            }
+
+
+        }
+        catch (BO.BLAlreadyExistException ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (BO.BLDoesNotExistException ex)
         {
@@ -90,14 +136,14 @@ public partial class UpdateCallWindow : Window
     /// <summary>
     /// This method combines a date and time to create a DateTime object.
     /// </summary>
-    private DateTime CombineDateAndTime(DateTime? date, string time)
+    private DateTime? CombineDateAndTime(DateTime? date, string time)
     {
-        if (date == null || string.IsNullOrEmpty(time))
-            throw new ArgumentException("Date or time is invalid");
+        if (date == null )
+           return null;
 
         var timeParts = time.Split(':');
         if (timeParts.Length != 3)
-            throw new ArgumentException("Time format is invalid");
+            throw new ArgumentException("The date format is invalid");
 
         int hours = int.Parse(timeParts[0]);
         int minutes = int.Parse(timeParts[1]);
