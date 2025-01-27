@@ -98,7 +98,7 @@ namespace PL.Volunteer
         {
            if (CurrentVolunteer!.CurrentCall != null)
            {
-               new CurrentCall(CurrentVolunteer!.CurrentCall!).ShowDialog();
+               new Call.CurrentCallWindow(CurrentVolunteer!.CurrentCall!,0).ShowDialog();
            }
             
         }

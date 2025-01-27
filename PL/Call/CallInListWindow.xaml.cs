@@ -23,9 +23,13 @@ public partial class CallInListWindow : Window
 {
     /// To gain access to the BL layer, we need to use the Factory class.
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public CallInListWindow(int id) {
-        InitializeComponent();
+    public CallInListWindow(int id, BO.Statuses? status) {
         requesterId = id;
+        if (status != null)
+        {
+            Filter = (BO.Statuses)status;
+        }
+        InitializeComponent();
     }
     public BO.CallInListField Sort { get; set; } = BO.CallInListField.CallId;
     public BO.Statuses Filter { get; set; } = BO.Statuses.All;
@@ -113,7 +117,7 @@ public partial class CallInListWindow : Window
     private void lsvUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (SelectedCall != null)
-            new UpdateCallWindow(SelectedCall.CallId).Show();
+            new CallWindow(SelectedCall.CallId).Show();
     }
 
     /// <summary>
@@ -121,7 +125,7 @@ public partial class CallInListWindow : Window
     /// </summary>
     private void btnAdd_Click(object sender, RoutedEventArgs e)
     {
-        new AddCallWindow().Show();
+        new CallWindow(0).Show();
 
     }
 

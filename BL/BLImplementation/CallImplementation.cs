@@ -128,7 +128,9 @@ internal class CallImplementation : ICall
         {
             CallManager.ValidateCallDetails(callUpdate);
 
-            (callUpdate.CallLatitude, callUpdate.CallLongitude) = GeocodingService.GetCoordinates(callUpdate.CallAddress);
+            DO.Call? oldCall;
+            lock (AdminManager.BlMutex)
+                oldCall = _dal.Call.Read(callUpdate.CallId);
 
             // Convert the business object to a data object by calling a method in manager
             DO.Call DOCallUpdate = CallManager.ConvertToDataCall(callUpdate);
@@ -137,12 +139,50 @@ internal class CallImplementation : ICall
             lock (AdminManager.BlMutex)
                 _dal.Call.Update(DOCallUpdate);
             CallManager.Observers.NotifyItemUpdated(callUpdate.CallId); //stage 5   
-            CallManager.Observers.NotifyListUpdated(); //stage 5   
+            CallManager.Observers.NotifyListUpdated(); //stage 5
 
+            if (oldCall.Address != DOCallUpdate.Address)
+            {
+                //compute the coordinates asynchronously without waiting for the results
+                _ = GeocodingService.updateCoordinatesForCallAddressAsync(DOCallUpdate); //stage 7
+            }
         }
         catch (DO.DalDoesNotExistException ex)
         {
             throw new BO.BLDoesNotExistException("We cannot update this call: ", ex);
+        }
+    }
+
+    /// <summary>
+    /// This method adds a new call to the data layer it first checks if the call details are valid
+    /// by using the ValidateCallDetails method then converts the business object to a data object( BO.call to DO.Call).
+    /// Then the call is added to the data layer.
+    /// </summary>
+    void ICall.AddCall(BO.Call call)
+    {
+        AdminManager.ThrowOnSimulatorIsRunning();
+        try
+        {
+            // Validate call details
+            CallManager.ValidateCallDetails(call);
+
+            (call.CallLatitude, call.CallLongitude) = (null,null);
+
+            // Convert BO.call to DO.Call
+            DO.Call newCall = CallManager.ConvertToDataCall(call);
+
+            // Attempt to add the new call to the data layer
+            lock (AdminManager.BlMutex)
+                _dal.Call.Create(newCall);
+            CallManager.Observers.NotifyListUpdated(); //stage 5
+
+            //compute the coordinates asynchronously without waiting for the results
+            _ = GeocodingService.updateCoordinatesForCallAddressAsync(newCall); //stage 7
+
+        }
+        catch (DO.DalAlreadyExistException ex)
+        {
+            throw new BO.BLAlreadyExistException($"We cannot delete the call {call.CallId}: ", ex);
         }
     }
 
@@ -178,36 +218,6 @@ internal class CallImplementation : ICall
         catch (DO.DalDoesNotExistException ex)
         {
             throw new BO.BLDoesNotExistException($"We cannot delete the call {callId}: ", ex);
-        }
-    }
-
-
-    /// <summary>
-    /// This method adds a new call to the data layer it first checks if the call details are valid
-    /// by using the ValidateCallDetails method then converts the business object to a data object( BO.call to DO.Call).
-    /// Then the call is added to the data layer.
-    /// </summary>
-    void ICall.AddCall(BO.Call call)
-    {
-        AdminManager.ThrowOnSimulatorIsRunning();
-        try
-        {
-            // Validate call details
-            CallManager.ValidateCallDetails(call);
-
-            (call.CallLatitude, call.CallLongitude) = GeocodingService.GetCoordinates(call.CallAddress);
-
-            // Convert BO.call to DO.Call
-            DO.Call newCall = CallManager.ConvertToDataCall(call);
-
-            // Attempt to add the new call to the data layer
-            lock (AdminManager.BlMutex)
-                _dal.Call.Create(newCall);
-            CallManager.Observers.NotifyListUpdated(); //stage 5   
-        }
-        catch (DO.DalAlreadyExistException ex)
-        {
-            throw new BO.BLAlreadyExistException($"We cannot delete the call {call.CallId}: ", ex);
         }
     }
 

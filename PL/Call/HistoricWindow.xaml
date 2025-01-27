@@ -84,16 +84,7 @@
                     <GridViewColumn Header="Begin Time" Width="180" DisplayMemberBinding="{Binding BeginTime}" />
                     <GridViewColumn Header="Max End Time" Width="180" DisplayMemberBinding="{Binding MaxEndTime}" />
                     <GridViewColumn Header="Distance From You " Width="120" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
-                    <GridViewColumn Header="Respond to Call" Width="160">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button Content="Take Action" Click="btnChoose_Click"  CommandParameter="{Binding}" 
-                                        Background="#FFEB0404" Foreground="White" FontWeight="Bold"
-                                        Width="180" Height="30" Margin="5,0"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
+                    <GridViewColumn Header="" Width="auto">
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
