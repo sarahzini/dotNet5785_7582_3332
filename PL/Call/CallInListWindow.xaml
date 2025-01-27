@@ -5,61 +5,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Call"
         mc:Ignorable="d"
-        Title="Call In List" Height="640" Width="800"
+        Title="Call In List Window" Height="601" Width="997"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed">
     <!--External Grid-->
-    
-    
-    <Grid>
+
+
+    <!-- External Grid -->
+    <Grid Margin="20,32,32,26">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="440*"/>
+            <ColumnDefinition Width="441*"/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="101" />
+            <!-- Title Section -->
+            <RowDefinition />
+            <!-- ListView Section -->
+            <RowDefinition Height="Auto" MinHeight="73" />
+            <!-- Buttons Section -->
         </Grid.RowDefinitions>
-        <Grid/>
-        <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto" RenderTransformOrigin="0.603,0.573">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <Label Content="Select filter:" HorizontalAlignment="Left" Margin="77,4,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
-                      Grid.Column="1"
-                      SelectedValue="{Binding Path=Filter, Mode=TwoWay}"  SelectionChanged="FilteredCall_SelectionChanged" Margin="201,0,0,0"></ComboBox>
-            <Label Content="Sort By:" HorizontalAlignment="Left" Margin="51,10,0,0" VerticalAlignment="Top"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource CallInListFieldCollectionKey}}"
-           SelectedValue="{Binding Path=Sort, Mode=TwoWay}"  SelectionChanged="FilteredCall_SelectionChanged" Margin="143,-1,357,1" Grid.ColumnSpan="2">
+        <!-- ListView Section -->
+        <ListView Grid.Row="1" 
+             ItemsSource="{Binding Path=CallList}"
+                  SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
+                  MouseDoubleClick="lsvUpdate_MouseDoubleClick" 
+                  BorderBrush="#FFEB0404" Background="#FFFDFDFD" 
+                  Padding="10" Margin="0,31,-15,40" Grid.ColumnSpan="3" Grid.RowSpan="2" >
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Margin" Value="0,0,0,10" />
+                    <Setter Property="Padding" Value="10" />
+                    <Setter Property="Background" Value="#FFFAFAFA" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FFEFEFEF" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#FFFFE0E0" />
+                            <Setter Property="Foreground" Value="#FFEB0404" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
 
-                <ComboBox.Background>
-                    <LinearGradientBrush EndPoint="0,1">
-                        <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FF110606" Offset="1"/>
-                    </LinearGradientBrush>
-                </ComboBox.Background>
-            </ComboBox>
-        </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=CallList}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
-                  Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" MouseDoubleClick="lsvUpdate_MouseDoubleClick">
-            <ListView.Foreground>
-                <SolidColorBrush Color="#FFEB0404"/>
-            </ListView.Foreground>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Call Id" Width="Auto" DisplayMemberBinding="{Binding CallId}" />
-                    <GridViewColumn Header="Status" Width="Auto" DisplayMemberBinding="{Binding Status}" />
-                    <GridViewColumn Header="Total Assignment" Width="Auto" DisplayMemberBinding="{Binding TotalAssignment}" />
-                    <GridViewColumn Header="Range Time To End" Width="Auto" DisplayMemberBinding="{Binding RangeTimeToEnd}" />
-                    <GridViewColumn Header="Name Last Volunteer" Width="Auto" DisplayMemberBinding="{Binding NameLastVolunteer}" />
-                    <GridViewColumn Header="Executed Time" Width="Auto" DisplayMemberBinding="{Binding ExecutedTime}" />
-                    <GridViewColumn Header="Actions" Width="Auto">
+                    <GridViewColumn Header=" Call Id" Width="110" DisplayMemberBinding="{Binding CallId}" />
+                    <GridViewColumn Header="Status" Width="130" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header=" Total Assignments " Width="130" DisplayMemberBinding="{Binding TotalAssignment}" />
+                    <GridViewColumn Header="Range Time To End" Width="180" DisplayMemberBinding="{Binding RangeTimeToEnd}" />
+                    <GridViewColumn Header="Last Volunteer" Width="130" DisplayMemberBinding="{Binding NameLastVolunteer}" />
+                    <GridViewColumn Header="Executed Time" Width="180" DisplayMemberBinding="{Binding ExecutedTime}" />
+                    <GridViewColumn Header="" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Content="Delete" Click="btnDelete_Click" Tag="{Binding CallId}" Margin="0,0,5,0"/>
+                                    <Button Content="Delete" Click="btnDelete_Click"
+                                            Background="Red" Foreground="White" FontWeight="Bold"
+                                            Width="80" Height="30" Margin="5,0" Tag="{Binding CallId}" />
+
                                     <Button Content="Cancel Assignment" Click="btnCancel_Click" Tag="{Binding CallId}" />
                                 </StackPanel>
                             </DataTemplate>
@@ -68,7 +77,24 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Click="btnAdd_Click" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" />
+
+        <!-- Buttons Section -->
+        <StackPanel Grid.Row="2"  HorizontalAlignment="Center" Margin="0,40,0,-17" Width="170" Grid.ColumnSpan="2">
+            <Button Content="Add" Click="btnAdd_Click"
+                    Background="#FFEB0404" Foreground="White" FontWeight="Bold"
+                    Width="130" Height="42"/>
+        </StackPanel>
+        <Label Content="Select Filter:" HorizontalAlignment="Left" Margin="82,70,0,0" VerticalAlignment="Top" Foreground="#FFEB0404" Height="28" Width="75" RenderTransformOrigin="0.5,0.5" Grid.Column="1" />
+
+        <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
+                  SelectedValue="{Binding Path=Filter, Mode=TwoWay}"  SelectionChanged="FilteredCall_SelectionChanged" HorizontalAlignment="Left"
+                  Width="220" Margin="164,65,0,4" Grid.Column="1" 
+                  Height="36" VerticalAlignment="Top" />
+        <Label Content="Sort by:" HorizontalAlignment="Left" Margin="98,67,0,0" VerticalAlignment="Top" Grid.Column="0" Foreground="#FFEB0404" Height="26" Width="58"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource CallInListFieldCollectionKey}}"
+           SelectedValue="{Binding Path=Sort, Mode=TwoWay}"  SelectionChanged="FilteredCall_SelectionChanged" HorizontalAlignment="Left"
+                  Width="220" Margin="164,65,0,4" 
+                  Height="36"/>
+        <TextBlock HorizontalAlignment="Left" Margin="316,8,0,0" TextWrapping="Wrap" Text="Call Management Dashboard" VerticalAlignment="Top" Height="36" Width="402"  FontSize="24" FontWeight="Bold" Foreground="#FFEB0404" Grid.ColumnSpan="2" RenderTransformOrigin="0.495,0.543"/>
     </Grid>
 </Window>
-

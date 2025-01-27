@@ -7,32 +7,56 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
-        Title="Call Assignment Window" Height="450" Width="800">
+        Title="Call Assignment Window" Height="375" Width="747">
     <!--External Grid-->
-    <Grid>
+    <Grid Margin="16,13,23,11">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="39" />
+            <!-- Title Section -->
+            <RowDefinition />
+            <!-- ListView Section -->
+            <RowDefinition Height="Auto" />
+            <!-- Buttons Section -->
         </Grid.RowDefinitions>
-        <Grid/>
 
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=CallAssign}"
-                  Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" >
-            <ListView.Foreground>
-                <SolidColorBrush Color="#FFEB0404"/>
-            </ListView.Foreground>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=CallAssign}" 
+          Height="NaN" BorderBrush="#FFEB0404" Background="White" Margin="0,1,0,0">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Margin" Value="0,0,0,10" />
+                    <Setter Property="Padding" Value="10" />
+                    <Setter Property="Background" Value="#FFFAFAFA" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FFEFEFEF" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#FFFFE0E0" />
+                            <Setter Property="Foreground" Value="#FFEB0404" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Volunteer Id" Width="Auto" DisplayMemberBinding="{Binding VolunteerId}" />
-                    <GridViewColumn Header="Volunteer Name"  Width="Auto" DisplayMemberBinding="{Binding VolunteerName}" />
-                    <GridViewColumn Header="Begin Assignment Time" Width="Auto" DisplayMemberBinding="{Binding BeginActionTime}" />
-                    <GridViewColumn Header="End Assignment Time" Width="Auto" DisplayMemberBinding="{Binding EndActionTime}" />
-                    <GridViewColumn Header="Closure Type" Width="Auto" DisplayMemberBinding="{Binding ClosureType}" />
+                    <GridViewColumn Header="Volunteer Id" Width="110" DisplayMemberBinding="{Binding VolunteerId}" />
+                    <GridViewColumn Header="Volunteer Name"  Width="120" DisplayMemberBinding="{Binding VolunteerName}" />
+                    <GridViewColumn Header="Start Of The Assignment" Width="170" DisplayMemberBinding="{Binding BeginActionTime}" />
+                    <GridViewColumn Header="End Of The Assignment" Width="170" DisplayMemberBinding="{Binding EndActionTime}" />
+                    <GridViewColumn Header="Closure Type" Width="130" DisplayMemberBinding="{Binding ClosureType}" />
                 </GridView>
             </ListView.View>
         </ListView>
+        <TextBlock HorizontalAlignment="Left" Margin="219,0,0,0" TextWrapping="Wrap"  FontSize="24" FontWeight="Bold" Foreground="#FFEB0404" Text="Assignment History" VerticalAlignment="Center" Height="34" Width="263"/>
     </Grid>
 </Window>
 

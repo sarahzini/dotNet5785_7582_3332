@@ -8,30 +8,35 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed">
-    
-    
+
+
     <!-- External Grid -->
-    <Grid Margin="20">
+    <Grid Margin="20,16,20,20">
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="971*"/>
-            <ColumnDefinition Width="175*"/>
+            <ColumnDefinition Width="34*"/>
+            <ColumnDefinition Width="937*"/>
+
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <!-- Title Section -->
-            <RowDefinition Height="*" />
+            <RowDefinition Height="61" />
+            <RowDefinition Height="52"/>
+
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="151*"/>
             <!-- ListView Section -->
             <RowDefinition Height="Auto" />
             <!-- Buttons Section -->
         </Grid.RowDefinitions>
 
         <!-- ListView Section -->
-        <ListView Grid.Row="1" 
+        <ListView 
               ItemsSource="{Binding VolunteerList}"
               SelectedItem="{Binding SelectedVolunteer, Mode=TwoWay}"
               MouseDoubleClick="lsvUpdate_MouseDoubleClick"
               BorderBrush="#FFEB0404" Background="#FFFDFDFD" 
-                  Padding="10" Grid.ColumnSpan="2" >
+                  Padding="10" Grid.ColumnSpan="2" Grid.Row="4" Margin="4,3,0,3" >
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Margin" Value="0,0,0,10" />
@@ -80,18 +85,20 @@
         </ListView>
 
         <!-- Buttons Section -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="488,20,0,0">
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" Margin="454,20,0,0" Grid.Column="1" Width="170">
             <Button Content="Add Volunteer" Click="btnAdd_Click" 
                     Background="#FFEB0404" Foreground="White" FontWeight="Bold"
                     Width="150" Height="50" Margin="10,0" />
         </StackPanel>
-        <Label Content="Select type of actual call:" HorizontalAlignment="Left" Margin="785,-4,0,0" VerticalAlignment="Top" Grid.Column="0" Foreground="#FFEB0404" Grid.RowSpan="2"/>
+        <Label Content="Select type of actual call:" HorizontalAlignment="Left" Margin="687,0,0,0" VerticalAlignment="Center" Grid.Column="1" Foreground="#FFEB0404" Height="26" Width="153" Grid.Row="1"/>
         <ComboBox SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}"
                       ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}" HorizontalAlignment="Left"
-                       SelectionChanged="FilteredVolunteer_SelectionChanged" Width="202" Margin="932,-4,0,4" Grid.ColumnSpan="2" />
-        <Label Content="Sort by:" HorizontalAlignment="Left" Margin="50,-4,0,0" VerticalAlignment="Top" Grid.Column="0" Foreground="#FFEB0404" Grid.RowSpan="2"/>
+                       SelectionChanged="FilteredVolunteer_SelectionChanged"  Width="213" Margin="855,2,0,4" Grid.Column="1" Grid.Row="1" />
+        <Label Content="Sort by:" HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center" Grid.Column="1" Foreground="#FFEB0404" Height="26" Width="110" RenderTransformOrigin="0.64,1.04" Grid.Row="1"/>
         <ComboBox SelectedValue="{Binding Path=Field, Mode=TwoWay}"
                ItemsSource="{Binding Source={StaticResource VolunteerInListFieldCollectionKey}}" HorizontalAlignment="Left"
-                SelectionChanged="FilteredVolunteer_SelectionChanged" Width="202" Margin="133,-4,0,4" />
+                SelectionChanged="FilteredVolunteer_SelectionChanged" Width="213" Margin="99,2,0,4" Grid.Column="1" RenderTransformOrigin="0.511,0.492" Grid.Row="1" >
+        </ComboBox>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="320,0,0,0" TextWrapping="Wrap" Text="Volunteer Management Dashboard" VerticalAlignment="Center" Height="50" Width="404"  FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"/>
     </Grid>
 </Window>

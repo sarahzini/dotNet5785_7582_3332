@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Assignment Window" Height="863" Width="1092"
+        Title="Assignment Window" Height="863" Width="1107"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed">
     <!--External Grid-->
-    <Grid Margin="2,24,8,10">
+    <Grid Margin="2,24,20,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="530*"/>
             <ColumnDefinition Width="11*"/>
@@ -32,7 +32,7 @@
         <Label Content="Sort By:" HorizontalAlignment="Left" Margin="211,21,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1" Foreground="#FFEB0404" Width="55"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource OpenCallFieldCollectionKey}}"
                   SelectionChanged="SortedCall_SelectionChanged"
-                  SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="273,21,0,0" VerticalAlignment="Top" Width="159" Height="25" RenderTransformOrigin="0.463,0.612" Grid.Row="1" />
+                  SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="273,20,251,0" VerticalAlignment="Top" Width="159" Height="25" RenderTransformOrigin="0.463,0.612" Grid.Row="1" />
 
         <!--ListView Section-->
         <ListView Grid.Row="1" ItemsSource="{Binding Path=OpenCallList}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"

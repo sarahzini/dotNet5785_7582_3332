@@ -5,61 +5,99 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="HistoricWindow" Height="450" Width="800"
+        Title="HistoricWindow" Height="528" Width="1090"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
-        Loaded="Window_Loaded" Closed="Window_Closed"
-        >
+        Loaded="Window_Loaded" Closed="Window_Closed">
     <!--External Grid-->
-    <Grid>
+    <Grid Margin="11,0,18,16" RenderTransformOrigin="0.531,0.514" Height="477" VerticalAlignment="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="257*"/>
+            <ColumnDefinition Width="255*"/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="61"/>
+            <RowDefinition/>
+
+
         </Grid.RowDefinitions>
-        <Grid/>
-        <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto" RenderTransformOrigin="0.546,0.421">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Content="Filter:" HorizontalAlignment="Left" Margin="45,0,0,0" VerticalAlignment="Center" BorderBrush="#FFDA291C" Foreground="#FFDA291C"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
-                      Grid.Column="1"
-                      SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="131,0,69,0"
-                      SelectionChanged="FilteredCall_SelectionChanged">
 
-                <ComboBox.Background>
-                    <LinearGradientBrush EndPoint="0,1">
-                        <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFDA291C" Offset="1"/>
-                    </LinearGradientBrush>
-                </ComboBox.Background>
-            </ComboBox>
+        <!--Title Section-->
+        <TextBlock Text="Volunteer Call History" 
+               FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
+               HorizontalAlignment="Center" Margin="0,4,0,23" Width="281" Grid.ColumnSpan="2" />
+        <Label Content="Filter:" HorizontalAlignment="Left" Margin="16,21,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="56" Foreground="#FFEB0404" Grid.Column="1"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
+                      SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="96,20,232,0" VerticalAlignment="Top" Height="25"
+              SelectionChanged="FilteredCall_SelectionChanged" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Grid.Column="1" >
+            <ComboBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ComboBox.RenderTransform>
+        </ComboBox>
 
-            <Label Content="Sort By:" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Center" BorderBrush="#FFDA291C" Foreground="#FFDA291C"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallFieldCollectionKey}}"
+        <Label Content="Sort By:" HorizontalAlignment="Left" Margin="211,21,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1" Foreground="#FFEB0404" Width="55"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallFieldCollectionKey}}"
                       SelectionChanged="SortedCall_SelectionChanged"
-                      SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="122,2,0,0" VerticalAlignment="Top" Width="206" Height="32"/>
+                      SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="273,21,0,0" VerticalAlignment="Top" Width="159" Height="25" RenderTransformOrigin="0.463,0.612" Grid.Row="1" />
 
-        </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Path=ClosedCalls}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
-                  Height="NaN" BorderBrush="#FFEB0404" Background="#FFEEEBEB" >
-            <ListView.Foreground>
-                <SolidColorBrush Color="#FFEB0404"/>
-            </ListView.Foreground>
+        <!--ListView Section-->
+        <ListView Grid.Row="1" ItemsSource="{Binding Path=OpenCallList}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
+              BorderBrush="#FFEB0404" Background="#FFFDFDFD"
+              Padding="10" Margin="10,66,6,1" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+            <ListView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.208"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-1.663"/>
+                </TransformGroup>
+            </ListView.RenderTransform>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Margin" Value="0,0,0,10"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="Background" Value="#FFFAFAFA"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FFEFEFEF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#FFFFE0E0"/>
+                            <Setter Property="Foreground" Value="#FFEB0404"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Call Id" Width="Auto" DisplayMemberBinding="{Binding CallId}" />
-                    <GridViewColumn Header="Type of Call" Width="Auto" DisplayMemberBinding="{Binding TypeOfCall}" />
-                    <GridViewColumn Header="Address" Width="Auto" DisplayMemberBinding="{Binding CallAddress}" />
-                    <GridViewColumn Header="Begin Time" Width="Auto" DisplayMemberBinding="{Binding BeginTime}" />
-                    <GridViewColumn Header="Begin Assignment Time" Width="Auto" DisplayMemberBinding="{Binding BeginActionTime}" />
-                    <GridViewColumn Header="End Assignment Time" Width="Auto" DisplayMemberBinding="{Binding EndActionTime}" />
-                    <GridViewColumn Header="Type of end" Width="Auto" DisplayMemberBinding="{Binding TypeOfEnd}" />
+                    <GridViewColumn Header="Call ID" Width="80" DisplayMemberBinding="{Binding CallId}" />
+                    <GridViewColumn Header="Emergency Type" Width="105" DisplayMemberBinding="{Binding TypeOfCall}" />
+                    <GridViewColumn Header="Address" Width="200" DisplayMemberBinding="{Binding CallAddress}" />
+                    <GridViewColumn Header="Begin Time" Width="180" DisplayMemberBinding="{Binding BeginTime}" />
+                    <GridViewColumn Header="Max End Time" Width="180" DisplayMemberBinding="{Binding MaxEndTime}" />
+                    <GridViewColumn Header="Distance From You " Width="120" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
+                    <GridViewColumn Header="Respond to Call" Width="160">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Content="Take Action" Click="btnChoose_Click"  CommandParameter="{Binding}" 
+                                        Background="#FFEB0404" Foreground="White" FontWeight="Bold"
+                                        Width="180" Height="30" Margin="5,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
+
     </Grid>
 </Window>
