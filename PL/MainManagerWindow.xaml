@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Manager Window" Height="450" Width="633"
+        Title="Manager Window" Height="561" Width="633"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" 
         Icon="Images/Login.png"
         Background="#FFF5F5F5"
@@ -13,6 +13,12 @@
 
     <Window.Resources>
         <Color x:Key="CustomColor">#FF832121</Color>
+        <Color x:Key="MDA_Blue">#183A69</Color>
+        <Color x:Key="MDA_White">#FFFFFFFF</Color>
+        <Color x:Key="MDA_Gray">#FFDDDDDD</Color>
+        <SolidColorBrush x:Key="BlueBrush" Color="{StaticResource MDA_Blue}" />
+        <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource MDA_White}" />
+        <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource MDA_Gray}" />
         <SolidColorBrush x:Key="CustomBrush" Color="{StaticResource CustomColor}" />
         <Style x:Key="RedBorderButtonStyle" TargetType="Button">
             <Setter Property="BorderBrush" Value="{StaticResource CustomBrush}" />
@@ -25,6 +31,38 @@
             <Setter Property="BorderThickness" Value="2" />
             <Setter Property="Background" Value="White" />
             <Setter Property="Foreground" Value="{StaticResource CustomBrush}" />
+        </Style>
+        <Style x:Key="BlueBorderButtonStyle" TargetType="Button">
+            <Setter Property="BorderBrush" Value="{StaticResource BlueBrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
+        </Style>
+        <Style x:Key="BlueBorderTextBoxStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="{StaticResource BlueBrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
+        </Style>
+        <Style x:Key="EllipseButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="70" />
+            <Setter Property="Height" Value="70" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
+            <Setter Property="Background" Value="{StaticResource BlueBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BlueBrush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <!-- Forme ronde du bouton -->
+                            <Ellipse Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2" />
+                            <!-- Contenu centré -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
 
@@ -46,8 +84,8 @@
         <!-- Content Area -->
         <Grid Grid.Row="1" Grid.RowSpan="2" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="35*"/>
+                <RowDefinition Height="22*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -56,17 +94,20 @@
             </Grid.ColumnDefinitions>
 
             <!-- Left Section: Time Management -->
-            <StackPanel Grid.Column="0" VerticalAlignment="Top">
-                <Label Content="{Binding CurrentTime}" Height="34" Width="135" Foreground="{StaticResource CustomBrush}" />
-                <Button Content="Add a Minute" Click="btnAddOneMinute_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
-                <Button Content="Add an Hour" Click="btnAddOneHour_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
-                <Button Content="Add a Day" Click="btnAddOneDay_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
-                <Button Content="Add a Month" Click="btnAddOneMonth_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
-                <Button Content="Add a Year" Click="btnAddOneYear_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
-            </StackPanel>
+            <Label Content="{Binding CurrentTime}" Foreground="{StaticResource CustomBrush}" Margin="10,8,7,230" />
+            <Button Content="+ Min" Grid.Row="0" Grid.Column="0" Style="{StaticResource EllipseButtonStyle}" Click="btnAddOneMinute_Click" Margin="33,58,50,142" />
+            <Button Content="+ Hour" Grid.Row="0" Grid.Column="0"  Style="{StaticResource EllipseButtonStyle}" Click="btnAddOneHour_Click" Margin="29,130,46,70"/>
+            <Button Content="+ Day" Grid.Row="0" Grid.Column="0"  Style="{StaticResource EllipseButtonStyle}" Click="btnAddOneDay_Click"  Margin="31,215,48,7" />
+            <Button Content="+ Month" Grid.Column="0" Style="{StaticResource EllipseButtonStyle}" Click="btnAddOneMonth_Click"  Margin="33,286,0,112" HorizontalAlignment="Left" Width="73" RenderTransformOrigin="0.491,0.83" Grid.RowSpan="2"/>
+            <Button Content="+ Year " Grid.Row="1" Grid.Column="0" Style="{StaticResource EllipseButtonStyle}" Click="btnAddOneMonth_Click"  Margin="33,70,50,43"/>
+
+
+
+
+
 
             <!-- Center Section: Calls and Volunteers -->
-            <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="168" Width="262" Margin="0,72,0,0" Grid.RowSpan="2">
+            <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="274" Width="262" Margin="0,11,0,0" Grid.RowSpan="2">
                 <TextBlock Text="Managing Calls and Volunteers" FontSize="18" FontWeight="Bold" Foreground="{StaticResource CustomBrush}" Margin="0,0,0,20" Height="28" />
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions>
@@ -74,23 +115,31 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Image Grid.Column="0" Height="24" Margin="0,0,10,0" Source="Images/Phone.png" />
-                    <Button Grid.Column="1" Content="Calls" Height="40" FontSize="20" Click="btnCalls_Click" Background="{StaticResource CustomBrush}" Foreground="White" Margin="10,0,10,0" />
+                    <Button Grid.Column="1" Content="Calls" Height="40" FontSize="20" Click="btnCalls_Click" Style="{StaticResource RedBorderButtonStyle}" Margin="10,0,10,0" />
                 </Grid>
-                <Grid>
+                <Grid Height="176" Width="254">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Height="24" Margin="0,0,10,0" Source="Images/V.png" />
-                    <Button Grid.Column="1" Content="Volunteers" Height="40" FontSize="20" Click="btnVolunteers_Click" Background="{StaticResource CustomBrush}" Foreground="White" Margin="10,0,10,0" />
+                    <Image Grid.Column="0" Height="24" Margin="4,238,8,-86" Source="Images/V.png" RenderTransformOrigin="0.751,1.085" />
+                    <Button Grid.Column="1" Content="Volunteers" FontSize="20" Click="btnVolunteers_Click" Style="{StaticResource RedBorderButtonStyle}" Margin="10,222,9,-100" />
                 </Grid>
             </StackPanel>
 
-            <StackPanel Grid.Column="2" VerticalAlignment="Top" Height="Auto" Margin="0,37,0,0">
+            <Button Grid.Column="2" Content="{Binding ButtonText}" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Height="22" Width="118" Click="btnSimulator_Click" Style="{StaticResource BlueBorderButtonStyle}"/>
+            <TextBox Grid.Column="2" HorizontalAlignment="Left" Margin="7,12,0,0" TextWrapping="Wrap" Text="Please enter the interval per minute " VerticalAlignment="Top" Width="129" Height="46" Style="{StaticResource BlueBorderTextBoxStyle}"  />
+            <TextBox Text="{Binding Interval}" IsEnabled="{Binding isNotRun}" Grid.Column="2" HorizontalAlignment="Left" Margin="11,86,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="124" Height="33" RenderTransformOrigin="0.5,0.5" Style="{StaticResource BlueBorderTextBoxStyle}" />
+
+
+
+
+
+            <StackPanel Grid.Column="2" VerticalAlignment="Top" Height="116" Margin="0,18,0,0" Grid.Row="1">
                 <!-- Group 1: Risk Range Button and TextBox -->
-                <StackPanel>
-                    <Button Content="Risk Range" Click="btnSetRR_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
-                    <TextBox Text="{Binding RiskRange, UpdateSourceTrigger=PropertyChanged}" Width="140" Height="25" TextWrapping="Wrap" Style="{StaticResource RedBorderTextBoxStyle}" />
+                <StackPanel Height="48" Width="152">
+                    <Button Content="Risk Range" Click="btnSetRR_Click" Width="140" Style="{StaticResource BlueBorderButtonStyle}" />
+                    <TextBox Text="{Binding RiskRange, UpdateSourceTrigger=PropertyChanged}" Width="140" Height="25" TextWrapping="Wrap" Style="{StaticResource BlueBorderTextBoxStyle}" />
                 </StackPanel>
 
                 <!-- Spacer -->
@@ -98,39 +147,31 @@
 
                 <!-- Group 2: Initialization and Reset Buttons -->
                 <StackPanel>
-                    <Button Content="Initialization"  IsEnabled="{Binding isNotRun}" Click="btnInitialization_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" />
-                    <Button Content="Reset"  IsEnabled="{Binding isNotRun}" Click="btnReset_Click" Width="140" Style="{StaticResource RedBorderButtonStyle}" Height="22" />
+                    <Button Content="Initialization"  IsEnabled="{Binding isNotRun}" Click="btnInitialization_Click" Width="140" Style="{StaticResource BlueBorderButtonStyle}" />
+                    <Button Content="Reset"  IsEnabled="{Binding isNotRun}" Click="btnReset_Click" Width="140" Style="{StaticResource BlueBorderButtonStyle}" Height="22" />
                 </StackPanel>
             </StackPanel>
-            <Button Grid.Column="2" Content="{Binding ButtonText}" HorizontalAlignment="Left" Margin="14,61,0,0" Grid.Row="1" VerticalAlignment="Top" Height="22" Width="118" Click="btnSimulator_Click"/>
-            <TextBlock Grid.Column="2" HorizontalAlignment="Center" Margin="0,194,0,0" TextWrapping="Wrap" Text="Please enter the interval per minute " VerticalAlignment="Top" Width="129" Grid.RowSpan="2"/>
-            <TextBox Text="{Binding Interval}" IsEnabled="{Binding isNotRun}" Grid.Column="2" HorizontalAlignment="Center" Margin="0,35,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" />
-            <Button Content="Open" Click="btnOpenCalls_Click" HorizontalAlignment="Left" Margin="66,172,0,0" VerticalAlignment="Top" Height="21" Width="68"/>
-            <Button Content="Open In Risk" Click="btnOpenCallsInRisk_Click" HorizontalAlignment="Left" Margin="64,194,0,0" VerticalAlignment="Top" Height="25" Width="85" Grid.RowSpan="2"/>
-            <Button Content="In Action" Click="btnInActionCalls_Click" HorizontalAlignment="Left" Margin="61,1,0,0" Grid.Row="1" VerticalAlignment="Top" Width="85"/>
-            <Button Content="In Action in Risk" Click="btnInActionCallsInRisk_Click" Margin="55,20,296,100" Grid.Row="1" Grid.ColumnSpan="2"/>
-            <Button Content="Closed" Click="btnClosedCalls_Click" HorizontalAlignment="Left" Margin="68,45,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="58"/>
-            <Button Content="Expired" Click="btnExpiredCalls_Click" Margin="63,71,16,49" Grid.Row="1"/>
-            <Label Content="{Binding  CallCounts[0]}" HorizontalAlignment="Left" Margin="7,173,0,0" VerticalAlignment="Top" Height="21" Width="54"/>
-            <Label Content="{Binding  CallCounts[2]}" HorizontalAlignment="Left" Margin="1,195,0,144" Width="60" Grid.RowSpan="2"/>
-            <Label Content="{Binding  CallCounts[5]}" HorizontalAlignment="Left" Margin="1,24,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="44" RenderTransformOrigin="0.5,0.5">
-                <Label.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="1.195"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Label.RenderTransform>
-            </Label>
-            <Label Content="{Binding  CallCounts[1]}" HorizontalAlignment="Left" Margin="-9,216,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.642,0.135" Grid.RowSpan="2" Height="26" Width="69"/>
-            <Label Content="{Binding  CallCounts[3]}" HorizontalAlignment="Left" Margin="0,47,0,0" Grid.Row="1" VerticalAlignment="Top" Height="18" Width="45"/>
-            <Label Content="{Binding  CallCounts[4]}" HorizontalAlignment="Left" Margin="-4,67,0,0" Grid.Row="1" VerticalAlignment="Top" Height="24" Width="57"/>
+
+            <!-- Calls Type Buttons Accessing the Call in list window with the differents status -->
+            <Button Content="Open" Click="btnOpenCalls_Click" HorizontalAlignment="Left" Margin="123,115,0,0" VerticalAlignment="Top" Height="21" Width="68" RenderTransformOrigin="0.887,0.51" Grid.Column="1" Style="{StaticResource RedBorderButtonStyle }"/>
+            <Button Content="Open In Risk" Click="btnOpenCallsInRisk_Click" HorizontalAlignment="Left" Margin="118,139,0,0" VerticalAlignment="Top" Height="25" Width="85" Grid.Column="1" Style="{StaticResource RedBorderButtonStyle }" RenderTransformOrigin="0.287,0.508"/>
+            <Button Content="In Action" Click="btnInActionCalls_Click" HorizontalAlignment="Left" Margin="119,171,0,0" VerticalAlignment="Top" Width="85" Grid.Column="1" Height="20" Style="{StaticResource RedBorderButtonStyle }"/>
+            <Button Content="In Action in Risk" Click="btnInActionCallsInRisk_Click" Margin="113,194,86,73" Grid.Column="1" Style="{StaticResource RedBorderButtonStyle }"/>
+            <Button Content="Closed" Click="btnClosedCalls_Click" HorizontalAlignment="Left" Margin="123,218,0,0" VerticalAlignment="Top" Height="26" Width="58" Grid.Column="1" Style="{StaticResource RedBorderButtonStyle }"/>
+            <Button Content="Expired" Click="btnExpiredCalls_Click" Margin="118,250,116,0" RenderTransformOrigin="0.925,0.349" Grid.Column="1" Height="26" VerticalAlignment="Top" Grid.RowSpan="2" Style="{StaticResource RedBorderButtonStyle }"/>
+
+            <!-- Call Count Depending on the Status -->
+            <Label Content="{Binding  CallCounts[0]}" HorizontalAlignment="Left" Margin="202,116,0,0" VerticalAlignment="Top" Height="21" Width="54" Grid.Column="1" />
+            <Label Content="{Binding  CallCounts[1]}" HorizontalAlignment="Left" Margin="207,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.642,0.135" Height="26" Width="69" Grid.Column="1"/>
+            <Label Content="{Binding  CallCounts[2]}" HorizontalAlignment="Left" Margin="215,171,0,106" Width="57" RenderTransformOrigin="0.632,0.524" Grid.Column="1"/>
+            <Label Content="{Binding  CallCounts[3]}" HorizontalAlignment="Left" Margin="234,195,0,0" VerticalAlignment="Top" Height="18" Width="45" Grid.Column="1"/>
+            <Label Content="{Binding  CallCounts[4]}" HorizontalAlignment="Left" Margin="198,220,0,0" VerticalAlignment="Top" Height="24" Width="57" Grid.Column="1"/>
+            <Label Content="{Binding  CallCounts[5]}" HorizontalAlignment="Left" Margin="206,253,0,0" VerticalAlignment="Top" Height="18" Width="44" RenderTransformOrigin="0.5,0.5" Grid.Column="1"/>
 
         </Grid>
 
         <!-- Footer -->
-        <Border Grid.Row="2" Background="{StaticResource CustomBrush}" Margin="-9,213,-9,0">
+        <Border Grid.Row="2" Background="{StaticResource CustomBrush}" Margin="-9,292,-9,0">
             <TextBlock Text="MDA Management System © 2025" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="12" />
         </Border>
     </Grid>

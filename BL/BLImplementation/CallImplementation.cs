@@ -198,13 +198,14 @@ internal class CallImplementation : ICall
         {
             DO.Call? call;
             lock (AdminManager.BlMutex)
-                call = _dal.Call.Read(callId);
+                call= _dal.Call.Read(callId);
 
-            var assignments = _dal.Assignment.ReadAll(assignment => assignment.CallId == callId)?.ToList();
-            bool hasNoAssignments = assignments == null || assignments.Count == 0;
+            IEnumerable<DO.Assignment>? assignments;
+            lock (AdminManager.BlMutex)
+                  assignments= _dal.Assignment.ReadAll(assignment => assignment.CallId == callId);
 
             // Check if the call can be deleted
-            if (status == BO.Statuses.Open && hasNoAssignments)
+            if (status==BO.Statuses.Open&& !assignments?.Any() == null)
             {
                 // Attempt to delete the call from the data layer
                 lock (AdminManager.BlMutex)
@@ -382,7 +383,7 @@ internal class CallImplementation : ICall
                    assignment= _dal.Assignment.Read(a=>a.AssignmentId==assignmentId&&a.End==null);
 
             // Check if the assignment is still open
-            if (status != BO.Statuses.InAction && status != BO.Statuses.InActionToRisk)
+            if (status != BO.Statuses.InAction || status != BO.Statuses.InActionToRisk)
             {
                 throw new BO.BLInvalidOperationException("There is no assignments to this call.");
             }
