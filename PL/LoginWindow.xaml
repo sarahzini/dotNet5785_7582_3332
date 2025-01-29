@@ -57,7 +57,7 @@
                 <StackPanel Grid.Row="2" Margin="0,0,0,20">
                     <TextBlock Margin="0,0,0,5" Text="Password:" FontWeight="Bold" Foreground="#FF333333"/>
                     <PasswordBox Height="30" Padding="5" Background="#FFFFFAFA" BorderBrush="{StaticResource StarRedBrush}" BorderThickness="1"
-                           PasswordChanged="PasswordBox_PasswordChanged" />
+                           PasswordChanged="PasswordBox_PasswordChanged" KeyDown="PasswordBox_KeyDown" />
                 </StackPanel>
 
                 <!-- Login Button -->
