@@ -3,6 +3,7 @@ using PL.Volunteer;
 using System.Diagnostics.Eventing.Reader;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PL;
 
@@ -44,6 +45,14 @@ public partial class LoginWindow : Window
 
     public static readonly DependencyProperty PasswordProperty =
         DependencyProperty.Register("Password", typeof(string), typeof(LoginWindow), new PropertyMetadata(string.Empty));
+
+    private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter)
+        {
+           btnLoginButton_Click(sender, e);
+        }
+    }
 
     private void btnLoginButton_Click(object sender, RoutedEventArgs e)
     {
