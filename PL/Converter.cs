@@ -163,7 +163,7 @@ namespace PL
         {
             if (value is string password)
             {
-                return new string('*', password.Length); // Retourne une chaîne d'étoiles
+                return new string('*', password.Length); 
             }
             return string.Empty;
         }

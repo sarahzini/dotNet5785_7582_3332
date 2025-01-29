@@ -8,7 +8,8 @@
         Title="Call Window" Height="502" Width="622"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Loaded="Window_Loaded" Closed="Window_Closed">
+        Loaded="Window_Loaded" Closed="Window_Closed"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Color x:Key="MDAColor">#FFDA291C</Color>

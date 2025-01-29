@@ -400,4 +400,20 @@
     <End>2025-01-29T17:22:52</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
+  <Assignment>
+    <AssignmentId>1050</AssignmentId>
+    <CallId>100000042</CallId>
+    <VolunteerId>29421765</VolunteerId>
+    <Begin>2025-01-29T17:31:52</Begin>
+    <End>2025-01-29T17:31:52</End>
+    <MyEndStatus>SelfCancelled</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1051</AssignmentId>
+    <CallId>100000040</CallId>
+    <VolunteerId>29421765</VolunteerId>
+    <Begin>2025-01-29T17:31:52</Begin>
+    <End>2025-01-29T17:31:52</End>
+    <MyEndStatus>Completed</MyEndStatus>
+  </Assignment>
 </ArrayOfAssignment>

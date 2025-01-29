@@ -4,62 +4,37 @@ using System.Windows.Controls;
 
 namespace PL.Volunteer
 {
+
     public partial class PasswordWindow : Window
     {
+        private readonly PasswordViewModel _viewModel;
         private readonly BlApi.IBl bl = BlApi.Factory.Get();
         private readonly BO.Volunteer volunteer;
         private string actualPassword = string.Empty;
 
-        public PasswordWindow(BO.Volunteer volunteer)
+        public PasswordWindow(BO.Volunteer Volunteer)
         {
             InitializeComponent();
-            this.volunteer = volunteer;
+            _viewModel = new PasswordViewModel();
+            DataContext = _viewModel;
+            volunteer = Volunteer;
         }
-
-        public string Password
+        private void UpdatePassword_Click(object sender, RoutedEventArgs e)
         {
-            get { return (string)GetValue(PasswordProperty); }
-            set { SetValue(PasswordProperty, value); }
-        }
-
-        public static readonly DependencyProperty PasswordProperty =
-            DependencyProperty.Register("Password", typeof(string), typeof(PasswordWindow), new PropertyMetadata(string.Empty));
-
-        private void txtPassword_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            int caretIndex = textBox.CaretIndex;
-
-            if (textBox.Text.Length > actualPassword.Length)
-            {
-                
-                actualPassword += textBox.Text.Substring(actualPassword.Length);
-            }
-            else if (textBox.Text.Length < actualPassword.Length)
-            {
-                actualPassword = actualPassword.Substring(0, textBox.Text.Length);
-            }
-
-            Password = actualPassword;
-
-            textBox.Text = new string('*', actualPassword.Length);
-            textBox.CaretIndex = caretIndex;
-        }
-
-        private void btnUpdatePassword_Click(object sender, RoutedEventArgs e)
-        {
+            string actualPassword = _viewModel.ActualPassword;
             try
             {
-                if (string.IsNullOrEmpty(actualPassword))
+                if (string.IsNullOrWhiteSpace(actualPassword))
                 {
                     MessageBox.Show("Password cannot be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-
                 volunteer.Password = actualPassword;
                 bl.Volunteer.UpdateVolunteer(volunteer.VolunteerId, volunteer);
-                MessageBox.Show("Password updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+
+                MessageBox.Show($"Password '{actualPassword}' updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
             }
             catch (Exception ex)
             {

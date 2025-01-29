@@ -7,7 +7,8 @@
         Title="Assignment Window" Height="710" Width="1107"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
-        Loaded="Window_Loaded" Closed="Window_Closed">
+        Loaded="Window_Loaded" Closed="Window_Closed" 
+        WindowStartupLocation="CenterScreen">
     <!--External Grid-->
     <Grid Margin="2,24,20,10">
         <Grid.ColumnDefinitions>

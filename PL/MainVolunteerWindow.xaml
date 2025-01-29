@@ -8,7 +8,8 @@
         Title="Volunteer Window" Height="431" Width="517"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="Images/Login.png"
-        Loaded="Window_Loaded" Closed="Window_Closed">
+        Loaded="Window_Loaded" Closed="Window_Closed"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Color x:Key="CustomColor">#FF832121</Color>
         <SolidColorBrush x:Key="CustomBrush" Color="{StaticResource CustomColor}" />

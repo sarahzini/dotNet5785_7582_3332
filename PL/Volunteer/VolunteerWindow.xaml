@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="VolunteerWindow" Height="602" Width="679"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Icon="pack://application:,,,/PL;component/Images/Login.png">
+        Icon="pack://application:,,,/PL;component/Images/Login.png"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Color x:Key="MDAColor">#FFDA291C</Color>
