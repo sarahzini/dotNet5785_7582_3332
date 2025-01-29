@@ -42,6 +42,9 @@ internal class AdminImplementation : IAdmin
     {
         AdminManager.ThrowOnSimulatorIsRunning();
         _dal.Config.RiskRange = riskRange;
+
+        CallManager.Observers.NotifyListUpdated();
+
     }
 
     /// <summary>
