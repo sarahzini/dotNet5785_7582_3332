@@ -22,8 +22,9 @@ namespace PL.Volunteer
     public partial class VolunteerWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public VolunteerWindow(string AddOrUpdate, int id,int requesterId)
+        public VolunteerWindow(string AddOrUpdate, int id,int requesterid,bool ismanager)
         {
+            isManager = ismanager;
             try
             {
                 ButtonText = AddOrUpdate == "Add" ? "Add" : "Update";
@@ -50,7 +51,7 @@ namespace PL.Volunteer
                 else 
                     CurrentVolunteer = s_bl.Volunteer.GetVolunteerDetails(id);
 
-                requesterId = requesterId;
+                requesterId = requesterid;
             }
             catch (BO.BLDoesNotExistException ex)
             {
@@ -62,6 +63,16 @@ namespace PL.Volunteer
             }
 
         }
+
+       public bool isManager
+        {
+            get { return (bool)GetValue(isManagerProperty); }
+            set { SetValue(isManagerProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty isManagerProperty =
+            DependencyProperty.Register("isManagerProperty", typeof(bool), typeof(VolunteerWindow), new PropertyMetadata(true));
 
         public int requesterId { get; set; }
         /// <summary>
@@ -135,7 +146,7 @@ namespace PL.Volunteer
                 }
                 else
                 {
-                    s_bl.Volunteer.UpdateVolunteer(CurrentVolunteer!.VolunteerId, CurrentVolunteer!);
+                    s_bl.Volunteer.UpdateVolunteer(requesterId, CurrentVolunteer!);
                     MessageBox.Show($"The volunteer with the ID number: {CurrentVolunteer?.VolunteerId} was successfully updated!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }

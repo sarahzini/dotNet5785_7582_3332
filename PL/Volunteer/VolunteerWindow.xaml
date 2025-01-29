@@ -92,8 +92,7 @@
                 <TextBlock Text="Job:"  Style="{StaticResource RedTextStyle}" />
                 <ComboBox  ItemsSource="{Binding Source={StaticResource JobCollectionKey}}" 
                            SelectedValue="{Binding CurrentVolunteer.VolunteerJob, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Margin="0,0,0,10"
-                            IsEnabled="{Binding ButtonText, Converter={StaticResource ConvertAddToTrueKey}}"/>
-
+                            IsEnabled="{Binding isManager}"/>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <TextBlock Text="IsActive:" Style="{StaticResource RedTextStyle}" />
                     <CheckBox IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Height="14" Width="24" />

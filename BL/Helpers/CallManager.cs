@@ -188,7 +188,7 @@ internal static class CallManager
     internal static void ValidateCallDetails(BO.Call call)
     {
         //checks wether the Maxendtime is greater than the call start time and the current time
-        if (call.MaxEndTime <= call.BeginTime || call.MaxEndTime <= DateTime.Now)
+        if (call.MaxEndTime <= call.BeginTime || call.MaxEndTime <= AdminManager.Now)
         {
             throw new BO.BLFormatException("The maximum end time must be greater than the call start time and the current time.");
         }
@@ -198,9 +198,18 @@ internal static class CallManager
 
     internal static double CalculOfDistance(DO.Call call, DO.Volunteer? volunteer )
     {
-        return Math.Sqrt(
-        Math.Pow((double)(volunteer!.Longitude! - call.Longitude!), 2) +
-        Math.Pow((double)(volunteer!.Latitude! - call.Latitude!), 2));
+        
+        double? lat1 = volunteer!.Latitude!;
+        double? lon1 = volunteer!.Longitude!;
+        double? lat2 = call.Latitude!;
+        double? lon2 = call.Longitude!;
+
+        double dLat = (Math.PI / 180)*(double)(lat2 - lat1);
+        double dLon = (Math.PI / 180) * (double)(lon2 - lon1);
+        double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                   Math.Cos((Math.PI / 180) * (double)(lat1)) * Math.Cos((Math.PI / 180) * (double)(lat2)) *
+                   Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+        return 6371 * 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a)); //6371 is the radius of the earth in km
 
     }
 }

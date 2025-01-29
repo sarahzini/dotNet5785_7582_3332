@@ -138,7 +138,7 @@ public partial class CallInListWindow : Window
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
         try
         {
-            if (confirmation == MessageBoxResult.Yes)
+            if (SelectedCall!=null &&confirmation == MessageBoxResult.Yes)
             {
                 s_bl.Call.DeleteCall(SelectedCall.CallId,SelectedCall.Status);
             }
@@ -157,7 +157,7 @@ public partial class CallInListWindow : Window
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
         try
         {
-            if (confirmation == MessageBoxResult.Yes)
+            if (SelectedCall != null && confirmation == MessageBoxResult.Yes)
             {
                 s_bl.Call.CancelAssignment(requesterId,SelectedCall.AssignId,SelectedCall.Status);
             }
