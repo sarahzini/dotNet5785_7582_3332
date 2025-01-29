@@ -29,20 +29,6 @@
     <MyWhichDistance>WalkingDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>36007817</Id>
-    <Name>Yaara Levi</Name>
-    <PhoneNumber>0541283795</PhoneNumber>
-    <Email>Yaara.Levi@outlook.com</Email>
-    <Password>YL2023</Password>
-    <Address>67 Yafo Street, Jerusalem, Israel</Address>
-    <Latitude>31.783678</Latitude>
-    <Longitude>35.216553</Longitude>
-    <MyJob>Manager</MyJob>
-    <active>true</active>
-    <distance>60.92622913104605</distance>
-    <MyWhichDistance>AirDistance</MyWhichDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>21471569</Id>
     <Name>Eli Ben-David</Name>
     <PhoneNumber>0536472391</PhoneNumber>
@@ -183,20 +169,6 @@
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
   <Volunteer>
-    <Id>12647384</Id>
-    <Name>Nadav Shulman</Name>
-    <PhoneNumber>0549342105</PhoneNumber>
-    <Email>Nadav.Shulman@hushmail.com</Email>
-    <Password>Shulman5555</Password>
-    <Address>50 Keren Hayesod Street, Jerusalem, Israel</Address>
-    <Latitude>31.7716677</Latitude>
-    <Longitude>35.2224285</Longitude>
-    <MyJob>Volunteer</MyJob>
-    <active>true</active>
-    <distance>97.35844747321605</distance>
-    <MyWhichDistance>WalkingDistance</MyWhichDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>17192390</Id>
     <Name>Rachel Dubinsky</Name>
     <PhoneNumber>0586120394</PhoneNumber>
@@ -278,6 +250,34 @@
     <MyJob>Volunteer</MyJob>
     <active>true</active>
     <distance>35.31430677425329</distance>
+    <MyWhichDistance>AirDistance</MyWhichDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>12647384</Id>
+    <Name>Nadav Shulman</Name>
+    <PhoneNumber>0549342105</PhoneNumber>
+    <Email>Nadav.Shulman@hushmail.com</Email>
+    <Password>Shulman5555</Password>
+    <Address>50 Keren Hayesod Street, Jerusalem, Israel</Address>
+    <Latitude>31.7716677</Latitude>
+    <Longitude>35.2224285</Longitude>
+    <MyJob>Volunteer</MyJob>
+    <active>true</active>
+    <distance>97.35844747321605</distance>
+    <MyWhichDistance>WalkingDistance</MyWhichDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>36007817</Id>
+    <Name>Yaara Levi</Name>
+    <PhoneNumber>0541283795</PhoneNumber>
+    <Email>Yaara.Levi@outlook.com</Email>
+    <Password>YL2023</Password>
+    <Address>67 Yafo Street, Jerusalem, Israel</Address>
+    <Latitude>31.783678</Latitude>
+    <Longitude>35.216553</Longitude>
+    <MyJob>Manager</MyJob>
+    <active>true</active>
+    <distance>60.92622913104605</distance>
     <MyWhichDistance>AirDistance</MyWhichDistance>
   </Volunteer>
 </Volunteers>

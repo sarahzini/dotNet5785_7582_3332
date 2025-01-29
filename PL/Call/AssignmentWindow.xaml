@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Assignment Window" Height="863" Width="1107"
+        Title="Assignment Window" Height="710" Width="1107"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed">
@@ -24,15 +24,15 @@
         <TextBlock Text="Choose the call closest from you to respond quickly!" 
                    FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
                    HorizontalAlignment="Center" Margin="0,4,0,23" Width="602" />
-        <Label Content="Filter:" HorizontalAlignment="Left" Margin="530,21,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="56" Foreground="#FFEB0404"/>
+        <Label Content="Filter:" HorizontalAlignment="Left" Margin="724,27,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="45" Foreground="#FFEB0404"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
-                  SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="597,20,251,0" VerticalAlignment="Top" Height="25"
+                  SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="706,25,0,0" VerticalAlignment="Top" Height="29"  Width="220"
                   SelectionChanged="FilteredCall_SelectionChanged" Grid.Row="1" />
 
-        <Label Content="Sort By:" HorizontalAlignment="Left" Margin="211,21,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1" Foreground="#FFEB0404" Width="55"/>
+        <Label Content="Sort By:" HorizontalAlignment="Left" Margin="62,27,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1" Foreground="#FFEB0404" Width="50"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource OpenCallFieldCollectionKey}}"
                   SelectionChanged="SortedCall_SelectionChanged"
-                  SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="273,20,251,0" VerticalAlignment="Top" Width="159" Height="25" RenderTransformOrigin="0.463,0.612" Grid.Row="1" />
+                  SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="123,25,0,0" VerticalAlignment="Top" Height="29"  Width="220" RenderTransformOrigin="0.463,0.612" Grid.Row="1" />
 
         <!--ListView Section-->
         <ListView Grid.Row="1" ItemsSource="{Binding Path=OpenCallList}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
@@ -72,13 +72,13 @@
                     <GridViewColumn Header="Begin Time" Width="180" DisplayMemberBinding="{Binding BeginTime}" />
                     <GridViewColumn Header="Max End Time" Width="180" DisplayMemberBinding="{Binding MaxEndTime}" />
                     <GridViewColumn Header="Distance From You " Width="120" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
-                    <GridViewColumn Header="Respond to Call" Width="160">
+                    <GridViewColumn Header="Respond To A Call" Width="170">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Button Content="Take Action" Click="btnChoose_Click"  CommandParameter="{Binding}" 
                                             Background="#FFEB0404" Foreground="White" FontWeight="Bold"
-                                            Width="180" Height="30" Margin="5,0"/>
+                                             Width="100" Height="30"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

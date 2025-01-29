@@ -61,15 +61,15 @@
                     <GridViewColumn Header="Range Time To End" Width="180" DisplayMemberBinding="{Binding RangeTimeToEnd}" />
                     <GridViewColumn Header="Last Volunteer" Width="130" DisplayMemberBinding="{Binding NameLastVolunteer}" />
                     <GridViewColumn Header="Executed Time" Width="180" DisplayMemberBinding="{Binding ExecutedTime}" />
-                    <GridViewColumn Header="" Width="150">
+                    <GridViewColumn Header="" Width="220">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button Content="Delete" Click="btnDelete_Click"
                                             Background="Red" Foreground="White" FontWeight="Bold"
-                                            Width="80" Height="30" Margin="5,0" Tag="{Binding CallId}" />
+                                             Width="100" Height="30" Margin="5,0" Tag="{Binding CallId}" />
 
-                                    <Button Content="Cancel Assignment" Click="btnCancel_Click" Tag="{Binding CallId}" />
+                                    <Button Content="Cancel" Click="btnCancel_Click"   Background="Red" Foreground="White"  FontWeight="Bold" Width="100" Height="30" Tag="{Binding CallId}" />
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -84,17 +84,17 @@
                     Background="#FFEB0404" Foreground="White" FontWeight="Bold"
                     Width="130" Height="42"/>
         </StackPanel>
-        <Label Content="Select Filter:" HorizontalAlignment="Left" Margin="82,70,0,0" VerticalAlignment="Top" Foreground="#FFEB0404" Height="28" Width="75" RenderTransformOrigin="0.5,0.5" Grid.Column="1" />
+        <Label Content="Select Filter:" HorizontalAlignment="Left" Margin="120,70,0,0" VerticalAlignment="Top" Foreground="#FFEB0404" Height="28" Width="75" RenderTransformOrigin="0.5,0.5" Grid.Column="1" />
 
         <ComboBox ItemsSource="{Binding Source={StaticResource StatusCallCollectionKey}}"
                   SelectedValue="{Binding Path=Filter, Mode=TwoWay}"  SelectionChanged="FilteredCall_SelectionChanged" HorizontalAlignment="Left"
-                  Width="220" Margin="164,65,0,4" Grid.Column="1" 
-                  Height="36" VerticalAlignment="Top" />
-        <Label Content="Sort by:" HorizontalAlignment="Left" Margin="98,67,0,0" VerticalAlignment="Top" Grid.Column="0" Foreground="#FFEB0404" Height="26" Width="58"/>
+                  Width="220" Margin="200,67,0,0" Grid.Column="1" 
+                  Height="29" VerticalAlignment="Top" />
+        <Label Content="Sort by:" HorizontalAlignment="Left" Margin="27,70,0,0" VerticalAlignment="Top" Grid.Column="0" Foreground="#FFEB0404" Height="28" Width="58"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource CallInListFieldCollectionKey}}"
            SelectedValue="{Binding Path=Sort, Mode=TwoWay}"  SelectionChanged="FilteredCall_SelectionChanged" HorizontalAlignment="Left"
-                  Width="220" Margin="164,65,0,4" 
-                  Height="36"/>
+                  Width="220" Margin="80,67,0,0" 
+                  Height="29" Grid.Column="0" VerticalAlignment="Top" />
         <TextBlock HorizontalAlignment="Left" Margin="316,8,0,0" TextWrapping="Wrap" Text="Call Management Dashboard" VerticalAlignment="Top" Height="36" Width="402"  FontSize="24" FontWeight="Bold" Foreground="#FFEB0404" Grid.ColumnSpan="2" RenderTransformOrigin="0.495,0.543"/>
     </Grid>
 </Window>

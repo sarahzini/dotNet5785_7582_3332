@@ -329,36 +329,12 @@
     <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <AssignmentId>1041</AssignmentId>
-    <CallId>100000031</CallId>
-    <VolunteerId>33354591</VolunteerId>
-    <Begin>2025-01-27T20:35:26</Begin>
-    <End xsi:nil="true" />
-    <MyEndStatus xsi:nil="true" />
-  </Assignment>
-  <Assignment>
-    <AssignmentId>1042</AssignmentId>
-    <CallId>100000032</CallId>
-    <VolunteerId>13820544</VolunteerId>
-    <Begin>2025-01-27T19:29:26</Begin>
-    <End xsi:nil="true" />
-    <MyEndStatus xsi:nil="true" />
-  </Assignment>
-  <Assignment>
     <AssignmentId>1043</AssignmentId>
     <CallId>100000033</CallId>
     <VolunteerId>21937682</VolunteerId>
     <Begin>2025-01-27T19:40:26</Begin>
     <End>2025-01-27T22:06:26</End>
     <MyEndStatus>Completed</MyEndStatus>
-  </Assignment>
-  <Assignment>
-    <AssignmentId>1044</AssignmentId>
-    <CallId>100000034</CallId>
-    <VolunteerId>23301012</VolunteerId>
-    <Begin>2025-01-27T21:10:26</Begin>
-    <End xsi:nil="true" />
-    <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
     <AssignmentId>1045</AssignmentId>
@@ -369,28 +345,20 @@
     <MyEndStatus xsi:nil="true" />
   </Assignment>
   <Assignment>
+    <AssignmentId>1044</AssignmentId>
+    <CallId>100000034</CallId>
+    <VolunteerId>23301012</VolunteerId>
+    <Begin>2025-01-27T21:10:26</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus>Expired</MyEndStatus>
+  </Assignment>
+  <Assignment>
     <AssignmentId>1046</AssignmentId>
     <CallId>100000036</CallId>
     <VolunteerId>39201471</VolunteerId>
     <Begin>2025-01-27T21:01:26</Begin>
     <End xsi:nil="true" />
-    <MyEndStatus xsi:nil="true" />
-  </Assignment>
-  <Assignment>
-    <AssignmentId>1047</AssignmentId>
-    <CallId>100000037</CallId>
-    <VolunteerId>13435020</VolunteerId>
-    <Begin>2025-01-27T20:30:26</Begin>
-    <End xsi:nil="true" />
-    <MyEndStatus xsi:nil="true" />
-  </Assignment>
-  <Assignment>
-    <AssignmentId>1048</AssignmentId>
-    <CallId>100000038</CallId>
-    <VolunteerId>39433494</VolunteerId>
-    <Begin>2025-01-27T19:30:26</Begin>
-    <End xsi:nil="true" />
-    <MyEndStatus xsi:nil="true" />
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
   <Assignment>
     <AssignmentId>1049</AssignmentId>
@@ -398,6 +366,38 @@
     <VolunteerId>12647384</VolunteerId>
     <Begin>2025-01-27T20:03:26</Begin>
     <End xsi:nil="true" />
-    <MyEndStatus xsi:nil="true" />
+    <MyEndStatus>Expired</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1041</AssignmentId>
+    <CallId>100000031</CallId>
+    <VolunteerId>33354591</VolunteerId>
+    <Begin>2025-01-27T20:35:26</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus>Expired</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1042</AssignmentId>
+    <CallId>100000032</CallId>
+    <VolunteerId>13820544</VolunteerId>
+    <Begin>2025-01-27T19:29:26</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus>Expired</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1047</AssignmentId>
+    <CallId>100000037</CallId>
+    <VolunteerId>13435020</VolunteerId>
+    <Begin>2025-01-27T20:30:26</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus>Expired</MyEndStatus>
+  </Assignment>
+  <Assignment>
+    <AssignmentId>1048</AssignmentId>
+    <CallId>100000038</CallId>
+    <VolunteerId>39433494</VolunteerId>
+    <Begin>2025-01-27T19:30:26</Begin>
+    <End xsi:nil="true" />
+    <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
 </ArrayOfAssignment>

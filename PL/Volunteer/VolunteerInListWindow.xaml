@@ -90,14 +90,14 @@
                     Background="#FFEB0404" Foreground="White" FontWeight="Bold"
                     Width="150" Height="50" Margin="10,0" />
         </StackPanel>
-        <Label Content="Select type of actual call:" HorizontalAlignment="Left" Margin="687,0,0,0" VerticalAlignment="Center" Grid.Column="1" Foreground="#FFEB0404" Height="26" Width="153" Grid.Row="1"/>
+        <Label Content="Select type of actual call:" HorizontalAlignment="Left" Margin="609,6,0,0" VerticalAlignment="Top" Grid.Column="1" Foreground="#FFEB0404" Height="26" Width="166" Grid.Row="1"/>
         <ComboBox SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}"
                       ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}" HorizontalAlignment="Left"
-                       SelectionChanged="FilteredVolunteer_SelectionChanged"  Width="213" Margin="855,2,0,4" Grid.Column="1" Grid.Row="1" />
-        <Label Content="Sort by:" HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Center" Grid.Column="1" Foreground="#FFEB0404" Height="26" Width="110" RenderTransformOrigin="0.64,1.04" Grid.Row="1"/>
+                       SelectionChanged="FilteredVolunteer_SelectionChanged" VerticalAlignment="Top" Height="29"  Width="220" Margin="755,2,0,0" Grid.Column="1" Grid.Row="1" />
+        <Label Content="Sort by:" HorizontalAlignment="Left" Margin="43,5,0,0" VerticalAlignment="Top" Grid.Column="1" Foreground="#FFEB0404" Height="26" Width="58" RenderTransformOrigin="0.64,1.04" Grid.Row="1"/>
         <ComboBox SelectedValue="{Binding Path=Field, Mode=TwoWay}"
                ItemsSource="{Binding Source={StaticResource VolunteerInListFieldCollectionKey}}" HorizontalAlignment="Left"
-                SelectionChanged="FilteredVolunteer_SelectionChanged" Width="213" Margin="99,2,0,4" Grid.Column="1" RenderTransformOrigin="0.511,0.492" Grid.Row="1" >
+                SelectionChanged="FilteredVolunteer_SelectionChanged" VerticalAlignment="Top" Height="29"  Width="220" Margin="99,2,0,0" Grid.Column="1" RenderTransformOrigin="0.511,0.492" Grid.Row="1" >
         </ComboBox>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="320,0,0,0" TextWrapping="Wrap" Text="Volunteer Management Dashboard" VerticalAlignment="Center" Height="50" Width="404"  FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"/>
     </Grid>
