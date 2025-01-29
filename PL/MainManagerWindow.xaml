@@ -273,42 +273,42 @@
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Button  Click="btnOpenCalls_Click" Style="{StaticResource Rounded3DButtonStyle}" Width="20" Foreground="#FF832121" />
                         <TextBlock Text="Open: " FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0"  />
-                        <TextBlock Text="{Binding CallCounts[0]}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding CallCounts[0], Mode=TwoWay,NotifyOnSourceUpdated=True}" FontSize="14" VerticalAlignment="Center" />
                     </StackPanel>
 
                     <!-- Open To Risk Calls -->
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Button  Click="btnOpenCallsInRisk_Click" Style="{StaticResource Rounded3DButtonStyle}" Width="20" Foreground="#FF832121"/>
                         <TextBlock Text="Open To Risk: " FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
-                        <TextBlock Text="{Binding CallCounts[4]}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding CallCounts[4], Mode=TwoWay,NotifyOnSourceUpdated=True}" FontSize="14" VerticalAlignment="Center" />
                     </StackPanel>
 
                     <!-- In Action Calls -->
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Button  Click="btnInActionCalls_Click" Style="{StaticResource Rounded3DButtonStyle}" Width="20" Foreground="#FF832121" />
                         <TextBlock Text="In Action: " FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
-                        <TextBlock Text="{Binding CallCounts[1]}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding CallCounts[1], Mode=TwoWay,NotifyOnSourceUpdated=True}" FontSize="14" VerticalAlignment="Center" />
                     </StackPanel>
 
                     <!-- In Action To Risk Calls -->
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Button Click="btnInActionCallsInRisk_Click" Style="{StaticResource Rounded3DButtonStyle}" Width="20" Foreground="#FF832121" />
                         <TextBlock Text="In Action To Risk: " FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
-                        <TextBlock Text="{Binding CallCounts[5]}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding CallCounts[5], Mode=TwoWay,NotifyOnSourceUpdated=True}" FontSize="14" VerticalAlignment="Center" />
                     </StackPanel>
 
                     <!-- Closed Calls -->
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Button  Click="btnClosedCalls_Click" Style="{StaticResource Rounded3DButtonStyle}" Width="20" Foreground="#FF832121"/>
                         <TextBlock Text="Closed: " FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
-                        <TextBlock Text="{Binding CallCounts[2]}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding CallCounts[2], Mode=TwoWay,NotifyOnSourceUpdated=True}" FontSize="14" VerticalAlignment="Center" />
                     </StackPanel>
 
                     <!-- Expired Calls -->
                     <StackPanel Orientation="Horizontal" Margin="0,5">
                         <Button  Click="btnExpiredCalls_Click" Style="{StaticResource Rounded3DButtonStyle}" Width="20" />
                         <TextBlock Text="Expired: " FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
-                        <TextBlock Text="{Binding CallCounts[3]}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding CallCounts[3], Mode=TwoWay,NotifyOnSourceUpdated=True}" FontSize="14" VerticalAlignment="Center" />
                     </StackPanel>
                 </StackPanel>
             </Border>

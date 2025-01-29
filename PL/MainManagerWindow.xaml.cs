@@ -24,6 +24,7 @@ public partial class MainManagerWindow : Window
     public MainManagerWindow(int Id = 0)
     {
         id = Id;
+        Interval = 2000;
         ButtonText = "Start Simulator";
         isNotRun = true;
         CallCounts = s_bl.Call.TypeOfCallCounts();
@@ -32,12 +33,12 @@ public partial class MainManagerWindow : Window
     }
     public int[] CallCounts
     {
-        get { return (int[])GetValue(MyPropertyProperty); }
-        set { SetValue(MyPropertyProperty, value); }
+        get { return (int[])GetValue(CallCountsProperty); }
+        set { SetValue(CallCountsProperty, value); }
     }
 
     // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty MyPropertyProperty =
+    public static readonly DependencyProperty CallCountsProperty =
         DependencyProperty.Register("MyProperty", typeof(int[]), typeof(MainManagerWindow));
     public TimeSpan RiskRange
     {
@@ -116,6 +117,21 @@ public partial class MainManagerWindow : Window
 
     }
 
+    private volatile bool _callObserverWorking = false;
+
+    private void callListObserver()
+    {
+        if (!_callObserverWorking)
+        {
+            _callObserverWorking = true;
+            _ = Dispatcher.BeginInvoke(() =>
+            {
+                CallCounts = s_bl.Call.TypeOfCallCounts();
+                _callObserverWorking = false;
+            });
+        }
+    }
+
     private volatile bool _configObserverWorking = false; //stage 7
     private void configObserver() //stage 5
     {
@@ -178,28 +194,6 @@ public partial class MainManagerWindow : Window
         s_bl.Admin.RemoveConfigObserver(configObserver);
         s_bl.Call.RemoveObserver(callListObserver);
     }
-    private void CountCallList()
-        => CallCounts = s_bl.Call.TypeOfCallCounts();
-
-    /// <summary>
-    /// This method calls the call list observer.
-    /// </summary>
-
-    private volatile bool _observerWorking = false; //stage 7
-
-    private void callListObserver()
-    {
-        if (!_observerWorking)
-        {
-            _observerWorking = true;
-            _ = Dispatcher.BeginInvoke(() =>
-            {
-                CountCallList();
-                _observerWorking = false;
-            });
-        }
-    }
-
     public int id { get; set; }
 
     private void btnVolunteers_Click(object sender, RoutedEventArgs e)
@@ -257,7 +251,7 @@ public partial class MainManagerWindow : Window
 
             Mouse.OverrideCursor = Cursors.Wait;
             s_bl.Admin.InitializeDB();
-
+            CallCounts = s_bl.Call.TypeOfCallCounts();
             Mouse.OverrideCursor = null;
         }
     }
@@ -278,7 +272,7 @@ public partial class MainManagerWindow : Window
 
             Mouse.OverrideCursor = Cursors.Wait;
             s_bl.Admin.ResetDB();
-
+            CallCounts = s_bl.Call.TypeOfCallCounts();
             Mouse.OverrideCursor = null;
         }
     }
