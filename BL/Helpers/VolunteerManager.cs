@@ -113,7 +113,7 @@ internal static class VolunteerManager
 
         lock (AdminManager.BlMutex)
             typeOfCall = actualCallId is null ? BO.SystemType.None :
-            (BO.SystemType)((s_dal.Call.Read(c => c.CallId == actualCallId).AmbulanceType));
+            (BO.SystemType)((s_dal.Call.Read(c => c.CallId == actualCallId)!.AmbulanceType));
 
         return new BO.VolunteerInList
         {
@@ -189,7 +189,7 @@ internal static class VolunteerManager
             ExpiredCalls = expiredCount,
             CurrentCall = callInProgress != null ? new BO.CallInProgress
             {
-                AssignId = assign.AssignmentId,
+                AssignId = assign!.AssignmentId,
                 CallId = assign.CallId,
                 TypeOfCall = (BO.SystemType)callInProgress.AmbulanceType,
                 Description = callInProgress.Description,
@@ -221,15 +221,15 @@ internal static class VolunteerManager
 
         IEnumerable<DO.Volunteer>? volunteers;
         lock (AdminManager.BlMutex)
-            volunteers = s_dal.Volunteer.ReadAll().Where(v => v.IsActive == true).ToList();
+            volunteers = s_dal.Volunteer.ReadAll()!.Where(v => v.IsActive == true).ToList();
 
         IEnumerable<DO.Call>? calls;
         lock (AdminManager.BlMutex)
-            calls = s_dal.Call.ReadAll().ToList();
+            calls = s_dal.Call.ReadAll()!.ToList();
 
         IEnumerable<DO.Assignment>? assignments;
         lock (AdminManager.BlMutex)
-            assignments = s_dal.Assignment.ReadAll().ToList();
+            assignments = s_dal.Assignment.ReadAll()!.ToList();
 
         DateTime now;
         lock (AdminManager.BlMutex)
@@ -238,7 +238,7 @@ internal static class VolunteerManager
         calls = calls.Where
      (call => assignments.Any(assignment => assignment.CallId == call.CallId) == true ? call.MaxEnd < now :
      assignments.Any(assignment => assignment.CallId == call.CallId && assignment.End != null &&
-     ((BO.EndStatus)assignment.MyEndStatus == BO.EndStatus.ManagerCancelled || ((BO.EndStatus)assignment.MyEndStatus == BO.EndStatus.SelfCancelled))) == true).ToList();
+     ((BO.EndStatus)assignment.MyEndStatus! == BO.EndStatus.ManagerCancelled || ((BO.EndStatus)assignment.MyEndStatus == BO.EndStatus.SelfCancelled))) == true).ToList();
       
 
         int i = 0;

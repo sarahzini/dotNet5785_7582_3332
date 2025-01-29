@@ -201,7 +201,7 @@ internal class VolunteerImplementation : IVolunteer
             VolunteerManager.Observers.NotifyListUpdated(); //stage 5
 
             //compute the coordinates asynchronously without waiting for the results
-            _ = GeocodingService.updateCoordinatesForVolunteerAddressAsync(newVolunteer); //stage 7
+            _ =GeocodingService.updateCoordinatesForVolunteerAddressAsync(newVolunteer); //stage 7
 
         }
         catch (DO.DalAlreadyExistException ex)
@@ -243,7 +243,7 @@ internal class VolunteerImplementation : IVolunteer
     public string GetName(int volunteerId)
     {
         lock (AdminManager.BlMutex)
-            return _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == volunteerId)?.Name;
+            return _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == volunteerId)!.Name;
     }
 }
 

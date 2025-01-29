@@ -114,6 +114,6 @@ public partial class MainVolunteerWindow : Window
 
     private void btnUpdate_Click(object sender, RoutedEventArgs e)
     {
-        new VolunteerWindow("Update",CurrentVolunteer.VolunteerId, CurrentVolunteer.VolunteerId).ShowDialog();
+        new VolunteerWindow("Update",CurrentVolunteer.VolunteerId, CurrentVolunteer.VolunteerId,false).ShowDialog();
     }
 }

@@ -85,7 +85,6 @@ public static class GeocodingService
 
         }
     }
-
     internal static async Task updateCoordinatesForVolunteerAddressAsync(DO.Volunteer volunteer)
     {
         if (volunteer.Address is not null)
@@ -98,6 +97,7 @@ public static class GeocodingService
             Observers.NotifyItemUpdated(volunteer.VolunteerId);
         }
     }
+
 }
 
 

@@ -73,13 +73,13 @@ public partial class VolunteerInListWindow : Window
 
     private void lsvUpdate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     { 
-        new VolunteerWindow("Update", SelectedVolunteer!.VolunteerId,requesterId).Show(); 
+        new VolunteerWindow("Update", SelectedVolunteer!.VolunteerId,requesterId,true).Show(); 
 
     }
 
     private void btnAdd_Click(object sender, RoutedEventArgs e)
     {
-        new VolunteerWindow("Add", 0, requesterId).Show();
+        new VolunteerWindow("Add", 0, requesterId,true).Show();
     }
 
     public BO.VolunteerInList? SelectedVolunteer
@@ -100,7 +100,7 @@ public partial class VolunteerInListWindow : Window
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
         try
         {
-            if (confirmation == MessageBoxResult.Yes)
+            if (SelectedVolunteer!=null &&confirmation == MessageBoxResult.Yes)
             {
                 s_bl.Volunteer.DeleteVolunteer(SelectedVolunteer!.VolunteerId);
             }
