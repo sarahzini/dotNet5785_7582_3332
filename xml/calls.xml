@@ -5,7 +5,7 @@
     <Address>10 yafo st, Jerusalem, Israel</Address>
     <Latitude>31.753383</Latitude>
     <Longitude>35.222896</Longitude>
-    <OpenTime>2025-01-28T19:24:36</OpenTime>
+    <OpenTime>2025-01-29T12:52:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Response to a road accident.</Description>
     <MaxEnd xsi:nil="true" />
@@ -15,147 +15,147 @@
     <Address>2 Jaffa St, Jerusalem, Israel</Address>
     <Latitude>31.7780277</Latitude>
     <Longitude>35.2257855</Longitude>
-    <OpenTime>2025-01-28T19:28:36</OpenTime>
+    <OpenTime>2025-01-29T12:35:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Assistance for a fainting incident.</Description>
-    <MaxEnd>2025-01-28T20:01:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:07:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000002</CallId>
     <Address>3 Ben Yehuda St, Jerusalem, Israel</Address>
     <Latitude>31.781655</Latitude>
     <Longitude>35.218937</Longitude>
-    <OpenTime>2025-01-28T19:36:36</OpenTime>
+    <OpenTime>2025-01-29T12:42:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Cardiac arrest case.</Description>
-    <MaxEnd>2025-01-28T20:02:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:01:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000003</CallId>
     <Address>4 Herzl St, Jerusalem, Israel</Address>
     <Latitude>31.7880941</Latitude>
     <Longitude>35.199252</Longitude>
-    <OpenTime>2025-01-28T19:43:36</OpenTime>
+    <OpenTime>2025-01-29T12:50:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Helping a dehydrated individual.</Description>
-    <MaxEnd>2025-01-28T20:33:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:15:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000004</CallId>
     <Address>5 Azza st, Jerusalem, Israel</Address>
     <Latitude>31.773728</Latitude>
     <Longitude>35.216547</Longitude>
-    <OpenTime>2025-01-28T19:41:36</OpenTime>
+    <OpenTime>2025-01-29T12:56:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Child choking on food.</Description>
-    <MaxEnd>2025-01-28T20:16:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:35:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000005</CallId>
     <Address>6 King George St, Jerusalem, Israel</Address>
     <Latitude>31.782715</Latitude>
     <Longitude>35.217257</Longitude>
-    <OpenTime>2025-01-28T19:31:36</OpenTime>
+    <OpenTime>2025-01-29T12:56:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Severe allergic reaction.</Description>
-    <MaxEnd>2025-01-28T19:51:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:16:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000006</CallId>
     <Address>50 King George St, Jerusalem, Israel</Address>
     <Latitude>31.7767741</Latitude>
     <Longitude>35.216209</Longitude>
-    <OpenTime>2025-01-28T19:23:36</OpenTime>
+    <OpenTime>2025-01-29T12:56:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Elderly person collapsed.</Description>
-    <MaxEnd>2025-01-28T19:56:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:34:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000007</CallId>
     <Address>12 King George St, Jerusalem, Israel</Address>
     <Latitude>31.782273</Latitude>
     <Longitude>35.216872</Longitude>
-    <OpenTime>2025-01-28T19:33:36</OpenTime>
+    <OpenTime>2025-01-29T12:41:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Labor contractions reported.</Description>
-    <MaxEnd>2025-01-28T20:17:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:28:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000008</CallId>
     <Address>45 Jaffa St, Jerusalem, Israel</Address>
     <Latitude>31.782449</Latitude>
     <Longitude>35.218715</Longitude>
-    <OpenTime>2025-01-28T19:16:36</OpenTime>
+    <OpenTime>2025-01-29T12:56:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Sports injury during a game.</Description>
-    <MaxEnd>2025-01-28T19:43:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:30:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000009</CallId>
     <Address>78 Ben Yehuda St, Jerusalem, Israel</Address>
     <Latitude>31.7809244</Latitude>
     <Longitude>35.2143122</Longitude>
-    <OpenTime>2025-01-28T19:34:36</OpenTime>
+    <OpenTime>2025-01-29T12:58:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Overdose situation.</Description>
-    <MaxEnd>2025-01-28T19:53:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:25:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000010</CallId>
     <Address>23 Agron St, Jerusalem, Israel</Address>
     <Latitude>31.759239</Latitude>
     <Longitude>35.205496</Longitude>
-    <OpenTime>2025-01-28T19:30:36</OpenTime>
+    <OpenTime>2025-01-29T12:45:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Smoke inhalation victims.</Description>
-    <MaxEnd>2025-01-28T20:05:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:19:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000011</CallId>
     <Address>56 Hillel St, Jerusalem, Israel</Address>
     <Latitude>32.025681</Latitude>
     <Longitude>34.751687</Longitude>
-    <OpenTime>2025-01-28T19:26:36</OpenTime>
+    <OpenTime>2025-01-29T12:55:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Drowning rescue.</Description>
-    <MaxEnd>2025-01-28T20:00:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:14:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000012</CallId>
     <Address>89 Shlomzion Hamalka St, Jerusalem, Israel</Address>
     <Latitude>31.7788813</Latitude>
     <Longitude>35.2226822</Longitude>
-    <OpenTime>2025-01-28T19:28:36</OpenTime>
+    <OpenTime>2025-01-29T12:43:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Fever and weakness in a patient.</Description>
-    <MaxEnd>2025-01-28T19:40:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:42:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000013</CallId>
     <Address>34 HaNevi'im St, Jerusalem, Israel</Address>
     <Latitude>31.7842556</Latitude>
     <Longitude>35.2243949</Longitude>
-    <OpenTime>2025-01-28T19:37:36</OpenTime>
+    <OpenTime>2025-01-29T12:59:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Cyclist injured in an accident.</Description>
-    <MaxEnd>2025-01-28T19:49:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:23:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000014</CallId>
     <Address>67 Emek Refaim St, Jerusalem, Israel</Address>
     <Latitude>31.759897</Latitude>
     <Longitude>35.215612</Longitude>
-    <OpenTime>2025-01-28T19:34:36</OpenTime>
+    <OpenTime>2025-01-29T12:43:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Electric shock incident.</Description>
-    <MaxEnd>2025-01-28T20:12:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:34:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000015</CallId>
     <Address>90 Derech Hebron St, Jerusalem, Israel</Address>
     <Latitude>31.7832124</Latitude>
     <Longitude>35.1948336</Longitude>
-    <OpenTime>2025-01-28T20:33:36</OpenTime>
+    <OpenTime>2025-01-29T13:37:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Severe bleeding from a knife accident.</Description>
     <MaxEnd xsi:nil="true" />
@@ -165,97 +165,97 @@
     <Address>11 Keren Hayesod St, Jerusalem, Israel</Address>
     <Latitude>31.774514</Latitude>
     <Longitude>35.218761</Longitude>
-    <OpenTime>2025-01-28T20:37:36</OpenTime>
+    <OpenTime>2025-01-29T13:53:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Car crash involving multiple passengers.</Description>
-    <MaxEnd>2025-01-28T21:03:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:09:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000017</CallId>
     <Address>22 Ramban St, Jerusalem, Israel</Address>
     <Latitude>31.774893</Latitude>
     <Longitude>35.2147</Longitude>
-    <OpenTime>2025-01-28T20:30:36</OpenTime>
+    <OpenTime>2025-01-29T13:43:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Fractured leg during an activity.</Description>
-    <MaxEnd>2025-01-28T20:46:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:11:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000018</CallId>
     <Address>33 Gaza St, Jerusalem, Israel</Address>
     <Latitude>31.771599</Latitude>
     <Longitude>35.213181</Longitude>
-    <OpenTime>2025-01-28T20:26:36</OpenTime>
+    <OpenTime>2025-01-29T13:55:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Burn injuries from a fire.</Description>
-    <MaxEnd>2025-01-28T20:42:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:08:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000019</CallId>
     <Address>44 Azza St, Jerusalem, Israel</Address>
     <Latitude>31.771743</Latitude>
     <Longitude>35.212941</Longitude>
-    <OpenTime>2025-01-28T20:42:36</OpenTime>
+    <OpenTime>2025-01-29T13:46:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Diabetic patient with low blood sugar.</Description>
-    <MaxEnd>2025-01-28T21:14:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:32:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000020</CallId>
     <Address>55 Bezalel St, Jerusalem, Israel</Address>
     <Latitude>31.7844665</Latitude>
     <Longitude>35.2194595</Longitude>
-    <OpenTime>2025-01-28T20:41:36</OpenTime>
+    <OpenTime>2025-01-29T13:49:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Asthma attack during an event.</Description>
-    <MaxEnd>2025-01-28T20:56:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:01:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000021</CallId>
     <Address>66 Haneviim St, Jerusalem, Israel</Address>
     <Latitude>31.793836</Latitude>
     <Longitude>35.221176</Longitude>
-    <OpenTime>2025-01-28T20:26:36</OpenTime>
+    <OpenTime>2025-01-29T13:35:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Teenager injured in an accident.</Description>
-    <MaxEnd>2025-01-28T20:52:36</MaxEnd>
+    <MaxEnd>2025-01-29T13:58:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000022</CallId>
     <Address>77 Shmuel Hanagid St, Jerusalem, Israel</Address>
     <Latitude>31.7749251</Latitude>
     <Longitude>35.2217823</Longitude>
-    <OpenTime>2025-01-28T20:35:36</OpenTime>
+    <OpenTime>2025-01-29T13:56:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Suspected stroke reported.</Description>
-    <MaxEnd>2025-01-28T21:28:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:19:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000023</CallId>
     <Address>88 King David St, Jerusalem, Israel</Address>
     <Latitude>31.7846329</Latitude>
     <Longitude>35.2147682</Longitude>
-    <OpenTime>2025-01-28T20:21:36</OpenTime>
+    <OpenTime>2025-01-29T14:00:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Seizure episode.</Description>
-    <MaxEnd>2025-01-28T20:40:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:41:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000024</CallId>
     <Address>99 Yaffo St, Jerusalem, Israel</Address>
     <Latitude>31.7846329</Latitude>
     <Longitude>35.2147682</Longitude>
-    <OpenTime>2025-01-28T20:37:36</OpenTime>
+    <OpenTime>2025-01-29T13:49:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Gunshot wound victim.</Description>
-    <MaxEnd>2025-01-28T21:02:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:16:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000025</CallId>
     <Address>100 Agripas St, Jerusalem, Israel</Address>
     <Latitude>31.7849633</Latitude>
     <Longitude>35.2151037</Longitude>
-    <OpenTime>2025-01-28T20:35:36</OpenTime>
+    <OpenTime>2025-01-29T13:31:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Motorcyclist injured in a collision.</Description>
     <MaxEnd xsi:nil="true" />
@@ -265,47 +265,47 @@
     <Address>101 Haneviim St, Jerusalem, Israel</Address>
     <Latitude>31.7737395</Latitude>
     <Longitude>35.2112687</Longitude>
-    <OpenTime>2025-01-28T20:30:36</OpenTime>
+    <OpenTime>2025-01-29T13:50:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Pregnant woman experiencing complications.</Description>
-    <MaxEnd>2025-01-28T21:22:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:45:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000027</CallId>
     <Address>102 Ben Maimon St, Jerusalem, Israel</Address>
     <Latitude>31.7972733</Latitude>
     <Longitude>35.1419648</Longitude>
-    <OpenTime>2025-01-28T20:35:36</OpenTime>
+    <OpenTime>2025-01-29T13:56:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Accidental poisoning in a child.</Description>
-    <MaxEnd>2025-01-28T20:48:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:12:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000028</CallId>
     <Address>103 Keren Kayemet St, Jerusalem, Israel</Address>
     <Latitude>31.7801538</Latitude>
     <Longitude>35.2149897</Longitude>
-    <OpenTime>2025-01-28T20:33:36</OpenTime>
+    <OpenTime>2025-01-29T13:43:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Severe headache and confusion in a patient.</Description>
-    <MaxEnd>2025-01-28T21:08:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:16:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000029</CallId>
     <Address>104 Shatz St, Jerusalem, Israel</Address>
     <Latitude>31.7793341</Latitude>
     <Longitude>35.2214706</Longitude>
-    <OpenTime>2025-01-28T20:26:36</OpenTime>
+    <OpenTime>2025-01-29T13:57:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Bystander assistance for a fall.</Description>
-    <MaxEnd>2025-01-28T20:38:36</MaxEnd>
+    <MaxEnd>2025-01-29T14:21:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000030</CallId>
     <Address>105 Hillel St, Jerusalem, Israel</Address>
     <Latitude>31.7787378</Latitude>
     <Longitude>35.2223413</Longitude>
-    <OpenTime>2025-01-28T23:36:36</OpenTime>
+    <OpenTime>2025-01-29T17:06:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Child injured on playground equipment.</Description>
     <MaxEnd xsi:nil="true" />
@@ -315,47 +315,47 @@
     <Address>106 Shlomzion Hamalka St, Jerusalem, Israel</Address>
     <Latitude>31.7757616</Latitude>
     <Longitude>35.2176332</Longitude>
-    <OpenTime>2025-01-28T23:27:36</OpenTime>
+    <OpenTime>2025-01-29T17:05:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Unconscious person found.</Description>
-    <MaxEnd>2025-01-29T01:48:36</MaxEnd>
+    <MaxEnd>2025-01-29T18:11:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000032</CallId>
     <Address>107 King George St, Jerusalem, Israel</Address>
     <Latitude>31.7757616</Latitude>
     <Longitude>35.2176332</Longitude>
-    <OpenTime>2025-01-28T22:22:36</OpenTime>
+    <OpenTime>2025-01-29T17:24:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Severe burns from a chemical accident.</Description>
-    <MaxEnd>2025-01-29T02:53:36</MaxEnd>
+    <MaxEnd>2025-01-29T18:51:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000033</CallId>
     <Address>108 Jaffa St, Jerusalem, Israel</Address>
     <Latitude>31.7859455</Latitude>
     <Longitude>35.2126195</Longitude>
-    <OpenTime>2025-01-28T23:10:36</OpenTime>
+    <OpenTime>2025-01-29T16:28:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Dog bite incident requiring medical attention.</Description>
-    <MaxEnd>2025-01-29T03:11:36</MaxEnd>
+    <MaxEnd>2025-01-29T19:04:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000034</CallId>
     <Address>109 Ben Yehuda St, Jerusalem, Israel</Address>
     <Latitude>31.7806127</Latitude>
     <Longitude>35.2144134</Longitude>
-    <OpenTime>2025-01-28T23:56:36</OpenTime>
+    <OpenTime>2025-01-29T16:10:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Heatstroke case.</Description>
-    <MaxEnd>2025-01-29T01:58:36</MaxEnd>
+    <MaxEnd>2025-01-29T18:55:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000035</CallId>
     <Address>110 Agron St, Jerusalem, Israel</Address>
     <Latitude>31.7779632</Latitude>
     <Longitude>35.2221859</Longitude>
-    <OpenTime>2025-01-28T23:44:36</OpenTime>
+    <OpenTime>2025-01-29T16:47:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Rescue for a stranded motorist.</Description>
     <MaxEnd xsi:nil="true" />
@@ -365,97 +365,97 @@
     <Address>111 Haneviim St, Jerusalem, Israel</Address>
     <Latitude>31.7849633</Latitude>
     <Longitude>35.2151037</Longitude>
-    <OpenTime>2025-01-29T00:14:36</OpenTime>
+    <OpenTime>2025-01-29T15:49:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Broken arm during an activity.</Description>
-    <MaxEnd>2025-01-29T00:59:36</MaxEnd>
+    <MaxEnd>2025-01-29T17:12:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000037</CallId>
     <Address>112 Emek Refaim St, Jerusalem, Israel</Address>
     <Latitude>31.759882</Latitude>
     <Longitude>35.2151934</Longitude>
-    <OpenTime>2025-01-28T23:43:36</OpenTime>
+    <OpenTime>2025-01-29T17:02:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Choking incident.</Description>
-    <MaxEnd>2025-01-29T01:14:36</MaxEnd>
+    <MaxEnd>2025-01-29T18:32:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000038</CallId>
     <Address>113 Derech Hebron St, Jerusalem, Israel</Address>
     <Latitude>31.75279</Latitude>
     <Longitude>35.220242</Longitude>
-    <OpenTime>2025-01-28T23:21:36</OpenTime>
+    <OpenTime>2025-01-29T15:36:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Respiratory distress in a patient.</Description>
-    <MaxEnd>2025-01-29T01:02:36</MaxEnd>
+    <MaxEnd>2025-01-29T19:12:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000039</CallId>
     <Address>114 Keren Hayesod St, Jerusalem, Israel</Address>
     <Latitude>31.750182</Latitude>
     <Longitude>34.992038</Longitude>
-    <OpenTime>2025-01-28T22:41:36</OpenTime>
+    <OpenTime>2025-01-29T16:03:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Pedestrian hit by a vehicle.</Description>
-    <MaxEnd>2025-01-29T01:20:36</MaxEnd>
+    <MaxEnd>2025-01-29T17:22:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000040</CallId>
     <Address>115 Ramban St, Jerusalem, Israel</Address>
     <Latitude>31.7741998</Latitude>
     <Longitude>35.2107476</Longitude>
-    <OpenTime>2025-01-28T23:54:36</OpenTime>
+    <OpenTime>2025-01-29T15:54:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Fall from a ladder.</Description>
-    <MaxEnd>2025-01-29T03:02:36</MaxEnd>
+    <MaxEnd>2025-01-29T18:49:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000041</CallId>
     <Address>116 Azza St, Jerusalem, Israel</Address>
     <Latitude>31.7704436</Latitude>
     <Longitude>35.2116773</Longitude>
-    <OpenTime>2025-01-28T23:27:36</OpenTime>
+    <OpenTime>2025-01-29T15:48:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Electrocution from faulty wiring.</Description>
-    <MaxEnd>2025-01-29T02:50:36</MaxEnd>
+    <MaxEnd>2025-01-29T18:56:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000042</CallId>
     <Address>117 Azza St, Jerusalem, Israel</Address>
     <Latitude>35.2116773</Latitude>
     <Longitude>35.2118899</Longitude>
-    <OpenTime>2025-01-28T22:41:36</OpenTime>
+    <OpenTime>2025-01-29T17:19:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Allergic reaction to an insect sting.</Description>
-    <MaxEnd>2025-01-29T01:31:36</MaxEnd>
+    <MaxEnd>2025-01-29T20:53:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000043</CallId>
     <Address>118 Bezalel St, Jerusalem, Israel</Address>
     <Latitude>31.7701754</Latitude>
     <Longitude>35.2092297</Longitude>
-    <OpenTime>2025-01-28T23:59:36</OpenTime>
+    <OpenTime>2025-01-29T15:36:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Gunfire victim.</Description>
-    <MaxEnd>2025-01-29T01:49:36</MaxEnd>
+    <MaxEnd>2025-01-29T18:35:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000044</CallId>
     <Address>119 Haneviim St, Jerusalem, Israel</Address>
     <Latitude>31.782949</Latitude>
     <Longitude>35.2151037</Longitude>
-    <OpenTime>2025-01-28T23:40:36</OpenTime>
+    <OpenTime>2025-01-29T16:55:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Emergency childbirth.</Description>
-    <MaxEnd>2025-01-29T01:44:36</MaxEnd>
+    <MaxEnd>2025-01-29T19:56:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000045</CallId>
     <Address>120 Shmuel Hanagid St, Jerusalem, Israel</Address>
     <Latitude>31.7849633</Latitude>
     <Longitude>35.221121</Longitude>
-    <OpenTime>2025-01-28T23:54:36</OpenTime>
+    <OpenTime>2025-01-29T15:33:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Cyclist hit by a vehicle.</Description>
     <MaxEnd xsi:nil="true" />
@@ -465,39 +465,39 @@
     <Address>121 King David St, Jerusalem, Israel</Address>
     <Latitude>31.794604</Latitude>
     <Longitude>35.2223356</Longitude>
-    <OpenTime>2025-01-28T23:37:36</OpenTime>
+    <OpenTime>2025-01-29T16:47:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Fainting during an event.</Description>
-    <MaxEnd>2025-01-29T03:11:36</MaxEnd>
+    <MaxEnd>2025-01-29T19:21:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000047</CallId>
     <Address>122 Yaffo St, Jerusalem, Israel</Address>
     <Latitude>31.7740468</Latitude>
     <Longitude>35.21214</Longitude>
-    <OpenTime>2025-01-28T22:59:36</OpenTime>
+    <OpenTime>2025-01-29T16:28:52</OpenTime>
     <AmbulanceType>ICUAmbulance</AmbulanceType>
     <Description>Hypothermia from exposure to cold.</Description>
-    <MaxEnd>2025-01-29T03:20:36</MaxEnd>
+    <MaxEnd>2025-01-29T17:53:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000048</CallId>
     <Address>123 Agripas St, Jerusalem, Israel</Address>
     <Latitude>31.786086</Latitude>
     <Longitude>35.211011</Longitude>
-    <OpenTime>2025-01-28T23:54:36</OpenTime>
+    <OpenTime>2025-01-29T16:02:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Collapse due to dehydration.</Description>
-    <MaxEnd>2025-01-29T03:11:36</MaxEnd>
+    <MaxEnd>2025-01-29T17:25:52</MaxEnd>
   </Call>
   <Call>
     <CallId>100000049</CallId>
     <Address>124 Haneviim St, Jerusalem, Israel</Address>
     <Latitude>31.784526</Latitude>
     <Longitude>35.2152564</Longitude>
-    <OpenTime>2025-01-28T23:04:36</OpenTime>
+    <OpenTime>2025-01-29T17:10:52</OpenTime>
     <AmbulanceType>RegularAmbulance</AmbulanceType>
     <Description>Boat accident rescue.</Description>
-    <MaxEnd>2025-01-29T00:43:36</MaxEnd>
+    <MaxEnd>2025-01-29T21:47:52</MaxEnd>
   </Call>
 </ArrayOfCall>

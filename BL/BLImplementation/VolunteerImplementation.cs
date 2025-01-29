@@ -14,8 +14,8 @@ internal class VolunteerImplementation : IVolunteer
     DO.Job IVolunteer.Login(int id, string password)
     {
         DO.Volunteer? volunteer;
-            
-       lock (AdminManager.BlMutex)
+
+        lock (AdminManager.BlMutex)
             volunteer = _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == id);
 
         if (volunteer == null)
@@ -58,7 +58,7 @@ internal class VolunteerImplementation : IVolunteer
 
                 // Get current assignment for the volunteer
                 lock (AdminManager.BlMutex)
-                   assignments = _dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
+                    assignments = _dal.Assignment.ReadAll(a => a.VolunteerId == v.VolunteerId);
                 var currentAssignment = assignments?.FirstOrDefault(a => a.End == null);
 
                 if (currentAssignment != null)
@@ -67,7 +67,7 @@ internal class VolunteerImplementation : IVolunteer
 
                     // Get the call type
                     lock (AdminManager.BlMutex)
-                       call = _dal.Call.Read(c => c.CallId == currentAssignment.CallId);
+                        call = _dal.Call.Read(c => c.CallId == currentAssignment.CallId);
                     if (call != null && (BO.SystemType)call.AmbulanceType == filterValue)
                     {
                         filteredVolunteers.Add(v);
@@ -166,6 +166,10 @@ internal class VolunteerImplementation : IVolunteer
             {
                 throw new BLInvalidOperationException($"Volunteer {volunteerId} is currently assigned to a call and cannot be deleted");
             }
+            if(assignments?.Any()==true)
+            {
+                throw new BLInvalidOperationException($"Volunteer {volunteerId} was already assigned to a call and cannot be deleted ! !");
+            }
 
             lock (AdminManager.BlMutex)
                 _dal.Volunteer.Delete(volunteerId);
@@ -201,7 +205,7 @@ internal class VolunteerImplementation : IVolunteer
             VolunteerManager.Observers.NotifyListUpdated(); //stage 5
 
             //compute the coordinates asynchronously without waiting for the results
-            _ =GeocodingService.updateCoordinatesForVolunteerAddressAsync(newVolunteer); //stage 7
+            _ = GeocodingService.updateCoordinatesForVolunteerAddressAsync(newVolunteer); //stage 7
 
         }
         catch (DO.DalAlreadyExistException ex)
@@ -246,4 +250,3 @@ internal class VolunteerImplementation : IVolunteer
             return _dal.Volunteer.Read(volunteer => volunteer.VolunteerId == volunteerId)!.Name;
     }
 }
-

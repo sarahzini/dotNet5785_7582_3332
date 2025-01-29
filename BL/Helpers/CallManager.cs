@@ -50,12 +50,12 @@ internal static class CallManager
     /// <summary>
     /// This method converts a DO.Call object to a BO.ClosedCallInList.
     /// </summary>
-    internal static BO.ClosedCallInList ConvertToClosedCallInList(DO.Call call)
+    internal static BO.ClosedCallInList ConvertToClosedCallInList(DO.Call call,int id)
     {
-        IEnumerable<DO.Assignment>? assignments;
+        DO.Assignment? assign;
         lock (AdminManager.BlMutex)
-            assignments = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == call.CallId);
-        DO.Assignment? assign = assignments?.OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
+            assign = s_dal.Assignment.Read(assignment => assignment.CallId == call.CallId&&assignment.VolunteerId==id&& assignment.End != null);
+         
 
         return new BO.ClosedCallInList
         {
