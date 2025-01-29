@@ -13,7 +13,7 @@
 
 
     <!-- External Grid -->
-    <Grid Margin="20,32,32,26">
+    <Grid Margin="6,32,35,26">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="440*"/>
             <ColumnDefinition Width="441*"/>
@@ -61,15 +61,15 @@
                     <GridViewColumn Header="Range Time To End" Width="180" DisplayMemberBinding="{Binding RangeTimeToEnd}" />
                     <GridViewColumn Header="Last Volunteer" Width="130" DisplayMemberBinding="{Binding NameLastVolunteer}" />
                     <GridViewColumn Header="Executed Time" Width="180" DisplayMemberBinding="{Binding ExecutedTime}" />
-                    <GridViewColumn Header="" Width="220">
+                    <GridViewColumn Header="" Width="270">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Content="Delete" Click="btnDelete_Click"
+                                    <Button Content="Delete Call" Click="btnDelete_Click"
                                             Background="Red" Foreground="White" FontWeight="Bold"
-                                             Width="100" Height="30" Margin="5,0" Tag="{Binding CallId}" />
+                                             Width="120" Height="30" Margin="5,0" Tag="{Binding CallId}" />
 
-                                    <Button Content="Cancel" Click="btnCancel_Click"   Background="Red" Foreground="White"  FontWeight="Bold" Width="100" Height="30" Tag="{Binding CallId}" />
+                                    <Button Content="Cancel Assignment" Click="btnCancel_Click"   Background="Red" Foreground="White"  FontWeight="Bold" Width="120" Height="30" Tag="{Binding CallId}" />
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

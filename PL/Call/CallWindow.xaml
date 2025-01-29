@@ -65,9 +65,9 @@
             </Grid.ColumnDefinitions>
             <Image Source="pack://application:,,,/PL;component/Images/Logo.png"
                    Grid.Row="0" 
-                   HorizontalAlignment="Center" 
-                   Width="112" 
-                   Margin="0,0,0,286" Grid.Column="1" />
+                   HorizontalAlignment="Left" 
+                   Width="120" 
+                   Margin="232,-8,0,392" Grid.Column="1" />
 
             <StackPanel Margin="2,46,-5,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="472" Grid.RowSpan="4">
 
