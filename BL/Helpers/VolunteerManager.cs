@@ -216,30 +216,57 @@ internal static class VolunteerManager
 
     internal static void SimulateVolunteerSystem()
     {
+        //verifier qu il l appelle bien la fct qui voient si ils sont expires avant de rentrer ici 
         bool volunteersUpdate = false;
         Random random = new Random();
 
         IEnumerable<DO.Volunteer>? volunteers;
-        lock (AdminManager.BlMutex)
-            volunteers = s_dal.Volunteer.ReadAll()!.Where(v => v.IsActive == true).ToList();
-
-        IEnumerable<DO.Call>? calls;
-        lock (AdminManager.BlMutex)
-            calls = s_dal.Call.ReadAll()!.ToList();
-
+        List<DO.Call>? calls;
         IEnumerable<DO.Assignment>? assignments;
         lock (AdminManager.BlMutex)
+        {
+            volunteers = s_dal.Volunteer.ReadAll()!.Where(v => v.IsActive == true).ToList();
+            calls = s_dal.Call.ReadAll()!.ToList();
             assignments = s_dal.Assignment.ReadAll()!.ToList();
+        }
 
         DateTime now;
         lock (AdminManager.BlMutex)
             now = AdminManager.Now;
 
-        calls = calls.Where
-     (call => assignments.Any(assignment => assignment.CallId == call.CallId) == true ? call.MaxEnd < now :
-     assignments.Any(assignment => assignment.CallId == call.CallId && assignment.End != null &&
-     ((BO.EndStatus)assignment.MyEndStatus! == BO.EndStatus.ManagerCancelled || ((BO.EndStatus)assignment.MyEndStatus == BO.EndStatus.SelfCancelled))) == true).ToList();
-      
+        List<DO.Call> filteredCalls = new List<DO.Call>(calls!);
+
+        foreach (var C in calls!)
+        {
+            DO.Assignment? a;
+            lock (AdminManager.BlMutex)
+                a = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == C.CallId).OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
+
+            if (a != null && a.End != null)
+            {
+                if (a.MyEndStatus == DO.EndStatus.Completed || a.MyEndStatus == DO.EndStatus.Expired)
+                {
+                    filteredCalls.Remove(C);
+                    continue;
+
+                }
+            }
+            if (C.MaxEnd != null && C.MaxEnd < AdminManager.Now)
+            {
+                filteredCalls.Remove(C);
+                continue;
+
+            }
+            if (a != null && a?.End == null)
+            {
+                filteredCalls.Remove(C);
+                continue;
+
+            }
+        }
+
+        // Now filteredCalls contains only the calls that meet the criteria
+        calls = filteredCalls;
 
         int i = 0;
         foreach (var v in volunteers)
@@ -248,9 +275,7 @@ internal static class VolunteerManager
 
             if (currentAssignment != null) // Le volontaire a un assignment actif
             {
-                TimeSpan timeSinceBegin = now - currentAssignment.Begin;
-
-                if (timeSinceBegin > TimeSpan.FromMinutes(30))
+                if (now - currentAssignment.Begin > TimeSpan.FromMinutes(30))
                 {
                     // Plus de 30 minutes : marquer comme complété
                     var updatedAssignment = currentAssignment with
@@ -262,9 +287,10 @@ internal static class VolunteerManager
                         s_dal.Assignment.Update(updatedAssignment);
                     volunteersUpdate = true;
                     Observers.NotifyItemUpdated(v.VolunteerId);
+                    Observers.NotifyItemUpdated(updatedAssignment.CallId);
 
                 }
-                else if (i % 5 == 0) // Moins de 30 minutes et i divisible par 5
+                else if (i % 4 == 0) // Moins de 30 minutes et i divisible par 2
                 {
                     // Marquer comme auto-annulé
                     var updatedAssignment = currentAssignment with
@@ -272,17 +298,21 @@ internal static class VolunteerManager
                         End = now,
                         MyEndStatus = DO.EndStatus.SelfCancelled
                     };
+
+                    calls.Add(s_dal.Call.Read(currentAssignment.CallId)!);
+
                     lock (AdminManager.BlMutex)
                         s_dal.Assignment.Update(updatedAssignment);
                     volunteersUpdate = true;
                     Observers.NotifyItemUpdated(v.VolunteerId);
-
+                    Observers.NotifyItemUpdated(updatedAssignment.CallId);
                 }
             }
-            else if(i % 10 != 0) // Le volontaire n'a pas d'assignment actif
+            else if(i % 2 != 0) // Le volontaire n'a pas d'assignment actif
             {
                 // Filtrer les calls dans la distance maximale du volontaire
-                var availableCalls = calls.Where(call => CallManager.CalculOfDistance(call, v) < v.MaxDistance).ToList();
+                //var availableCalls = calls.Where(call => CallManager.CalculOfDistance(call, v) < v.MaxDistance).ToList();
+                var availableCalls = calls.ToList();
 
                 if (availableCalls.Any())
                 {
@@ -299,11 +329,14 @@ internal static class VolunteerManager
                         MyEndStatus = null
                     };
 
+                    calls.Remove(randomCall);
+
                     lock (AdminManager.BlMutex)
                         s_dal.Assignment.Create(newAssignment);
 
                     volunteersUpdate = true;
                     Observers.NotifyItemUpdated(v.VolunteerId);
+                    Observers.NotifyItemUpdated(randomCall.CallId);
 
                 }
             }

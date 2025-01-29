@@ -271,7 +271,7 @@ public static class Initialization
 
             if (types[i] == SystemType.ICUAmbulance)
             {
-                maxEnd = startTime.AddMinutes(s_rand.Next(40,300));
+                maxEnd = startTime.AddMinutes(s_rand.Next(40,400));
             }
             else if (i % 5 == 0)// RegularAmbulance (sometimes no time limit)
             {
@@ -279,7 +279,7 @@ public static class Initialization
             }
             else
             {
-                maxEnd = startTime.AddMinutes(s_rand.Next(60,300));
+                maxEnd = startTime.AddMinutes(s_rand.Next(60,400));
 
             }
 
@@ -327,7 +327,7 @@ public static class Initialization
             }
             else { 
             // Calculate the total minutes between startTime and call.MaxEnd
-            int totalMinutes = (int)(call.MaxEnd - startTime)?.TotalMinutes;
+            int totalMinutes = (int)(call.MaxEnd! - startTime)?.TotalMinutes;
 
             // Generate random end time for the assignment
             endTime = startTime.AddMinutes(s_rand.Next(totalMinutes));
@@ -387,7 +387,8 @@ public static class Initialization
         //second assignment for those calls
         foreach (var call in calls.Skip(30).Take(10)) {
             // Generate random start time for the assignment between the start of the call and 3 minutes after
-            DateTime startTime = call.OpenTime.AddMinutes(s_rand.Next(15));
+            DateTime start = call.OpenTime.AddMinutes(15);
+            DateTime startTime = start.AddMinutes(s_rand.Next(15));
 
             // Generate random end time for the assignment
 
@@ -403,7 +404,7 @@ public static class Initialization
             else if(i==7 && call.MaxEnd!=null)
             {
                 // Calculate the total minutes between startTime and call.MaxEnd
-                int totalMinutes = (int)(call.MaxEnd - startTime)?.TotalMinutes;
+                int totalMinutes = (int)(call.MaxEnd! - startTime)?.TotalMinutes;
 
                 // Generate random end time for the assignment
                 endTime = startTime.AddMinutes(s_rand.Next(totalMinutes));

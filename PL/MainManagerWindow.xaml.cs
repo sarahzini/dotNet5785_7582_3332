@@ -24,7 +24,7 @@ public partial class MainManagerWindow : Window
     public MainManagerWindow(int Id = 0)
     {
         id = Id;
-        Interval = 2000;
+        Interval = 15;
         ButtonText = "Start Simulator";
         isNotRun = true;
         CallCounts = s_bl.Call.TypeOfCallCounts();
@@ -39,7 +39,7 @@ public partial class MainManagerWindow : Window
 
     // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty CallCountsProperty =
-        DependencyProperty.Register("MyProperty", typeof(int[]), typeof(MainManagerWindow));
+        DependencyProperty.Register("CallCounts", typeof(int[]), typeof(MainManagerWindow));
     public TimeSpan RiskRange
     {
         get { return (TimeSpan)GetValue(RiskRangeProperty); }

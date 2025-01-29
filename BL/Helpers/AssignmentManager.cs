@@ -12,8 +12,14 @@ internal static class AssignmentManager
     internal static void PeriodicAssignmentsUpdates(DateTime oldClock, DateTime newClock)
     {
         IEnumerable<DO.Assignment>? assignments;
+        IEnumerable < DO.Call>? calls;
+
+
         lock (AdminManager.BlMutex)
-                 assignments= s_dal.Assignment.ReadAll().ToList();
+        { 
+            assignments = s_dal.Assignment.ReadAll()?.ToList();
+            calls = s_dal.Call.ReadAll()?.ToList();
+        }
 
         if (assignments == null)
             return;
@@ -30,7 +36,7 @@ internal static class AssignmentManager
                 if (maxEnd < newClock)
                 {
                     assignmentUpdated = true;
-                    DO.Assignment newAssign = assignment with { MyEndStatus = DO.EndStatus.Expired };
+                    DO.Assignment newAssign = assignment with { MyEndStatus = DO.EndStatus.Expired, End= maxEnd };
                     lock (AdminManager.BlMutex)
                         s_dal.Assignment.Update(newAssign);
                     VolunteerManager.Observers.NotifyItemUpdated(newAssign.VolunteerId); //stage 5
@@ -41,8 +47,10 @@ internal static class AssignmentManager
         if (assignmentUpdated) //stage 5
         {
             VolunteerManager.Observers.NotifyListUpdated(); //stage 5
-            CallManager.Observers.NotifyListUpdated(); //stage 5
         }
+
+        CallManager.Observers.NotifyListUpdated(); //will update the list of calls in the PL because we need to check with the risk range
+
     }
 
 }
