@@ -166,7 +166,7 @@ internal class CallImplementation : ICall
             // Validate call details
             CallManager.ValidateCallDetails(call);
 
-            (call.CallLatitude, call.CallLongitude) = (null, null);
+            (call.CallLatitude, call.CallLongitude) = (0, 0);
 
             // Convert BO.call to DO.Call
             DO.Call newCall = CallManager.ConvertToDataCall(call);

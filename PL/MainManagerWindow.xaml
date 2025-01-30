@@ -299,16 +299,16 @@
 
                     <!-- Closed Calls -->
                     <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Button  Click="btnClosedCalls_Click" Style="{StaticResource Rounded3DButtonStyle}" Width="20" Foreground="#FF832121"/>
-                        <TextBlock Text="Closed: " FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
-                        <TextBox Text="{Binding CallCounts[2], Mode=TwoWay,NotifyOnSourceUpdated=True}" FontSize="14" VerticalAlignment="Center" />
+                        <Button  Click="btnExpiredCalls_Click" Style="{StaticResource Rounded3DButtonStyle}" Width="20" Foreground="#FF832121"/>
+                        <TextBlock Text="Expired: " FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
+                        <TextBox Text="{Binding CallCounts[3], Mode=TwoWay,NotifyOnSourceUpdated=True}" FontSize="14" VerticalAlignment="Center" />
                     </StackPanel>
 
                     <!-- Expired Calls -->
                     <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Button  Click="btnExpiredCalls_Click" Style="{StaticResource Rounded3DButtonStyle}" Width="20" />
-                        <TextBlock Text="Expired: " FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
-                        <TextBox Text="{Binding CallCounts[3], Mode=TwoWay,NotifyOnSourceUpdated=True}" FontSize="14" VerticalAlignment="Center" />
+                        <Button  Click="btnClosedCalls_Click" Style="{StaticResource Rounded3DButtonStyle}" Width="20" />
+                        <TextBlock Text="Closed: " FontSize="14" VerticalAlignment="Center" Margin="10,0,0,0" />
+                        <TextBox Text="{Binding CallCounts[2], Mode=TwoWay,NotifyOnSourceUpdated=True}" FontSize="14" VerticalAlignment="Center" />
                     </StackPanel>
                 </StackPanel>
             </Border>

@@ -152,7 +152,12 @@ namespace PL.Volunteer
             }
             catch (BO.BLAlreadyExistException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                string errorMessage = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorMessage += $" {ex.InnerException.Message}";
+                }
+                MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (BO.BLDoesNotExistException ex)
             {
