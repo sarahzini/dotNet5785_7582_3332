@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Assignment Window" Height="710" Width="1107"
+        Title="Assignment Window" Height="710" Width="1154"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed" 
@@ -12,8 +12,8 @@
     <!--External Grid-->
     <Grid Margin="2,24,20,10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="530*"/>
-            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -46,7 +46,7 @@
         </TextBlock>
         <Label Content="Filter:" HorizontalAlignment="Left" Margin="724,27,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="45" Foreground="#FFEB0404"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
-                  SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="706,25,0,0" VerticalAlignment="Top" Height="29"  Width="220"
+                  SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="802,25,95,0" VerticalAlignment="Top" Height="29"
                   SelectionChanged="FilteredCall_SelectionChanged" Grid.Row="1" />
 
         <Label Content="Sort By:" HorizontalAlignment="Left" Margin="62,27,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1" Foreground="#FFEB0404" Width="50"/>
@@ -57,7 +57,7 @@
         <!--ListView Section-->
         <ListView Grid.Row="1" ItemsSource="{Binding Path=OpenCallList}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
                   BorderBrush="#FFEB0404" Background="#FFFDFDFD"
-                  Padding="10" Margin="0,66,10,20" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="1044" Grid.ColumnSpan="2">
+                  Padding="10" Margin="0,66,6,20" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="1105">
             <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -87,11 +87,34 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Call ID" Width="80" DisplayMemberBinding="{Binding CallId}" />
-                    <GridViewColumn Header="Emergency Type" Width="105" DisplayMemberBinding="{Binding TypeOfCall}" />
+                    <GridViewColumn Header="Emergency Type" Width="180">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16" Margin="0,0,5,0">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/Logo.png"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding TypeOfCall}" Value="ICUAmbulance">
+                                                        <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/Yellowambulance.png"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding TypeOfCall}" Value="RegularAmbulance">
+                                                        <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/WhiteAmbulance.png"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                    <TextBlock Text="{Binding TypeOfCall}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Address" Width="200" DisplayMemberBinding="{Binding CallAddress}" />
                     <GridViewColumn Header="Begin Time" Width="180" DisplayMemberBinding="{Binding BeginTime}" />
                     <GridViewColumn Header="Max End Time" Width="180" DisplayMemberBinding="{Binding MaxEndTime}" />
-                    <GridViewColumn Header="Distance From You " Width="120" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
+                    <GridViewColumn Header="Distance From You " Width="105" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
                     <GridViewColumn Header="Respond To A Call" Width="170">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

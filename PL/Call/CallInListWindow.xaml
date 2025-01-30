@@ -58,7 +58,7 @@
                 <GridView>
                     <GridViewColumn Header=" Call Id" Width="110" DisplayMemberBinding="{Binding CallId}" />
                     <GridViewColumn Header="Status" Width="130" DisplayMemberBinding="{Binding Status}" />
-                    <GridViewColumn Header="Type Of Call" Width="180">
+                    <GridViewColumn Header="Emergency Type" Width="180">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
