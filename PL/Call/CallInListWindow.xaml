@@ -58,6 +58,30 @@
                 <GridView>
                     <GridViewColumn Header=" Call Id" Width="110" DisplayMemberBinding="{Binding CallId}" />
                     <GridViewColumn Header="Status" Width="130" DisplayMemberBinding="{Binding Status}" />
+                    <GridViewColumn Header="Type Of Call" Width="180">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16" Margin="0,0,5,0">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/Logo.png"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding TypeOfCall}" Value="ICUAmbulance">
+                                                        <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/Yellowambulance.png"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding TypeOfCall}" Value="RegularAmbulance">
+                                                        <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/WhiteAmbulance.png"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                    <TextBlock Text="{Binding TypeOfCall}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header=" Total Assignments " Width="130" DisplayMemberBinding="{Binding TotalAssignment}" />
                     <GridViewColumn Header="Range Time To End" Width="180" DisplayMemberBinding="{Binding RangeTimeToEnd}" />
                     <GridViewColumn Header="Last Volunteer" Width="130" DisplayMemberBinding="{Binding NameLastVolunteer}" />
@@ -96,6 +120,26 @@
            SelectedValue="{Binding Path=Sort, Mode=TwoWay}"  SelectionChanged="FilteredCall_SelectionChanged" HorizontalAlignment="Left"
                   Width="220" Margin="80,67,0,0" 
                   Height="29" Grid.Column="0" VerticalAlignment="Top" />
-        <TextBlock HorizontalAlignment="Left" Margin="316,8,0,0" TextWrapping="Wrap" Text="Call Management Dashboard" VerticalAlignment="Top" Height="36" Width="402"  FontSize="24" FontWeight="Bold" Foreground="#FFEB0404" Grid.ColumnSpan="2" RenderTransformOrigin="0.495,0.543"/>
+       
+        <TextBlock HorizontalAlignment="Left" Margin="316,8,0,0"
+           TextWrapping="Wrap" Text="Call Management Dashboard"
+           VerticalAlignment="Top" Height="36" Width="402"
+           FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
+           Grid.ColumnSpan="2" RenderTransformOrigin="0.495,0.543">
+            <TextBlock.RenderTransform>
+                <TranslateTransform x:Name="titleTransform" X="-500" Y="0"/>
+            </TextBlock.RenderTransform>
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="titleTransform"
+                                     Storyboard.TargetProperty="X"
+                                     From="-500" To="0" Duration="0:0:1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
     </Grid>
 </Window>

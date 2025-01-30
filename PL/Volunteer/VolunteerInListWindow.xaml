@@ -99,6 +99,28 @@
                ItemsSource="{Binding Source={StaticResource VolunteerInListFieldCollectionKey}}" HorizontalAlignment="Left"
                 SelectionChanged="FilteredVolunteer_SelectionChanged" VerticalAlignment="Top" Height="29"  Width="220" Margin="99,2,0,0" Grid.Column="1" RenderTransformOrigin="0.511,0.492" Grid.Row="1" >
         </ComboBox>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="320,0,0,0" TextWrapping="Wrap" Text="Volunteer Management Dashboard" VerticalAlignment="Center" Height="50" Width="404"  FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="320,0,0,0" 
+           TextWrapping="Wrap" Text="Volunteer Management Dashboard" 
+           VerticalAlignment="Center" Height="50" Width="404"  
+           FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
+           RenderTransformOrigin="0.5,0.5">
+    <!-- Add a TranslateTransform for animation -->
+            <TextBlock.RenderTransform>
+                <TranslateTransform x:Name="dashboardTransform" X="-500" Y="0" />
+            </TextBlock.RenderTransform>
+
+    <!-- Add animation to slide in -->
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!-- Animate the X property of TranslateTransform -->
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                     From="-500" To="0" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
     </Grid>
 </Window>
