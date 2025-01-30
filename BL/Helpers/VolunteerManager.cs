@@ -275,7 +275,7 @@ internal static class VolunteerManager
 
             if (currentAssignment != null) // Le volontaire a un assignment actif
             {
-                if (now - currentAssignment.Begin > TimeSpan.FromMinutes(30))
+                if (now - currentAssignment.Begin > TimeSpan.FromMinutes(40))
                 {
                     // Plus de 30 minutes : marquer comme complété
                     var updatedAssignment = currentAssignment with
