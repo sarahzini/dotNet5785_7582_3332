@@ -92,12 +92,35 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Call ID" Width="80" DisplayMemberBinding="{Binding CallId}" />
-                    <GridViewColumn Header="Emergency Type" Width="105" DisplayMemberBinding="{Binding TypeOfCall}" />
+                    <GridViewColumn Header="Emergency Type" Width="180">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16" Margin="0,0,5,0">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/Logo.png"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding TypeOfCall}" Value="ICUAmbulance">
+                                                        <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/Yellowambulance.png"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding TypeOfCall}" Value="RegularAmbulance">
+                                                        <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/WhiteAmbulance.png"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                    <TextBlock Text="{Binding TypeOfCall}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Address" Width="180" DisplayMemberBinding="{Binding CallAddress}" />
                     <GridViewColumn Header="Begin Time" Width="180" DisplayMemberBinding="{Binding BeginTime}" />
                     <GridViewColumn Header="Begin Assignment Time" Width="180" DisplayMemberBinding="{Binding BeginActionTime}" />
                     <GridViewColumn Header="End Assignment Time" Width="180" DisplayMemberBinding="{Binding EndActionTime}" />
-                    <GridViewColumn Header="End Type" Width="100" DisplayMemberBinding="{Binding TypeOfEnd}"/>
+                    <GridViewColumn Header="End Type" Width="150" DisplayMemberBinding="{Binding TypeOfEnd}"/>
                 </GridView>
             </ListView.View>
         </ListView>

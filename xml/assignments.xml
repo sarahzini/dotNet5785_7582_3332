@@ -400,4 +400,12 @@
     <End>2025-01-30T00:25:01</End>
     <MyEndStatus>Expired</MyEndStatus>
   </Assignment>
+  <Assignment>
+    <AssignmentId>1050</AssignmentId>
+    <CallId>100000044</CallId>
+    <VolunteerId>15038469</VolunteerId>
+    <Begin>2025-01-30T01:18:01</Begin>
+    <End>2025-01-30T01:18:01</End>
+    <MyEndStatus>Completed</MyEndStatus>
+  </Assignment>
 </ArrayOfAssignment>
