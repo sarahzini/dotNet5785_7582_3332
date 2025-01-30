@@ -20,6 +20,8 @@
     <None Remove="Images\Phone.png" />
     <None Remove="Images\UptadeDetails.png" />
     <None Remove="Images\V.png" />
+    <None Remove="Images\WhiteAmbulance.png" />
+    <None Remove="Images\YellowAmbulance.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,5 +39,7 @@
     <Resource Include="Images\Phone.png" />
     <Resource Include="Images\UptadeDetails.png" />
     <Resource Include="Images\V.png" />
+    <Resource Include="Images\WhiteAmbulance.png" />
+    <Resource Include="Images\YellowAmbulance.png" />
   </ItemGroup>
 </Project>

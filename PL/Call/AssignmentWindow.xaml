@@ -23,8 +23,27 @@
 
         <!--Title Section-->
         <TextBlock Text="Choose the call closest from you to respond quickly!" 
-                   FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
-                   HorizontalAlignment="Center" Margin="0,4,0,23" Width="602" />
+           FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
+           HorizontalAlignment="Center" Margin="0,4,0,23" Width="602"
+           RenderTransformOrigin="0.5,0.5">
+    <!-- Add a TranslateTransform for animation -->
+            <TextBlock.RenderTransform>
+                <TranslateTransform x:Name="titleTransform" X="-800" Y="0" />
+            </TextBlock.RenderTransform>
+
+    <!-- Add an animation trigger -->
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!-- Animate the X property of TranslateTransform -->
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                     From="-800" To="0" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
         <Label Content="Filter:" HorizontalAlignment="Left" Margin="724,27,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="45" Foreground="#FFEB0404"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
                   SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="706,25,0,0" VerticalAlignment="Top" Height="29"  Width="220"

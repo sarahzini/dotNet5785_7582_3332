@@ -1,9 +1,13 @@
 ﻿using PL.Call;
 using PL.Volunteer;
 using System.Diagnostics.Eventing.Reader;
+using System.Diagnostics.Metrics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 
 namespace PL;
 
@@ -59,13 +63,13 @@ public partial class LoginWindow : Window
         try
         { // Perform login logic here
             var job = s_bl.Volunteer?.Login(Id, Password);
-            string name = s_bl.Volunteer.GetName(Id);
+            string name = s_bl.Volunteer!.GetName(Id);
             if (job != null)
             {
                 if (job == DO.Job.Manager)
                 {
-                    MessageBoxResult choice = MessageBox.Show($"You are going to enter to the Manager Menu. If you want to enter to your details please enter No", "Choice",
-                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxResult choice = MessageBox.Show("Do you wish to enter the Manager Menu? ","Choice",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (choice == MessageBoxResult.Yes)
                     {
@@ -73,7 +77,7 @@ public partial class LoginWindow : Window
                         {
                             if (window is MainManagerWindow)
                             {
-                                throw new Exception("There is another manager that logined. Please login as volunteer or come back later!");
+                                throw new Exception("There is another manager that logged in. Please login as volunteer or come back later!");
                             }
                         }
                         MessageBox.Show($"Login successful! Welcome {name}.", "Login", MessageBoxButton.OK, MessageBoxImage.Information);

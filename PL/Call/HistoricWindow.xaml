@@ -26,8 +26,28 @@
 
         <!--Title Section-->
         <TextBlock Text="Volunteer Call History" 
-               FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
-               HorizontalAlignment="Center" Margin="0,4,0,23" Width="282" Grid.ColumnSpan="2" />
+           FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
+           HorizontalAlignment="Center" Margin="0,4,0,23" Width="282" 
+           Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
+    <!-- Add a TranslateTransform for sliding animation -->
+            <TextBlock.RenderTransform>
+                <TranslateTransform x:Name="historyTransform" X="-400" Y="0" />
+            </TextBlock.RenderTransform>
+
+    <!-- Add animation for sliding in -->
+            <TextBlock.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <!-- Animate the X property of TranslateTransform -->
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                     From="-400" To="0" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBlock.Triggers>
+        </TextBlock>
+
         <Label Content="Filter:" HorizontalAlignment="Left" Margin="16,21,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="56" Foreground="#FFEB0404" Grid.Column="1"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
                       SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="106,20,232,0" VerticalAlignment="Top" Height="25"
