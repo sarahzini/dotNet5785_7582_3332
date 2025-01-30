@@ -63,7 +63,7 @@ namespace PL.Volunteer
             }
 
         }
-
+         
        public bool isManager
         {
             get { return (bool)GetValue(isManagerProperty); }
@@ -127,7 +127,7 @@ namespace PL.Volunteer
                 if (ButtonText == "Add")
                 {
                     CurrentVolunteer!.Password = GenerateRandomPassword();
-                    MessageBoxResult choice = MessageBox.Show($"The Password per default: {CurrentVolunteer!.Password}. Do you want to change it ?", "Set Password",
+                    MessageBoxResult choice = MessageBox.Show($"The Password per default is : {CurrentVolunteer!.Password}. Do you want to change it ?", "Set Password",
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (choice == MessageBoxResult.Yes)

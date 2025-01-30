@@ -69,7 +69,30 @@
                     <GridViewColumn Header="Completed Calls" Width="120" DisplayMemberBinding="{Binding CompletedCalls}" />
                     <GridViewColumn Header="Canceled Calls" Width="120" DisplayMemberBinding="{Binding CanceledCalls}" />
                     <GridViewColumn Header="Expired Calls" Width="120" DisplayMemberBinding="{Binding ExpiredCalls}" />
-                    <GridViewColumn Header="Type Of Call" Width="150" DisplayMemberBinding="{Binding TypeOfCall}" />
+                    <GridViewColumn Header="Emergency Type" Width="180">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16" Margin="0,0,5,0">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/Logo.png"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding TypeOfCall}" Value="ICUAmbulance">
+                                                        <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/Yellowambulance.png"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding TypeOfCall}" Value="RegularAmbulance">
+                                                        <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/WhiteAmbulance.png"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                    <TextBlock Text="{Binding TypeOfCall}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Current Call Id" Width="150" DisplayMemberBinding="{Binding ActualCallId}" />
                     <GridViewColumn Header="" Width="150">
                         <GridViewColumn.CellTemplate>

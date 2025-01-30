@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -59,7 +60,7 @@ namespace PL.Call
                 if (confirmation == MessageBoxResult.Yes)
                 { 
                     s_bl.Call.CancelAssignment(VolunteerId, CurrentCall.AssignId, CurrentCall.Status);
-                    MessageBox.Show($"Your recent call {CurrentCall.CallId} succesfully canceled.", "Call Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"The call { CurrentCall.CallId} is now canceled. Thank you for confirming!", "Call Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
 
                 }
@@ -78,7 +79,7 @@ namespace PL.Call
             {
                 
                 s_bl.Call.CompleteCall(VolunteerId, CurrentCall.AssignId);
-                MessageBox.Show($"Your recent call {CurrentCall.CallId} is completed. Thank you for your help !.", "Call Completed", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"The call {CurrentCall.CallId} is now complete. We sincerely appreciate your help!", "Call Completed", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
 
             }

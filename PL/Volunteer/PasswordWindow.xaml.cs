@@ -32,8 +32,8 @@ namespace PL.Volunteer
                 volunteer.Password = actualPassword;
                 bl.Volunteer.UpdateVolunteer(volunteer.VolunteerId, volunteer);
 
-                MessageBox.Show($"Password '{actualPassword}' updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                MessageBox.Show($"Password updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
 
             }
             catch (Exception ex)

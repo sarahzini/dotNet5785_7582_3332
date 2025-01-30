@@ -153,7 +153,7 @@ public partial class CallInListWindow : Window
     public int requesterId { get; set; }
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
-        MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to cancel the actual assignment to this call ?", "Cancel Confirmation",
+        MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to cancel the current assignment to this call ?", "Cancel Confirmation",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
         try
         {
