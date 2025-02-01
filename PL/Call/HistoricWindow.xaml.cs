@@ -28,10 +28,10 @@ namespace PL
             ClosedCalls = s_bl.Call.SortClosedCalls(id,null,null);
             volunteerId = id;
         }
-
+        public BO.SystemType Ambulance { get; set; } = BO.SystemType.All;
+        public BO.ClosedCallInListField Field { get; set; } = BO.ClosedCallInListField.CallId;
         public int volunteerId { get; set; }
         private void FilteredCall_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryClosedCallsListFilter();
-
         private void SortedCall_SelectionChanged(object sender, SelectionChangedEventArgs e) => queryClosedCallsListFilter();
 
         public BO.ClosedCallInList? SelectedCall
@@ -57,32 +57,10 @@ namespace PL
         public static readonly DependencyProperty ClosedCallsProperty =
             DependencyProperty.Register(nameof(ClosedCalls), typeof(IEnumerable<ClosedCallInList>), typeof(HistoricWindow), new PropertyMetadata(null));
 
-        public BO.SystemType Ambulance { get; set; } = BO.SystemType.All;
-        public BO.ClosedCallInListField Field { get; set; } = BO.ClosedCallInListField.CallId;
         
-
         private void queryClosedCallsListFilter()
              => ClosedCalls = (Ambulance == BO.SystemType.All) ?
                        s_bl?.Call.SortClosedCalls(volunteerId, null, Field)! : s_bl?.Call.SortClosedCalls(volunteerId, Ambulance, Field)!;
-
-        /// <summary>
-        /// This method calls the volunteer observer.
-        /// </summary>
-
-        private volatile bool _observerWorking = false; //stage 7
-
-        private void callsObserver()
-        {
-            if (!_observerWorking)
-            {
-                _observerWorking = true;
-                _ = Dispatcher.BeginInvoke(() =>
-                {
-                    queryClosedCallsListFilter();
-                    _observerWorking = false;
-                });
-            }
-        }
 
         /// <summary>
         /// This method loads the window.
@@ -101,6 +79,26 @@ namespace PL
         private void Window_Closed(object sender, EventArgs e)
         {
             s_bl.Call.RemoveObserver(callsObserver);
+        }
+
+
+        /// <summary>
+        /// This method calls the volunteer observer.
+        /// </summary>
+
+        private volatile bool _observerWorking = false; //stage 7
+
+        private void callsObserver()
+        {
+            if (!_observerWorking)
+            {
+                _observerWorking = true;
+                _ = Dispatcher.BeginInvoke(() =>
+                {
+                    queryClosedCallsListFilter();
+                    _observerWorking = false;
+                });
+            }
         }
 
         

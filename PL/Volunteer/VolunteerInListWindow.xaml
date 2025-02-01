@@ -99,7 +99,7 @@
                             <DataTemplate>
                                 <Button Content="Delete" Click="btnDeleteVolunteer_Click" 
                                             Background="Red" Foreground="White" FontWeight="Bold"
-                                            Width="80" Height="30" Margin="5,0" Visibility="{Binding SelectedVolunteer, Converter={StaticResource VisibilityDeleteButtonConverterKey}}" />
+                                            Width="100" Height="30" Margin="5,0" Visibility="{Binding Converter={StaticResource VisibilityDeleteButtonConverterKey}}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

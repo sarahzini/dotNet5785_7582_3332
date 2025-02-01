@@ -208,37 +208,43 @@ internal static class VolunteerManager
     /// </summary>
     internal static void CheckAuthorisationToUpdate(DO.Volunteer? oldVolunteer, DO.Volunteer updatedVolunteer, bool isManager)
     {
-        //if (oldVolunteer?.Name != updatedVolunteer.Name)
-        //{ throw new BLInvalidOperationException("Name cannot be changed."); }
         if(oldVolunteer?.MyJob != updatedVolunteer.MyJob&& !isManager)
         { throw new BLInvalidOperationException("You cannot change this member because you are not a Manager."); }
     }
 
     internal static void SimulateVolunteerSystem()
     {
-        //verifier qu il l appelle bien la fct qui voient si ils sont expires avant de rentrer ici 
+        // Flag to indicate if any volunteer data was updated
         bool volunteersUpdate = false;
+
+        // Random number generator for selecting calls
         Random random = new Random();
 
         IEnumerable<DO.Volunteer>? volunteers;
         List<DO.Call>? calls;
         IEnumerable<DO.Assignment>? assignments;
+
+        // Locking the BLMutex to ensure thread safety while reading data
         lock (AdminManager.BlMutex)
         {
+            // Fetch all active volunteers, calls, and assignments
             volunteers = s_dal.Volunteer.ReadAll()!.Where(v => v.IsActive == true).ToList();
             calls = s_dal.Call.ReadAll()!.ToList();
             assignments = s_dal.Assignment.ReadAll()!.ToList();
         }
 
         DateTime now;
+        // Locking the BLMutex again to get the current time in a thread-safe manner
         lock (AdminManager.BlMutex)
             now = AdminManager.Now;
 
+        // Filtering the calls that meet certain conditions
         List<DO.Call> filteredCalls = new List<DO.Call>(calls!);
 
         foreach (var C in calls!)
         {
             DO.Assignment? a;
+            // Locking to get the latest assignment for each call
             lock (AdminManager.BlMutex)
                 a = s_dal.Assignment.ReadAll()?.Where(assignment => assignment.CallId == C.CallId).OrderByDescending(assignment => assignment.Begin).FirstOrDefault();
 
@@ -248,20 +254,19 @@ internal static class VolunteerManager
                 {
                     filteredCalls.Remove(C);
                     continue;
-
                 }
             }
+
+            // Check if the call has passed its maximum end time or has no active assignment
             if (C.MaxEnd != null && C.MaxEnd < AdminManager.Now)
             {
                 filteredCalls.Remove(C);
                 continue;
-
             }
             if (a != null && a?.End == null)
             {
                 filteredCalls.Remove(C);
                 continue;
-
             }
         }
 
@@ -271,13 +276,14 @@ internal static class VolunteerManager
         int i = 0;
         foreach (var v in volunteers)
         {
+            // Find the active assignment for the current volunteer
             var currentAssignment = assignments.FirstOrDefault(a => a.VolunteerId == v.VolunteerId && a.End == null);
 
-            if (currentAssignment != null) // Le volontaire a un assignment actif
+            if (currentAssignment != null) // If the volunteer has an active assignment
             {
                 if (now - currentAssignment.Begin > TimeSpan.FromMinutes(40))
                 {
-                    // Plus de 30 minutes : marquer comme complété
+                    // If the assignment has been ongoing for more than 40 minutes, mark it as completed
                     var updatedAssignment = currentAssignment with
                     {
                         End = now,
@@ -288,11 +294,10 @@ internal static class VolunteerManager
                     volunteersUpdate = true;
                     Observers.NotifyItemUpdated(v.VolunteerId);
                     Observers.NotifyItemUpdated(updatedAssignment.CallId);
-
                 }
-                else if (i % 4 == 0) // Moins de 30 minutes et i divisible par 2
+                else if (i % 4 == 0) // If less than 40 minutes and i is divisible by 4
                 {
-                    // Marquer comme auto-annulé
+                    // Mark the assignment as self-cancelled
                     var updatedAssignment = currentAssignment with
                     {
                         End = now,
@@ -308,18 +313,17 @@ internal static class VolunteerManager
                     Observers.NotifyItemUpdated(updatedAssignment.CallId);
                 }
             }
-            else if(i % 2 != 0) // Le volontaire n'a pas d'assignment actif
+            else if (i % 2 != 0) // If the volunteer has no active assignment
             {
-                // Filtrer les calls dans la distance maximale du volontaire
+                // Filter calls within the maximum distance from the volunteer
                 var availableCalls = calls.Where(call => CallManager.CalculOfDistance(call, v) < v.MaxDistance).ToList();
-                //var availableCalls = calls.ToList();
 
                 if (availableCalls.Any())
                 {
-                    // Sélectionner un call au hasard
+                    // Select a random call and assign it to the volunteer
                     var randomCall = availableCalls[random.Next(availableCalls.Count)];
 
-                    // Créer un nouvel assignment
+                    // Create a new assignment for the volunteer
                     DO.Assignment newAssignment = new DO.Assignment
                     {
                         CallId = randomCall.CallId,
@@ -329,6 +333,7 @@ internal static class VolunteerManager
                         MyEndStatus = null
                     };
 
+                    // Remove the assigned call from the available list
                     calls.Remove(randomCall);
 
                     lock (AdminManager.BlMutex)
@@ -337,15 +342,16 @@ internal static class VolunteerManager
                     volunteersUpdate = true;
                     Observers.NotifyItemUpdated(v.VolunteerId);
                     Observers.NotifyItemUpdated(randomCall.CallId);
-
                 }
             }
 
             i++;
         }
 
+        // If any volunteers were updated, notify the observers to refresh the data
         if (volunteersUpdate)
             Observers.NotifyListUpdated();
     }
+
 }
 

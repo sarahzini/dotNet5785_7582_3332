@@ -78,7 +78,7 @@ public static class GeocodingService
             (double latitude, double longitude) = await GetCoordinates(call.Address);
             call = call with { Latitude = latitude, Longitude = longitude };
             lock (AdminManager.BlMutex)
-                s_dal.Call.Update(call); //pourquoi a partir d ci il repar dans le CallWindow et ne continue pas le reste du code ?
+                s_dal.Call.Update(call); 
             Observers.NotifyItemUpdated(call.CallId);
             Observers.NotifyListUpdated();
 
@@ -111,7 +111,7 @@ public static class GeocodingService
             try
             {
                 string requestUrl = $"{LocationIqBaseUrl}?key={LocationIqApiKey}&q={Uri.EscapeDataString(address)}&format=json";
-                HttpResponseMessage response =  client.GetAsync(requestUrl).Result;
+                HttpResponseMessage response = client.GetAsync(requestUrl).Result;
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -119,6 +119,7 @@ public static class GeocodingService
                 }
 
                 string jsonResponse = response.Content.ReadAsStringAsync().Result;
+
 
                 using (JsonDocument document = JsonDocument.Parse(jsonResponse))
                 {
@@ -147,6 +148,7 @@ public static class GeocodingService
         }
     }
 }
+
 
 
 

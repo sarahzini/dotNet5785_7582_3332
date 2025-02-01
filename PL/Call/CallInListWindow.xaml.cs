@@ -31,9 +31,9 @@ public partial class CallInListWindow : Window
         }
         InitializeComponent();
     }
+    public int requesterId { get; set; }
     public BO.CallInListField Sort { get; set; } = BO.CallInListField.CallId;
     public BO.Statuses Filter { get; set; } = BO.Statuses.All;
-
 
     /// <summary>
     /// This method returns the value of the CallList (with IEnumerable).
@@ -49,6 +49,33 @@ public partial class CallInListWindow : Window
     /// </summary>
     public static readonly DependencyProperty CallListProperty =
         DependencyProperty.Register("CallList", typeof(IEnumerable<BO.CallInList>), typeof(CallInListWindow), new PropertyMetadata(null));
+
+    /// <summary>
+    /// This method gets the selected call.
+    /// </summary>
+
+
+    public BO.CallInList SelectedCall
+    {
+        get { return (BO.CallInList)GetValue(SelectedCallProperty); }
+        set { SetValue(SelectedCallProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for SelectedCall.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty SelectedCallProperty =
+        DependencyProperty.Register("SelectedCall", typeof(BO.CallInList), typeof(CallInListWindow), new PropertyMetadata(null));
+
+    /// <summary>
+    /// This method loads the call list window.
+    /// </summary>
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    => s_bl.Call.AddObserver(callListObserver);
+
+    /// <summary>
+    /// This method closes the call list window.
+    /// </summary>
+    private void Window_Closed(object sender, EventArgs e)
+        => s_bl.Call.RemoveObserver(callListObserver);
 
     /// <summary>
     /// This method filters the call list based on the selected status.
@@ -80,37 +107,6 @@ public partial class CallInListWindow : Window
             });
         }
     }
-
-
-    /// <summary>
-    /// This method loads the call list window.
-    /// </summary>
-    private void Window_Loaded(object sender, RoutedEventArgs e)
-    => s_bl.Call.AddObserver(callListObserver);
-
-    /// <summary>
-    /// This method closes the call list window.
-    /// </summary>
-    private void Window_Closed(object sender, EventArgs e)
-        => s_bl.Call.RemoveObserver(callListObserver);
-
-    /// <summary>
-    /// This method gets the selected call.
-    /// </summary>
-    
-
-    public BO.CallInList SelectedCall
-    {
-        get { return (BO.CallInList)GetValue(SelectedCallProperty); }
-        set { SetValue(SelectedCallProperty, value); }
-    }
-
-    // Using a DependencyProperty as the backing store for SelectedCall.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty SelectedCallProperty =
-        DependencyProperty.Register("SelectedCall", typeof(BO.CallInList), typeof(CallInListWindow), new PropertyMetadata(null));
-
-
-
     /// <summary>
     /// This method opens the call window for updating the selected call.
     /// </summary>
@@ -149,8 +145,9 @@ public partial class CallInListWindow : Window
         }
 
     }
-
-    public int requesterId { get; set; }
+    /// <summary>
+    /// This method cancels the current assignment to a selected call
+    /// </summary>
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
         MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to cancel the current assignment to this call ?", "Cancel Confirmation",

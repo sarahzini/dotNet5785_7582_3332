@@ -36,5 +36,20 @@ Stage 4
 5.User Interface (Console):
 - Developing a test program for the logical layer using a console-based interface to validate its functionality.
 
+Stage 5
+-Start building the graphical user interface (GUI).
+-Develop a basic, functional GUI that allows the user to interact with your data and services.
+-Consider using XAML for defining the UI, and MVVM (Model-View-ViewModel) pattern for maintaining clean separation between logic and presentation.
+
+Stage 6
+-Build a fully functional and polished graphical interface.
+-Complete your GUI with all required functionalities like buttons, textboxes, and data-binding.
+-Make sure updates to the display are handled through binding, ensuring that all updates come directly from the XAML without manual intervention in the code.
+
+Stage 7 
+-Work with multi-threading and integrate a simulator.
+-Add threading to simulate background tasks, improving performance or mimicking real-world usage.
+-Create a separate Visual Studio project for the simulator, allowing it to run in parallel with the GUI.
+-Use the simulator to provide realistic test data to the GUI or trigger simulated events.
 
 

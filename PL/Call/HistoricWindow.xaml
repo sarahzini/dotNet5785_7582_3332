@@ -10,36 +10,38 @@
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed"
         WindowStartupLocation="CenterScreen">
-    <!--External Grid-->
+
+    <!-- Main Grid Container -->
     <Grid Margin="11,0,7,0" RenderTransformOrigin="0.531,0.514" Height="484" VerticalAlignment="Center">
+
+        <!-- Column Definitions -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="517*"/>
             <ColumnDefinition Width="513*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
+
+        <!-- Row Definitions -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="61"/>
             <RowDefinition/>
-
-
         </Grid.RowDefinitions>
 
-        <!--Title Section-->
+        <!-- Title Section with Animation -->
         <TextBlock Text="Volunteer Call History" 
            FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
            HorizontalAlignment="Center" Margin="0,4,0,23" Width="282" 
            Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
-    <!-- Add a TranslateTransform for sliding animation -->
+            
+            <!-- Animation Effect for Sliding In -->
             <TextBlock.RenderTransform>
                 <TranslateTransform x:Name="historyTransform" X="-400" Y="0" />
             </TextBlock.RenderTransform>
 
-    <!-- Add animation for sliding in -->
             <TextBlock.Triggers>
                 <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                     <BeginStoryboard>
                         <Storyboard>
-                            <!-- Animate the X property of TranslateTransform -->
                             <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
                                      From="-400" To="0" Duration="0:0:1" />
                         </Storyboard>
@@ -48,21 +50,29 @@
             </TextBlock.Triggers>
         </TextBlock>
 
+        <!-- Filter Label -->
         <Label Content="Filter:" HorizontalAlignment="Left" Margin="16,21,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="56" Foreground="#FFEB0404" Grid.Column="1"/>
+
+        <!-- Filter ComboBox -->
         <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
                       SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="106,20,232,0" VerticalAlignment="Top" Height="25"
               SelectionChanged="FilteredCall_SelectionChanged" Grid.Row="1"  Grid.Column="1" >
         </ComboBox>
 
+        <!-- Sort By Label -->
         <Label Content="Sort By:" HorizontalAlignment="Left" Margin="211,21,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1" Foreground="#FFEB0404" Width="55"/>
+
+        <!-- Sort By ComboBox -->
         <ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallFieldCollectionKey}}"
                       SelectionChanged="SortedCall_SelectionChanged"
                       SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="273,21,0,0" VerticalAlignment="Top" Width="159" Height="25" RenderTransformOrigin="0.463,0.612" Grid.Row="1" />
 
-        <!--ListView Section-->
+        <!-- ListView for Displaying Call History -->
         <ListView Grid.Row="1" ItemsSource="{Binding Path=ClosedCalls}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
               BorderBrush="#FFEB0404" Background="#FFFDFDFD"
               Padding="10" Margin="10,66,0,10" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="1016">
+
+            <!-- Apply Transform Effects -->
             <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -71,6 +81,8 @@
                     <TranslateTransform Y="-1.663"/>
                 </TransformGroup>
             </ListView.RenderTransform>
+
+            <!-- ListView Item Styling -->
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Margin" Value="0,0,0,10"/>
@@ -89,6 +101,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
 
+            <!-- ListView Column Definitions -->
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Call ID" Width="80" DisplayMemberBinding="{Binding CallId}" />
@@ -96,6 +109,8 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
+
+                                    <!-- Emergency Type Image -->
                                     <Image Width="16" Height="16" Margin="0,0,5,0">
                                         <Image.Style>
                                             <Style TargetType="Image">
@@ -124,6 +139,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
     </Grid>
 </Window>

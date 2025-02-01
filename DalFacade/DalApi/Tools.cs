@@ -23,7 +23,7 @@ internal static class Tools
                 str.AppendLine();
                 foreach (var it in enumerable)
                 {
-                    str.AppendLine(it.ToString());
+                    str.AppendLine(it?.ToString());
                 }
             }
             else

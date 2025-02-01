@@ -15,7 +15,7 @@ namespace Stage0
         {
             //input the users's name
             Console.WriteLine("Enter your name: ");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine()!;
 
             //print message with the users's name
             Console.WriteLine("{0}, welcome to my first console application", name);

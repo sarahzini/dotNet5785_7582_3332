@@ -393,7 +393,7 @@ internal class CallImplementation : ICall
     }
 
     /// <summary>
-    /// This mehod cancels an assignment by its Id it first checks if the requester is authorized to cancel the assignment
+    /// This method cancels an assignment by its Id it first checks if the requester is authorized to cancel the assignment
     /// by checking if the requester is the volunteer assigned to the assignment or a manager.
     /// </summary>
     void ICall.CancelAssignment(int requesterId, int? assignmentId, BO.Statuses status)

@@ -364,7 +364,7 @@ internal class Program
             Console.WriteLine("Please enter the ID of the call you want to delete: ");
             int callId = int.Parse(Console.ReadLine() ?? "0");
 
-            s_bl.Call.DeleteCall(callId);
+            s_bl.Call.DeleteCall(callId,BO.Statuses.Open);
         }
     }
 
@@ -396,7 +396,7 @@ internal class Program
         CallInListField? sortField = int.TryParse(Console.ReadLine(), out int sortFieldResult) ? (CallInListField)sortFieldResult : (CallInListField?)null;
 
         IEnumerable<CallInList>? c = s_bl.Call.GetSortedCallsInList(filterField, filterValue, sortField);
-        foreach (CallInList call in c)
+        foreach (CallInList call in c!)
         {
             Console.WriteLine(call);
         }
@@ -469,7 +469,7 @@ internal class Program
         Console.Write("Enter the Id of the assignment that you want to cancel: ");
         int assignmentId = int.Parse(Console.ReadLine() ?? "0");
 
-        s_bl.Call.CancelAssignment(requesterId, assignmentId);
+        s_bl.Call.CancelAssignment(requesterId, assignmentId,BO.Statuses.Open);
     }
 
     /// <summary>

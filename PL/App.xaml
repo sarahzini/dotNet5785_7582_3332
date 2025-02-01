@@ -21,5 +21,8 @@
         <local:ConvertAddToTrue x:Key="ConvertAddToTrueKey" />
         <local:VolunteerInListFieldCollection x:Key="VolunteerInListFieldCollectionKey" />
         <local:AssignmentVisibilityConverter x:Key="AssignmentVisibilityConverterKey" />
+        <local:StatusOpenConverter x:Key="StatusOpenConverterKey" />
+        <local:StatusInActionConverter x:Key="StatusInActionConverterKey" />
+
     </Application.Resources>
 </Application>

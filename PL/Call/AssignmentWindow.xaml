@@ -9,34 +9,40 @@
         Icon="pack://application:,,,/PL;component/Images/Login.png"
         Loaded="Window_Loaded" Closed="Window_Closed" 
         WindowStartupLocation="CenterScreen">
-    <!--External Grid-->
+
+    <!-- External Grid - Main container for the layout -->
     <Grid Margin="2,24,20,10">
         <Grid.ColumnDefinitions>
+            <!-- Main content column -->
             <ColumnDefinition/>
+            <!-- Hidden/unused column -->
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <!-- Row for title -->
             <RowDefinition Height="Auto"/>
+            <!-- Row for main content -->
             <RowDefinition Height="*"/>
+            <!-- Row for any additional footer content -->
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!--Title Section-->
+        <!-- Title Section -->
         <TextBlock Text="Choose the call closest from you to respond quickly!" 
            FontSize="24" FontWeight="Bold" Foreground="#FFEB0404"
            HorizontalAlignment="Center" Margin="0,4,0,23" Width="602"
            RenderTransformOrigin="0.5,0.5">
-    <!-- Add a TranslateTransform for animation -->
+            <!-- Adding a sliding animation effect to the title -->
             <TextBlock.RenderTransform>
                 <TranslateTransform x:Name="titleTransform" X="-800" Y="0" />
             </TextBlock.RenderTransform>
 
-    <!-- Add an animation trigger -->
+            <!-- Animation Trigger for the title -->
             <TextBlock.Triggers>
                 <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                     <BeginStoryboard>
                         <Storyboard>
-                            <!-- Animate the X property of TranslateTransform -->
+                            <!-- Animates the X property to slide the title into view -->
                             <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
                                      From="-800" To="0" Duration="0:0:1" />
                         </Storyboard>
@@ -44,6 +50,8 @@
                 </EventTrigger>
             </TextBlock.Triggers>
         </TextBlock>
+
+        <!-- Filter and Sorting Controls -->
         <Label Content="Filter:" HorizontalAlignment="Left" Margin="724,27,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="45" Foreground="#FFEB0404"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource SystemTypeCollectionKey}}"
                   SelectedValue="{Binding Path=Ambulance, Mode=TwoWay}" Margin="802,25,95,0" VerticalAlignment="Top" Height="29"
@@ -52,13 +60,14 @@
         <Label Content="Sort By:" HorizontalAlignment="Left" Margin="62,27,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1" Foreground="#FFEB0404" Width="50"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource OpenCallFieldCollectionKey}}"
                   SelectionChanged="SortedCall_SelectionChanged"
-                  SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="123,25,0,0" VerticalAlignment="Top" Height="29"  Width="220" RenderTransformOrigin="0.463,0.612" Grid.Row="1" />
+                  SelectedValue="{Binding Path=Field, Mode=TwoWay}" HorizontalAlignment="Left" Margin="123,25,0,0" VerticalAlignment="Top" Height="29" Width="220" RenderTransformOrigin="0.463,0.612" Grid.Row="1" />
 
-        <!--ListView Section-->
+        <!-- ListView Section - Displays the list of open calls -->
         <ListView Grid.Row="1" ItemsSource="{Binding Path=OpenCallList}" SelectedItem="{Binding SelectedCall, Mode=TwoWay}"
                   BorderBrush="#FFEB0404" Background="#FFFDFDFD"
                   Padding="10" Margin="0,66,6,20" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="1105">
             <ListView.RenderTransform>
+                <!-- Adds slight skewing and translation for design purposes -->
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform AngleY="-0.208"/>
@@ -73,9 +82,11 @@
                     <Setter Property="Background" Value="#FFFAFAFA"/>
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Style.Triggers>
+                        <!-- Highlight item when mouse hovers over it -->
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="#FFEFEFEF"/>
                         </Trigger>
+                        <!-- Highlight selected item -->
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="#FFFFE0E0"/>
                             <Setter Property="Foreground" Value="#FFEB0404"/>
@@ -84,9 +95,12 @@
                 </Style>
             </ListView.ItemContainerStyle>
 
+            <!-- Configuring columns for the ListView -->
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Call ID" Width="80" DisplayMemberBinding="{Binding CallId}" />
+
+                    <!-- Emergency Type Column with Icons -->
                     <GridViewColumn Header="Emergency Type" Width="180">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -94,7 +108,9 @@
                                     <Image Width="16" Height="16" Margin="0,0,5,0">
                                         <Image.Style>
                                             <Style TargetType="Image">
+                                                <!-- Default icon -->
                                                 <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/Logo.png"/>
+                                                <!-- Dynamic icon based on emergency type -->
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding TypeOfCall}" Value="ICUAmbulance">
                                                         <Setter Property="Source" Value="pack://application:,,,/PL;component/Images/Yellowambulance.png"/>
@@ -106,22 +122,27 @@
                                             </Style>
                                         </Image.Style>
                                     </Image>
+                                    <!-- Display emergency type as text -->
                                     <TextBlock Text="{Binding TypeOfCall}" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+
+                    <!-- Additional columns for details -->
                     <GridViewColumn Header="Address" Width="200" DisplayMemberBinding="{Binding CallAddress}" />
                     <GridViewColumn Header="Begin Time" Width="180" DisplayMemberBinding="{Binding BeginTime}" />
                     <GridViewColumn Header="Max End Time" Width="180" DisplayMemberBinding="{Binding MaxEndTime}" />
                     <GridViewColumn Header="Distance From You " Width="105" DisplayMemberBinding="{Binding VolunteerDistanceToCall}" />
+
+                    <!-- Action Column with Button -->
                     <GridViewColumn Header="Respond To A Call" Width="170">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button Content="Take Action" Click="btnChoose_Click"  CommandParameter="{Binding}" 
+                                    <Button Content="Take Action" Click="btnChoose_Click" CommandParameter="{Binding}" 
                                             Background="#FFEB0404" Foreground="White" FontWeight="Bold"
-                                             Width="100" Height="30"/>
+                                            Width="100" Height="30"/>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -129,6 +150,5 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
     </Grid>
 </Window>

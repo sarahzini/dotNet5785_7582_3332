@@ -12,24 +12,31 @@
         Icon="Images/Login.png"
         >
 
+    <!-- Window resources definition -->
     <Window.Resources>
-        <!-- Define the coulor red as ressource -->
+        <!-- Define the color red as a resource -->
         <Color x:Key="StarRedColor">#FF832121</Color>
+        <!-- Create a SolidColorBrush using the defined red color -->
         <SolidColorBrush x:Key="StarRedBrush" Color="{StaticResource StarRedColor}" />
     </Window.Resources>
 
     <Grid>
+        <!-- Define two columns, first one taking 6 times the space of the second -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="169*"/>
         </Grid.ColumnDefinitions>
+
+        <!-- Border for the login form -->
         <Border VerticalAlignment="Center" HorizontalAlignment="Left" Width="350" Padding="20"
                 CornerRadius="0" BorderThickness="2" BorderBrush="#FF832121" Grid.ColumnSpan="2">
-            <!--ImageBrush for backgroud image -->
+            <!-- Set background image of the Border -->
             <Border.Background>
                 <ImageBrush ImageSource="Images/Login.png" Stretch="UniformToFill" />
             </Border.Background>
+
             <Grid>
+                <!-- Define rows for the content of the form -->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -37,15 +44,16 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Title -->
+                <!-- Title of the login window -->
                 <TextBlock Grid.Row="0" Margin="0,0,0,20" Text="MDA Login" FontSize="24" FontWeight="Bold"
                            HorizontalAlignment="Center" Foreground="#FF832121">
                     <TextBlock.Effect>
+                        <!-- Drop shadow effect for the title -->
                         <DropShadowEffect ShadowDepth="2" BlurRadius="4" Color="Gray"/>
                     </TextBlock.Effect>
                 </TextBlock>
 
-                <!-- ID Input -->
+                <!-- ID input field -->
                 <StackPanel Grid.Row="1" Margin="0,0,0,10">
                     <TextBlock Margin="0,0,0,5" Text="ID:" FontWeight="Bold" Foreground="#FF333333"/>
                     <TextBox Name="IdBox" Height="30" Padding="5"
@@ -53,14 +61,14 @@
                              BorderBrush="{StaticResource StarRedBrush}" BorderThickness="1" Background="#FFFFFAFA"/>
                 </StackPanel>
 
-                <!-- Password Input -->
+                <!-- Password input field -->
                 <StackPanel Grid.Row="2" Margin="0,0,0,20">
                     <TextBlock Margin="0,0,0,5" Text="Password:" FontWeight="Bold" Foreground="#FF333333"/>
                     <PasswordBox Height="30" Padding="5" Background="#FFFFFAFA" BorderBrush="{StaticResource StarRedBrush}" BorderThickness="1"
                            PasswordChanged="PasswordBox_PasswordChanged" KeyDown="PasswordBox_KeyDown" />
                 </StackPanel>
 
-                <!-- Login Button -->
+                <!-- Login button -->
                 <Button Grid.Row="3" Content="Login" Width="120" Height="35" FontWeight="Bold" Foreground="White"
                         Background="{StaticResource StarRedBrush}" BorderThickness="0" HorizontalAlignment="Center" Cursor="Hand" Click="btnLoginButton_Click">
                     <Button.Style>
@@ -75,9 +83,11 @@
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
+                                <!-- Change button background when mouse is over it -->
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#FFE57373"/>
                                 </Trigger>
+                                <!-- Change button background when the button is pressed -->
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter Property="Background" Value="#FFAF4448"/>
                                 </Trigger>
