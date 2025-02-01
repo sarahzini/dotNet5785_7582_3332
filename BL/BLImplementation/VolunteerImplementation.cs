@@ -188,6 +188,12 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="volunteer"></param>
     /// <exception cref="BO.BLAlreadyExistException"></exception>
+    /// <summary>
+    /// This method adds a new volunteer to the system it first checks the details by calling the 
+    /// ValidateVolunteerDetails method and then converts the BO.Volunteer to DO.Volunteer and adds it to the data layer.
+    /// </summary>
+    /// <param name="volunteer"></param>
+    /// <exception cref="BO.BLAlreadyExistException"></exception>
     public void AddVolunteer(BO.Volunteer volunteer)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
@@ -196,17 +202,15 @@ internal class VolunteerImplementation : IVolunteer
             // Validate volunteer details
             VolunteerManager.ValidateVolunteerDetails(volunteer);
 
+            (volunteer.VolunteerLatitude, volunteer.VolunteerLongitude) = GeocodingService.GetCoordinatesS(volunteer.VolunteerAddress);
+
             // Convert BO.Volunteer to DO.Volunteer
             DO.Volunteer newVolunteer = VolunteerManager.ConvertToDataVolunteer(volunteer);
 
             // Attempt to add the new volunteer to the data layer
             lock (AdminManager.BlMutex)
                 _dal.Volunteer.Create(newVolunteer);
-            VolunteerManager.Observers.NotifyListUpdated(); //stage 5
-
-            //compute the coordinates asynchronously without waiting for the results
-            _ = GeocodingService.updateCoordinatesForVolunteerAddressAsync(newVolunteer); //stage 7
-
+            VolunteerManager.Observers.NotifyListUpdated(); //stage 5   
         }
         catch (DO.DalAlreadyExistException ex)
         {

@@ -311,8 +311,8 @@ internal static class VolunteerManager
             else if(i % 2 != 0) // Le volontaire n'a pas d'assignment actif
             {
                 // Filtrer les calls dans la distance maximale du volontaire
-                //var availableCalls = calls.Where(call => CallManager.CalculOfDistance(call, v) < v.MaxDistance).ToList();
-                var availableCalls = calls.ToList();
+                var availableCalls = calls.Where(call => CallManager.CalculOfDistance(call, v) < v.MaxDistance).ToList();
+                //var availableCalls = calls.ToList();
 
                 if (availableCalls.Any())
                 {

@@ -116,7 +116,7 @@ public static class Initialization
             if (s_dal!.Volunteer?.Read(id) == null)  //check if we can create a new volunteer
             {
                 // Generate a random maximum distance for receiving a call.
-                double maxDistance = s_rand.NextDouble() * 100; // Example: random distance between 0 and 100 km.
+                double maxDistance = Math.Round(5 + s_rand.NextDouble() * 45, 2); // Generate a random distance between 5 and 50 with two decimal places
 
                 // Create a new volunteer object and add it to the data source.
                 Volunteer volunteer = new(id, names[i], phoneNumbers[i], emails[i], Passwords[i],
@@ -147,19 +147,23 @@ public static class Initialization
                              "111 Haneviim St, Jerusalem, Israel", "112 Emek Refaim St, Jerusalem, Israel", "113 Derech Hebron St, Jerusalem, Israel", "114 Keren Hayesod St, Jerusalem, Israel",
                              "115 Ramban St, Jerusalem, Israel", "116 Azza St, Jerusalem, Israel", "117 Azza St, Jerusalem, Israel", "118 Bezalel St, Jerusalem, Israel",
                              "119 Haneviim St, Jerusalem, Israel", "120 Shmuel Hanagid St, Jerusalem, Israel", "121 King David St, Jerusalem, Israel", "122 Yaffo St, Jerusalem, Israel",
-                             "123 Agripas St, Jerusalem, Israel", "124 Haneviim St, Jerusalem, Israel"};
+                             "123 Agripas St, Jerusalem, Israel", "124 Haneviim St, Jerusalem, Israel",
+                             "99 Yaffo St, Jerusalem, Israel", "12 Ben Yehuda St, Jerusalem, Israel",
+                             "34 Derech Hebron, Jerusalem, Israel", "50 Ramban St, Jerusalem, Israel", "18 Shats St, Jerusalem, Israel"};
 
 
         double[] latitudes = {31.753383,31.7780277,31.781655,31.7880941,31.773728,31.782715,31.7767741,31.782273,31.782449,31.7809244,31.759239,32.025681,31.7788813,
                               31.7842556,31.759897,31.7832124,31.774514,31.774893,31.771599,31.771743,31.7844665,31.793836,31.7749251,31.7846329,31.7846329,31.7849633,
                               31.7737395,31.7972733,31.7801538,31.7793341,31.7787378,31.7757616,31.7757616,31.7859455,31.7806127,31.7779632,31.7849633,31.759882,
-                              31.75279,31.750182,31.7741998,31.7704436,35.2116773,31.7701754,31.782949,31.7849633,31.794604,31.7740468,31.786086,31.784526,31.7852595
+                              31.75279,31.750182,31.7741998,31.7704436,31.7701754,31.782949,31.7849633,31.794604,31.7740468,31.786086,31.784526,
+                              31.76904,31.78110,31.7539272,31.76904,31.77904,31.76904
                              };
 
         double[] longitudes = {35.222896,35.2257855,35.218937,35.199252,35.216547,35.217257,35.216209,35.216872,35.218715,35.2143122,35.205496,34.751687,35.2226822,
                                35.2243949,35.215612,35.1948336,35.218761,35.2147,35.213181,35.212941,35.2194595,35.221176,35.2217823,35.2147682,35.2147682,35.2151037,
                                35.2112687,35.1419648,35.2149897,35.2214706,35.2223413,35.2176332,35.2176332,35.2126195,35.2144134,35.2221859,35.2151037,35.2151934,
-                               35.220242,34.992038,35.2107476,35.2116773,35.2118899,35.2092297,35.2151037,35.221121,35.2223356,35.21214,35.211011,35.2152564
+                               35.220242,34.992038,35.2107476,35.2116773,35.2118899,35.2092297,35.2151037,35.221121,35.2223356,35.21214,35.211011,
+                               35.21633,35.21589,35.2204677,35.21633,35.21033,35.31633
                               };
 
         SystemType[] types = { SystemType.RegularAmbulance, SystemType.RegularAmbulance,
@@ -178,7 +182,9 @@ public static class Initialization
             SystemType.RegularAmbulance, SystemType.ICUAmbulance, SystemType.ICUAmbulance,
             SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.ICUAmbulance,
             SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
-            SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance };
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance, SystemType.RegularAmbulance,
+            SystemType.ICUAmbulance, SystemType.RegularAmbulance, };
 
         string[] descriptions =
         { "Response to a road accident.","Assistance for a fainting incident.","Cardiac arrest case.","Helping a dehydrated individual.",
@@ -192,7 +198,8 @@ public static class Initialization
           "Dog bite incident requiring medical attention.","Heatstroke case.","Rescue for a stranded motorist.","Broken arm during an activity.",
           "Choking incident.","Respiratory distress in a patient.","Pedestrian hit by a vehicle.","Fall from a ladder.","Electrocution from faulty wiring.",
           "Allergic reaction to an insect sting.","Gunfire victim.","Emergency childbirth.","Cyclist hit by a vehicle.","Fainting during an event.",
-          "Hypothermia from exposure to cold.","Collapse due to dehydration.","Boat accident rescue.","Child with a high fever."
+          "Hypothermia from exposure to cold.","Collapse due to dehydration.","Boat accident rescue.","Child with a high fever.","Cardiac arrest",
+            "Severe car accident", "Stroke emergency", "Respiratory failure", "Serious fall injury"
         };
 
         //15 first calls in the last 5 hours
@@ -263,7 +270,7 @@ public static class Initialization
         }
 
         //rest of the calls in the last 2 hours
-        for (int i = 30; i < addresses.Length; i++)
+        for (int i = 30; i < addresses.Length-5; i++)
         {
             DateTime start = s_dal!.Config.Clock.AddMinutes(-120);
             DateTime startTime = start.AddMinutes(s_rand.Next(120)); // The end time is random between 0 and 59 minutes after start
@@ -295,7 +302,35 @@ public static class Initialization
             s_dal!.Call?.Create(call);
         }
 
-       
+        //rest of the calls in the last 2 hours
+        for (int i = addresses.Length - 5; i < addresses.Length; i++)
+        {
+            DateTime start = s_dal!.Config.Clock.AddMinutes(-120);
+            DateTime startTime = start.AddMinutes(s_rand.Next(120)); // The end time is random between 0 and 59 minutes after start
+            DateTime? maxEnd;
+
+            if (types[i] == SystemType.ICUAmbulance)
+            {
+                maxEnd = startTime.AddMinutes(s_rand.Next(40, 100));
+            }
+            else
+            {
+                maxEnd = startTime.AddMinutes(s_rand.Next(60, 150));
+
+            }
+
+            Call call = new(0,
+                addresses[i],
+                latitudes[i],
+                longitudes[i],
+                startTime,
+                types[i],
+                descriptions[i],
+                maxEnd);
+            s_dal!.Call?.Create(call);
+        }
+
+
 
     }
 

@@ -1,5 +1,6 @@
 ﻿using BO;
 using DalApi;
+using DO;
 using System.Net;
 using System.Text.Json;
 namespace Helpers;
@@ -159,14 +160,15 @@ internal static class CallManager
         if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd) { return BO.Statuses.Expired; }
         else if (assign == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange)
         { return BO.Statuses.OpenToRisk; }
-        else if (assign==null ) { return BO.Statuses.Open; }
-        else if (assign?.End == null)
-        {
-            return call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange ?
-                BO.Statuses.InActionToRisk : BO.Statuses.InAction;
-        }
+        else if (assign == null) { return BO.Statuses.Open; }
+        else if (assign?.End == null && call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange)
+        { return BO.Statuses.InActionToRisk; }
+        else if (assign?.End == null) { return BO.Statuses.InAction; }
         else if (assign.MyEndStatus == DO.EndStatus.Completed) { return BO.Statuses.Closed; }
         else if (assign.MyEndStatus == DO.EndStatus.Expired) { return BO.Statuses.Expired; }
+        //else this is Manager or SelfCancelled so we need to check the time 
+        else if(call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd) { return BO.Statuses.Expired; }
+        else if (call.MaxEnd.HasValue && s_dal.Config.Clock > call.MaxEnd - s_dal.Config.RiskRange) { return BO.Statuses.OpenToRisk; }
         else { return BO.Statuses.Open; }
 
     }
@@ -192,6 +194,10 @@ internal static class CallManager
         {
             throw new BO.BLFormatException("The maximum end time must be greater than the call start time and the current time.");
         }
+        if (call.TypeOfCall != BO.SystemType.ICUAmbulance && call.TypeOfCall != BO.SystemType.RegularAmbulance)
+        {
+            throw new BO.BLFormatException("The call must be ICU or Regular type.");
+        }
 
         //the adress details will be check after the call of this function
     }
@@ -209,7 +215,7 @@ internal static class CallManager
         double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
                    Math.Cos((Math.PI / 180) * (double)(lat1)) * Math.Cos((Math.PI / 180) * (double)(lat2)) *
                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
-        return 6371 * 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a)); //6371 is the radius of the earth in km
+        return Math.Round(6371 * 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a)), 2); // 6371 is the radius of the earth in km, rounded to 2 decimal places
 
     }
 }

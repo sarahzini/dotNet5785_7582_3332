@@ -160,25 +160,19 @@ internal class CallImplementation : ICall
     /// </summary>
     void ICall.AddCall(BO.Call call)
     {
-        AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
             // Validate call details
             CallManager.ValidateCallDetails(call);
 
-            (call.CallLatitude, call.CallLongitude) = (0, 0);
+            (call.CallLatitude, call.CallLongitude) = GeocodingService.GetCoordinatesS(call.CallAddress);
 
             // Convert BO.call to DO.Call
             DO.Call newCall = CallManager.ConvertToDataCall(call);
 
             // Attempt to add the new call to the data layer
-            lock (AdminManager.BlMutex)
-                _dal.Call.Create(newCall);
-            CallManager.Observers.NotifyListUpdated(); //stage 5
-
-            //compute the coordinates asynchronously without waiting for the results
-            _ = GeocodingService.updateCoordinatesForCallAddressAsync(newCall); //stage 7
-
+            _dal.Call.Create(newCall);
+            CallManager.Observers.NotifyListUpdated(); //stage 5   
         }
         catch (DO.DalAlreadyExistException ex)
         {
@@ -317,7 +311,7 @@ internal class CallImplementation : ICall
             volunteer = _dal.Volunteer.Read(volunteerId);
 
         //take just the call that are in the max distance of volunteer 
-        //calls = calls?.Where(call => (CallManager.CalculOfDistance(call, volunteer) < volunteer?.MaxDistance));
+        calls = calls?.Where(call => (CallManager.CalculOfDistance(call, volunteer) < volunteer?.MaxDistance));
 
         // Filter the list based on the callType parameter
         if (callType.HasValue)
@@ -493,6 +487,7 @@ internal class CallImplementation : ICall
             lock (AdminManager.BlMutex)
                 _dal.Assignment.Create(newAssignment);
             CallManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(newAssignment.CallId);
             VolunteerManager.Observers.NotifyListUpdated();
             VolunteerManager.Observers.NotifyItemUpdated(volunteerId);
         }
