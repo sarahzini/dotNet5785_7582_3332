@@ -236,7 +236,7 @@ public partial class MainManagerWindow : Window
 
     private void btnInitialization_Click(object sender, RoutedEventArgs e)
     {
-        MessageBoxResult confirmation = MessageBox.Show("You are going to Initialize", "Init Confirmation",
+        MessageBoxResult confirmation = MessageBox.Show("You are going to Initialize !", "Init Confirmation",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
 
         if (confirmation == MessageBoxResult.Yes)
@@ -251,7 +251,6 @@ public partial class MainManagerWindow : Window
 
             Mouse.OverrideCursor = Cursors.Wait;
             s_bl.Admin.InitializeDB();
-            CallCounts = s_bl.Call.TypeOfCallCounts();
             Mouse.OverrideCursor = null;
         }
     }
@@ -272,7 +271,6 @@ public partial class MainManagerWindow : Window
 
             Mouse.OverrideCursor = Cursors.Wait;
             s_bl.Admin.ResetDB();
-            CallCounts = s_bl.Call.TypeOfCallCounts();
             Mouse.OverrideCursor = null;
         }
     }
